@@ -1,0 +1,263 @@
+/*HEADER*/
+#body{
+    width:100%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Salesforce Sans", serif;
+    font-size: 1.2rem;
+    line-height: 1.5em;
+    margin: 0;
+}
+
+#header {
+    margin:0px;
+}
+
+header a {
+    text-decoration: none;
+    color: black;
+}
+
+#titulo-principal{
+    font-size: 1.3em;
+    margin:0;
+    font-weight: normal;
+}
+
+/*PRIMER CONTENEDOR DE ENVIO A TODO EL PAIS*/
+#html-slot {
+    display: flex;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+}
+#html-slot span{
+    color: #d3d3d3;
+    font: 1.3em;
+    font-family: "Avenir Next";
+    font-weight: 400;
+    font-size: 20px;
+    width: 100%;
+    background: #000;
+    height: 30px;
+}
+/*TERMINA ENNVIO A TODO EL PAIS */
+
+/*HEADER LOGO-BUSCAR-USUARIO */
+#container-buscar {
+    max-width: 100%;
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+    background-color: #D3D3D3;
+    margin-left: 0;
+    margin-right: 0;
+    height:120px;
+}
+
+#logo {
+    letter-spacing: 8px;
+    width: 200px;
+    display:flex;
+    justify-content: center;
+    font-family: "Salesforce Sans", serif;
+}
+
+#link-logo{
+    width:130px;
+}
+
+#header-buscar {
+    width: 490px;
+    height: 33px;
+    border-radius: 10px;
+    padding-left: 5px;
+    font-size: 16px;
+}
+
+#registro {
+    background: #D3D3D3;
+    border: solid 0.5px black;
+    height: 40px;
+    width: 190px;
+    color: #000;
+    transition: all 0.3s linear;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 20px;
+}
+
+#registro:hover {
+    background-color: rgb(112, 112, 112);
+    transition: all 0.3s linear;
+    color: white;
+    cursor:pointer;
+}
+
+#usuario {
+    width:100px;
+    align-items:center;
+}
+
+#navigation ul li ul {
+    display: none;
+}
+
+#navigation li:hover > ul{
+    display: block;
+}
+
+#header-img{
+    padding-top: 10px;
+}
+
+#btn-lupa{
+    padding-top:10px;
+    height:30px;
+}
+
+#buscar{
+    display:flex;
+    align-items:center;
+}
+
+#lupa{
+    border-radius: 10px;
+    margin-left: 2px;
+    height:35px;
+    background-color: white;
+}
+
+#lupa:hover{
+    cursor:pointer;
+}
+
+#perfil{
+    background-color: white;
+}
+
+#barra_superior{
+    width:180px;
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#iniciarSesion{
+    border-top: solid 1px #000;
+}
+
+/*NAVEGACION*/
+#nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#navigation{
+    background-color: white;
+}
+
+#navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#navigation ul li {
+    display: inline-block;
+    align-items: center;
+}
+
+#navigation ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s linear;
+    border-radius: 5px;
+    color: rgb(112, 112, 112);
+}
+
+#navigation ul li a:hover {
+    background-color: rgb(112, 112, 112);
+    transition: all 0.3s linear;
+    color: white;
+}
+/*TERMINA NAVEGACION*/
+/*TERMINA HEADER*/
+
+.e_error{
+    color: red;
+    font-size: 0.8em;
+    width: 100%;
+    padding-left:4px;
+}
+.form{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap: wrap;
+    width:402px;
+    background-color: #D3D3D3;
+    border-radius:5px;
+    border: 2px solid black;
+    margin-block-end: 0;
+}
+
+/* PIE */
+main{
+    background-color: #fef7f1;
+    padding-top: 30px;
+}
+
+#pie{
+    display: flex;
+    width: 100%; 					   
+    flex-direction: row ;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    background-color: #D3D3D3;
+    height: 120px;
+    align-items: center;
+}
+
+#pie a{
+    text-decoration:none;
+    color: #000;
+    width:300px;
+    display:flex;
+    justify-content:center;
+    font-size: 1.3rem;
+}
+
+#pie p{
+    font-size: 0.8rem;
+    margin: 2px;
+    width:250px;
+    text-align:center;
+}
+
+.contenedor-botones {
+    display: flex;
+    justify-content: space-around;
+    width:100%;
+    flex-wrap: wrap;
+}
+
+.btn {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+a{
+    text-decoration:none;
+    color:#000;
+}
+
+button a{
+    width:100%;
+    height:100%;
+}

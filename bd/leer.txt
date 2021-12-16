@@ -1,0 +1,29 @@
+**Privilegios:**
+--contraseña = 2021_trabajoF147!
+
+GRANT USAGE ON *.* TO 'usuario_bd'@'localhost' IDENTIFIED BY PASSWORD '*E2DFC952E440868ACC53A49675B9DD151DAE995C';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON `catato_hogar`.* TO 'usuario_bd'@'localhost';
+
+***Usuarios***
+
+nombre: AnaLopez       |contraseña: 1234
+nombre: RomanRiquelme  |contraseña: 456
+nombre: ChinaSuarez    |contraseña: 789
+nombre: caelenaShar    |contraseña: 987
+
+Cambios:
+	Se han establecido las relaciones entre las tablas
+	Se ha agregado la tabla categoria y subcategoria
+	Se muestran los filtros seleccionados al filtrar
+	Al cancelar la impresion, se mantienen los filtros seleccionados
+
+Correcciones para el final:
+	Buscador con funcionalidad
+	Barra de navegacion con base de datos
+	Crear tabla de marcas
+	Hacer todos los ABMs 
+	Agregar detalles a la impresion
+	Agregar barra lateral a la seccion productos
+	Poder filtrar por categorias y subcategorias
+	Otorgar mas posibilidades de exportar la informacion a excel
