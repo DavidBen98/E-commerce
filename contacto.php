@@ -136,7 +136,6 @@
 	</header>
 
     <main>
-		<h1>Contacto</h1>
 		<form action="nuevo_contacto.php" method="post"> 
 			<div class="cont-con">
 				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre" Maxlength="35" >

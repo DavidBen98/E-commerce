@@ -61,10 +61,7 @@
         ?>
     </header>
     
-    <main>   
-        <h1> Carrito de compras</h1>
-        
-            
+    <main>           
             <?php 
                 $idUsuario =$_SESSION['idUsuario'];
                 echo"<input type='hidden' name='idUsuario' id='idUsuario' value='$idUsuario'/>";

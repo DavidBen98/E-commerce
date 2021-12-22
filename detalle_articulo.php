@@ -53,6 +53,10 @@
 			background-color:white;
 			padding: 0 10px;
 		}
+
+		.img-cat{
+			object-fit: contain;
+		}
 	</style>
 </head>
 <body>
@@ -77,7 +81,7 @@
 				
 				echo "<form action='nueva_compra.php' method='post'> 
 							<div id='cont-images'>
-								<img src='images/$variable.png' class='img-art' title='{$row['descripcion']}' >                                   
+								<img src='images/$variable.png' class='img-cat' title='{$row['descripcion']}' >                                   
 							</div>
 							<div id='cont-descripcion'>
 								<input type='hidden' name='codImg' value='$variable' />

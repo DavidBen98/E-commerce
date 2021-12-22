@@ -53,6 +53,22 @@
             margin: 40px 0;
         }
 
+        .btn{
+		   background-color: #D3D3D3;
+		   height: 40px;
+		   width:200px;
+		   cursor:pointer;
+		   font-size:1.2rem;
+		   border-radius: 5px;
+		}
+
+		.btn:hover{
+			background-color: rgb(112, 112, 112);
+            transition: all 0.3s linear;
+            color: white;
+            cursor:pointer;
+		}
+
     </style>
 
 </head>
@@ -63,7 +79,6 @@
 
     <main>
         <?php echo $cont_usuarios;?>
-        <h1> Informacion Personal:</h1>
         <?php echo  $infoPersonal;?>
     </main>
 

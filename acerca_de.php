@@ -15,7 +15,8 @@
     <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
     <style>
         ul {
-            list-style:none
+            list-style:none;
+            padding: 0;
         }
 
         #main{
@@ -29,10 +30,11 @@
             display:flex;
             justify-content:center;
             flex-wrap: wrap;
-            background-color: #DE85FF;
+            background-color: white;
             padding-left:0;
             border: 2px solid #000;
             border-radius: 5px;
+            margin-bottom: 30px;
         }
 
         #cont-acerca h1{
@@ -40,7 +42,7 @@
             height:38px;
             text-align:center;
             margin: 10px 0;
-            border-bottom: 1.5px solid #82E0AA;
+            border-bottom: 1.5px solid black;
         }
 
         #cont-acerca li{

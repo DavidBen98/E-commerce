@@ -10,7 +10,6 @@
 
 	global $db;  
 	$rs = "";
-	$txtFiltros ="";
 	 
 	$sql = "SELECT `codigo`, `descripcion`
 			from producto";
@@ -38,20 +37,14 @@
         if ($colores != -1){
             if (count($colores) == 1){
                 $where_color = " AND color = '$colores[0]' ";
-				
-				$txtFiltros .="Color: ". $colores[0] . "<br>";
             }
             else{
-				$txtFiltros .="Colores: ";
-
 				$where_color .= " AND ( ";
                 for ($i=0;$i<count($colores)-1;$i++){ 
                     $where_color .= " color = '$colores[$i]' OR " ;
-					$txtFiltros .= $colores[$i] .", ";
                 }
                 $i = count($colores)-1;
                 $where_color .= " color = '$colores[$i]') ";
-				$txtFiltros .=  $colores[$i]. "<br>";
             }
         }
 
@@ -59,18 +52,14 @@
         if ($marcas != -1){
             if (count($marcas) == 1){
                 $where_marca .= " AND marca = '$marcas[0]' ";
-				$txtFiltros .= "Marca: " . $marcas[0] . "<br>";
             }
             else{
-				$txtFiltros .= "Marcas: ";
 				$where_marca .= " AND ( ";
                 for ($i=0;$i<count($marcas)-1;$i++){
                     $where_marca .= "  marca = '$marcas[$i]' OR ";
-					$txtFiltros .= $marcas[$i] .", ";
                 }
                 $i = count($marcas)-1;
                 $where_marca .= " marca = '$marcas[$i]') ";
-				$txtFiltros .= $marcas[$i]. "<br>";
             }
         }
 
@@ -78,7 +67,6 @@
 
 		if ($precioMin!= 0 && $precioMax !=0){
 			$where_precio = " precio >= $precioMin AND precio <= $precioMax ";
-			$txtFiltros .= " Con un rango de precio entre " . $precioMax . " y " . $precioMin ;
 		}
 
         $orderBy = "";
@@ -95,7 +83,6 @@
             }
         }
 		
-
         if($where_color != "" && $where_marca != ""){
             $where_sql .=  $where_color . $where_marca ;
         }
@@ -123,28 +110,25 @@
         $rs = $db->query($sql);
 	}
 
-	function crearImagenes ($consulta,$textoFiltro){
+	function crearImagenes ($consulta){
 		if (!$consulta){
 			echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
 		}
 		else{
-			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>	
-					<h1 id='h1' style='display:none;'>CATÁLOGO</h1> 					
-					$textoFiltro
-					<div class='contenedor-imagenes'>				
-			";
-					$i=0;
-					foreach ($consulta as $row) {
-						$i++; 
-						echo "<div class='producto'>
-								<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
-								<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
-							</div>";           
-					};
+			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
 
-					if ($i == 0){
-						echo "<p>No existe ningun resultado que coincida con la busqueda ingresada </p>";
-					}
+			$i=0;
+			foreach ($consulta as $row) {
+				$i++; 
+				echo "<div class='producto'>
+						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+						<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
+					</div>";           
+			};
+
+			if ($i == 0){
+				echo "<p>No existe ningun resultado que coincida con la busqueda ingresada </p>";
+			}
 						
 			echo "	</div>
 				</form>
@@ -159,6 +143,7 @@
     <meta charset="UTF-8">
     <title>Catato Hogar</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="js/funciones.js"></script>
 	<style>
 		#body{
@@ -177,6 +162,7 @@
 		.img-cat {
 			width:230px;
 			height:230px;
+			object-fit: contain;
 			border-bottom: 0.1px solid rgba(205,205,205,0.7);
 		}
 
@@ -222,27 +208,15 @@
 		} 
 
 		/*ASIDE*/
-		.input{
-			display:flex;
-			justify-content: start;
-			flex-flow: row wrap;
-			align-content: flex-start;
-			align-items:center;
-			padding-left:2px;
-		}
-
 		.btn-select{
 			display:flex;
 			flex-wrap: wrap;
 			justify-content:center;
 		}
 
-		.input input{
-			width:10px;
-		}
-
 		.input label{
 			width:130px;
+			height:50%;
 		}
 
 		#min-max{
@@ -254,9 +228,6 @@
 			width: 60px;
 		}
 
-		aside div{
-			width:100%;
-		}
 		aside select{
 			width: 90%;
 			height: 30px;
@@ -282,7 +253,8 @@
 			flex-wrap: wrap;
 			justify-content:center;
 		}
-		.btn-filtros{
+
+		.btn{
 		   background-color: #D3D3D3;
 		   height: 40px;
 		   width:200px;
@@ -291,7 +263,7 @@
 		   border-radius: 5px;
 		}
 
-		.btn-filtros:hover{
+		.btn:hover{
 			background-color: rgb(112, 112, 112);
             transition: all 0.3s linear;
             color: white;
@@ -347,6 +319,10 @@
 
 		#btn-imp{
 			height:30px;
+		} 
+
+		.label{
+			font-weight: bolder;
 		}
 	</style>
 	<script>      
@@ -403,9 +379,14 @@
 		<?php echo $encab; ?> 
 	</header>
 
-	<main id="main">	
+	<main id="main">
+		<aside class="barra-lateral"> 
+			<?php 
+				crearBarraLateral();
+			?>
+		</aside>	
 		<?php 						 
-			crearImagenes($rs,$txtFiltros); 
+			crearImagenes($rs); 
 
 			if (isset($_GET['prod'])){
 				echo "  <div class='btn-doc'>
@@ -416,11 +397,7 @@
 						</div>";	
 			} 					
 		?>
-		<aside class="barra-lateral"> 
-			<?php 
-				crearBarraLateral();
-			?>
-		</aside>
+		
 	</main>
 		
 	<?php 
