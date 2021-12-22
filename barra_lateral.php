@@ -14,7 +14,7 @@
 	function recargarLista (){
 		$.ajax ({
 			type: "POST",
-			url: "rellenar_subcat.php",
+			url: "rellenar_select.php",
 			data: "categoria= " + $('#categoria').val (),
 			success: function (r){
 				$('#subc').html (r);

@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catato Hogar</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+	<script src="JS/jquery-3.3.1.min.js"></script>
 	<script>
         function validar(){
             document.getElementById('e_error').innerHTML="";
@@ -47,6 +48,27 @@
             }
 
             return devolucion;
+		}
+
+
+		$(document).ready(function(){
+			actualizarCiudad();
+
+		$('#provincia').change (function (){
+			actualizarCiudad();
+		});
+
+		});
+
+		function actualizarCiudad (){
+			$.ajax ({
+				type: "POST",
+				url: "rellenar_select.php",
+				data: "provincia=" + $('#provincia').val(),
+				success: function (r){
+					$('#ciudad').html (r);
+				}
+			});
 		}	
 	</script> 
 	<style>
@@ -113,6 +135,58 @@
 			background-color: white;
 			cursor:pointer;
 		}
+
+		.cont-reg{
+			width:50%;
+			display:flex;
+			justify-content:center;
+			flex-wrap:wrap;
+		}
+
+		.cont-reg input{
+			width: 80%;
+		}
+
+		#registrarse{
+			width:85%;
+			height:55%;
+			margin-bottom: 2px;
+			border: 2px solid black;
+			font-size:1.1em;
+			background-color: white;
+		    border-radius: .1875rem;
+		}
+
+		.registro{
+			height:66px;
+			display:flex;
+			align-items:end;
+		}
+
+		#registrarse:hover{
+			background-color: rgb(112, 112, 112);
+            transition: all 0.3s linear;
+            color: white;
+            cursor:pointer;
+	    }
+
+		#form-registro{
+			width:500px;
+			padding: 5px;
+		}
+		
+		.cont-reg label{
+			text-align:center;
+			padding: 0;
+		}
+
+		.cont-reg select{
+			text-align:center;
+			width:200px;
+			height:30px;
+			border: solid #000 0.994px;
+			padding: 1px 2px;
+		}
 	</style>
 </head>
 <body>
@@ -121,44 +195,104 @@
     </header>
 
 	<main id='main'>
-		<form action="inicio_sesion.php" method="post" class='form' novalidate>
-			<h1>Iniciar Sesión</h1>	
-			<div class="cont-campo">
-				<label for="nombreUsuario" class="form-label">Nombre de usuario </label>
-				<input type="text" class="form-control" name="nombreUsuario" id="nombreUsuario" value="" maxlength="20" required>	
-			</div>  
-			
-			<div class="cont-campo">
-				<label for="psw" class="form-label">Contraseña</label>				
-				<input type="password" class="form-control" name="psw" id="psw" value="" maxlength="20" required>
-			</div>
-			
-			<p class="e_error" style='display:none;'>
-			<?php 
-				$error ="";
-				if(isset($_GET['error'])){
-					$error = $_GET['error'];
-					if ($error == '0'){
-						echo "<p class='e_error'>Complete los campos por favor</p>";
-					}
-					else if($error == '1'){
-						echo "<p class='e_error'>El usuario ingresado no existe</p>";
-					}
-					else if($error == '2'){
-						echo "<p class='e_error'>La contraseña ingresada es inválida</p>";
-					}
-				}						
-			?> 
-			</p>	
+		<?php
+			if (isset($_GET['reg'])){
+				echo "<form action='registrarse.php' method='post' class='form' id='form-registro'>
+						<div class='cont-reg'>
+							<label for='nombre' class='form-label'>Nombre</label>
+							<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
+						</div>  
 
-			<div class="cont-campo" id='btn-iniciar'>
-				<input type="submit" class="btn" name="iniciar" value="Iniciar Sesión" id="iniciar" onclick='javascript:return validar()'>
-			</div>	
+						<div class='cont-reg'>
+							<label for='apellido' class='form-label'>Apellido</label>				
+							<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' required>
+						</div>
 
-		</form>		
+						<div class='cont-reg'>
+							<label for='dni' class='form-label'>Número de DNI </label>
+							<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' required>	
+						</div>
+						
+						<div class='cont-reg'>
+							<label for='email' class='form-label'>Email</label>
+							<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' required>	
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='provincia' class='form-label'>Provincia </label>
+							";
+							 include('api_datos.php');
+						echo "
+						</div> 
+						
+						<div class='cont-reg' id='ciudad'>
+							<label for='ciudad' class='form-label'>Ciudad</label>
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='direccion' class='form-label'>Dirección </label>
+							<input type='text' class='form-control' name='direccion' id='direccion' value='' maxlength='50' required>	
+						</div> 
+
+						<div class='cont-reg'>
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+							<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='psw' class='form-label'>Contraseña</label>				
+							<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' required>
+						</div>
+							
+						<div class='cont-reg'>
+							<label for='psw' class='form-label'>Repetir contraseña</label>				
+							<input type='password' class='form-control' name='psw' id='psw2' value='' maxlength='50' required>
+						</div>
+						
+						<div class='cont-reg registro'>
+							<button id='registrarse'>Registrarse</button>
+						</div>";
+			}
+			else{
+				echo "<form action='inicio_sesion.php' method='post' class='form' novalidate>
+							<h1>Iniciar Sesión</h1>	
+							<div class='cont-campo'>
+								<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+								<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+							</div>  
+
+							<div class='cont-campo'>
+								<label for='psw' class='form-label'>Contraseña</label>				
+								<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' required>
+							</div>
+
+							<p class='e_error' style='display:none;'>";
+								$error ='';
+								if(isset($_GET['error'])){
+									$error = $_GET['error'];
+									if ($error == '0'){
+										echo "<p class='e_error'>Complete los campos por favor</p>";
+									}
+									else if($error == '1'){
+										echo "<p class='e_error'>El usuario ingresado no existe</p>";
+									}
+									else if($error == '2'){
+										echo "<p class='e_error'>La contraseña ingresada es inválida</p>";
+									}
+								}						
+					echo "</p>	
+
+							<div class='cont-campo' id='btn-iniciar'>
+								<input type='submit' class='btn' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
+							</div>	
+						</form>	";	
+			}
+		?>
 	</main>
             
-    <?php echo $pie; ?>
-    
+    <?php echo $pie; ?>  
 </body>
 </html>

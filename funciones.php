@@ -8,7 +8,7 @@
         $links=''; 
 
         if ($user=='') {
-            $links = "<a href='registro_usuario.php' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
+            $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesion' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>

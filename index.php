@@ -133,6 +133,7 @@
         window.onload = function() {
            let img_cat = document.getElementsByClassName('img-cat');
            let txt_cat = document.getElementsByClassName('texto');
+           let main = document.getElementById('main');
  
             for (i=0;i<img_cat.length;i++){
                 let img = img_cat[i];
@@ -150,6 +151,12 @@
                 let imagen = img_cat[j].getAttribute('alt');
                 imagenes[j].addEventListener("click", () => {window.location = 'subcategoria.php?cat='+imagen;});
             };
+
+            let url = 'https://apis.datos.gob.ar/georef/api/provincias?campos=22,nombre';
+
+            let a = fetch (`{url}`);
+
+            console.log(a);
         };
     </script>
 </head>
@@ -158,7 +165,7 @@
         <?php echo $encab;  ?>
     </header>
 
-    <main>
+    <main id='main'>
         <form class="categorias">
             <?php agregarImgCategorias(); ?>
         </form>

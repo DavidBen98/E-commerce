@@ -311,6 +311,7 @@
     		flex-flow: row wrap;
     		align-items: flex-start;
     		padding-left: 30px;
+			width: 60%;
 		}
 
 		#catalogo{
