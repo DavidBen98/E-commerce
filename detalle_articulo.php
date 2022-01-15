@@ -18,10 +18,8 @@
 		#carac {
 			padding:0; 
 			display:flex; 
-			text-align:center; 
-			width: 200px; 
-			background-color: transparent;
-			border: 1px solid white; 
+			flex-wrap:wrap;
+			justify-content:start;
 		}
 
 		form {
@@ -56,6 +54,20 @@
 
 		.img-cat{
 			object-fit: contain;
+			height:600px;
+			width: 600px;
+			border-bottom: none;
+		}
+
+		.enlaces{
+			font-size:1.1em;
+			color: #B2BABB ;
+			text-decoration: underline;
+		}
+
+		#carac p{
+			width:100%;
+			margin: 2px 0;
 		}
 	</style>
 </head>
@@ -92,19 +104,18 @@
 								
 								<h2>Características:</h2> 
 								
-								<textarea id='carac' name='carac' cols='1' rows='15' title='Caracteristicas' readonly> 
-								Material:  {$row['material']}
-								Color:  {$row['color']} 
-								Marca:  {$row['marca']} 
+								<div id='carac' name='carac' title='Caracteristicas'> ";
+								echo "
+									<p><b>Material:</b>" .  $row['material'] . "</p><br>
+									<p><b>Color:</b> " . $row['color'] . " </p><br>
+									<p><b>Marca:</b> " . $row['marca'].  "</p><br>
 								";
 								
 								for ($i=0;$i<count($aCarac);$i++){
 									echo " $aCarac[$i] 
-									\n  \n
 									";
-								}
-								
-								echo"</textarea>"; 
+								} 
+								echo "</div>";
 								
 								if($row['stock'] == 0){
 									echo "<p>Lo sentimos, no tenemos stock de este artículo.
@@ -116,7 +127,7 @@
 								else{
 									echo"";
 									if ($perfil != "U"){
-										echo"<p>Si desea comprar este artículo por favor regístrese </p>";
+										echo"<p>Si desea comprar este artículo por favor <a href='login.php?reg=true' class='enlaces'>regístrese</a> o <a href='login.php' class='enlaces'>inicie sesión</a> </p>";
 									} 
 									else{
 										echo"  <input type='number' id='cantidad' name='cantidad' value='1' min='1' max='{$row['stock']}' title='Seleccione el numero de articulos que quiere'/>

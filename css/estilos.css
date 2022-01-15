@@ -91,7 +91,7 @@ header a {
 }
 
 #registro:hover {
-    background-color: rgb(112, 112, 112);
+    background-color: #B2BABB;
     transition: all 0.3s linear;
     color: white;
     cursor:pointer;
@@ -177,11 +177,11 @@ header a {
     padding: 0.5rem 1rem;
     transition: all 0.3s linear;
     border-radius: 5px;
-    color: rgb(112, 112, 112);
+    color: #707B7C;
 }
 
 #navigation ul li a:hover {
-    background-color: rgb(112, 112, 112);
+    background-color: #B2BABB ;
     transition: all 0.3s linear;
     color: white;
 }
@@ -247,12 +247,6 @@ main{
     flex-wrap: wrap;
 }
 
-.btn {
-    width: 200px;
-    height: 50px;
-    border-radius: 5px;
-}
-
 a{
     text-decoration:none;
     color:#000;
@@ -261,4 +255,163 @@ a{
 button a{
     width:100%;
     height:100%;
+}
+
+.img-cat {
+    width:230px;
+    height:230px;
+    border-bottom: 0.1px solid rgba(205,205,205,0.7);
+}
+
+.producto{
+    height:360px;
+    margin-right:10px;
+    margin-bottom:10px;
+    cursor: pointer;
+    border-radius:5px;
+    overflow:hidden;
+    background-color: white;
+}
+
+.producto img{
+    width:230px;
+    height:230px;
+}
+
+.caracteristicas{
+    background-color: white;
+}
+
+.descripcion{
+    display:flex;
+    width:230px;
+    height:15%;
+    justify-content:center;
+    text-align:center;
+    background-color: white;
+    color:grey;
+} 
+
+/*ASIDE*/
+
+.btn-select{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.min-max{
+    width: 60px;
+}
+
+aside{
+    background-color: white;
+    padding-top: 5px;
+}
+
+aside select{
+    width: 90%;
+    height: 30px;
+    background-color: #D3D3D3;
+    border:none;
+    border-radius:5px;
+    color: black;
+    font-size: 1.2rem;
+    text-align:center;
+    margin:0 auto;
+}
+
+.ltitulo{
+    display:block;
+    text-align:center;
+}
+
+#botones{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.btn{
+   height: 40px;
+   width:200px;
+   cursor:pointer;
+   font-size:1.2rem;
+   border-radius: 5px;
+   background-color:#D3D3D3;
+}
+
+.btn:hover{
+    background-color: #B2BABB ;
+    transition: all 0.3s linear;
+    color: white;
+    cursor:pointer;
+}
+
+#h1{
+    margin:20px auto;
+}
+
+#parrafo-sr{
+    width:700px;
+    padding-left: 100px;
+}
+
+.btn-doc{
+    order:2;
+    width:80px;
+}
+
+#form-filtrado{
+    display:flex;
+    order: 1;
+    margin: 0;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    padding-left: 30px;
+    width:60%;
+}
+
+#catalogo{
+    height:30px;
+}
+
+#btn-imp{
+    height:30px;
+}
+
+.label{
+    font-weight: bolder;
+}
+
+.precio{
+    font-size: 1.2em;
+}
+
+#filtros{
+    border:none;
+}
+
+#filtros-usados{
+    display:flex;
+    justify-content:center;
+    flex-wrap: wrap;
+}
+
+.filtrado{
+    width:80%;
+    display:flex;
+    justify-content:center;
+    text-align:center;
+    flex-wrap:wrap;
+    margin: 4px 0;
+}
+
+.filtrado-bl{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:2px;
+    border:none;
 }

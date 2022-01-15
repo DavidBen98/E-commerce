@@ -155,4 +155,166 @@
         crearListaCategorias();
         crearListaSubCat();
     }   
+
+    function crearImagenes ($consulta){
+		if (!$consulta){
+			echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
+		}
+		else if (isset($_GET['prod'])){
+			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
+
+			$i=0;
+			foreach ($consulta as $row) {
+				$i++; 
+				echo "<div class='producto'>
+						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+						<div class='caracteristicas'>
+							<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
+							<p class='precio' style='text-align:center;'> $". ucfirst($row['precio'])." </p>
+						</div>
+					</div>";           
+			};
+
+			if ($i == 0){
+				echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
+			}
+						
+			echo "	</div>
+				</form>
+			";			
+		}
+		else if (isset($_GET['cat']) && $_GET['cat'] != 'productos'){
+			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
+
+			$i=0;
+			global $db;
+			$imagenes = $_GET['cat'];
+			$imagenes = substr($imagenes,0,2);
+			$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio
+					FROM subcategoria as s
+					INNER JOIN producto as p on s.id_subcategoria = p.id_subcategoria
+					Where `codigo` LIKE '$imagenes%%1'";
+
+			$rs = $db->query($sql);
+			
+			foreach ($rs as $row) {
+				$i++; 
+				echo "<div class='producto'>
+						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title=''> 
+						<p class='descripcion'>". ucfirst($row['nombre_subcategoria'])." </p>
+					</div>";           
+			};
+
+			if ($i == 0){
+				echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
+			}
+						
+			echo "	</div>
+				</form>
+			";			
+		}
+        else{
+            echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>	";
+				$i=0;
+				foreach ($consulta as $row) {
+					$i++; 
+					echo "<div class='producto'>
+							<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+							<div class='caracteristicas'>
+								<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
+								<p class='precio' style='text-align:center;'>$". ucfirst($row['precio'])." </p>
+							</div>
+						</div>";           
+				};
+
+			if ($i == 0){
+				echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
+			}
+						
+			echo " </div>
+				</form>
+			";	
+        }
+	} 
+
+    function completarWhere ($sql,$filtros){
+        global $db;
+        $rs = "";	
+        $where_color = "";
+        $where_sql = "";
+
+        if (isset($filtros[0])){
+            if (count($filtros[0]) == 1){
+                $where_color .= " AND color = '" . $filtros[0][0]. "' ";
+            }
+            else{
+				$where_color .= " AND ( ";
+                for ($i=0;$i<count($filtros[0])-1;$i++){ 
+                    $where_color .= " color = '". $filtros[0][$i] . "' OR " ;
+                }
+                $i = count($filtros[0])-1;
+                $where_color .= " color = '". $filtros[0][$i] . "') ";
+            }
+        }
+
+        $where_marca = "";
+        if (isset($filtros[1])){
+            if (count($filtros[1]) == 1){
+                $where_marca .= " AND marca = '" . $filtros[1][0]. "' ";
+            }
+            else{
+				$where_marca .= " AND ( ";
+                for ($i=0;$i<count($filtros[1])-1;$i++){
+                    $where_marca .= "  marca = '" . $filtros[1][$i]. "' OR ";
+                }
+                $i = count($filtros[1])-1;
+                $where_marca .= " marca = '". $filtros[1][$i] . "') ";
+            }
+        }
+
+		$where_precio=""; 
+
+		if (isset($filtros[2]) && isset($filtros[3])){
+			$where_sql .= "AND precio >= $filtros[2] AND precio <= $filtros[3] ";
+		}
+
+        $orderBy = "";
+		$orderMasVen = 0;
+        if(isset($filtros[4])){
+            if ($filtros[4] == 0){
+                $orderBy = " ORDER BY precio asc ";
+            }
+            else if ($filtros[4] == 1) {
+                $orderBy = " ORDER BY precio desc ";
+            }
+            else {              
+				$orderMasVen++;
+            }
+        }
+		
+        if($where_color != "" && $where_marca != ""){
+            $where_sql .=  $where_color . $where_marca;
+        }
+        else if ($where_color != ""){
+            $where_sql .=  $where_color;
+        }
+        else{
+            $where_sql .=  $where_marca;
+        } 
+		
+		if($orderMasVen != 0){
+			$sql = "SELECT `codigo`, `descripcion`,`precio`, SUM(`cantidad`)
+					from `producto` 
+					LEFT JOIN `pedido` ON `pedido`.producto_codigo = `producto`.codigo
+					$where_sql
+					GROUP  BY `codigo`
+					ORDER  BY `cantidad` DESC;";
+		}
+		else{
+			$sql .= " $where_sql
+                 	    $orderBy";  
+		}
+
+        return $sql;       
+    }
 ?>

@@ -16,10 +16,12 @@
 		body{
 			margin: 0;
 		}
+		
 		main{
 			padding:20px 0;
 			background-color: #fef7f1;
 		}
+
 		.cont-con{
 			padding-top: 10px;
 			display:flex;
@@ -29,19 +31,16 @@
 			width: 380px;
 			margin: 0 auto;
 			border: 2px solid black;
-			background-color: #D3D3D3;
+			background-color: white;
 			border-radius:5px;
 		}
 
         .input{
-			width: 340px;
+			width: 90%;
 			height: 50px;
 			margin: auto;
-			background-color: #D3D3D3;
-			border: 2px solid black;
-			color: black;
-			padding-left: 10px;
-			font-size: 1.2em;
+			padding: 0 10px;
+			font-size: 1.1em;
 	    }
 
 		.input::placeholder { 
@@ -51,11 +50,10 @@
 
 	    .txt-area{
 		   height: 100px;
-		   width: 340px;
-		   background-color: #D3D3D3;
-		   border: 2px solid black;
+		   width: 90%;
+		   background-color: white;
 		   color: black;
-		   padding-left: 10px;
+		   padding: 0 10px;
 		   font-size: 1.2em;
 		   margin: auto;
 	    }
@@ -78,7 +76,7 @@
 	    }
 
 		.btn-enviar:hover {
-            background-color: rgb(112, 112, 112);
+            background-color: #B2BABB ;
             transition: all 0.3s linear;
             color: white;
             cursor:pointer

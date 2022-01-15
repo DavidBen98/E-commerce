@@ -3,6 +3,8 @@
 	require_once('inc/session.php');
 	include("encabezado.php");
     include("pie.php");
+	require_once('vendor/autoload.php');
+	require_once('app/auth/auth.php');
 	
 	if (perfil_valido(2)) {
 		header("location:informacion_personal.php");
@@ -17,6 +19,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catato Hogar</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+	<link rel='stylesheet' href='assets/css/bootstrap.css'>
+	<link rel='stylesheet' href='assets/css/font-awesome.css'>
+	<link rel='stylesheet' href='assets/css/bootstrap-social.css'>
 	<script src="JS/jquery-3.3.1.min.js"></script>
 	<script>
         function validar(){
@@ -72,6 +77,15 @@
 		}	
 	</script> 
 	<style>
+		#main{
+			display:flex;
+			justify-content:start;
+			align-items:start;
+			flex-wrap: wrap;
+			width:100%;
+			padding-bottom:30px;
+		}
+
 		.cont-campo{
 			width:100%;
 			display:flex;
@@ -90,15 +104,6 @@
 			color: white;
 			margin: 0 0 15px 0;
 			padding: 4px 0;
-		}
-
-		#main{
-			display:flex;
-			justify-content:center;
-			align-items:start;
-			flex-wrap: wrap;
-			width:100%;
-			padding-bottom:30px;
 		}
 
 		.form-label{
@@ -128,7 +133,7 @@
 			margin:8px;
 		}
 
-		.btn{
+		.botones{
 			border-radius:5px;
 			border: 2px solid black;
 			font-size: 1.1em;
@@ -164,7 +169,7 @@
 		}
 
 		#registrarse:hover{
-			background-color: rgb(112, 112, 112);
+			background-color: #B2BABB ;
             transition: all 0.3s linear;
             color: white;
             cursor:pointer;
@@ -187,6 +192,36 @@
 			border: solid #000 0.994px;
 			padding: 1px 2px;
 		}
+
+		#calle{
+			width:80%;
+		}
+
+		#numero{
+			width:19%;
+		}
+
+		#piso{
+			width:11%;
+		}
+
+		#error-reg{
+			color: red;
+		}
+
+		#reg-exito{
+			color: green;
+		}
+
+		.redes{
+			display:flex;
+			justify-content:center;
+			margin:30px;
+		}
+
+		.form{
+			margin:10px;
+		}
 	</style>
 </head>
 <body>
@@ -197,7 +232,7 @@
 	<main id='main'>
 		<?php
 			if (isset($_GET['reg'])){
-				echo "<form action='registrarse.php' method='post' class='form' id='form-registro'>
+				echo "<form action='registro.php' method='post' class='form' id='form-registro'>
 						<div class='cont-reg'>
 							<label for='nombre' class='form-label'>Nombre</label>
 							<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
@@ -231,7 +266,9 @@
 						
 						<div class='cont-reg'>
 							<label for='direccion' class='form-label'>Dirección </label>
-							<input type='text' class='form-control' name='direccion' id='direccion' value='' maxlength='50' required>	
+							<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
+							<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
+							<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
 						</div> 
 
 						<div class='cont-reg'>
@@ -249,12 +286,35 @@
 							
 						<div class='cont-reg'>
 							<label for='psw' class='form-label'>Repetir contraseña</label>				
-							<input type='password' class='form-control' name='psw' id='psw2' value='' maxlength='50' required>
+							<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
 						</div>
 						
 						<div class='cont-reg registro'>
 							<button id='registrarse'>Registrarse</button>
 						</div>";
+
+						if (isset($_GET['error'])){
+							$error = isset($_GET['error']);
+
+							echo "<div id='error-reg'> <p>";
+							
+							if ($error == "4"){
+								echo "El usuario, email y/o DNI ingresado ya existen";
+							}
+							else if ($error == "1"){
+								echo "Las contraseñas no coindiden, reintente por favor";
+							}
+							else if ($error == "2"){
+							 	echo "El dni ingresado no es válido";
+							}
+							else if ($error == "3"){
+							 	echo "Falta ingresar al menos un campo";
+							}
+							echo "</p></div>";
+						}
+						else if (isset($_GET['registro'])){
+							echo "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
+						}
 			}
 			else{
 				echo "<form action='inicio_sesion.php' method='post' class='form' novalidate>
@@ -286,9 +346,20 @@
 					echo "</p>	
 
 							<div class='cont-campo' id='btn-iniciar'>
-								<input type='submit' class='btn' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
+								<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
 							</div>	
-						</form>	";	
+						</form>	
+						
+						
+						<div class='redes'>
+							<div class='row'>
+								<div class='col'>
+									<a href='#' class='btn btn-block btn-social btn-facebook'><span class='fa fa-facebook'></span> Inicia sesión con Facebook</a>
+									<a href='#' class='btn btn-block btn-social btn-google'><span class='fa fa-google'></span> Inicia sesión con Google</a>
+									<a href='#' class='btn btn-block btn-social btn-twitter'><span class='fa fa-twitter'></span> Inicia sesión con Twitter</a>
+								</div>
+							</div>
+						</div>";	
 			}
 		?>
 	</main>

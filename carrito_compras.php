@@ -5,7 +5,7 @@
     include ("inc/conn.php");
 
     if (perfil_valido(3)) {
-        header("location:index.php");
+        header("location:login.php");
     }
     else if (perfil_valido(1)) {
         header("location:ve.php");

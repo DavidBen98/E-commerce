@@ -103,7 +103,7 @@
 		}
 
 		.btn:hover{
-			background-color: rgb(112, 112, 112);
+			background-color: #B2BABB ;
             transition: all 0.3s linear;
             color: white;
             cursor:pointer;

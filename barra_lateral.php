@@ -8,7 +8,6 @@
 		$('#categoria').change (function (){
 			recargarLista();
 		});
-
 	});
 
 	function recargarLista (){

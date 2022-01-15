@@ -11,131 +11,33 @@
 	global $db;  
 	$rs = "";
 	 
-	$sql = "SELECT `codigo`, `descripcion`
-			from producto";
+	$sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`
+			FROM producto";
 
 	if (isset($_GET['cat'])){
 		$imagenes = $_GET['cat'];
 		$imagenes = substr($imagenes,0,2);
 
-		$sql .= " where `codigo` LIKE '$imagenes%%1'";
-
+		$sql .= " where `codigo` LIKE '$imagenes%1'";
+		
 		$rs = $db->query($sql);
 	}
 	else if (isset($_GET['prod'])){
-        $where_sql = "";
-
 		$categoria = $_GET['prod'];
-		$colores = (isset($_POST['color']))? $_POST['color']:-1;
-        $marcas = (isset($_POST['marca']))? $_POST['marca']:-1;
-        $precioMin = (isset($_POST['valorMin']))? $_POST['valorMin']:0;
-        $precioMax = (isset($_POST['valorMax']))? $_POST['valorMax']:0;
-        $orden = (isset($_POST['orden']))? $_POST['orden']:-1;
-		$where_sql = " WHERE codigo like '$categoria%' ";
-				
-        $where_color = "";
-        if ($colores != -1){
-            if (count($colores) == 1){
-                $where_color = " AND color = '$colores[0]' ";
-            }
-            else{
-				$where_color .= " AND ( ";
-                for ($i=0;$i<count($colores)-1;$i++){ 
-                    $where_color .= " color = '$colores[$i]' OR " ;
-                }
-                $i = count($colores)-1;
-                $where_color .= " color = '$colores[$i]') ";
-            }
-        }
+		$sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`
+			    FROM producto
+				WHERE codigo like '$categoria%'";
 
-        $where_marca = "";
-        if ($marcas != -1){
-            if (count($marcas) == 1){
-                $where_marca .= " AND marca = '$marcas[0]' ";
-            }
-            else{
-				$where_marca .= " AND ( ";
-                for ($i=0;$i<count($marcas)-1;$i++){
-                    $where_marca .= "  marca = '$marcas[$i]' OR ";
-                }
-                $i = count($marcas)-1;
-                $where_marca .= " marca = '$marcas[$i]') ";
-            }
-        }
+		$filtros = [isset($_POST['color'])? $_POST['color']:null,
+                    isset($_POST['marca'])? $_POST['marca']:null,
+                    isset($_POST['valorMin'])? $_POST['valorMin']:null,
+                    isset($_POST['valorMax'])? $_POST['valorMax']:null,
+                    isset($_POST['orden'])? $_POST['orden']:null];
 
-		$where_precio=""; 
+		$sql = completarWhere($sql, $filtros);
 
-		if ($precioMin!= 0 && $precioMax !=0){
-			$where_precio = " precio >= $precioMin AND precio <= $precioMax ";
-		}
-
-        $orderBy = "";
-		$orderMasVen = 0;
-        if($orden != -1){
-            if ($orden == 0){
-                $orderBy = " ORDER BY precio asc ";
-            }
-            else if ($orden == 1) {
-                $orderBy = " ORDER BY precio desc ";
-            }
-            else {              
-				$orderMasVen++;
-            }
-        }
-		
-        if($where_color != "" && $where_marca != ""){
-            $where_sql .=  $where_color . $where_marca ;
-        }
-        else if ($where_color != ""){
-            $where_sql .=  $where_color ;
-        }
-        else{
-            $where_sql .=  $where_marca ;
-        } 
-        
-		
-		if($orderMasVen != 0){
-			$sql = "SELECT `codigo`, `descripcion`, SUM(`cantidad`)
-					from `producto` 
-					LEFT JOIN `pedido` ON `pedido`.producto_codigo = `producto`.codigo
-					$where_sql
-					GROUP  BY `codigo`
-					ORDER  BY `cantidad` DESC;";
-		}
-		else{
-			$sql .= " $where_sql
-                 		$orderBy";  
-		}
-        
-        $rs = $db->query($sql);
-	}
-
-	function crearImagenes ($consulta){
-		if (!$consulta){
-			echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
-		}
-		else{
-			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
-
-			$i=0;
-			foreach ($consulta as $row) {
-				$i++; 
-				echo "<div class='producto'>
-						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
-						<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
-					</div>";           
-			};
-
-			if ($i == 0){
-				echo "<p>No existe ningun resultado que coincida con la busqueda ingresada </p>";
-			}
-						
-			echo "	</div>
-				</form>
-			";
-			
-		}
-	} 
+		$rs = $db->query($sql);
+	}	
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
@@ -146,32 +48,10 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="js/funciones.js"></script>
 	<style>
-		#body{
-            font-family: "Salesforce Sans", serif;
-            font-size: 1.2rem;
-            line-height: 1.5em;
-            margin: 0px;
-        }
-
 		#main{
 			display:flex;
-			padding-top: 20px;
+			padding: 20px 0 10px 0;
 			justify-content:center;
-		}
-
-		.img-cat {
-			width:230px;
-			height:230px;
-			object-fit: contain;
-			border-bottom: 0.1px solid rgba(205,205,205,0.7);
-		}
-
-		.contenedor-imagenes{
-			width:800px;
-			margin:0;
-			display:flex;
-			justify-content: start;
-			flex-flow: wrap;
 		}
 
 		.barra-lateral {
@@ -180,38 +60,13 @@
 			align-content: flex-start;
 			width:25%;
 			color: #000;
-			padding-left:4px;
-			padding-right:4px;
+			padding:0 4px;
 			order: 0;
 		}
 
-		.producto{
-			height:320px;
-			margin-right:10px;
-			margin-bottom:10px;
-			background-color:white;
-			cursor: pointer;
-			border-radius:5px;
-			overflow:hidden;
-		}
-
-		.producto img{
-			width:230px;
-			height:230px;
-		}
-
-		.descripcion{
-			display:flex;
-			width:230px;
-			justify-content:center;
-			text-align:center;
-		} 
-
 		/*ASIDE*/
-		.btn-select{
-			display:flex;
-			flex-wrap: wrap;
-			justify-content:center;
+		aside{
+			margin-bottom:10px;
 		}
 
 		.input label{
@@ -224,64 +79,12 @@
 			padding-left:4px;
 		}
 
-		.min-max{
-			width: 60px;
-		}
-
-		aside select{
-			width: 90%;
-			height: 30px;
-			background-color: #D3D3D3;
-			border: 2px solid black;
-			border-radius:5px;
-			color: black;
-			font-size: 1.2rem;
-			text-align:center;
-			margin:0 auto;
-	    }
-
 		#lmaxmin{
 			padding-left:2px;
 		}
 
 		.ltitulo{
 			padding-left:8px;
-		}
-
-		#botones{
-			display:flex;
-			flex-wrap: wrap;
-			justify-content:center;
-		}
-
-		.btn{
-		   background-color: #D3D3D3;
-		   height: 40px;
-		   width:200px;
-		   cursor:pointer;
-		   font-size:1.2rem;
-		   border-radius: 5px;
-		}
-
-		.btn:hover{
-			background-color: rgb(112, 112, 112);
-            transition: all 0.3s linear;
-            color: white;
-            cursor:pointer;
-		}
-
-		#h1{
-			margin:20px auto;
-		}
-
-		#parrafo-sr{
-			width:700px;
-			padding-left: 100px;
-		}
-
-		.btn-doc{
-			order:2;
-			width:80px;
 		}
 
 		@media print {				
@@ -302,29 +105,10 @@
 			#pie {display: none;}
 		}
 
-		#form-filtrado{
-			display:flex;
-			flex-wrap:wrap;
-			order: 1;
-			margin: 0;
-    		justify-content: flex-start;
-    		flex-flow: row wrap;
-    		align-items: flex-start;
-    		padding-left: 30px;
-			width: 60%;
+		.img-cat{
+			object-fit: contain;
 		}
 
-		#catalogo{
-			height:30px;
-		}
-
-		#btn-imp{
-			height:30px;
-		} 
-
-		.label{
-			font-weight: bolder;
-		}
 	</style>
 	<script>      
         window.onload = function() {
@@ -360,20 +144,37 @@
             }
             else if(window.location.search.indexOf('?cat=') != -1){
                 let formulario = document.getElementById('form-filtrado');
-                let contenedor = document.getElementsByClassName('contenedor-imagenes');
+				let imgProducto = document.getElementsByClassName('producto');
  
                 barra[0].style.display = 'none';
  
                 formulario.style.width = '100%';
                 formulario.style.justifyContent = 'center';
                 formulario.style.padding = '0';
- 
-                contenedor[0].style.justifyContent = 'center';
+
+				for (let i=0; i<imgProducto.length; i++){
+					imgProducto[i].style.height = '300px';
+				}
             }  
+
+			let cambiar = document.getElementById('cambiar-filtro');
+			let form = document.getElementById('datos');
+
+			cambiar.addEventListener("click", () => {
+				if (form.style.display == 'block'){
+					form.style.display = 'none';
+				}
+				else{
+					form.style.display = 'block';
+				}
+            });
+			
+			if (cambiar != null){
+				form.style.display = 'none';
+			}
+			
         }            
     </script>
-
-
 </head>
 <body id="body"> 
 	<header>
@@ -383,6 +184,56 @@
 	<main id="main">
 		<aside class="barra-lateral"> 
 			<?php 
+				$filtro = "";
+				$url = $_SERVER["REQUEST_URI"];
+
+				echo "<div id='filtros-usados'>";
+					if (isset($filtros[0])){
+						if (count($filtros[0]) == 1){
+							$filtro = "<b>Color:</b> ";
+						}
+						else{
+							$filtro = "<b>Colores: </b>";
+						}
+						for ($i=0;$i<count($filtros[0]);$i++){ 
+							if ($i == count($filtros[0])-1){
+								$filtro .= $filtros[0][$i] . ". <br>"; 
+							}
+							else{
+								$filtro .= $filtros[0][$i] . ", "; 
+							}
+						}
+					}
+
+					if (isset($filtros[1])){
+						if (count($filtros[1]) == 1){
+							$filtro .= "<b>Marca: </b>";
+						}
+						else{
+							$filtro .= "<b>Marcas: </b>";
+						}
+						for ($i=0;$i<count($filtros[1]);$i++){ 
+							if ($i == count($filtros[1])-1){
+								$filtro .= $filtros[1][$i] . ". <br>"; 
+							}
+							else{
+								$filtro .= $filtros[1][$i] . ", "; 
+							}
+						}
+					}
+
+					if (isset($filtros[2])){
+						$filtro .= '<b>Mínimo: </b>' . $filtros[2] . '. <br> <b>Máximo: </b>' . $filtros[3] . ".";
+					}
+
+					if (isset($filtros[0]) || (isset($filtros[1])) || (isset($filtros[2]))){
+						echo "<a href='$url' id='filtro'> $filtro </a>";
+						echo "<div class='filtrado'>					
+								<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
+								<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
+							  </div>";
+					}
+				echo "</div>";
 				crearBarraLateral();
 			?>
 		</aside>	

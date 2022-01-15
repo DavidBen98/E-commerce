@@ -7,8 +7,8 @@ if (!empty($_POST['categoria'])){
     $cate = $_POST['categoria'];
 
     $sql = "SELECT nombre_subcategoria, id_subcategoria
-        FROM subcategoria
-        WHERE id_categoria = $cate";
+            FROM subcategoria
+            WHERE id_categoria = $cate";
 
     $rs = $db->query($sql); 
 
@@ -22,7 +22,7 @@ if (!empty($_POST['categoria'])){
     echo "</select>";
 }
 
-if (!empty($_POST['provincia'])){
+if (!empty($_POST['provincia'])){ //desde login(registrarse)
     $provincia = $_POST['provincia'];
 
     if ($provincia != 02 && ($provincia == 30 || $provincia ==78 || $provincia == 86)){
@@ -48,7 +48,7 @@ if (!empty($_POST['provincia'])){
         sort($municipio);
 
         echo "<label for='ciudad' class='form-label'>Ciudad</label>
-        <select id='ciu' name='ciudad' class='form-select'>";  
+              <select id='ciu' name='ciudad' class='form-select'>";  
         foreach ($municipio as $nombre){ 
             echo "<option value='$nombre'>". $nombre . "</option>";
         }   

@@ -20,7 +20,7 @@
 
     sort ($a);
 
-    echo "<select id='provincia'>";
+    echo "<select id='provincia' name='provincia'>";
     foreach ($a as $provincia){
           echo "<option value=".$provincia['id'].">". $provincia['nombre']. "</option>";
     }
