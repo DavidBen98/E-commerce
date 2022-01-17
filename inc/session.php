@@ -1,5 +1,8 @@
-<?php   
-session_start();  
+<?php 
+
+if (!isset($_SESSION['user_first_name'])){
+	session_start();  
+}
 
 	$user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
 	$perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 

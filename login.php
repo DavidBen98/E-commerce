@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <?php  
-	require_once('inc/session.php');
-	include("encabezado.php");
+	include('config.php');
     include("pie.php");
 	require_once('vendor/autoload.php');
-	require_once('app/auth/auth.php');
-	
+	include("encabezado.php");
+
+	$habilitado = false;
+
 	if (perfil_valido(2)) {
 		header("location:informacion_personal.php");
 	} 
 	else if (perfil_valido(1)) {
 		header("ve.php");
+	}
+
+	$login_button = '';
+
+	if (!isset($_SESSION['access_token'])) {
+		$login_button = '<a href="' . $google_client->createAuthUrl() . '" class="btn-google">Iniciar sesión con Google</a>';
+		$habilitado = true;
 	}
 ?>
 <html lang="es"> 
@@ -19,9 +27,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catato Hogar</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
-	<link rel='stylesheet' href='assets/css/bootstrap.css'>
-	<link rel='stylesheet' href='assets/css/font-awesome.css'>
-	<link rel='stylesheet' href='assets/css/bootstrap-social.css'>
 	<script src="JS/jquery-3.3.1.min.js"></script>
 	<script>
         function validar(){
@@ -79,7 +84,7 @@
 	<style>
 		#main{
 			display:flex;
-			justify-content:start;
+			justify-content:center;
 			align-items:start;
 			flex-wrap: wrap;
 			width:100%;
@@ -217,17 +222,35 @@
 			display:flex;
 			justify-content:center;
 			margin:30px;
+			background-color:white;
+			width:30%;
 		}
 
 		.form{
 			margin:10px;
+			width:30%;
 		}
+
+		.btn-google{
+			background: #dd4b39; 
+			border-radius: 5px; 
+			color: white; 
+			display: block; 
+			font-weight: bold; 
+			padding: 20px; 
+			text-align: center; 
+			text-decoration: none; 
+			width: 250px;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    		font-size: 14px;
+		}
+	
 	</style>
 </head>
 <body>
-	<header>
-        <?php echo $encab; ?> 
-    </header>
+        <?php 
+		 	echo $encab;
+		?>
 
 	<main id='main'>
 		<?php
@@ -316,7 +339,8 @@
 							echo "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
 						}
 			}
-			else{
+			else if (!isset($_GET['login'])){
+				$google= $google_client->createAuthUrl();
 				echo "<form action='inicio_sesion.php' method='post' class='form' novalidate>
 							<h1>Iniciar Sesión</h1>	
 							<div class='cont-campo'>
@@ -348,18 +372,11 @@
 							<div class='cont-campo' id='btn-iniciar'>
 								<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
 							</div>	
-						</form>	
+						</form>	";
 						
-						
-						<div class='redes'>
-							<div class='row'>
-								<div class='col'>
-									<a href='#' class='btn btn-block btn-social btn-facebook'><span class='fa fa-facebook'></span> Inicia sesión con Facebook</a>
-									<a href='#' class='btn btn-block btn-social btn-google'><span class='fa fa-google'></span> Inicia sesión con Google</a>
-									<a href='#' class='btn btn-block btn-social btn-twitter'><span class='fa fa-twitter'></span> Inicia sesión con Twitter</a>
-								</div>
-							</div>
-						</div>";	
+						if ($login_button != '') {
+							echo "<div class='redes'>" . $login_button . "</div>";
+						}
 			}
 		?>
 	</main>

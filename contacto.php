@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php  
+	include('config.php');
     include("encabezado.php");
     include("pie.php");
 

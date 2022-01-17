@@ -1,8 +1,9 @@
 <?php 
 	require 'inc/conn.php';
-	require 'funciones.php';  
+	require 'funciones.php'; 
+	require 'config.php'; 
  
-	session_start();
+	//session_start();
 
 	$login=0;	
 	

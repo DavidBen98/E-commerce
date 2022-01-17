@@ -1,11 +1,97 @@
 <!DOCTYPE html>
 <?php   
-    include("encabezado.php"); 
     include("pie.php");
     include ("inc/conn.php");
+	include('config.php');
 
     if ($perfil == "E"){ 
         header("location:ve.php");
+    }
+
+    //Si se valida el token al iniciar sesion con Google
+    if (isset($_GET["code"])) {
+		$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
+		if (!isset($token['error'])) {
+			$google_client->setAccessToken($token['access_token']);
+	
+			$_SESSION['access_token'] = $token['access_token'];
+	
+			$google_service = new Google_Service_Oauth2($google_client);
+	
+			$data = $google_service->userinfo->get();
+	
+			if (!empty($data['given_name'])) {
+				$_SESSION['user_first_name'] = $data['given_name'];
+			}
+	
+			if (!empty($data['family_name'])) {
+				$_SESSION['user_last_name'] = $data['family_name'];
+			}
+	
+			if (!empty($data['email'])) {
+				$_SESSION['user_email_address'] = $data['email'];
+			}
+
+            if (!empty($data['id'])) {
+				$_SESSION['id'] = $data['id'];
+			}
+		}
+	}
+
+    include("encabezado.php"); 
+
+    //Si se inicio sesion con google
+    if (isset($_GET["code"])) {
+        //Ver si ese usuario está registrado
+        $id = $_SESSION['id']; 
+        $email = $_SESSION['user_email_address'];
+
+        $sql = "SELECT id_social
+                FROM `usuario_rs` as rs
+                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+                WHERE (id_social = '$id' OR u.email = '$email')";
+
+        $resultado = $db->query($sql);
+        $i = 0;
+        foreach ($resultado as $r){
+            $i++;
+        }
+
+        //Si ese id que devuelve google no existe y tampoco existe el email
+        if ($i == 0){
+            $nombre = $_SESSION['user_first_name'];
+            $apellido = $_SESSION['user_last_name'];
+
+            $sql = "SELECT nombreUsuario
+                    FROM usuario
+                    WHERE nombreUsuario = '$nombre$apellido'";
+            
+            $result = $db->query($sql);
+
+            foreach ($result as $r){
+                $i++;
+            }
+
+            //Si no existe una persona con ese nombre de usuario
+            if ($i == 0){
+                $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil) VALUES
+                ('$nombre$apellido','$nombre', '$apellido', '$email', 'U')";
+            }
+            else{
+                $sql = "INSERT INTO usuario (nombre, apellido, email, perfil) VALUES
+                ('$nombre', '$apellido', '$email', 'U')";
+            }
+            
+            $db->query($sql);
+
+            $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
+
+            $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
+            ('$usuario_id', '$id', 'Google')";
+
+            $db->query($sql);
+        }
+        
     }
 
     function agregarImgCategorias (){

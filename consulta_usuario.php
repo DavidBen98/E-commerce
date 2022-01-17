@@ -1,4 +1,5 @@
 <?php 
+    include ('config.php');
     include("encabezado.php"); 
     include("pie.php");
     include ("inc/conn.php");

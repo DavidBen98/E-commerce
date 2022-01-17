@@ -1,4 +1,5 @@
 <?php  
+	include('config.php');
 	include ("encabezado.php");
 	include ("barra_lateral.php"); 
 	include ("pie.php");

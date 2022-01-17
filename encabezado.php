@@ -1,5 +1,6 @@
 <?php   
     include("funciones.php");
+    
     if (perfil_valido(1)){
         $encab =  "  <div id='imagen'>
                         <div id='buscar'>
@@ -9,7 +10,7 @@
                             </div>
                         </div>"
                         .
-                            crear_barra() . "
+                            crear_barra($habilitado) . "
                      </div>
                         <nav id='navigation'>
                             <ul>
@@ -39,7 +40,7 @@
                                     <button id='lupa' onclick='subcategoria.php' title='Buscar'><img src='images/lupa.png' alt='Lupa de buscar' style='width:20px;' height='20' id='perfil'></button>
                                 </div>
                             </div>"
-                            .   crear_barra() .
+                            .   crear_barra($habilitado) . 
                 "
                             <a href='carrito_compras.php' title='Carrito de compras' class='header-img' id='usu-car'><img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'></a>
                         </div>     

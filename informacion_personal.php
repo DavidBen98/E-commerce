@@ -1,7 +1,8 @@
 <?php 
-    include("encabezado.php"); 
     include("pie.php");  
     include ("inc/conn.php");
+    include ('config.php');
+    include("encabezado.php"); 
 
     if (perfil_valido(3)) {
        header("location:index.php");

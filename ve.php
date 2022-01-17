@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php  
+    include ('config.php');
     include ("encabezado.php"); 
+
     if (!perfil_valido(1)) {
         header("location:index.php");
     }

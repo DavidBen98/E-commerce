@@ -1,4 +1,5 @@
 <?php
+	include('config.php');
     include ("encabezado.php");
 	require 'inc/conn.php';
     include("pie.php");
@@ -69,6 +70,10 @@
 			width:100%;
 			margin: 2px 0;
 		}
+
+		#btn-enviar{
+			margin:15px;
+		}
 	</style>
 </head>
 <body>
@@ -126,12 +131,13 @@
 								}
 								else{
 									echo"";
-									if ($perfil != "U"){
+									if (!isset($_SESSION['user_first_name']) && $perfil != "U"){
 										echo"<p>Si desea comprar este artículo por favor <a href='login.php?reg=true' class='enlaces'>regístrese</a> o <a href='login.php' class='enlaces'>inicie sesión</a> </p>";
-									} 
+										
+									}
 									else{
-										echo"  <input type='number' id='cantidad' name='cantidad' value='1' min='1' max='{$row['stock']}' title='Seleccione el numero de articulos que quiere'/>
-										<input type='submit' id='btn-enviar' value='Agregar al carrito'>
+										echo"  <input type='number' id='cantidad' name='cantidad' value='1' min='1' max='{$row['stock']}' title='Seleccione el numero de articulos que quiere'/> <br>
+										<input type='submit' id='btn-enviar' class='btn' value='Agregar al carrito'>
 										";
 									}	 						
 								}

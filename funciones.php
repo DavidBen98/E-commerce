@@ -1,27 +1,34 @@
 <?php
-    include ('inc/session.php');
     require 'inc/conn.php';
+	global $habilitado;
 
-    function crear_barra() {
+    function crear_barra($token) {
         global $user;
         global $perfil;
         $links=''; 
 
-        if ($user=='') {
+        if (isset($_GET['code']) || isset($_SESSION['user_first_name'])){
+            $links = "  <a href='informacion_personal.php' title='Perfil'> <span>" 
+                            . $_SESSION['user_last_name'] . ", ". $_SESSION['user_first_name'] . 
+                        " </span> &nbsp;</a>
+                        <a href='logout.php' title='Cerrar sesión de usuario'> X </a>";
+        }
+        else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesion' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
                         <a href='cerrar_sesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
-        } 
-        else if($perfil=='U'){
+        } else if($perfil=='U'){
             $links = "<a href='informacion_personal.php' title='Perfil'> <span> {$_SESSION['nombre']} </span> &nbsp;</a>
                         <a href='cerrar_sesion.php' title='Cerrar sesión de usuario'> X </a>";
         }
-                        
+    
         $barra_sup ="<div id='barra_superior'>
                         $links
                     </div> ";
+
+        
                     
         return  $barra_sup;
     }

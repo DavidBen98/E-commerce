@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-12-2021 a las 15:39:59
+-- Tiempo de generación: 17-01-2022 a las 02:13:05
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -99,6 +99,14 @@ CREATE TABLE `pedido` (
   `usuario_id` int(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`id`, `precio_unidad`, `cantidad`, `producto_codigo`, `usuario_id`) VALUES
+(1, '28479', 1, 'dopl2', 3),
+(4, '19489', 1, 'como6', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -134,7 +142,7 @@ INSERT INTO `producto` (`codigo`, `descripcion`, `material`, `color`, `caracteri
 ('como3', 'organizador vajillero biblioteca modular despenser', 'madera', 'negro', 'ancho: 80,altura: 35,profundidad:35', 'centro estant', 4, '17599', 1, 20),
 ('como4', 'modular rack para tv', 'melanina', 'blanco', 'ancho: 208,altura: 165,profundidad:30', 'fiplasto', 4, '18999', 1, 20),
 ('como5', 'modular vajillero vitrina organizador vintage', 'madera', 'blanco', 'ancho: ,altura: ,profundidad:', 'cuatro cedros muebles', 4, '19999', 1, 20),
-('como6', 'modular organizador aparador funcional', 'melanina', 'blanco', 'ancho: 0.35,altura: 1.41,profundidad: 0.35', 'orlandi', 4, '19489', 1, 20),
+('como6', 'modular organizador aparador funcional', 'melanina', 'blanco', 'ancho: 0.35,altura: 1.41,profundidad: 0.35', 'orlandi', 3, '19489', 1, 20),
 ('cosi1', 'silla eames base nordica moderno', 'madera y polipropileno', 'blanco', 'ancho: 0.35,altura: 1.41', 'eames', 4, '3499', 1, 22),
 ('cosi2', 'silla de escritorio mobilarg lisy fija', 'metal y cuero sintético', 'negro', 'ancho: 0.35,altura: 1.41', 'mobilarg', 4, '6290', 1, 22),
 ('cosi3', 'silla fija cromada greta de diseño', 'madera', 'blanco', 'ancho: 30,altura: 100', 'jmi', 4, '8600', 1, 22),
@@ -160,7 +168,7 @@ INSERT INTO `producto` (`codigo`, `descripcion`, `material`, `color`, `caracteri
 ('dome5', 'mesa de luz mesita con botinero', 'melanina', 'blanco', 'ancho: 38, profundidad: 0.38, altura:71', 'centro estant', 4, '6399', 2, 19),
 ('dome6', 'mesa de luz premium', 'melanina', 'gris', 'ancho: 53, profundidad: 35.5, altura:67', 'orlandi', 4, '6399', 2, 19),
 ('dopl1', 'placard ropero 2 puertas', 'melanina', 'blanco', 'ancho: 60, profundidad: 47,altura: 182', 'mosconi', 4, '10300', 2, 21),
-('dopl2', 'placard puertas corredizas', 'madera', 'blanco viejo', 'ancho: 182, profundidad: 53,altura: 184', 'orlandi', 4, '28479', 2, 21),
+('dopl2', 'placard puertas corredizas', 'madera', 'blanco viejo', 'ancho: 182, profundidad: 53,altura: 184', 'orlandi', 3, '28479', 2, 21),
 ('dopl3', 'placard wengue mogno', 'madera', 'blanco', 'ancho: 181, profundidad: 47,altura: 184', 'orlandi', 4, '19499', 2, 21),
 ('dopl4', 'placard vestidor moderno ', 'madera', 'blanco', 'ancho:180,profundidad: 55,altura: 180', 'carpintería rivadavia', 4, '20921', 2, 21),
 ('dopl5', 'placard ropero 12 puertas 4 cajones', 'madera', 'blanco viejo', 'ancho:212,profundidad: 47,altura: 215', 'orlandi', 4, '32299', 2, 21),
@@ -254,7 +262,22 @@ INSERT INTO `usuario` (`id`, `nombreUsuario`, `contrasena`, `perfil`, `nroDni`, 
 (1, 'caelenaShar', '0e5cd0a77778f353ca0863d3ca43f35e4f71d74c33e6524383e75349c6f42ac1ac0e7de58a0438a42891d9a497f62454b7bdaf8a93286f64314a433b7e4b7f3f', 'U', '41689734', 'caelena', 'shar', 'caeShar@hotmail.com', 'buenos aires', 'bahia blanca', 'avenida alem'),
 (2, 'AnaLopez', 'e686859d8a43300614ee7767fc287d6d227cb16cd1204f11150f8207302edeb7e15883561621a13a9c54e63a913528a8ec759eb00fb8cfd445e8cbc66b32edf4', 'E', '12345678', 'Ana', 'Lopez', 'analopez@hotmail.com', 'Buenos Aires', 'Bahia Blanca', 'Calle 1'),
 (3, 'RomanRiquelme', '3bd0ec7e54237c798afb6ede6ebc0feaadce5ab191d7d2f6310ad92072f332251aa7e66af79ee9e8f77e62ef2df0dde0e8872ca92e2d4a57adc334c6f8f830b9', 'U', '12345678', 'Roman', 'Riquelme', 'romanriquelme@hotmail.com', 'Buenos Aires', 'San Fernando', 'Calle 2'),
-(4, 'ChinaSuarez', 'ab4a301aa40357605ddce7b47ed7bcba32206defa7e8a6638528cecf7c4f2a8991fc51fa459e2d328c54af0051161557f280d9e8175606ee7b53da9a53de6866', 'E', '12345678', 'China', 'Suarez', 'chinasuarez@hotmail.com', 'Buenos Aires', 'Olavarria', 'Calle 3');
+(4, 'ChinaSuarez', 'ab4a301aa40357605ddce7b47ed7bcba32206defa7e8a6638528cecf7c4f2a8991fc51fa459e2d328c54af0051161557f280d9e8175606ee7b53da9a53de6866', 'E', '12345678', 'China', 'Suarez', 'chinasuarez@hotmail.com', 'Buenos Aires', 'Olavarria', 'Calle 3'),
+(6, 'DavidBen', 'e686859d8a43300614ee7767fc287d6d227cb16cd1204f11150f8207302edeb7e15883561621a13a9c54e63a913528a8ec759eb00fb8cfd445e8cbc66b32edf4', 'U', '40978231', 'David', 'Benedette', 'davidbenedette@hotmail.com', 'Buenos Aires', 'Bahía Blanca', 'Berutti 47 , 14'),
+(7, 'VickyArenzo', 'e686859d8a43300614ee7767fc287d6d227cb16cd1204f11150f8207302edeb7e15883561621a13a9c54e63a913528a8ec759eb00fb8cfd445e8cbc66b32edf4', 'U', '42391952', 'victoria', 'arenzo', 'vicky.16@hotmail.com.ar', 'Buenos Aires', 'Bahía Blanca', 'Berutti 47 , 14');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_rs`
+--
+
+CREATE TABLE `usuario_rs` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_social` varchar(255) NOT NULL,
+  `servicio` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -303,6 +326,13 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `usuario_rs`
+--
+ALTER TABLE `usuario_rs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -322,7 +352,7 @@ ALTER TABLE `consulta`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `subcategoria`
@@ -334,7 +364,13 @@ ALTER TABLE `subcategoria`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario_rs`
+--
+ALTER TABLE `usuario_rs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -365,6 +401,12 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `subcategoria`
   ADD CONSTRAINT `subcategoria_ibkf_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`);
+
+--
+-- Filtros para la tabla `usuario_rs`
+--
+ALTER TABLE `usuario_rs`
+  ADD CONSTRAINT `usuario_rs_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
