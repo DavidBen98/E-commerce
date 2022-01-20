@@ -29,10 +29,9 @@
 		if ((isset($_GET['cat'])=='productos') || ((isset($_GET['prod'])) && (!empty($_GET['prod'])))){
 			//Si se ingresa desde productos o desde las imagenes
 			$producto = "";
-
 			if (isset($_GET['prod'])){ //Si se ingresa desde imagenes
 				$producto = $_GET['prod'];
-				$form = "<form action='subcategoria.php?prod=$producto' method='post' id='datos'> 
+				$form = "<form action='productos.php?prod=$producto' method='post' id='datos'> 
 							<div class='btn-select'>
 								<label for='orden' class='label'> Ordenar por </label>
 								<select class='form-select' name='orden' title='Ordenar elementos'> 
@@ -130,7 +129,7 @@
 			
 			ksort($arrColores);
 			
-				echo" <div class='colores'>
+				echo" <div class='colores contenedor'>
 							<label class='ltitulo'><b>Colores</b></label>
 					 		<div id='colores' class='input'>
 			";
@@ -146,7 +145,7 @@
 			}
 
 			echo"</div> </div> 
-				<div class='marcas'>					
+				<div class='marcas contenedor'>					
 					<label class='ltitulo'><b>Marcas</b></label>
 					<div id='marcas' class='input'>
 			";	
@@ -163,7 +162,7 @@
 			echo "</div>	
 					</div>
 					<div id='min-max'>
-						<label id='lmaxmin'><b>Minimo - Maximo</b></label>	
+						<label id='lmaxmin'><b>Mínimo - Máximo</b></label>	
 						<div class='input-minmax'>	
 							<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='minimo' min='$valorMin'  value='$valorMin' >
 							- 

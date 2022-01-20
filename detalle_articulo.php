@@ -7,6 +7,7 @@
 	if (perfil_valido(1)) {
         header("location:ve.php");
     }  	
+	//HAY QUE ACTUALIZAR LA BASE DE DATOS CON LAS CARACTERISTICAS DE LOS PRODUCTOS
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,6 +16,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Catato Hogar</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
+	<script src="https://sdk.mercadopago.com/js/v2"></script>
 	<style>
 		#carac {
 			padding:0; 
@@ -28,6 +30,9 @@
 			justify-content: center;
 			flex-wrap: wrap;
 			margin-bottom: 30px;
+			padding: 10px;
+			background-color: white;
+			width: 90%;
 		}
 
 		main{
@@ -40,7 +45,6 @@
 		}
 
 		#cont-images{
-			width:600px;
 			height:600px;
 			display:flex;
 			justify-content:center;
@@ -50,7 +54,8 @@
 
 		#cont-descripcion{
 			background-color:white;
-			padding: 0 10px;
+			padding-left:15px;
+			width: 40%;
 		}
 
 		.img-cat{
@@ -73,6 +78,16 @@
 
 		#btn-enviar{
 			margin:15px;
+		}
+
+		#precio{
+			font-weight: 300;
+			font-size: 36px;
+			font-family: "Proxima Nova";
+		}
+
+		.cont-fund{
+			margin-bottom:15px;
 		}
 	</style>
 </head>
@@ -101,26 +116,32 @@
 								<img src='images/$variable.png' class='img-cat' title='{$row['descripcion']}' >                                   
 							</div>
 							<div id='cont-descripcion'>
-								<input type='hidden' name='codImg' value='$variable' />
-								
-								<h1>{$row['descripcion']}</h1>
-								
-								Precio:<input type='text' id='precio' name='precio' value='{$row['precio']}'  title='El precio es:{$row['precio']}' readonly/>
-								
-								<h2>Características:</h2> 
-								
-								<div id='carac' name='carac' title='Caracteristicas'> ";
-								echo "
-									<p><b>Material:</b>" .  $row['material'] . "</p><br>
-									<p><b>Color:</b> " . $row['color'] . " </p><br>
-									<p><b>Marca:</b> " . $row['marca'].  "</p><br>
-								";
-								
-								for ($i=0;$i<count($aCarac);$i++){
-									echo " $aCarac[$i] 
+								<div class='cont-fund'>
+									<input type='hidden' name='codImg' value='$variable' />
+									
+									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>
+									
+									<span id='precio' name='precio' value='{$row['precio']}'  title='El precio es:{$row['precio']}'>$ {$row['precio']}</span>
+								</div>
+								<div class='carac-prod'>
+									
+									<div id='carac' name='carac' title='Caracteristicas'> ";
+									echo "
+										<p><b>Material: </b>" .  $row['material'] . "</p><br>
+										<p><b>Color:</b> " . $row['color'] . " </p><br>
+										<p><b>Marca:</b> " . $row['marca'].  "</p><br>
 									";
-								} 
-								echo "</div>";
+									
+									for ($i=0;$i<count($aCarac);$i++){
+										$posicion = stripos ($aCarac[$i],':');
+										$caracteristica = substr($aCarac[$i], 0, $posicion+1);
+										$caracteristica = ucfirst($caracteristica); 
+										$detalle = substr($aCarac[$i], $posicion+2, strlen($aCarac[$i]));
+										$caracteristica = "<b>". $caracteristica  ."</b>";
+										echo "<p>$caracteristica $detalle</p><br>";
+									} 
+									echo "</div>
+								</div>";
 								
 								if($row['stock'] == 0){
 									echo "<p>Lo sentimos, no tenemos stock de este artículo.
@@ -130,10 +151,8 @@
 									";
 								}
 								else{
-									echo"";
 									if (!isset($_SESSION['user_first_name']) && $perfil != "U"){
-										echo"<p>Si desea comprar este artículo por favor <a href='login.php?reg=true' class='enlaces'>regístrese</a> o <a href='login.php' class='enlaces'>inicie sesión</a> </p>";
-										
+										echo"<p>Si desea comprar este artículo por favor <a href='login.php?reg=true' class='enlaces'>Registrarse</a> o <a href='login.php' class='enlaces'>Iniciar sesión</a> </p>";
 									}
 									else{
 										echo"  <input type='number' id='cantidad' name='cantidad' value='1' min='1' max='{$row['stock']}' title='Seleccione el numero de articulos que quiere'/> <br>

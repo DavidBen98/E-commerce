@@ -6,16 +6,16 @@ session_start();
 $user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
 $perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
 
-// if ($user=="") {
-//     unset($_SESSION["user"]);
-//     $_SESSION = array();
-    
-//     session_destroy();  
-// } 
+require_once 'vendor/autoload.php';
+require_once 'app/TwitterAuth.php';
+require_once 'vendor\jublonet\codebird-php\src\codebird.php';
 
-if ($user==""){
-    //config.php
-    
+\Codebird\Codebird::setConsumerKey('VZtL1D6kiULEhnWS0tRtKXHDp',
+'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
+
+$cliente = \Codebird\Codebird::getInstance();
+
+if ($user==""){ 
     //Include Google Client Library for PHP autoload file
     require_once 'vendor/autoload.php';
     

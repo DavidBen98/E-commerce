@@ -10,7 +10,11 @@ $google_client->revokeToken();
 //Destroy entire session data.
 session_destroy();
 
-//redirect page to login.php
-header('location:login.php');
+$auth = new TwitterAuth($cliente);
+
+$auth->signOut();
+
+//redirect page to index.php
+header('location:index.php');
 
 ?>

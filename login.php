@@ -14,12 +14,14 @@
 		header("ve.php");
 	}
 
-	$login_button = '';
+	$auth = new TwitterAuth($cliente);
 
 	if (!isset($_SESSION['access_token'])) {
-		$login_button = '<a href="' . $google_client->createAuthUrl() . '" class="btn-google">Iniciar sesión con Google</a>';
 		$habilitado = true;
 	}
+
+	$login_button = "<a href=" . $google_client->createAuthUrl() . " class='btn-google'>Iniciar sesión con Google</a>
+				<a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
 ?>
 <html lang="es"> 
 <head>
@@ -59,7 +61,6 @@
 
             return devolucion;
 		}
-
 
 		$(document).ready(function(){
 			actualizarCiudad();
@@ -173,7 +174,7 @@
 			align-items:end;
 		}
 
-		#registrarse:hover{
+		#registrarse:hover, #iniciar:hover{
 			background-color: #B2BABB ;
             transition: all 0.3s linear;
             color: white;
@@ -181,8 +182,15 @@
 	    }
 
 		#form-registro{
-			width:500px;
-			padding: 5px;
+			display:flex;
+			flex-wrap:wrap;
+			justify-content:center;
+			width:70%;
+			border: solid 2px black;
+			border-radius: 5px;
+			background-color: white;
+			align-items:center;
+			padding:10px;
 		}
 		
 		.cont-reg label{
@@ -192,10 +200,11 @@
 
 		.cont-reg select{
 			text-align:center;
-			width:200px;
+			width:83%;
 			height:30px;
 			border: solid #000 0.994px;
 			padding: 1px 2px;
+		    border-radius: .1875rem;
 		}
 
 		#calle{
@@ -221,14 +230,10 @@
 		.redes{
 			display:flex;
 			justify-content:center;
-			margin:30px;
+			flex-wrap:wrap;
 			background-color:white;
-			width:30%;
-		}
-
-		.form{
-			margin:10px;
-			width:30%;
+			width:290px;
+			margin: 0 auto;
 		}
 
 		.btn-google{
@@ -243,8 +248,77 @@
 			width: 250px;
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     		font-size: 14px;
+			margin:8px;
+		}
+
+		.btn-twitter{
+			background-color: #55acee;
+			border-radius: 5px; 
+			color: white; 
+			display: block; 
+			font-weight: bold; 
+			padding: 20px; 
+			text-align: center; 
+			text-decoration: none; 
+			width: 250px;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    		font-size: 14px;
+			margin:8px;
 		}
 	
+		#sesion{
+			display:flex;
+			justify-content:center;
+			flex-wrap:wrap;
+			width:50%;
+			padding: 0 20px;
+			border-right: 1px solid #D3D3D3;
+		}
+
+		.form{
+			width:60%;
+			height:100%;
+			border: none;
+			border-radius: 0px;
+			border-right: 1px solid #D3D3D3;
+			padding:5px;
+		}
+
+		.formulario{
+			display:flex;
+			align-items:center;
+			flex-wrap: wrap;
+			width:60%;
+			background-color: white;
+			border-radius:5px;
+			border: 2px solid black;
+			margin-block-end: 0;
+			padding: 10px;	
+		}
+
+		#iniciar{
+			width: 50%;
+			height: 50px;
+			margin-bottom: 2px;
+			border: 2px solid black;
+			font-size: 1.1em;
+			background-color: white;
+			border-radius: .1875rem;
+		}
+
+		#titulo-is{
+			font-family: "Open Sans"; 
+			height: 30px; 
+			width:100%;
+			border-bottom: 1px solid #D3D3D3;
+			text-align:center;
+			padding-bottom:10px;
+			color: #979A9A;
+		}
+
+		::placeholder{
+			text-align:center;
+		}
 	</style>
 </head>
 <body>
@@ -255,66 +329,68 @@
 	<main id='main'>
 		<?php
 			if (isset($_GET['reg'])){
-				echo "<form action='registro.php' method='post' class='form' id='form-registro'>
-						<div class='cont-reg'>
-							<label for='nombre' class='form-label'>Nombre</label>
-							<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
-						</div>  
+				echo "<form action='registro.php' method='post' class='' id='form-registro'>
+						<div class='form'>
+							<div class='cont-reg'>
+								<label for='nombre' class='form-label'>Nombre</label>
+								<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
+							</div>  
 
-						<div class='cont-reg'>
-							<label for='apellido' class='form-label'>Apellido</label>				
-							<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' required>
-						</div>
+							<div class='cont-reg'>
+								<label for='apellido' class='form-label'>Apellido</label>				
+								<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' required>
+							</div>
 
-						<div class='cont-reg'>
-							<label for='dni' class='form-label'>Número de DNI </label>
-							<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' required>	
-						</div>
-						
-						<div class='cont-reg'>
-							<label for='email' class='form-label'>Email</label>
-							<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' required>	
-						</div> 
-						
-						<div class='cont-reg'>
-							<label for='provincia' class='form-label'>Provincia </label>
-							";
-							 include('api_datos.php');
-						echo "
-						</div> 
-						
-						<div class='cont-reg' id='ciudad'>
-							<label for='ciudad' class='form-label'>Ciudad</label>
-						</div> 
-						
-						<div class='cont-reg'>
-							<label for='direccion' class='form-label'>Dirección </label>
-							<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
-							<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
-							<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
-						</div> 
-
-						<div class='cont-reg'>
-						</div> 
-						
-						<div class='cont-reg'>
-							<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-							<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
-						</div> 
-						
-						<div class='cont-reg'>
-							<label for='psw' class='form-label'>Contraseña</label>				
-							<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' required>
-						</div>
+							<div class='cont-reg'>
+								<label for='dni' class='form-label'>Número de DNI </label>
+								<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' required>	
+							</div>
 							
-						<div class='cont-reg'>
-							<label for='psw' class='form-label'>Repetir contraseña</label>				
-							<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
-						</div>
-						
-						<div class='cont-reg registro'>
-							<button id='registrarse'>Registrarse</button>
-						</div>";
+							<div class='cont-reg'>
+								<label for='email' class='form-label'>Email</label>
+								<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' required>	
+							</div> 
+							
+							<div class='cont-reg'>
+								<label for='provincia' class='form-label'>Provincia </label>
+								";
+								include('api_datos.php');
+							echo "
+							</div> 
+							
+							<div class='cont-reg' id='ciudad'>
+								<label for='ciudad' class='form-label'>Ciudad</label>
+							</div> 
+							
+							<div class='cont-reg'>
+								<label for='direccion' class='form-label'>Dirección </label>
+								<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
+								<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
+								<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
+							</div> 
+
+							<div class='cont-reg'>
+							</div> 
+							
+							<div class='cont-reg'>
+								<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+								<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+							</div> 
+							
+							<div class='cont-reg'>
+								<label for='psw' class='form-label'>Contraseña</label>				
+								<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' required>
+							</div>
+								
+							<div class='cont-reg'>
+								<label for='psw' class='form-label'>Repetir contraseña</label>				
+								<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
+							</div>
+							
+							<div class='cont-reg registro'>
+								<button id='registrarse'>Registrarse</button>
+							</div>
+						";
 
 						if (isset($_GET['error'])){
 							$error = isset($_GET['error']);
@@ -338,45 +414,51 @@
 						else if (isset($_GET['registro'])){
 							echo "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
 						}
+						echo "</div>
+								<div class='redes'>
+									 $login_button 
+								</div>
+								</form>";
 			}
 			else if (!isset($_GET['login'])){
 				$google= $google_client->createAuthUrl();
-				echo "<form action='inicio_sesion.php' method='post' class='form' novalidate>
-							<h1>Iniciar Sesión</h1>	
-							<div class='cont-campo'>
-								<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-								<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
-							</div>  
+				echo "<form action='inicio_sesion.php' method='post' class='formulario' novalidate>
+							<div id='sesion'>
+								<h1 id='titulo-is'>Iniciar Sesión</h1>	
+								<div class='cont-campo'>
+									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+								</div>  
 
-							<div class='cont-campo'>
-								<label for='psw' class='form-label'>Contraseña</label>				
-								<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' required>
-							</div>
+								<div class='cont-campo'>
+									<label for='psw' class='form-label'>Contraseña</label>				
+									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' required>
+								</div>
 
-							<p class='e_error' style='display:none;'>";
-								$error ='';
-								if(isset($_GET['error'])){
-									$error = $_GET['error'];
-									if ($error == '0'){
-										echo "<p class='e_error'>Complete los campos por favor</p>";
-									}
-									else if($error == '1'){
-										echo "<p class='e_error'>El usuario ingresado no existe</p>";
-									}
-									else if($error == '2'){
-										echo "<p class='e_error'>La contraseña ingresada es inválida</p>";
-									}
-								}						
-					echo "</p>	
+								<p class='e_error' style='display:none;'>";
+									$error ='';
+									if(isset($_GET['error'])){
+										$error = $_GET['error'];
+										if ($error == '0'){
+											echo "<p class='e_error'>Complete los campos por favor</p>";
+										}
+										else if($error == '1'){
+											echo "<p class='e_error'>El usuario ingresado no existe</p>";
+										}
+										else if($error == '2'){
+											echo "<p class='e_error'>La contraseña ingresada es inválida</p>";
+										}
+									}						
+						echo "</p>	
 
-							<div class='cont-campo' id='btn-iniciar'>
-								<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
-							</div>	
-						</form>	";
-						
-						if ($login_button != '') {
-							echo "<div class='redes'>" . $login_button . "</div>";
-						}
+								<div class='cont-campo' id='btn-iniciar'>
+									<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
+								</div>
+						</div>
+								<div class='redes'>" . $login_button . "
+									
+								</div>
+							</form>	";
 			}
 		?>
 	</main>

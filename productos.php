@@ -1,109 +1,81 @@
-<?php 
-	include('config.php');
-	include ("encabezado.php");
+<!DOCTYPE html>
+<?php
     include("pie.php");
 	require 'inc/conn.php';
+    include('config.php');
+	include ("encabezado.php");
 	include ("barra_lateral.php"); 
 
 	if ($perfil == "E"){ 
 		header("location:ve.php");
 	} 
 
-	global $db;  
+    global $db;  
 	$rs = "";
-	 
-	$sql  = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
-			FROM `producto` as p
-			INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-			INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria";
-
-	$where_sql = "";
-	$categoria = (isset($_POST['categoria']))? $_POST['categoria'] : -1;
-	$subcategoria = (isset($_POST['subcategoria']))? $_POST['subcategoria'] : -1;
-	$filtros = [isset($_POST['color'])? $_POST['color']:null,
+    $categoria = "";
+    $subcategoria = "";
+    $filtros = [isset($_POST['color'])? $_POST['color']:null,
 				isset($_POST['marca'])? $_POST['marca']:null,
 				isset($_POST['valorMin'])? $_POST['valorMin']:null,
 				isset($_POST['valorMax'])? $_POST['valorMax']:null,
 				isset($_POST['orden'])? $_POST['orden']:null];
 
-	if ($categoria != -1){
-		$where_sql = " WHERE p.id_categoria like '$categoria' ";
-	}
-	else{
-		$where_sql = " WHERE p.id_categoria like '%' ";
-	}
+    if(isset($_GET['cat'])){   
+        $sql  = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
+                FROM `producto` as p
+                INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria";
 
-	if ($subcategoria != -1){
-		$where_sql .= " AND p.id_subcategoria like '$subcategoria' ";
-	}
-	else{
-		$where_sql .= " AND p.id_subcategoria like '%' ";
-	}
+        $where_sql = "";
 
-	$sql .= $where_sql;
+        //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
+        $categoria = (isset($_POST['categoria']))? $_POST['categoria'] : "";
+        $subcategoria = (isset($_POST['subcategoria']))? $_POST['subcategoria'] : "";
 
-	$sql = completarWhere($sql, $filtros);
-	$rs = $db->query($sql);
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="JS/jquery-3.3.1.min.js"></script>
-    <script src="JS/funciones.js"></script>
-    <title>Catato Hogar</title>
-    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
-    <script>
-		window.onload = function() { 
-            let imagenes = document.getElementsByClassName('img-cat');
-            for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {window.location = 'detalle_articulo.php?art='+articulo;});
-           	};
-
-			let catalogo = document.getElementById('catalogo'); //Boton excel
-            let btn = document.getElementById('btn-imp'); //Boton imprimir
-
-			catalogo.addEventListener("click", () => { //Imprimir catalogo
-				let variable = "";
-				for (j=0;j<imagenes.length-1;j++){
-					variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
-				}
-				variable+= imagenes[imagenes.length-1].getAttribute('alt');
-				window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
-			});	
-
-			let cambiar = document.getElementById('cambiar-filtro');
-			let form = document.getElementById('datos');
-
-			cambiar.addEventListener("click", () => {
-				if (form.style.display == 'block'){
-					form.style.display = 'none';
-				}
-				else{
-					form.style.display = 'block';
-				}
-            });
-			
-			if (cambiar != null){
-				form.style.display = 'none';
-			}
-    	};
-	</script>
-    <style>
-        #body{
-            font-family: "Salesforce Sans", serif;
-            font-size: 1.2rem;
-            line-height: 1.5em;
-            margin: 0px;
+        if ($categoria != ""){
+            $sql .= " WHERE p.id_categoria like '$categoria' ";
+        }
+        else{
+            $sql .= " WHERE p.id_categoria like '%' ";
         }
 
+        if ($subcategoria != ""){
+            $sql .= " AND p.id_subcategoria like '$subcategoria' ";
+        }
+        else{
+            $sql .= " AND p.id_subcategoria like '%' ";
+        }
+
+        $sql = completarWhere($sql, $filtros);
+        $rs = $db->query($sql);
+    }	 
+    else{
+        $sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`
+			FROM producto";
+
+        //Si entro desde subcategorias entonces la categoria y la subcategoria esta en la url
+        $catSubcat = $_GET['prod'];
+        $sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`, `id_subcategoria`
+                FROM producto
+                WHERE codigo like '$catSubcat%'";
+
+        $sql = completarWhere($sql, $filtros);
+        $rs = $db->query($sql);
+    }
+?>
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script src="js/funciones.js"></script>
+    <title>Catato Hogar</title>
+	<style>
 		#main{
 			display:flex;
 			padding: 20px 0 10px 0;
-			justify-content:start;
+			justify-content: center;
 		}
 
 		/*ASIDE*/
@@ -111,12 +83,14 @@
 			margin-bottom:10px;
 		}
 
+
 		.barra-lateral {
-			width:30%;
+			width:25%;
 			align-content: flex-start;
 			padding-left:4px;
 			padding-right:4px;
 			order: 0;
+			border-radius: 5px;
 		}
 
 		#min-max{
@@ -125,6 +99,7 @@
 			flex-wrap:wrap;
 			justify-content:center;
 			padding-left:4px;
+			margin-top: 20px;
 		}
 
 		.btn-select{
@@ -133,6 +108,8 @@
 
 		#lmaxmin{
 			display:block;
+			width:100%;
+			text-align:center;
 		}
 
 		@media print {				
@@ -154,7 +131,7 @@
 		}
 
 		.marcas, .colores{
-			height: 150px;
+			max-height: 150px;
 			overflow-x: hidden;
 			overflow-y: auto;
 			margin-top: 20px;
@@ -190,40 +167,78 @@
 			object-fit: contain;
 		}
     </style>
+    <script>      
+        window.onload = function() {
+            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+            let catalogo = document.getElementById('catalogo'); //Boton excel
+            let btn = document.getElementById('btn-imp'); //Boton imprimir
+
+            for (j=0;j<imagenes.length;j++){
+                let articulo = imagenes[j].getAttribute('alt');
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'detalle_articulo.php?art='+articulo;});
+           	}
+
+            catalogo.addEventListener("click", () => { //Imprimir catalogo
+                let variable = "";
+                for (j=0;j<imagenes.length-1;j++){
+                    variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
+                }
+                variable+= imagenes[imagenes.length-1].getAttribute('alt');
+                window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
+            });
+
+            let cambiar = document.getElementById('cambiar-filtro');
+			let form = document.getElementById('datos');
+
+			cambiar.addEventListener("click", () => {
+				if (form.style.display == 'block'){
+					form.style.display = 'none';
+				}
+				else{
+					form.style.display = 'block';
+				}
+            });
+			
+			if (cambiar != null){
+				form.style.display = 'none';
+			}		
+        };
+    </script>
 </head>
-<body>   
+<body id="body">   
     <header>
 		<?php echo $encab;?>
 	</header>
-
-    <main id="main">
-		<aside class="barra-lateral"> 
+	
+	<main id="main">
+        <aside class="barra-lateral"> 
 			<?php 
 				$filtro = "";
 				$url = $_SERVER["REQUEST_URI"];
 
 				echo "<div id='filtros-usados'>";
-					if ($categoria != -1){
+					if ($categoria != ""){
 						$sql  = "SELECT c.nombre_categoria
 								FROM `categoria` as c
 								WHERE c.id_categoria = '$categoria'";
 
-						$r = $db->query($sql);
+						$resultado = $db->query($sql);
 						
-						foreach($r as $row){
+						foreach($resultado as $row){
 							$cat = $row['nombre_categoria'];
 						}
 						$filtro = "<b>Categoría:</b> ". $cat . ".<br>";
 					}
 
-					if ($subcategoria != -1){
+					if ($subcategoria != ""){
 						$sql  = "SELECT s.nombre_subcategoria
 								FROM `subcategoria` as s
 								WHERE s.id_subcategoria = '$subcategoria'";
 						
-						$r = $db->query($sql);
+						$resultado = $db->query($sql);
 
-						foreach($r as $row){
+						foreach($resultado as $row){
 							$subcat = $row['nombre_subcategoria'];
 						}
 
@@ -280,7 +295,6 @@
 				crearBarraLateral();
 			?>
 		</aside>
-		
         <?php
 			crearImagenes ($rs);
 

@@ -1,12 +1,14 @@
-<!DOCTYPE html>
 <?php   
     include("pie.php");
     include ("inc/conn.php");
 	include('config.php');
+	require_once('vendor/autoload.php');
 
     if ($perfil == "E"){ 
         header("location:ve.php");
     }
+
+    $auth = new TwitterAuth($cliente);
 
     //Si se valida el token al iniciar sesion con Google
     if (isset($_GET["code"])) {
@@ -40,7 +42,9 @@
 
     include("encabezado.php"); 
 
-    //Si se inicio sesion con google
+    //Hacer funciones: existeUsuario y existeEmail
+
+    //Si se inicio sesion con Google
     if (isset($_GET["code"])) {
         //Ver si ese usuario está registrado
         $id = $_SESSION['id']; 
@@ -57,7 +61,7 @@
             $i++;
         }
 
-        //Si ese id que devuelve google no existe y tampoco existe el email
+        //Si ese id que devuelve Google no existe y tampoco existe el email
         if ($i == 0){
             $nombre = $_SESSION['user_first_name'];
             $apellido = $_SESSION['user_last_name'];
@@ -91,7 +95,72 @@
 
             $db->query($sql);
         }
-        
+    }//Si se inicio sesion con Twitter
+    else if (isset($_SESSION["user_id"])){
+        $id = $_SESSION['user_id']; 
+
+        $sql = "SELECT id_social
+                FROM `usuario_rs` as rs
+                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+                WHERE (id_social = '$id')";
+
+        $resultado = $db->query($sql);
+        $i = 0;
+        foreach ($resultado as $r){
+            $i++;
+        }
+
+        //Si ese id que devuelve Twitter no existe
+        if ($i == 0){
+            $nombreUsuario = $_SESSION['nombre_tw'];
+            $nombreUsuario = preg_replace('([^A-Za-z0-9])', '', $nombreUsuario);
+            $sql = "SELECT nombreUsuario
+                    FROM usuario
+                    WHERE nombreUsuario = '$nombreUsuario'";
+
+            $result = $db->query($sql);
+
+            foreach ($result as $r){
+                $i++;
+            }
+
+            //Si no existe una persona con ese nombre de usuario
+            if ($i == 0){
+                $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
+                ('$nombreUsuario', 'U')";
+            }
+            else{
+                $nombreUsuario = $_SESSION['arroba_tw'];
+
+                $sql = "SELECT nombreUsuario
+                    FROM usuario
+                    WHERE nombreUsuario = '$nombreUsuario'";
+
+                $result = $db->query($sql);
+                $i=0;
+
+                foreach ($result as $r){
+                    $i++;
+                }
+                //Si no existe una persona con el nombre de usuario = arroba de twitter
+                if ($i == 0){
+                    $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
+                            ('$nombreUsuario', 'U')";
+                }
+                //Sino unir el nombre y el arroba y ver si existe algun usuario con ese nombre de usuario
+                //En el caso de que exista un usuario con nombre+arroba probar con arroba+nombre
+                //Sino ver algo para hacer por defecto
+            }
+            
+            $db->query($sql);
+
+            $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
+
+            $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
+            ('$usuario_id', '$id', 'Twitter')";
+
+            $db->query($sql);    
+        }
     }
 
     function agregarImgCategorias (){
@@ -135,34 +204,26 @@
         }
     }  
 ?>
+<!DOCTYPE html>
 <html lang="es">
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
-	<script src="JS/jquery-3.3.1.min.js"></script>
-    <script src="JS/funciones.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="js/funciones.js"></script>
     <title>Catato Hogar</title>
     <style>
-        main{
+        #main{
             background-color: #fef7f1;
             padding-top: 30px;
         }
 
         .categorias {
             display: flex;
-            width:70%;
             flex-wrap: wrap;
-            justify-content: center;
             padding-left:15%;
             padding-right:15%;
-        }
-
-        .cont-images img{
-            border-radius: 5px;
-            transition: all 0.5s linear;
-            width: 300px;
-            height: 300px;
         }
 
         .categoria{
@@ -172,6 +233,13 @@
             height:400px;
             align-items:center;
         }
+
+        .cont-images img{
+            border-radius: 5px;
+            transition: all 0.5s linear;
+            width: 300px;
+            height: 300px;
+        }    
 
         .cont-images{
             position: relative;
@@ -186,7 +254,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #ecab0f;
-            opacity: 0;
+            opacity:0;
         }
 
         .img-titulo{
@@ -207,7 +275,6 @@
             margin:auto;
         }
     </style>
-
     <script>
         function ponerMouse(texto,imagen){
             texto.style.transition = "opacity 0.4s linear";

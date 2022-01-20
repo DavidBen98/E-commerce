@@ -3,8 +3,6 @@
 	require 'funciones.php'; 
 	require 'config.php'; 
  
-	//session_start();
-
 	$login=0;	
 	
 	$nombreUser =(isset($_POST['nombreUsuario']) && !empty($_POST['nombreUsuario']))? trim($_POST['nombreUsuario']):"";

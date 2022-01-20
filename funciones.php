@@ -1,8 +1,7 @@
 <?php
     require 'inc/conn.php';
-	global $habilitado;
 
-    function crear_barra($token) {
+    function crear_barra() {
         global $user;
         global $perfil;
         $links=''; 
@@ -13,22 +12,26 @@
                         " </span> &nbsp;</a>
                         <a href='logout.php' title='Cerrar sesión de usuario'> X </a>";
         }
+        else if (isset($_SESSION['nombre_tw'])){
+            $links = "  <a href='informacion_personal.php' title='Perfil'> 
+                            <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
+                        </a>
+                        <a href='logout.php' title='Cerrar sesión de usuario'> X </a>";
+        }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
-                        <a href='login.php' title='Iniciar sesion' id='iniciarSesion'> Iniciar sesión</a>";
+                        <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
                         <a href='cerrar_sesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
-            $links = "<a href='informacion_personal.php' title='Perfil'> <span> {$_SESSION['nombre']} </span> &nbsp;</a>
+            $links = "<a href='informacion_personal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
                         <a href='cerrar_sesion.php' title='Cerrar sesión de usuario'> X </a>";
         }
     
-        $barra_sup ="<div id='barra_superior'>
+        $barra_sup ="<div id='barra-superior'>
                         $links
                     </div> ";
-
-        
                     
         return  $barra_sup;
     }
@@ -71,67 +74,6 @@
                         </div> 
     ";
 
-    function crearListaCategorias(){ 
-        global $db; 
-        $nomCat = "";
-
-        //trae los nombres de las categorias
-        $sql = "SELECT nombre_categoria
-                FROM `categoria` 
-        "; 
-
-        $rs = $db->query($sql); 
-
-        //lista de categorias
-        echo " 
-                <label for='categoria'>CATEGORIA</label> <br>
-                <select id='categoria' class='hover' name='categoria'> 
-        ";       
-        
-        foreach ($rs as $row) {
-            echo " <option value='{$row['nombre_categoria']}'> {$row['nombre_categoria']} </option> ";       
-        } 
-        echo " </select> "; 
-    }
-
-    function crearListaSubCat(){ 
-        global $db; 
-        $nomCat = "";
-
-        //trae los nombres de las categorias
-        $sql = "SELECT nombre_categoria
-                FROM `categoria` 
-        "; 
-
-        $rs = $db->query($sql); 
-                 
-        foreach ($rs as $row) {
-            $nomCat .= $row['nombre_categoria'] . ",";	
-        }
-
-        $arrNomCat = explode(",",$nomCat); 
-
-        //lista subcategorias
-        echo "  <label for='subcategoria'>SUBCATEGORIA</label> <br>
-                <select name='subcategoria' class='hover'> 
-        ";    
-          
-        foreach ($arrNomCat as $valor) {
-            $nomCat = $valor;  
-
-            $sql1 = "SELECT nombre_subcategoria
-                    FROM `subcategoria`
-                    WHERE nombre_categoria='$nomCat'
-            "; 
-            
-            $rs1 = $db->query($sql1);
-
-            foreach ($rs1 as $row1) {                         
-                echo  " <option value='{$row1['nombre_subcategoria']}'> $nomCat - {$row1['nombre_subcategoria']} </option> ";                                    
-            } 
-        }
-    }
-
     function mostrarInfoPersonal(){
         global $db; 
         $nombreUser = $_SESSION['user'];
@@ -156,21 +98,28 @@
                             </div>
             ";
         }
-    }   
-
-    function crearListas(){ 
-        crearListaCategorias();
-        crearListaSubCat();
-    }   
+    }    
 
     function crearImagenes ($consulta){
-		if (!$consulta){
+		$i=0;	
+		echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
+		
+        if (!$consulta){
+            $i++;
 			echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
 		}
-		else if (isset($_GET['prod'])){
-			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
+        else if (isset($_GET['cat']) && $_GET['cat'] != 'productos'){
 
-			$i=0;
+			foreach ($consulta as $row) {
+				$i++; 
+				echo "<div class='producto'>
+						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title=''> 
+						<p class='descripcion'>". ucfirst($row['nombre_subcategoria'])." </p>
+					</div>";           
+			};		
+		}
+		else{
+
 			foreach ($consulta as $row) {
 				$i++; 
 				echo "<div class='producto'>
@@ -181,67 +130,15 @@
 						</div>
 					</div>";           
 			};
-
-			if ($i == 0){
-				echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
-			}
-						
-			echo "	</div>
-				</form>
-			";			
 		}
-		else if (isset($_GET['cat']) && $_GET['cat'] != 'productos'){
-			echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
 
-			$i=0;
-			global $db;
-			$imagenes = $_GET['cat'];
-			$imagenes = substr($imagenes,0,2);
-			$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio
-					FROM subcategoria as s
-					INNER JOIN producto as p on s.id_subcategoria = p.id_subcategoria
-					Where `codigo` LIKE '$imagenes%%1'";
-
-			$rs = $db->query($sql);
-			
-			foreach ($rs as $row) {
-				$i++; 
-				echo "<div class='producto'>
-						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title=''> 
-						<p class='descripcion'>". ucfirst($row['nombre_subcategoria'])." </p>
-					</div>";           
-			};
-
-			if ($i == 0){
-				echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
-			}
-						
-			echo "	</div>
-				</form>
-			";			
-		}
-        else{
-            echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>	";
-				$i=0;
-				foreach ($consulta as $row) {
-					$i++; 
-					echo "<div class='producto'>
-							<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
-							<div class='caracteristicas'>
-								<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
-								<p class='precio' style='text-align:center;'>$". ucfirst($row['precio'])." </p>
-							</div>
-						</div>";           
-				};
-
-			if ($i == 0){
-				echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
-			}
-						
-			echo " </div>
-				</form>
-			";	
+        if ($i == 0){
+            echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
         }
+                    
+        echo "	</div>
+            </form>
+        ";	
 	} 
 
     function completarWhere ($sql,$filtros){

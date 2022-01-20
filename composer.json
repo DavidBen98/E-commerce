@@ -1,6 +1,13 @@
 {
     "require": {
         "hybridauth/hybridauth": "^3.7",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "jublonet/codebird-php": "^3.1",
+        "mercadopago/dx-php": "^2.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }

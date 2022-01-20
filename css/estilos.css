@@ -1,13 +1,7 @@
 /*HEADER*/
-#body{
-    width:100%;
-    margin: 0;
-    padding: 0;
-}
-
 body{
     font-family: "Salesforce Sans", serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.5em;
     margin: 0;
 }
@@ -23,46 +17,37 @@ header a {
 
 #titulo-principal{
     font-size: 1.3em;
-    margin:0;
     font-weight: normal;
 }
 
 /*PRIMER CONTENEDOR DE ENVIO A TODO EL PAIS*/
 #html-slot {
-    display: flex;
-    height: 30px;
-    padding: 0;
+    background-color: black;
     text-align: center;
 }
 #html-slot span{
-    color: #d3d3d3;
-    font: 1.3em;
+    color: white;
     font-family: "Avenir Next";
-    font-weight: 400;
-    font-size: 20px;
-    width: 100%;
-    background: #000;
-    height: 30px;
+    font-size: 18px;
 }
 /*TERMINA ENNVIO A TODO EL PAIS */
 
 /*HEADER LOGO-BUSCAR-USUARIO */
-#container-buscar {
-    max-width: 100%;
+#container-header {
     display: flex;
     justify-content: space-around; 
     align-items: center; 
     background-color: #D3D3D3;
-    margin-left: 0;
-    margin-right: 0;
     height:120px;
 }
 
 #logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     letter-spacing: 8px;
     width: 200px;
-    display:flex;
-    justify-content: center;
+    text-align:center;
     font-family: "Salesforce Sans", serif;
 }
 
@@ -72,7 +57,7 @@ header a {
 
 #header-buscar {
     width: 490px;
-    height: 33px;
+    height: 28px;
     border-radius: 10px;
     padding-left: 5px;
     font-size: 16px;
@@ -139,15 +124,20 @@ header a {
     background-color: white;
 }
 
-#barra_superior{
-    width:180px;
-    display:flex;
-    justify-content: center;
-    flex-wrap: wrap;
+#barra-superior{
+    width: 100px;
+    height: 50%;
+    text-align: center;
 }
 
 #iniciarSesion{
     border-top: solid 1px #000;
+}
+
+#iniciarSesion:hover, #btn-registrar:hover, #inicio:hover, #sus_nov:hover{
+    transition: all 0.5s linear;
+    color: #ecab0f;
+    text-shadow: white 0.1em 0.1em 0.2em;
 }
 
 /*NAVEGACION*/
@@ -159,25 +149,23 @@ header a {
 
 #navigation{
     background-color: white;
+    display: flex;
+    justify-content: center;
 }
 
 #navigation ul {
     margin: 0;
     padding: 0;
-    list-style: none;
 }
 
 #navigation ul li {
     display: inline-block;
-    align-items: center;
 }
 
 #navigation ul li a {
     display: block;
     padding: 0.5rem 1rem;
-    transition: all 0.3s linear;
     border-radius: 5px;
-    color: #707B7C;
 }
 
 #navigation ul li a:hover {
@@ -215,9 +203,6 @@ main{
 
 #pie{
     display: flex;
-    width: 100%; 					   
-    flex-direction: row ;
-    flex-wrap: wrap; 
     justify-content: space-between;
     background-color: #D3D3D3;
     height: 120px;
@@ -225,8 +210,6 @@ main{
 }
 
 #pie a{
-    text-decoration:none;
-    color: #000;
     width:300px;
     display:flex;
     justify-content:center;
@@ -235,7 +218,6 @@ main{
 
 #pie p{
     font-size: 0.8rem;
-    margin: 2px;
     width:250px;
     text-align:center;
 }
@@ -313,12 +295,9 @@ aside select{
     width: 90%;
     height: 30px;
     background-color: #D3D3D3;
-    border:none;
     border-radius:5px;
-    color: black;
     font-size: 1.2rem;
     text-align:center;
-    margin:0 auto;
 }
 
 .ltitulo{
@@ -368,7 +347,7 @@ aside select{
     margin: 0;
     justify-content: flex-start;
     flex-flow: row wrap;
-    align-items: flex-start;
+    align-content: flex-start;
     padding-left: 30px;
     width:60%;
 }
@@ -414,4 +393,34 @@ aside select{
     justify-content:center;
     margin:2px;
     border:none;
+}
+
+.contenedor::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.contenedor::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.contenedor::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.contenedor::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.contenedor::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.contenedor::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+option{
+    background-color: white;
 }
