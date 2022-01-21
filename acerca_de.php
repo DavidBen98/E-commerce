@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php 
 	include('config.php');
 	include ("encabezado.php");
@@ -7,7 +8,6 @@
         header("location:ve.php");
     }
 ?>
-<!DOCTYPE html>
 <html lang="es">
 <head>   
     <meta charset="utf-8">
@@ -15,15 +15,11 @@
     <title>Catato Hogar</title>
     <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
     <style>
-        ul {
-            list-style:none;
-            padding: 0;
-        }
-
         #main{
             display:flex;
             justify-content:center;
-            height:252px;
+            height:270px;
+            padding-bottom: 30px;
         }
 
         #cont-acerca{
@@ -35,15 +31,24 @@
             padding-left:0;
             border: 2px solid #000;
             border-radius: 5px;
-            margin-bottom: 30px;
         }
 
-        #cont-acerca h1{
-            width:402px;
-            height:38px;
-            text-align:center;
-            margin: 10px 0;
+        #cont-acerca h1 {
+            width: 100%;
+            height: 50px;
+            padding: 10px 0;
+            margin: 0;
             border-bottom: 1.5px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main ul {
+            list-style:none;
+            padding: 0;
+            height: 197px;
+            margin:0;
         }
 
         #cont-acerca li{

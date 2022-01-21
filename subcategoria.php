@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php  
 	include('config.php');
 	include ("encabezado.php");
@@ -11,7 +12,7 @@
 
 	global $db;  
 
-	$imagenes = $_GET['cat'];
+	$imagenes = $_GET['categoria'];
 	$imagenes = substr($imagenes,0,2);
 
 	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio
@@ -21,7 +22,6 @@
 	
 	$rs = $db->query($sql);
 ?>
-<!DOCTYPE html>
 <html lang="es"> 
 <head> 
     <meta charset="UTF-8">
@@ -35,38 +35,47 @@
 			padding: 20px 0 10px 0;
 			justify-content:center;
 		}
-
-		#header-buscar {
-			width: 500px;
-			height: 35px;
-		}
-
+		
 		.img-cat{
 			object-fit: contain;
 		}
+
+		#form-filtrado{
+			width: 100%;
+			justify-content: center;
+			padding: 0;
+		}
+
+		.producto{
+			height:300px;
+		}
 	</style>
 	<script>      
+		function getQueryVariable(variable) {
+			var query = window.location.search.substring(1);
+			var vars = query.split("&");
+			for (var i=0; i < vars.length; i++) {
+				var pair = vars[i].split("=");
+				if(pair[0] == variable) {
+					return pair[1];
+				}
+			}
+			return false;
+		}
         window.onload = function() {
             let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-			let formulario = document.getElementById('form-filtrado');
-			let imgProducto = document.getElementsByClassName('producto');
-
-			//Estilos
-			formulario.style.width = '100%';
-			formulario.style.justifyContent = 'center';
-			formulario.style.padding = '0';
-
-			for (let i=0; i<imgProducto.length; i++){
-				imgProducto[i].style.height = '300px';
-			}
+			let categoria = getQueryVariable ('categoria');
  
 			//Enviar a prod segun la subcategoria que se eligió
             for (j=0;j<imagenes.length;j++){
                 let imagen = imagenes[j].getAttribute('alt');
                 imagen = imagen.substring(0, imagen.length - 1);
+				let title = imagenes[j].getAttribute('title');
                 imagenes[j].addEventListener("click", () => {
-                    window.location = 'productos.php?prod='+imagen;});
-            };	
+					let redirigir = 'productos.php?articulos='+imagen+'&cate='+categoria+'&sub='+title;
+                    window.location = redirigir;
+				});
+            }
         }            
     </script>
 </head>
@@ -76,8 +85,6 @@
 	</header>
 
 	<main id="main">	
-		<aside>
-		</aside>
 		<?php 						 
 			crearImagenes($rs); 				
 		?>

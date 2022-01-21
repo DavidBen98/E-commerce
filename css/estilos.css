@@ -378,7 +378,7 @@ aside select{
     flex-wrap: wrap;
 }
 
-.filtrado{
+.btn-filtrado{
     width:80%;
     display:flex;
     justify-content:center;

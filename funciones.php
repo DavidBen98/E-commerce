@@ -104,37 +104,35 @@
 		$i=0;	
 		echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
 		
-        if (!$consulta){
-            $i++;
-			echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
-		}
-        else if (isset($_GET['cat']) && $_GET['cat'] != 'productos'){
+            if (!$consulta){
+                $i++;
+                echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
+            }
+            else if (isset($_GET['categoria'])){
+                foreach ($consulta as $row) {
+                    $i++; 
+                    echo "<div class='producto'>
+                            <img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <p class='descripcion'>". ucfirst($row['nombre_subcategoria'])." </p>
+                        </div>";           
+                };		
+            }
+            else{
+                foreach ($consulta as $row) {
+                    $i++; 
+                    echo "<div class='producto'>
+                            <img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+                            <div class='caracteristicas'>
+                                <p class='descripcion'>". ucfirst($row['descripcion'])." </p>
+                                <p class='precio' style='text-align:center;'> $". ucfirst($row['precio'])." </p>
+                            </div>
+                        </div>";           
+                };
+            }
 
-			foreach ($consulta as $row) {
-				$i++; 
-				echo "<div class='producto'>
-						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title=''> 
-						<p class='descripcion'>". ucfirst($row['nombre_subcategoria'])." </p>
-					</div>";           
-			};		
-		}
-		else{
-
-			foreach ($consulta as $row) {
-				$i++; 
-				echo "<div class='producto'>
-						<img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
-						<div class='caracteristicas'>
-							<p class='descripcion'>". ucfirst($row['descripcion'])." </p>
-							<p class='precio' style='text-align:center;'> $". ucfirst($row['precio'])." </p>
-						</div>
-					</div>";           
-			};
-		}
-
-        if ($i == 0){
-            echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
-        }
+            if ($i == 0){
+                echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
+            }
                     
         echo "	</div>
             </form>
@@ -220,5 +218,9 @@
 		}
 
         return $sql;       
+    }
+
+    function mostrarFiltros (){
+        
     }
 ?>

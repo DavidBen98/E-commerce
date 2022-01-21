@@ -162,7 +162,7 @@
             $db->query($sql);    
         }
     }
-
+    
     function agregarImgCategorias (){
         global $db;
         $sql = "SELECT nombre_categoria, id_categoria
@@ -191,12 +191,12 @@
             $rs1 = $db->query($sql1);
 
             echo "<p class='img-texto'>";
-            $txt = " ";
+            $subcatNombre = " ";
             foreach ($rs1 as $row1){ //subcategorias
-                $txt .= $row1['nombre_subcategoria'] . " <br> ";
+                $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
             }
             //agrega las diferentes subcategorias que pertenecen a esa categoria
-            echo "" .  ucwords($txt) . "          
+            echo "" .  ucwords($subcatNombre) . "          
                             </p>     
                         </div>
                     </div>
@@ -302,14 +302,10 @@
             let imagenes = document.getElementsByClassName('cont-images');
             for (j=0;j<imagenes.length;j++){
                 let imagen = img_cat[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {window.location = 'subcategoria.php?cat='+imagen;});
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'subcategoria.php?categoria='+imagen;
+                });
             };
-
-            let url = 'https://apis.datos.gob.ar/georef/api/provincias?campos=22,nombre';
-
-            let a = fetch (`{url}`);
-
-            console.log(a);
         };
     </script>
 </head>
