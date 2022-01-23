@@ -47,27 +47,170 @@
         main{
             display:flex;
             justify-content:center;
-        }
-        table{
-            border: 2px solid #000;
-            width:600px;
-            margin-bottom: 40px;
-        }
-        th{
-            border: 1px solid #000;
+            padding-bottom: 30px;
         }
 
-        tr{
-            height:30px;
+        .carrito{
+            width: 80%;
+            background-color: white;
+            padding:10px;
+            font-size: 1rem;
+            border-radius:5px;
         }
 
-        td{
-            border: 1px solid #000;
-            text-align:center;
+        .contenedor{
+            display: flex;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            align-items:center;
+            border-bottom: 1px solid #D3D3D3;
+            height:180px;
+            padding:10px 0;
+            margin: 0 10px;
         }
 
-        th{
-            border: 2px solid #000;
+        .productos{
+            width: 160px;
+            height:160px;
+            padding: 10px;
+            object-fit: contain;
+        }
+
+        .descripcion{
+            width:70%;
+            height:100%;
+            display:flex;
+            justify-content:start;
+        }
+
+        .precio{
+            width:250px;
+            height: 100%;
+            display: flex;
+            align-content: center;
+            flex-wrap:wrap;
+            justify-content:space-between;
+            border-left: 1px solid #D3D3D3;
+        }
+
+        .precio p{
+            width:45%;
+            font-size: 1rem;
+            height: 30px;
+            margin: 0;
+        }
+
+        .cont-btn{
+            display:flex;
+            justify-content:space-between;
+            margin: 0 10px;
+            height: 60px;
+            border-bottom: 1px solid #D3D3D3;
+            padding-top: 10px;
+        }
+
+        .checkout{
+            width:200px;
+        }
+
+        .principal{
+            width:65%;
+            display:flex;
+            justify-content:start;
+            flex-wrap:wrap;
+            height: 180px;
+        }
+
+        .principal p{
+            width:200px;
+            margin: 0;
+            text-align:start;
+            height: auto;
+        }
+
+        .secundario{
+            width:35%;
+            display:flex;
+            flex-wrap:wrap;
+            align-content:start;
+        }
+
+        .secundario p{
+            height: 20px;
+            margin: 10px 0;
+            color: #000;
+            font-size: 14px;
+            text-align:start;
+        }
+
+        .definir{
+            width:30%;
+        }
+
+        .caract{
+            width:50%;
+            padding-left:10px;
+        }
+
+        .mercadopago-button{
+            height:40px;
+            width: 250px;
+            font-weight: 700;
+        }
+
+        .titulo{
+            width:200px;
+            height: auto;
+        }
+
+        .contenedor-botones{
+            display:flex;
+            justify-content: end;
+            flex-wrap: wrap;
+            padding-bottom: 10px;
+        }
+
+        .botones{
+            height:100%;
+            width:250px;
+            margin: 0 10px;
+
+        }
+
+        .botones .checkout {
+            height: 20%;
+        }
+
+        .continuar{
+            height: 20%;
+        }
+
+        .btn-final{
+            margin-top:10px;
+        }
+
+        #total{
+            background-color: #D3D3D3;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            color: #000;
+            margin: 0;
+            padding: 5px;
+            font-family: museosans500,arial,sans-serif;
+        }
+
+        .continuar button{
+            width:250px;
+            height: 40px;
+            background: #ededed;
+            border-radius: 5px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .cant-compra{
+            padding: 5px 10px;
         }
 
     </style>
@@ -88,99 +231,106 @@
     </header>
     
     <main>           
-            <?php 
-                $idUsuario =$_SESSION['idUsuario'];
-                echo"<input type='hidden' name='idUsuario' id='idUsuario' value='$idUsuario'/>";
+        <?php 
+            $idUsuario =$_SESSION['idUsuario'];
+            echo"<input type='hidden' name='idUsuario' id='idUsuario' value='$idUsuario'/>";
+
+            global $db; 
+                        
+            $sql= "SELECT `precio`,`producto_codigo`,p.descripcion, u.id, p.material, p.color, p.marca, p.stock
+                    FROM `pedido` as c INNER JOIN `usuario` as u ON (c.usuario_id=u.id)
+                                        INNER JOIN `producto` as p on(c.producto_codigo=p.codigo)
+                    WHERE u.id=$idUsuario
+            "; 
+
+            $rs = $db->query($sql);
+ 
+            $productosAgregados=0;
+ 
+            foreach ($rs as $row){
+                $productosAgregados++;
+            }
+
+            $rs = $db->query($sql);
+
+            if ($productosAgregados == 0){
+                echo "<div>Aún no hay productos agregados";
+            }
+            else{
+                echo "<form class='carrito'>"; 
+                    echo "<div class='checkout-btn cont-btn'>
+                            <p style='margin:0; height:50px;'>
+                                <b style='font-family: museosans500,arial,sans-serif;'>Carrito de compras - Productos añadidos</b><br>
+                                ". $productosAgregados ." Productos
+                            </p>
+                        </div>";
+
+                $selectNumero = 1; 
+
+                foreach ($rs as $row) {  
+                    echo "<div class='contenedor'>";
+                        echo "<div class='descripcion'>";  
+                            echo "<div class='principal'>";                                                                                          
+                                echo "<img src='images/{$row['producto_codigo']}.png' class='productos' alt='Codigo del producto:{$row['producto_codigo']}'>";
+                                    echo "<div class='titulo'>";
+                                        echo "<p style='color:#000; margin-top:10px;'>".ucfirst($row['descripcion'])."</p>"; 
+                                        echo "<p style='font-size:16px;'>".ucfirst($row['marca'])."</p>"; 
+                                    echo "</div>";
+                            echo "</div>";
+                            echo "<div class='secundario'>
+                                        <p class='definir'> 
+                                            <b>Color:</b>
+                                        </p> 
+                                        <p class='caract'> ".ucfirst($row['color']) . "</p>
+                                        <p class='definir'> 
+                                            <b>Material:</b>
+                                        </p> 
+                                        <p class='caract'> ".ucfirst($row['material']) . "</p>
+                                        <p class='definir'>
+                                            <b>Cantidad:</b>
+                                        </p> 
+                                        <p class='caract'>
+                                            <select class='cant-compra' name='cant-".$selectNumero."' title='Cantidad'>";
+                                                for ($i=1; $i<=$row['stock']; $i++){
+                                                    echo "<option value=".$i.">". $i . "</option>";
+                                                }
+                        echo"               </select>
+                                        </p>";
+                            echo "</div>";                                            
+                        echo "</div>";
+
+                        echo "<div class='precio'>
+                                <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; margin-left:15px;'>Precio unitario </p> 
+                                <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; font-family: Arial,Helvetica,sans-serif;'> $ ". $row['precio'] . "</p>
+                                <p style='padding: 5px 0 0 5px; margin-left:15px'>Precio </p> 
+                                <p style='padding: 5px 0 0 5px; font-family: Arial,Helvetica,sans-serif;'><b>$&nbsp; </b></p>";
+                                // echo "$subTot";
+                                // $totSubTotal += $row['precio_unidad'] * $row['cantidad'];
+                        echo "</div>";
+                    echo "</div>";
+
+                    $selectNumero++;
+                }                             
+
+                $redirigir = "window.location.href='productos.php?productos=todos'"; //NO FUNCIONA
+                echo "<div class='contenedor-botones'>
+                        <div class= 'botones'>
+                            <p id='total'><b>Total </b> </p>
+                            <div class='checkout btn-final'></div>
+                            <div class='continuar'>
+                                <button class='btn-final' onclick=".$redirigir.">Continúa comprando</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>"; 
+            }                                  
             ?>
-       
 
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Producto 
-                    </th>
-                    <th>
-                        Descripcion
-                    </th>
-                    <th>
-                        Precio por unidad
-                    </th>
-                    <th>
-                        Cantidad
-                    </th>
-                    <th>
-                        Subtotal
-                    </th>
-                    
-                </tr>
-            </thead> 
-                      
-            <?php 
-                global $db; 
-                            
-                $sql= "SELECT `precio_unidad`,`cantidad`,`producto_codigo`,p.descripcion, u.id
-                        FROM `pedido` as c INNER JOIN `usuario` as u ON (c.usuario_id=u.id)
-                                            INNER JOIN `producto` as p on(c.producto_codigo=p.codigo)
-                        WHERE u.id=$idUsuario
-                "; 
-
-                $rs = $db->query($sql);
-                $totPrecioUnid = 0;
-                $totCant = 0;
-                $totSubTotal = 0;
-            ?>                               
-            <tbody>                      
-                <?php foreach ($rs as $row) {  ?>                                           
-                    <tr>  
-                        <td>                                                      
-                            <?php echo "<img src='images/{$row['producto_codigo']}.png' alt='Codigo del producto:{$row['producto_codigo']}' style='width:200px;heigth:200px'  >"?>
-                        </td>                          
-                        <td>
-                            <?php echo ucfirst($row['descripcion']);?> 
-                        </td>
-                        <td>
-                            <?php echo "{$row['precio_unidad']}";?>        
-                            <?php $totPrecioUnid += $row['precio_unidad']?>
-                        </td>
-                        <td>
-                            <?php echo "{$row['cantidad']}";?>
-                            <?php $totCant += $row['cantidad']?>
-                        </td>
-                        <td>
-                            <?php 
-                                $subTot = $row['precio_unidad'] * $row['cantidad'];
-                                echo "$subTot";?>
-                            <?php $totSubTotal += $row['precio_unidad'] * $row['cantidad'] ?>
-                        </td>                           
-                    </tr>
-                <?php } ?>                               
-            </tbody> 
-
-            <tfoot>
-                <tr> 
-                    <td colspan="2">                                                      
-                        Totales:
-                    </td>   
-                    <td>
-                        <?php echo "$totPrecioUnid";?>
-                    </td>
-                    <td>
-                        <?php echo "$totCant";?>
-                    </td>
-                    <td>
-                        <?php echo "$totSubTotal";?>
-                    </td>                           
-                </tr> 
-            </tfoot>
-
-        </table>   
-
-        <a href="carrito_xls.php" title='Excel de compras'>
-            <img src='images/logo_excel.jpeg' title='Excel de compra.' alt="icono Excel." > 
-        </a>
+            <a href="carrito_xls.php" title='Excel de compras' style='margin:10px;'>
+                <img src='images/logo_excel.jpeg' title='Excel de compra.' alt="icono Excel." > 
+            </a>
         
-        <div class="checkout-btn"></div>
+        
         <script>
             const mp = new MercadoPago("TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608", {
                 locale: "es-AR",
@@ -193,11 +343,23 @@
                 },
                 render: {
                     container: ".checkout-btn", // Indica el nombre de la clase donde se mostrará el botón de pago
-                    label: "Comprar", // Cambia el texto del botón de pago (opcional)
+                    label: "Proceder a la compra", // Cambia el texto del botón de pago (opcional)
                 },
             });
+
+            mp.checkout({
+                preference: {
+                    id: '<?php echo $preference->id; ?>'
+                },
+                render: {
+                    container: ".checkout", // Indica el nombre de la clase donde se mostrará el botón de pago
+                    label: "Proceder a la compra", // Cambia el texto del botón de pago (opcional)
+                },
+            });
+
         </script>    
     </main>   
+
     <?php
         echo $pie;
     ?> 

@@ -10,10 +10,13 @@ require_once 'vendor/autoload.php';
 require_once 'app/TwitterAuth.php';
 require_once 'vendor\jublonet\codebird-php\src\codebird.php';
 
-\Codebird\Codebird::setConsumerKey('VZtL1D6kiULEhnWS0tRtKXHDp',
-'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
+if ($_SERVER['REQUEST_URI'] != 'E-commerceMuebleria/nueva_compra.php'){
+    \Codebird\Codebird::setConsumerKey('VZtL1D6kiULEhnWS0tRtKXHDp',
+    'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
+    
+    $cliente = \Codebird\Codebird::getInstance();
+}
 
-$cliente = \Codebird\Codebird::getInstance();
 
 if ($user==""){ 
     //Include Google Client Library for PHP autoload file

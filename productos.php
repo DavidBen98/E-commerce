@@ -194,14 +194,16 @@
             let cambiar = document.getElementById('cambiar-filtro');
 			let form = document.getElementById('datos');
 
-			cambiar.addEventListener("click", () => {
-				if (form.style.display == 'block'){
-					form.style.display = 'none';
-				}
-				else{
-					form.style.display = 'block';
-				}
-            });
+			if (cambiar != null){
+				cambiar.addEventListener("click", () => {
+					if (form.style.display == 'block'){
+						form.style.display = 'none';
+					}
+					else{
+						form.style.display = 'block';
+					}
+				});
+			}
 			
 			if (cambiar != null){
 				form.style.display = 'none';

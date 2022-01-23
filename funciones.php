@@ -8,15 +8,15 @@
 
         if (isset($_GET['code']) || isset($_SESSION['user_first_name'])){
             $links = "  <a href='informacion_personal.php' title='Perfil'> <span>" 
-                            . $_SESSION['user_last_name'] . ", ". $_SESSION['user_first_name'] . 
+                            . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='logout.php' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacion_personal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='logout.php' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
@@ -26,7 +26,7 @@
                         <a href='cerrar_sesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacion_personal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='cerrar_sesion.php' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='cerrar_sesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barra_sup ="<div id='barra-superior'>

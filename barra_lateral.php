@@ -146,6 +146,8 @@
 			";
 		}
 
+		ksort($arrMarcas);
+
 		echo"</div> </div> 
 			<div class='marcas contenedor'>					
 				<label class='ltitulo'><b>Marcas</b></label>

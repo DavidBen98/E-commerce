@@ -125,9 +125,31 @@ header a {
 }
 
 #barra-superior{
-    width: 100px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 160px;
     height: 50%;
     text-align: center;
+}
+
+#btn-registrar{
+    width: 100%;
+}
+
+#cerrar{
+    background-color: rgba(0,0,0,0.45);
+    color: white;
+    border-radius: 5px;
+    width: 25px;
+    height:25px;
+}
+
+#cerrar:hover{
+    transition: all 0.5s linear;
+    color: #ecab0f;
+    background-color: rgb(0,0,0);
 }
 
 #iniciarSesion{
