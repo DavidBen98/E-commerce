@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <?php  
+	//EN LA SECCION REGISTRO AGREGAR SI QUIERE SUSCRIBIRSE O NO
 	include('config.php');
     include("pie.php");
 	require_once('vendor/autoload.php');
 	include("encabezado.php");
-
-	$habilitado = false;
 
 	if (perfil_valido(2)) {
 		header("location:informacion_personal.php");
@@ -15,10 +14,6 @@
 	}
 
 	$auth = new TwitterAuth($cliente);
-
-	if (!isset($_SESSION['access_token'])) {
-		$habilitado = true;
-	}
 
 	$login_button = "<a href=" . $google_client->createAuthUrl() . " class='btn-google'>Iniciar sesión con Google</a>
 				<a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
@@ -322,9 +317,9 @@
 	</style>
 </head>
 <body>
-        <?php 
-		 	echo $encab;
-		?>
+	<?php 
+		echo $encab;
+	?>
 
 	<main id='main'>
 		<?php

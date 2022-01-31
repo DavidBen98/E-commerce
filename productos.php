@@ -5,6 +5,7 @@
     include('config.php');
 	include ("encabezado.php");
 	include ("barra_lateral.php"); 
+    //AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
 	if ($perfil == "E"){ 
 		header("location:ve.php");
@@ -19,14 +20,18 @@
 				isset($_POST['valorMin'])? $_POST['valorMin']:null,
 				isset($_POST['valorMax'])? $_POST['valorMax']:null,
 				isset($_POST['orden'])? $_POST['orden']:null];
+
+	if ($filtros[2] != null && $filtros[3] != null && $filtros[2]>$filtros[3]){
+		$maximo = $filtros[2];
+		$filtros[2] = $filtros[3];
+		$filtros[3] = $maximo;
+	}
 	
     if(isset($_GET['productos'])){   
         $sql  = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
                 FROM `producto` as p
                 INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
                 INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria";
-
-        $where_sql = "";
 
         //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
         $categoria = (isset($_POST['categoria']))? intval($_POST['categoria']) : "";
@@ -81,17 +86,14 @@
 			justify-content: center;
 		}
 
-		/*ASIDE*/
 		aside{
 			margin-bottom:10px;
 		}
 
-
 		.barra-lateral {
 			width:25%;
 			align-content: flex-start;
-			padding-left:4px;
-			padding-right:4px;
+			padding: 10px 5px;
 			order: 0;
 			border-radius: 5px;
 		}
@@ -117,10 +119,8 @@
 
 		@media print {				
 			main { 
-				font-size:18pt; 
 				font-family:"times new roman",times;
-				color:#000;
-				background-color:#FFFFFF; 	
+				background-color:#000; 	
 				width:100%;
 				border:none;
 			}
@@ -164,6 +164,7 @@
 		.caracteristicas{
 			flex-wrap:wrap;
 			width:230px;
+			height:130px;
 		}
 
 		.img-cat{
@@ -207,7 +208,7 @@
 			
 			if (cambiar != null){
 				form.style.display = 'none';
-			}		
+			}	
         };
     </script>
 </head>
@@ -222,102 +223,24 @@
 				$filtro = "";
 				$url = $_SERVER["REQUEST_URI"];
 
-				if (isset($filtros[4])){
-					if ($filtros[4] == 0){
-						$filtro .= "<b>Orden: </b> Menor a mayor precio <br>";
-					}
-					else if ($filtros[4] == 1){
-						$filtro .= "<b>Orden: </b> Mayor a menor precio <br>";
-					}
-					else{
-						$filtro .= "<b>Orden: </b> Más vendidos <br>";
-					}
-				}
-
-				if (is_int($categoria)){
-					$sql  = "SELECT c.nombre_categoria
-							FROM `categoria` as c
-							WHERE c.id_categoria = '$categoria'";
-					$resultado = $db->query($sql);
-					
-					foreach($resultado as $row){
-						$cat = $row['nombre_categoria'];
-					}
-					$filtro .= "<b>Categoría:</b> ". $cat . "<br>";
-				}
-				else if ($categoria != ""){
-					$filtro .= "<b>Categoría:</b> ". $categoria . "<br>";
-				}
-
-				if (is_int($subcategoria)){
-					$sql  = "SELECT s.nombre_subcategoria
-							FROM `subcategoria` as s
-							WHERE s.id_subcategoria = '$subcategoria'";
-					
-					$resultado = $db->query($sql);
-
-					foreach($resultado as $row){
-						$subcat = $row['nombre_subcategoria'];
-					}
-
-					$filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>";
-				}
-				else if ($subcategoria != ""){
-					$filtro .= "<b>Subcategoría:</b> ". $subcategoria . "<br>";
-				}
-
-				if (isset($filtros[0])){
-					if (count($filtros[0]) == 1){
-						$filtro .= "<b>Color: </b>";
-					}
-					else{
-						$filtro .= "<b>Colores: </b>";
-					}
-					for ($i=0;$i<count($filtros[0]);$i++){ 
-						if ($i == count($filtros[0])-1){
-							$filtro .= $filtros[0][$i] . " <br>"; 
-						}
-						else{
-							$filtro .= $filtros[0][$i] . " - "; 
-						}
-					}
-				}
-
-				if (isset($filtros[1])){
-					if (count($filtros[1]) == 1){
-						$filtro .= "<b>Marca: </b>";
-					}
-					else{
-						$filtro .= "<b>Marcas: </b>";
-					}
-					for ($i=0;$i<count($filtros[1]);$i++){ 
-						if ($i == count($filtros[1])-1){
-							$filtro .= $filtros[1][$i] . "<br>"; 
-						}
-						else{
-							$filtro .= $filtros[1][$i] . " - "; 
-						}
-					}
-				}
-
-				if (isset($filtros[2])){
-					$filtro .= '<b>Mínimo:</b> $' . $filtros[2] . ' <br> <b>Máximo:</b> $' . $filtros[3];
-				}
-
-				echo "<div id='filtros-usados'>";
-					if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (isset($filtros[2]))){
-						echo "<a href='$url' id='filtro'> $filtro </a>";
-						echo "<div class='btn-filtrado'>					
-								<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
-								<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
+					if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
+						
+						$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
+						
+						echo "<div id='filtros-usados'>		
+								<div id='filtro'> $filtro </div>
+								<div class='btn-filtrado'>					
+									<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
+									<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
+							  	</div>
 							  </div>";
 					}
-				echo "</div>";
 
 				crearBarraLateral();
 			?>
 		</aside>
         <?php
+		
 			crearImagenes ($rs);
 
 			echo "  <div class='btn-doc'>

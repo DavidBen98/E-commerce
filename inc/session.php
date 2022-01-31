@@ -1,12 +1,14 @@
 <?php 
-
-if (!isset($_SESSION['user_first_name'])){
-	session_start();  
-}
-
-	$user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
-	$perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
-
+	if (isset($_SESSION['user_first_name'])){ //Si se inicio sesion con google
+		$perfil = "U";
+		$user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
+	}
+	else{
+		session_start();  
+		$user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
+		$perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
+	}
+	
 	if ($user=="") {
 		unset($_SESSION["user"]);
 		$_SESSION = array();

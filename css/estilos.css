@@ -289,14 +289,14 @@ button a{
 .descripcion{
     display:flex;
     width:230px;
-    height:15%;
+    height:25%;
     justify-content:center;
     text-align:center;
     background-color: white;
     color:grey;
+    margin: 0;
+    padding: 10px 0;
 } 
-
-/*ASIDE*/
 
 .btn-select{
     display:flex;
@@ -445,4 +445,20 @@ aside select{
 
 option{
     background-color: white;
+}
+
+#num-car{
+    position: absolute;
+    top: 60px;
+    background: #000;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 14px;
+    right: 26px;
+    border: solid 2px #000;
+    border-radius: 50%;
+    color: white;
+    font-family: Roboto,Arial,Helvetica,sans-serif;
 }

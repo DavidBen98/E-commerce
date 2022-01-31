@@ -37,6 +37,7 @@
             if (!empty($data['id'])) {
 				$_SESSION['id'] = $data['id'];
 			}
+
 		}
 	}
 
@@ -50,7 +51,7 @@
         $id = $_SESSION['id']; 
         $email = $_SESSION['user_email_address'];
 
-        $sql = "SELECT id_social
+        $sql = "SELECT id_social, id_usuario
                 FROM `usuario_rs` as rs
                 INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
                 WHERE (id_social = '$id' OR u.email = '$email')";
@@ -89,12 +90,21 @@
             $db->query($sql);
 
             $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
+            $_SESSION['idUsuario'] = $usuario_id;
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
             ('$usuario_id', '$id', 'Google')";
 
             $db->query($sql);
         }
+        else{
+            $resultado = $db->query($sql);
+
+            foreach($resultado as $row){
+                $_SESSION['idUsuario'] = $row['id_usuario'];
+            }
+        }
+
     }//Si se inicio sesion con Twitter
     else if (isset($_SESSION["user_id"])){
         $id = $_SESSION['user_id']; 

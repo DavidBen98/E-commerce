@@ -1,12 +1,13 @@
 <?php
-	include('config.php');
-    include ("encabezado.php");
-	require 'inc/conn.php';
-    include("pie.php");
- 
+	include_once('config.php');
+    include_once ("encabezado.php");
+	require_once 'inc/conn.php';
+    include_once("pie.php");
+	 
 	if (perfil_valido(1)) {
         header("location:ve.php");
     }  	
+
 	//HAY QUE ACTUALIZAR LA BASE DE DATOS CON LAS CARACTERISTICAS DE LOS PRODUCTOS
 ?>
 <!DOCTYPE html>
@@ -16,8 +17,85 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Catato Hogar</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
-	<script src="https://sdk.mercadopago.com/js/v2"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script>
+		// $(document).ready(function(){
+		// 	actualizarCarrito();
+
+		// $('#btn-enviar').click (function (){
+		// 	actualizarCarrito();
+		// });
+
+		// });
+
+		// function actualizarCarrito (){
+		// 	$.ajax ({
+		// 		type: "POST",
+		// 		url: "agregarCarrito.php",
+		// 		//data: "provincia=" + $('#provincia').val(),
+		// 		success: function (r){
+		// 			$('#num-car').html (r);
+		// 		}
+		// 	});
+		// }	
+
+
+		// function actualizarCarrito (){
+		// 	const http = new XMLHttpRequest();
+		// 	const url = 'http://localhost/E-commerceMuebleria/agregarCarrito.php';
+
+		// 	http.onreadystatechange = function (){
+		// 		if(this.readyState == 4 && this.status == 200){
+
+		// 		}
+		// 	}
+
+		// 	http.open ("GET", url);
+		// 	http.send ();
+		// }
+
+		// document.getElementById('btn-enviar').addEventListener ("click", function () => {
+		// 	actualizarCarrito ();
+		// });
+		// function actualizarCarrito (){
+		// 	<?php 
+		// 		if (!isset($_SESSION['carrito'][$id])){
+		// 			$_SESSION['carrito'][$id] = 1;
+		// 		}
+		// 		else{
+		// 			$_SESSION['carrito'][$id] = 1;
+		// 		}
+		// 	?>
+		// }
+
+
+		function agregarProducto (id){
+			var param = {
+				id: id
+			};
+
+			$.ajax({
+				data: param,
+				url: "agregarCarrito.php",
+				method: "post",
+				success: function(data) {
+					var datos = JSON.parse(data);
+
+					if (datos['ok']){
+						let cantCarrito = document.getElementById('num-car');
+						cantCarrito.innerHTML = datos.numero;
+					}
+				}
+			});			
+		}
+
+	</script>
 	<style>
+		main{
+			display:flex;
+			justify-content: center;
+		}
+
 		#carac {
 			padding:0; 
 			display:flex; 
@@ -25,7 +103,7 @@
 			justify-content:start;
 		}
 
-		form {
+		.contenedor {
 			display:flex;
 			justify-content: center;
 			flex-wrap: wrap;
@@ -35,12 +113,7 @@
 			width: 90%;
 		}
 
-		main{
-			display:flex;
-			justify-content: center;
-		}
-
-		form h1{
+		.contenedor h1{
 			font-size: 0.9em;
 		}
 
@@ -77,7 +150,7 @@
 		}
 
 		#btn-enviar{
-			margin:15px;
+			margin-top:15px;
 		}
 
 		#precio{
@@ -97,21 +170,21 @@
 	</header>
     <main id='main'>
 		<?php
-    	global $db;
-		$variable = $_GET['art'] ;
-    	$where_sql = "WHERE codigo = '$variable'";
-		
-    	$sql = "SELECT codigo, descripcion, material, color, caracteristicas, marca, stock, precio
-   			 FROM `producto`
-   			 $where_sql; ";
-   	 	$rs = $db->query($sql);
-   		 
-   	 	foreach ($rs as $row) { 
+			global $db;
+			$variable = $_GET['art'] ;
+			$where_sql = "WHERE codigo = '$variable'";
+			
+			$sql = "SELECT *
+					FROM `producto`
+					$where_sql; ";
+			$rs = $db->query($sql);
 				
+			foreach ($rs as $row) { 	
 				$caract = $row['caracteristicas'];
 				$aCarac = explode (',', $caract);
-				
-				echo "<form action='nueva_compra.php' method='post'> 
+				$id = $row['id'];
+
+				echo "<div class='contenedor'> 
 							<div id='cont-images'>
 								<img src='images/$variable.png' class='img-cat' title='{$row['descripcion']}' >                                   
 							</div>
@@ -121,7 +194,8 @@
 									
 									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>
 									
-									<span id='precio' name='precio' value='{$row['precio']}'  title='El precio es:{$row['precio']}'>$ {$row['precio']}</span>
+									<span id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</span>
+									<input type='hidden' name='precio' value='{$row['precio']}' />
 								</div>
 								<div class='carac-prod'>
 									
@@ -132,6 +206,7 @@
 										<p><b>Marca:</b> " . $row['marca'].  "</p><br>
 									";
 									
+									//Separar la descripcion que viene en la columna "caracteristicas" en la BD
 									for ($i=0;$i<count($aCarac);$i++){
 										$posicion = stripos ($aCarac[$i],':');
 										$caracteristica = substr($aCarac[$i], 0, $posicion+1);
@@ -144,27 +219,34 @@
 								</div>";
 								
 								if($row['stock'] == 0){
-									echo "<p>Lo sentimos, no tenemos stock de este artículo.
+									echo "<p>Lo sentimos, no poseemos stock de este artículo.
 									Si desea saber cuando volverá a tener stock suscríbase a las novedades.
 									Gracias.
 									</p>
 									";
 								}
 								else{
-									if (!isset($_SESSION['user_first_name']) && $perfil != "U"){
-										echo"<p>Si desea comprar este artículo por favor <a href='login.php?reg=true' class='enlaces'>Registrarse</a> o <a href='login.php' class='enlaces'>Iniciar sesión</a> </p>";
-									}
-									else{
-										echo"  <input type='number' id='cantidad' name='cantidad' value='1' min='1' max='{$row['stock']}' title='Seleccione el numero de articulos que quiere'/> <br>
-										<input type='submit' id='btn-enviar' class='btn' value='Agregar al carrito'>
-										";
-									}	 						
+									$boton = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>";
+									echo $boton;						
 								}
-								echo "</div>";
-				echo "</form>";                    
+					echo	"</div>
+					</div>";                    
 			}
-			?>
+		?>
 	</main>
+
+	<script>	
+		window.onload = function() {
+			var agregar = document.getElementById('btn-enviar');
+			var carrito = document.getElementById('num-car');
+
+			//agregar.onclick = actualizarCarrito;		
+			// 	actualizarCarrito ();
+
+			// 	window.location.href='productos.php?productos=todos';
+			// });
+		}
+	</script>
 		
 	<?php 
 		echo $pie; 

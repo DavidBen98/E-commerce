@@ -1,6 +1,5 @@
 <?php require 'inc/conn.php';
 
-
 global $db;
 
 if (!empty($_POST['categoria'])){
@@ -55,7 +54,4 @@ if (!empty($_POST['provincia'])){ //desde login(registrarse)
         echo "</select>";
     }
 }
-
-
-
 ?>

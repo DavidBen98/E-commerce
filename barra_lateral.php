@@ -42,7 +42,7 @@
 							</select>
 						</div>";
 		}
-		else if (isset($_GET['productos'])){ //Si se ingresa desde productos
+		else if (isset($_GET['productos'])){ //Si se ingresa desde el nav ->productos
 			$arrCategorias = [];
 			$arrSubcategorias = [];
 
@@ -168,9 +168,9 @@
 				<div id='min-max'>
 					<label id='lmaxmin'><b>Mínimo - Máximo</b></label>	
 					<div class='input-minmax'>	
-						<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='minimo' min='$valorMin'  value='$valorMin' >
+						<input type='number' name='valorMin' id='valorMin' style='text-align:center; height: 20px;' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
 						- 
-						<input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='maximo' max='$valorMax' value='$valorMax' > 							
+						<input type='number' name='valorMax' id='valorMax' style='text-align:center; height: 20px;' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
 					</div>
 				</div>	
 				<p id='e_error'>

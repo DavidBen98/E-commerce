@@ -1,5 +1,5 @@
 <?php
-    require 'inc/conn.php';
+    require_once 'inc/conn.php';
 
     function crear_barra() {
         global $user;
@@ -176,12 +176,17 @@
 
 		$where_precio=""; 
 
-		if (isset($filtros[2]) && isset($filtros[3])){
-			$where_sql .= "AND precio >= $filtros[2] AND precio <= $filtros[3] ";
+		if ($filtros[2] != null){
+			$where_sql .= "AND precio >=". $filtros[2];
 		}
+
+        if ($filtros[3] != null){
+            $where_sql .= " AND precio <= ". $filtros[3];
+        }
 
         $orderBy = "";
 		$orderMasVen = 0;
+
         if(isset($filtros[4])){
             if ($filtros[4] == 0){
                 $orderBy = " ORDER BY precio asc ";
@@ -220,7 +225,109 @@
         return $sql;       
     }
 
-    function mostrarFiltros (){
-        
+    function mostrarFiltros ($filtros,$categoria,$subcategoria){
+        global $db;  
+		$filtro = "";
+
+        if ($filtros[4]!=null){
+            if ($filtros[4] == 0){
+                $filtro .= "<b>Orden: </b> Menor a mayor precio <br>";
+            }
+            else if ($filtros[4] == 1){
+                $filtro .= "<b>Orden: </b> Mayor a menor precio <br>";
+            }
+            else{
+                $filtro .= "<b>Orden: </b> Más vendidos <br>";
+            }
+        }
+
+        if (is_int($categoria)){
+            $sql  = "SELECT c.nombre_categoria
+                    FROM `categoria` as c
+                    WHERE c.id_categoria = '$categoria'";
+            $resultado = $db->query($sql);
+            
+            foreach($resultado as $row){
+                $cat = $row['nombre_categoria'];
+            }
+            $filtro .= "<b>Categoría:</b> ". $cat . "<br>";
+        }
+        else if ($categoria != ""){
+            $filtro .= "<b>Categoría:</b> ". $categoria . "<br>";
+        }
+
+        if (is_int($subcategoria)){
+            $sql  = "SELECT s.nombre_subcategoria
+                    FROM `subcategoria` as s
+                    WHERE s.id_subcategoria = '$subcategoria'";
+            
+            $resultado = $db->query($sql);
+
+            foreach($resultado as $row){
+                $subcat = $row['nombre_subcategoria'];
+            }
+
+            $filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>";
+        }
+        else if ($subcategoria != ""){
+            $filtro .= "<b>Subcategoría:</b> ". $subcategoria . "<br>";
+        }
+
+        if (isset($filtros[0])){
+            if (count($filtros[0]) == 1){
+                $filtro .= "<b>Color: </b>";
+            }
+            else{
+                $filtro .= "<b>Colores: </b>";
+            }
+            for ($i=0;$i<count($filtros[0]);$i++){ 
+                if ($i == count($filtros[0])-1){
+                    $filtro .= $filtros[0][$i] . " <br>"; 
+                }
+                else{
+                    $filtro .= $filtros[0][$i] . " - "; 
+                }
+            }
+        }
+
+        if (isset($filtros[1])){
+            if (count($filtros[1]) == 1){
+                $filtro .= "<b>Marca: </b>";
+            }
+            else{
+                $filtro .= "<b>Marcas: </b>";
+            }
+            for ($i=0;$i<count($filtros[1]);$i++){ 
+                if ($i == count($filtros[1])-1){
+                    $filtro .= $filtros[1][$i] . "<br>"; 
+                }
+                else{
+                    $filtro .= $filtros[1][$i] . " - "; 
+                }
+            }
+        }
+
+        if ($filtros[2]!= null){
+            $filtro .= '<b>Mínimo:</b> $' . $filtros[2] . "<br> ";
+        }
+
+        if ($filtros[3]!= null){
+            $filtro .= ' <b>Máximo:</b> $' . $filtros[3];
+        }
+
+        return $filtro;
+    }
+
+    function cantidadCarrito(){ 
+        require_once 'config.php';
+
+        $cantCarrito = 0;   
+        if (isset($_SESSION['carrito'])){
+            foreach ($_SESSION['carrito']['productos'] as $value){
+                $cantCarrito += 1;
+            }
+        }
+
+        return $cantCarrito;
     }
 ?>

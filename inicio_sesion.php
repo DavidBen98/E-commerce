@@ -48,13 +48,11 @@
 		if ($login==0) {
 			$_SESSION["user"]="";
 		} 
-		else{  		
-			if ($_SESSION["perfil"]=="E"){
-				header("location:ve.php");
-			}
-			else { 
-				header("location:informacion_personal.php");
-			}		
+		else if ($_SESSION["perfil"]=="E"){
+			header("location:ve.php");
+		}
+		else { 
+			header("location:informacion_personal.php");	
 		}				
 	} 
 ?>

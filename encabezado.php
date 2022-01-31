@@ -1,6 +1,7 @@
 <?php   
-    include("funciones.php");
-    
+    include_once ("funciones.php");
+    $cantCarrito = cantidadCarrito();
+
     if (perfil_valido(1)){
         $encab =  "  <div id='imagen'>
                         <div id='buscar'>
@@ -41,14 +42,16 @@
                                 </button>
                             </div>"
                             .   crear_barra() . 
-                "
-                            <a href='carrito_compras.php' title='Carrito de compras' class='header-img' id='usu-car'><img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'></a>
+                "               
+                            <a href='carrito_compras.php' title='Carrito de compras' class='header-img' id='usu-car'>
+                                <img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'>
+                                <span id='num-car'>$cantCarrito</span>
+                            </a>
                         </div>     
                         <nav id='navigation'>
                             <ul>
                                 <li><a href='index.php'>Inicio</a></li>
                                 <li><a href='productos.php?productos=todos'>Productos</a></li> 
-                                <li><a href='acerca_de.php'>Acerca de</a></li>
                                 <li><a href='contacto.php'>Contacto</a></li>
                             </ul>
                         </nav>
