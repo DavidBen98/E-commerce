@@ -76,9 +76,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="js/funciones.js"></script>
-    <title>Catato Hogar</title>
+    <title>Muebles Giannis</title>
 	<style>
 		#main{
 			display:flex;
@@ -244,9 +245,9 @@
 			crearImagenes ($rs);
 
 			echo "  <div class='btn-doc'>
-						<input type='image' src='images/logo_excel.jpeg' class='excel' id='catalogo' alt='Exportar a excel'>
-						<a href='javascript:window.print();' id='btn-imp' title='Imprimir listado.'>
-							<img src='images/logo_imprimir.jpeg' id='imprimir' title='Imprimir listado.' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
+						<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' alt='Exportar a excel'>
+						<a href='javascript:window.print();' id='btn-imp' title='Imprimir listado'>
+							<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
 						</a>
 					</div>";
         ?>

@@ -221,8 +221,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="js/funciones.js"></script>
-    <title>Catato Hogar</title>
+    <title>Muebles Giannis</title>
     <style>
         #main{
             background-color: #fef7f1;
@@ -296,15 +297,14 @@
         window.onload = function() {
            let img_cat = document.getElementsByClassName('img-cat');
            let txt_cat = document.getElementsByClassName('texto');
-           let main = document.getElementById('main');
- 
+
             for (i=0;i<img_cat.length;i++){
                 let img = img_cat[i];
                 let txt = txt_cat[i];
 
                 img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
                 img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
-                                                       txt.style.opacity = "0";;}
+                                                       txt.style.opacity = "0";}
                                      ); 
                 txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
             };
@@ -324,7 +324,7 @@
         <?php echo $encab;  ?>
     </header>
 
-    <main id='main'>
+    <main id='main' class='main'>
         <form class="categorias">
             <?php agregarImgCategorias(); ?>
         </form>

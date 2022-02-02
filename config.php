@@ -6,7 +6,6 @@
     define ('IDCLIENTEGOOGLE', '594064547014-qtsmu9tgks9lsgucsl81mu850aadfi4a.apps.googleusercontent.com');
     define ('SECRETOCLAVEGOOGLE', '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');
 
-
     $user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
     $perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
 

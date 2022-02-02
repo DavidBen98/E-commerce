@@ -25,8 +25,9 @@
 <html lang="es"> 
 <head> 
     <meta charset="UTF-8">
-    <title>Catato Hogar</title>
+    <title>Muebles Giannis</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="js/funciones.js"></script>
 	<style>

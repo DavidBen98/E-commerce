@@ -8,67 +8,17 @@
         header("location:ve.php");
     }  	
 
-	//HAY QUE ACTUALIZAR LA BASE DE DATOS CON LAS CARACTERISTICAS DE LOS PRODUCTOS
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>   
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Catato Hogar</title>
+	<title>Muebles Giannis</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script>
-		// $(document).ready(function(){
-		// 	actualizarCarrito();
-
-		// $('#btn-enviar').click (function (){
-		// 	actualizarCarrito();
-		// });
-
-		// });
-
-		// function actualizarCarrito (){
-		// 	$.ajax ({
-		// 		type: "POST",
-		// 		url: "agregarCarrito.php",
-		// 		//data: "provincia=" + $('#provincia').val(),
-		// 		success: function (r){
-		// 			$('#num-car').html (r);
-		// 		}
-		// 	});
-		// }	
-
-
-		// function actualizarCarrito (){
-		// 	const http = new XMLHttpRequest();
-		// 	const url = 'http://localhost/E-commerceMuebleria/agregarCarrito.php';
-
-		// 	http.onreadystatechange = function (){
-		// 		if(this.readyState == 4 && this.status == 200){
-
-		// 		}
-		// 	}
-
-		// 	http.open ("GET", url);
-		// 	http.send ();
-		// }
-
-		// document.getElementById('btn-enviar').addEventListener ("click", function () => {
-		// 	actualizarCarrito ();
-		// });
-		// function actualizarCarrito (){
-		// 	<?php 
-		// 		if (!isset($_SESSION['carrito'][$id])){
-		// 			$_SESSION['carrito'][$id] = 1;
-		// 		}
-		// 		else{
-		// 			$_SESSION['carrito'][$id] = 1;
-		// 		}
-		// 	?>
-		// }
-
-
 		function agregarProducto (id){
 			var param = {
 				id: id
@@ -84,11 +34,22 @@
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
 						cantCarrito.innerHTML = datos.numero;
+
+						let pExito = document.getElementsByClassName('parrafo-exito');
+
+						if (pExito[0] == null){
+							var contenedor = document.getElementById('cont-descripcion');
+							var parrafo = document.createElement("p");
+							parrafo.setAttribute("class","parrafo-exito");
+							var contenido = document.createTextNode("¡Se ha añadido el producto de manera exitosa!");
+
+							parrafo.appendChild(contenido);
+							contenedor.appendChild(parrafo);
+						}
 					}
 				}
 			});			
 		}
-
 	</script>
 	<style>
 		main{
@@ -151,6 +112,7 @@
 
 		#btn-enviar{
 			margin-top:15px;
+			width:100%;
 		}
 
 		#precio{
@@ -161,6 +123,16 @@
 
 		.cont-fund{
 			margin-bottom:15px;
+		}
+
+		.parrafo-exito{
+            background-color: #099;
+			width:100%;
+			padding: 5px 0;
+			color: white;
+			margin-top: 20px;
+			border-radius: 5px;
+			text-align:center;
 		}
 	</style>
 </head>
@@ -234,20 +206,7 @@
 			}
 		?>
 	</main>
-
-	<script>	
-		window.onload = function() {
-			var agregar = document.getElementById('btn-enviar');
-			var carrito = document.getElementById('num-car');
-
-			//agregar.onclick = actualizarCarrito;		
-			// 	actualizarCarrito ();
-
-			// 	window.location.href='productos.php?productos=todos';
-			// });
-		}
-	</script>
-		
+			
 	<?php 
 		echo $pie; 
 	?> 	 

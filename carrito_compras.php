@@ -7,8 +7,7 @@
     include("encabezado.php"); 
     define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
-
-    
+  
     if (perfil_valido(3)) {
         header("location:login.php"); //cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
@@ -21,15 +20,18 @@
     $preference = new MercadoPago\Preference();
 
     $productos_mp = array();
+
+    global $db; 
 ?>  
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
-    <title>Catato Hogar</title>
-    <!--<link rel="icon"  type="image/png" href="icono.png"> -->
+    <title>Muebles Giannis</title>
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <style>
         main{
             display:flex;
@@ -147,6 +149,7 @@
 
         .mercadopago-button:hover{
             background: #099;
+            transition: all 0.3s linear;
         }
 
         .titulo{
@@ -241,7 +244,37 @@
             color: #858585;
             display: flex;
             align-items: center;
-        }     
+        } 
+        
+        .fav-prod{
+            padding-left: 2px;
+            transition: all 0.5s linear;
+            color: #858585;
+        }
+
+        .elim-prod{
+            transition: all 0.5s linear;
+            color: #858585;
+        }
+
+        .fav-prod:hover, .elim-prod:hover{
+            color: #000;
+            transition: all 0.5s linear;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .mensaje-elim{
+            width: 50%;
+            margin: auto;
+            text-align: center;
+            background-color: #000;
+            color: white;
+            border-radius:5px;
+            height:30px;
+            padding: 10px 5px;
+            font-size: 1.1rem;
+        }
     </style>
     <script>
 		function excel() {			
@@ -251,13 +284,11 @@
 		}	
 
         window.onload = function (){
-            let continuar = document.getElementsByClassName('btn-final');
+            let continuar = document.getElementById('continuar');
 
-            for (let j=0;j<continuar.length;j++){
-                continuar[1].addEventListener("click", () => {
-                    window.location = "productos.php?productos=todos";
-                });
-            }
+            continuar.addEventListener("click", () => {
+                window.location = "productos.php?productos=todos";
+            });     
 
             let productos = document.getElementsByClassName('contenedor');
             var subtotal = document.getElementById('subtotal');
@@ -290,9 +321,68 @@
                     sumaTotal = sumaTotal + sumaSubtotal - precioProd;
                     subtotal.innerHTML = "$ " + sumaTotal;
                     total.innerHTML = "<b>$ " + sumaTotal + "</b>";
+
                 });
-            }          
+            }   
+
+            let ocultar = document.getElementById('ocultar');
+
+            if (ocultar != null){
+                let mp = document.getElementsByClassName('mercadopago-button');
+
+                for (let i=0; i < mp.length;i++){
+                    mp[i].style.visibility = 'hidden';
+                }
+            }               
         }
+	</script>
+    <script>
+		function eliminarProducto (id){
+			var param = {
+				id: id
+			};
+
+			$.ajax({
+				data: param,
+				url: "eliminarCarrito.php",
+				method: "post",
+				success: function(data) {
+					var datos = JSON.parse(data);
+
+					if (datos['ok']){
+						let cantCarrito = document.getElementById('num-car');
+						cantCarrito.innerHTML = datos.numero;
+
+                        window.location.href = 'carrito_compras.php?elim=ok';
+					}
+				}
+			});			
+		}
+
+        function modificarProducto (id, producto){
+            let valorSeleccionado = document.getElementsByName('cant-'+producto);
+
+			var param = {
+				id: id,
+                cantidad: valorSeleccionado[0].value
+			};
+
+			$.ajax({
+				data: param,
+				url: "modificarCarrito.php",
+				method: "post",
+				success: function(data) {
+					var datos = JSON.parse(data);
+
+					if (datos['ok']){
+						let cantCarrito = document.getElementById('num-car');
+						cantCarrito.innerHTML = datos.numero;
+                        console.log("hola");
+                        window.location.href = 'carrito_compras.php';
+					}
+				}
+			});			
+		}
 	</script>
 </head>
 <body id="body">
@@ -322,27 +412,54 @@
                 $productos_agregados = count($lista_carrito);
             }
 
-            echo"<input type='hidden' name='idUsuario' id='idUsuario' value='$idUsuario'/>";
-            echo "<div class='carrito'>
-                    <div class='checkout-btn cont-btn'>
-                        <div>
+            echo"<input type='hidden' name='idUsuario' id='idUsuario' value='$idUsuario'/>
+
+                <div class='carrito'>";
+                
+                if ($lista_carrito != null){
+                    echo "<div class='checkout-btn cont-btn'>";
+                }
+                else{
+                    echo "<div class='checkout-btn cont-btn' id='ocultar'>";
+                }
+
+                echo "<div>
                             <p style='margin:0; height:30px;'>
                                 <b style='font-family: museosans500,arial,sans-serif;'>CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS</b><br>
                             </p>
                             <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
-                                ". $productos_agregados ." PRODUCTOS
-                            </p>
+                                " . $productos_agregados . " PRODUCTO";
+                                
+                if ($productos_agregados != 1){
+                    echo "S"; //PRODUCTOS
+                }
+
+                echo"       </p>
                         </div>
                     </div>";
 
-            global $db; 
-
             if ($lista_carrito == null){
-                echo "<div> Aún no hay productos agregados</div>";
+                echo "<div style='margin:10px;'> Aún no hay productos agregados</div>";
+
+                echo "<div class='contenedor-botones'>
+                        <div class= 'botones'>
+                            <div class='continuar'>
+                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
+                            </div>
+                        </div>
+                    </div>";
+
+                if (isset($_GET['elim'])){
+                    echo "<div class='mensaje-elim'>¡Se ha eliminado correctamente!</div>";
+                }
+                echo "
+                </div>";    
+
             }
             else{
                 $selectNumero = 1; 
                 $total = 0;
+                $i = 1;
 
                 foreach($lista_carrito as $producto){
                     $subtotal = 0;
@@ -364,13 +481,11 @@
                         $cantidad = $stock;
                     }
                     
-                    $i = 1;
-
                     $item = new MercadoPago\Item();
                     $item->id = $i;
                     $item->title = $descripcion;
-                    $item->quantity = 1;
-                    $item->unit_price = $precio;
+                    $item->quantity = $cantidad;
+                    $item->unit_price = $precio_desc;
                     $item->currency_id = "ARS";
 
                     array_push($productos_mp, $item);
@@ -386,14 +501,14 @@
                                             <p style='color:#000; margin-top:10px;'>$descripcion</p> 
                                             <p style='font-size:16px;'>$marca</p> 
                                             <div class='elim-fav'>
-                                                <a class='elim-producto' href='carrito_compras.php?id=$id' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
-                                                    <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt=''>
-                                                    <span  id='elim-prod-$selectNumero'> Eliminar producto</span>
-                                                </a>
-                                                <a class='elim-producto' style='text-align:end;' href='carrito_compras.php?id=$id'>
-                                                        <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt=''>
-                                                        Agregar a favoritos
-                                                </a>
+                                                <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
+                                                    <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
+                                                    <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarProducto($id,$selectNumero)'> Eliminar producto</a>
+                                                </div>
+                                                <div class='elim-producto' style='text-align:end;'>
+                                                    <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
+                                                    <a id='agregar-fav-$selectNumero' class='fav-prod'> Agregar a favoritos</a>
+                                                </div>
                                             </div>
                                         </div>
                                 </div>
@@ -410,7 +525,7 @@
                                             <b>Cantidad:</b>
                                         </p> 
                                         <p class='caract'>
-                                            <select class='cant-compra' name='cant-$selectNumero' title='Cantidad'>";
+                                            <select class='cant-compra' name='cant-$selectNumero' title='Cantidad' onchange='modificarProducto($id, $selectNumero)'>";
                                                 for ($j=1; $j<=$stock; $j++){
                                                     if ($j == $cantidad){
                                                         echo "<option value='$j' selected>$j</option>";
@@ -434,33 +549,38 @@
 
                     $selectNumero++;
                 }
-            }                        
-            
-            echo "<div class='contenedor-botones'>
-                    <div class= 'botones'>
-                        <div class='totales' style='height:40px;'>
-                            <p class='subtotal txt-totales'>Subtotal:</p> 
-                            <p class='subtotal txt-totales' id='subtotal' style='padding-right:10px; justify-content:end;'> $$total </p>
-                        </div>
-                        <div class='totales' style='height:50px;'>
-                            <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b>Total</b> </p> 
-                            <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
-                        </div>
-                        <div class='checkout btn-final'></div>
-                        <div class='continuar'>
-                            <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
-                        </div>
-                    </div>
-                </div>
-            </div>"; 
-                                         
-        ?>
 
-        <a href="carrito_xls.php" title='Excel de compras' style='margin: 10px 0 10px 10px;'>
-            <img src='images/logo_excel.jpeg' title='Excel de compra.' alt="icono Excel." > 
-        </a>  
+                echo "<div class='contenedor-botones'>
+                        <div class= 'botones'>
+                            <div class='totales' style='height:40px;'>
+                                <p class='subtotal txt-totales'>Subtotal:</p> 
+                                <p class='subtotal txt-totales' id='subtotal' style='padding-right:10px; justify-content:end;'> $$total </p>
+                            </div>
+                            <div class='totales' style='height:50px;'>
+                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b>Total</b> </p> 
+                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
+                            </div>
+                            <div class='checkout btn-final'></div>
+                            <div class='continuar'>
+                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
+                            </div>
+                        </div>
+                    </div>";
+
+                if (isset($_GET['elim'])){
+                    echo "<div class='mensaje-elim'>¡Se ha eliminado correctamente!</div>";
+                }
+                echo "
+                </div>
+                <a href='carrito_xls.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
+                    <img src='images/logo_excel.png' title='Exportar a excel' alt='icono Excel.' > 
+                </a>"; 
+            }                                           
+        ?>
     </main>  
     
+
+    <!--MERCADO PAGO-->
     <?php
         $preference->items = $productos_mp;
 
@@ -474,7 +594,6 @@
     
         $preference->save();
     ?>
-
     <script>
         const mp = new MercadoPago('TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608', {
             locale: "es-AR",
@@ -487,7 +606,7 @@
             },
             render: {
                 container: ".checkout-btn", // Indica el nombre de la clase donde se mostrará el botón de pago
-                label: "Proceder a la compra" // Cambia el texto del botón de pago (opcional)
+                label: "Proceder a la compra" 
             }
         });
 
@@ -495,16 +614,19 @@
             locale: "es-AR",
         });
 
-        // Inicializa el checkout
-        mercadoPago.checkout({
-            preference: {
-                id: '<?php echo $preference->id; ?>'
-            },
-            render: {
-                container: ".checkout", // Indica el nombre de la clase donde se mostrará el botón de pago
-                label: "Proceder a la compra" // Cambia el texto del botón de pago (opcional)
-            }
-        });
+        let btnMP = document.getElementsByClassName('checkout');
+
+        if (btnMP[0] != null){
+            mercadoPago.checkout({
+                preference: {
+                    id: '<?php echo $preference->id; ?>'
+                },
+                render: {
+                    container: ".checkout",
+                    label: "Proceder a la compra"
+                }
+            });
+        }      
     </script>  
 
     <?php

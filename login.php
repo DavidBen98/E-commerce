@@ -22,8 +22,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Catato Hogar</title>
+    <title>Muebles Giannis</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="JS/jquery-3.3.1.min.js"></script>
 	<script>
         function validar(){

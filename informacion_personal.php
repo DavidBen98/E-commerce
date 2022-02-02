@@ -41,8 +41,9 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
-    <title>Catato Hogar</title>   
+    <title>Muebles Giannis</title>   
     <style>
         main{
             display:flex;

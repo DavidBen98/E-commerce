@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css"  href="css/ve_estilos.css" rel="stylesheet"/>
-    <title>Catato Hogar - Las mejores marcas</title>
+    <title>Muebles Giannis - Las mejores marcas</title>
     <style>
         #imagen{
             display:flex;

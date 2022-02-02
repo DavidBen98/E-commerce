@@ -11,8 +11,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Catato Hogar</title>
+    <title>Muebles Giannis</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <style>
 		body{
 			margin: 0;
@@ -42,6 +43,7 @@
 			margin: auto;
 			padding: 0 10px;
 			font-size: 1.1em;
+			border-radius: 5px;
 	    }
 
 		.input::placeholder { 
@@ -57,6 +59,8 @@
 		   padding: 0 10px;
 		   font-size: 1.2em;
 		   margin: auto;
+		   border-radius: 5px;
+		   resize: none;
 	    }
 
 		.cont-btn{
@@ -86,6 +90,32 @@
 		#e_error{
 			color: red;
 			font-size: 0.8em;
+		}
+
+		.txt-area::-webkit-scrollbar {
+    		-webkit-appearance: none;
+		}
+
+		.txt-area::-webkit-scrollbar:vertical {
+			width:10px;
+		}
+
+		.txt-area::-webkit-scrollbar-button:increment,.txt-area::-webkit-scrollbar-button {
+			display: none;
+		} 
+
+		.txt-area::-webkit-scrollbar:horizontal {
+			height: 10px;
+		}
+
+		.txt-area::-webkit-scrollbar-thumb {
+			background-color: #797979;
+			border-radius: 20px;
+			border: 2px solid #f1f2f3;
+		}
+
+		.txt-area::-webkit-scrollbar-track {
+			border-radius: 10px;  
 		}
     </style>
 	<script>

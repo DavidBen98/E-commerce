@@ -68,9 +68,9 @@
     $onclick3 = "window.location.href='cerrar_sesion.php'";
 
     $cont_usuarios = "  <div class='contenedor-botones'>        
-                            <button class='btn' onclick=$onclick1>Informacion personal</button>                                        
+                            <button class='btn' onclick=$onclick1>Información personal</button>                                        
                             <button class='btn' onclick=$onclick2>Historial de consultas</button>
-                            <button class='btn' onclick=$onclick3>Cerrar sesion</button>
+                            <button class='btn' onclick=$onclick3>Cerrar sesión</button>
                         </div> 
     ";
 

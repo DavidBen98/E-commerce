@@ -24,8 +24,8 @@
     else{  
         global $db;
         
-        $sql  = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`, `id_usuario`) 
-                VALUES ('$email','$nombre','$apellido','$txtIngresado',false, NULL)
+        $sql  = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`) 
+                  VALUES ('$email','$nombre','$apellido','$txtIngresado',false)
         "; 
 
         $rs = $db->query($sql);

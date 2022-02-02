@@ -13,7 +13,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Catato Hogar - Las mejores marcas</title>
+    <title>Muebles Giannis - Las mejores marcas</title>
     <link rel="stylesheet" type="text/css" href="css/ve_estilos.css" media="screen">
 	<style>
 		main div{
