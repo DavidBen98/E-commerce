@@ -118,22 +118,6 @@
 			text-align:center;
 		}
 
-		@media print {				
-			main { 
-				font-family:"times new roman",times;
-				background-color:#000; 	
-				width:100%;
-				border:none;
-			}
-
-			#tit-catalogo {display:block;}
-			header { display:none;}
-			#datos { display:none;}
-			#catalogo {display:none;}
-			#imprimir {display: none;}
-			#pie {display: none;}
-		}
-
 		.marcas, .colores{
 			max-height: 150px;
 			overflow-x: hidden;
@@ -172,11 +156,10 @@
 			object-fit: contain;
 		}
     </style>
-    <script>      
+    <script> 
         window.onload = function() {
             let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
             let catalogo = document.getElementById('catalogo'); //Boton excel
-            let btn = document.getElementById('btn-imp'); //Boton imprimir
 
             for (j=0;j<imagenes.length;j++){
                 let articulo = imagenes[j].getAttribute('alt');
@@ -184,7 +167,7 @@
                     window.location = 'detalle_articulo.php?art='+articulo;});
            	}
 
-            catalogo.addEventListener("click", () => { //Imprimir catalogo
+            catalogo.addEventListener("click", () => { //Catalogo Excel
                 let variable = "";
                 for (j=0;j<imagenes.length-1;j++){
                     variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
@@ -241,18 +224,15 @@
 			?>
 		</aside>
         <?php
-		
 			crearImagenes ($rs);
 
 			echo "  <div class='btn-doc'>
-						<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' alt='Exportar a excel'>
-						<a href='javascript:window.print();' id='btn-imp' title='Imprimir listado'>
-							<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
-						</a>
+						<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' title='Exportar a Excel' alt='Exportar a Excel'>
 					</div>";
         ?>
     </main>   
    
 	<?php echo $pie;?>
+
 </body> 
 </html>

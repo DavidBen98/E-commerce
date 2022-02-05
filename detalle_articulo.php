@@ -7,7 +7,6 @@
 	if (perfil_valido(1)) {
         header("location:ve.php");
     }  	
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -134,6 +133,27 @@
 			border-radius: 5px;
 			text-align:center;
 		}
+
+		@media print {				
+			header, #imprimir, #pie, #btn-enviar, .parrafo-exito{
+				display:none;
+			}
+
+			.img-cat {
+				height: 400px;
+				width: 400px;
+			}
+
+			#cont-images{
+				height:410px;
+				width:410px;
+				border:none;
+			}
+
+			.h1{
+				display:block;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -141,6 +161,7 @@
     	<?php echo $encab; ?>
 	</header>
     <main id='main'>
+		<p class='h1' style='display:none;'>Muebles Giannis</p>
 		<?php
 			global $db;
 			$variable = $_GET['art'] ;
@@ -202,7 +223,11 @@
 									echo $boton;						
 								}
 					echo	"</div>
-					</div>";                    
+					</div>
+					
+					<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
+							<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
+					</a>";                    
 			}
 		?>
 	</main>

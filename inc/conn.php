@@ -2,7 +2,7 @@
 	$dbhost="127.0.0.1"; 
 	$dbport ="";
 	
-	$dbname="catato_hogar"; 
+	$dbname="muebles_giannis"; 
 	$usuario="usuario_bd";
 	$contrasenia="2021_trabajoF147!";
 

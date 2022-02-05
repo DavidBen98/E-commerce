@@ -66,11 +66,13 @@
     $onclick1 = "window.location.href='informacion_personal.php'";
     $onclick2 = "window.location.href='consulta_usuario.php'";
     $onclick3 = "window.location.href='cerrar_sesion.php'";
+    $onclick4 = "window.location.href='compras_usuario.php'";
 
-    $cont_usuarios = "  <div class='contenedor-botones'>        
-                            <button class='btn' onclick=$onclick1>Información personal</button>                                        
-                            <button class='btn' onclick=$onclick2>Historial de consultas</button>
-                            <button class='btn' onclick=$onclick3>Cerrar sesión</button>
+    $cont_usuarios = "  <div class='contenedor-btn'>        
+                            <div onclick=$onclick1 >Mis datos</div>     
+                            <div onclick=$onclick4>Mis pedidos</div>
+                            <div onclick=$onclick2>Historial de consultas</div>
+                            <div onclick=$onclick3 style='border-bottom: none;'>Cerrar sesión</div>
                         </div> 
     ";
 
@@ -103,7 +105,8 @@
     function crearImagenes ($consulta){
 		$i=0;	
 		echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
-		
+			echo "<h1 class='h1' style='display:none; width:100%; text-align:center; margin:0; padding-left: 100px;'> Muebles Giannis - Catálogo </h1>";
+        
             if (!$consulta){
                 $i++;
                 echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";

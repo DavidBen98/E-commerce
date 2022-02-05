@@ -3,7 +3,7 @@
 
 GRANT USAGE ON *.* TO 'usuario_bd'@'localhost' IDENTIFIED BY PASSWORD '*E2DFC952E440868ACC53A49675B9DD151DAE995C';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON `catato_hogar`.* TO 'usuario_bd'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `muebles_giannis`.* TO 'usuario_bd'@'localhost';
 
 ***Usuarios***
 
@@ -14,7 +14,6 @@ nombre: caelenaShar    |contraseña: 987
 
 Correcciones para el final:
 	Buscador con funcionalidad
-	Barra de navegacion con base de datos
 	Crear tabla de marcas
 	Hacer todos los ABMs 
 	Agregar detalles a la impresion

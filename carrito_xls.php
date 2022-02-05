@@ -13,77 +13,107 @@
 	<meta charset="utf-8">	
 	<title>Muebles Giannis</title>
 </head>
-<body>        
-    <table>
-        <thead>
-            <tr>
-                <th>Producto </th>
-                <th>Descripcion</th>
-                <th>Precio por unidad</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>                
-            </tr>
-        </thead>          
-        <?php 
-            global $db; 
-            
-            $idUsuario =$_SESSION['idUsuario'];
-               
-            $sql= "SELECT `precio_unidad`,`cantidad`,`producto_codigo`,`p`.descripcion, `u`.id
-                FROM `pedido` as c INNER JOIN `usuario` as u ON (c.usuario_id=u.id)
-                                    INNER JOIN `producto` as p on(c.producto_codigo=p.codigo)
-                WHERE u.id=$idUsuario
-            "; 
-            
-            $rs = $db->query($sql);
-            $totPrecioUnid = 0;
-            $totCant = 0;
-            $totSubTotal = 0;
-                 
-        ?>                               
-        <tbody>         
-            <?php foreach ($rs as $row) {  ?>                                           
-                <tr> 
-                    <td>                                                      
-                        <?php echo "{$row['producto_codigo']}"?>
-                    </td>                         
-                    <td>
-                        <?php echo "{$row['descripcion']}";?> 
-                    </td>
-                    <td>
-                        <?php echo "{$row['precio_unidad']}";?>        
-                        <?php $totPrecioUnid += $row['precio_unidad']?>
-                    </td>
-                    <td>
-                        <?php echo "{$row['cantidad']}";?>
-                        <?php $totCant += $row['cantidad']?>
-                    </td>
-                    <td>
-                        <?php 
-                            $subTot = $row['precio_unidad'] * $row['cantidad'];
-                            echo "$subTot";?>
-                        <?php $totSubTotal += $row['precio_unidad'] * $row['cantidad'] ?>
-                    </td>                           
-                </tr>
-            <?php } ?>                               
-        </tbody>
+<body>
+    <?php 
+        echo "<table>
+                    <thead>
+                        <caption><b>Carrito de compras<b></caption>
+                        <tr>
+                            <th>Producto </th>
+                            <th>Descripción</th>
+                            <th>Precio por unidad</th>
+                            <th>Precio con descuento</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>                
+                        </tr>
+                    </thead> ";         
+ 
+        global $db; 
 
-        <tfoot>
-            <tr> 
-                <td colspan="2">                                                      
-                    Totales: 
-                </td>   
-                <td>
-                    <?php echo "$totPrecioUnid";?>
-                </td>
-                <td>
-                    <?php echo "$totCant";?>
-                </td>
-                <td>
-                    <?php echo "$totSubTotal";?>
-                </td>                           
-            </tr> 
-        </tfoot>           
-    </table> 	
+        $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+        $lista_carrito = array();
+        $productos_agregados = 0;
+
+        if ($productos != null){
+            foreach ($productos as $key => $cantidad){
+                $sql = $db->prepare("SELECT precio, descripcion,nombre_subcategoria, descuento, $cantidad AS cantidad
+                                    FROM producto as p
+                                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                                    WHERE id=?");
+                $sql -> execute ([$key]);
+                $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+            }
+            $productos_agregados = count($lista_carrito);
+        }
+
+        $totPrecioUnid = 0; 
+        $totPrecioDesc = 0;
+        $totCantidad = 0;
+        $totSubTotal = 0;
+        $total = 0;
+
+        foreach($lista_carrito as $producto){
+            $subtotal = 0;
+            $subcategoria = $producto['nombre_subcategoria'];
+            $descripcion = ucfirst($producto['descripcion']);
+            $cantidad = intval($producto['cantidad']);
+            $precio = intval($producto['precio']);
+            $descuento = intval($producto['descuento']);
+            $precio_desc = $precio - (($precio * $descuento) /100);
+            $subtotal += $cantidad * $precio_desc; 
+            $total += $subtotal;             
+                            
+            echo "<tbody>                                        
+                    <tr>
+                        <td>
+                            $subcategoria
+                        </td>                     
+                        <td>
+                            $descripcion
+                        </td>
+                        <td>
+                            $precio     
+                        </td>
+                        <td>
+                            $precio_desc
+                        </td>
+                        <td>
+                            $cantidad
+                        </td>
+                        <td>
+                            $subtotal
+                        </td>                           
+                    </tr>";
+
+            $totPrecioUnid += $precio;
+            $totPrecioDesc += $precio_desc;
+            $totCantidad += $cantidad;
+            $totSubTotal += $subtotal;
+        }      
+
+        echo "                              
+            </tbody>
+
+            <tfoot>
+                <tr> 
+                    <td colspan='2'>                                                      
+                        <b>Totales: </b>
+                    </td>   
+                    <td>
+                        <b>$totPrecioUnid</b>
+                    </td>
+                    <td>
+                        <b>$totPrecioDesc</b>
+                    </td>
+                    <td>
+                        <b>$totCantidad</b>
+                    </td>
+                    <td>
+                        <b>$totSubTotal</b>
+                    </td>                           
+                </tr> 
+            </tfoot>           
+        </table> ";
+    ?>	
 </body>
 </html>

@@ -12,6 +12,7 @@
     $nombreUsuario = (isset($_POST['nombreUsuario']) && !empty($_POST['nombreUsuario']))? trim($_POST['nombreUsuario']) : "";
     $psw = isset($_POST['psw'])? trim($_POST['psw']) : "";
     $psw2 = isset($_POST['psw2'])? trim($_POST['psw2']) : "";
+    $suscripcion = ($_POST['suscripcion'] == '1')? 1 : 0;
 
     $sql = "SELECT nombreUsuario, email
 		    FROM usuario 
@@ -124,14 +125,11 @@
 
         $dire = trim($dire);
 
-        $insertar = "INSERT INTO `usuario`(`nombreUsuario`, `contrasena`, `perfil`, `nroDni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`) 
-        VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire')";
+        $insertar = "INSERT INTO `usuario`(`nombreUsuario`, `contrasena`, `perfil`, `nroDni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`,`suscripcion`) 
+        VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')";
 
         $rs = $db->query($insertar);
 
         header("location:login.php?reg=true&registro=exitoso");
     }
-
-
-
 ?>

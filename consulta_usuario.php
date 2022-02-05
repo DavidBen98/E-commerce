@@ -10,23 +10,17 @@
     else if (perfil_valido(1)) {
         header("location:ve.php");
     } 
-  
-    $tabla = "<table> 
-                    <thead> 
-                        <tr>
-                            <th>
-                                Consulta
-                            </th> 
-                            <th>
-                                Estado
-                            </th>                            
-                        </tr>
-                    </thead>
-            ";
                  
-    global $db; 
+    global $db;
     
-    $mail =$_SESSION['email'];
+    $mail = "";
+
+    if (isset($_SESSION['user_email_address'])){
+        $mail =$_SESSION['user_email_address'];
+    }
+    else if (isset($_SESSION['email'])){
+        $mail =$_SESSION['email'];
+    }
 
     $sql= "SELECT c.texto, c.respondido
             FROM `consulta` as c INNER JOIN `usuario` as u ON (c.email = u.email)
@@ -35,29 +29,47 @@
 
     $rs = $db->query($sql);
 
-    $tabla .= "<tbody>";
+    $div = "<div class='consulta'>
+                <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
+                    <p style='height:40px;'><b>Consulta</b></p>
+                    <p style='height:40px;'><b>Respuesta</b></p>
+                </div>            
+    ";
+    $i = 0;
+
+    foreach ($rs as $row){
+        $i++;
+    }
+
+    $rs = $db->query($sql);
+
+    $j = 0;
     foreach ($rs as $row) { 
-        $txt = "";                     
+        $respuesta = "";                     
         if ($row['respondido']){
-            $txt = "Ya fue respondido";
+            $respuesta = "Ha sido contestada la consulta";
         }
         else{
-            $txt = "Pendiente";
+            $respuesta = "Pendiente";
         }
         
-        $tabla .= "
-                    <tr>
-                        <td>" .
-                                ucfirst($row['texto']) . "
-                        </td> 
-                        <td> 
-                            $txt
-                        </td>                            
-                    </tr>
-        ";       
-    };
-    $tabla .= "</tbody>
-            </table>";
+        $pregunta = ucfirst($row['texto']);
+
+        if ($j+1 == $i){
+            $div .= "   <div class='renglon'> 
+                            <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
+                            <p>$respuesta</p>
+                        </div>";
+        }
+        else{
+            $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
+                            <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
+                            <p>$respuesta</p>
+                        </div>";
+        }
+        $j++;
+    }
+    $div .= "</div>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,45 +83,64 @@
         main{
             display:flex;
             flex-wrap: wrap;
-            justify-content:center;
+            justify-content:start;
         }
-        table{
-            border: 2px solid #000;
-            width:600px;
-            margin: 40px 0;
-        }
-        th{
-            border: 1px solid #000;
+        
+        .contenedor-botones{
+            width:20%;
+            display:block;
+            margin: 0 80px 30px 20px;
         }
 
-        tr{
-            height:30px;
-        }
-
-        td{
-            border: 1px solid #000;
+        .contenedor-btn{
+            width:100%;
+            background-color: white;
+            border-radius: 5px;
             text-align:center;
-        }
-
-        th{
-            border: 2px solid #000;
-        }
-
-        .btn{
-		   background-color: #D3D3D3;
-		   height: 40px;
-		   width:200px;
-		   cursor:pointer;
-		   font-size:1.2rem;
-		   border-radius: 5px;
-		}
-
-		.btn:hover{
-			background-color: #B2BABB ;
+            border: 1px solid #000;
             transition: all 0.3s linear;
+        }
+
+        .contenedor-btn div{
+            width:100%;
+            text-align:center;
+            border-bottom: 1px solid #d3d3d3;
+            transition: all 0.3s linear;
+            padding: 10px 0;
+        }
+
+        .contenedor-btn div:hover{
+            cursor: pointer;
+            background-color: #B2BABB;
             color: white;
-            cursor:pointer;
-		}
+            transition: all 0.3s linear;
+        }
+
+        .consulta{
+            width:60%;
+            background-color:white;
+            display:flex;
+            flex-wrap:wrap;
+            justify-content: center;
+            border-radius:5px;
+            border: 1px solid black;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .consulta p{
+            width:45%;
+            text-align:center;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .renglon{
+            width:100%;
+            display:flex;
+            justify-content:center;
+            margin:0;
+        }
     </style>
 </head>
 <body id="body">
@@ -118,8 +149,13 @@
     </header>
 
     <main>
-        <?php echo $cont_usuarios;?>
-        <?php echo $tabla;?>
+        <?php 
+            echo "<div class='contenedor-botones'>
+                    $cont_usuarios
+                  </div>";
+
+            echo $div;
+        ?>  
     </main>
 
     <?php

@@ -20,7 +20,7 @@ $tabla = "";
 
 if ($imagenes != 0){
 	$tabla = "<table>
-				<caption>Catalogo de productos</caption>
+				<caption><b>Catálogo de productos</b></caption>
 				<tr>
 					<th>Código</th>
 					<th>Descripción</th>

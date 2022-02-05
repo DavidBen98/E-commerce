@@ -38,6 +38,9 @@
 
         public function signOut(){
             unset($_SESSION['user_id']);
+            $_SESSION = array();
+		
+		    session_destroy(); 
         }
 
         public function login(){

@@ -8,7 +8,7 @@
     define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
   
-    if (perfil_valido(3)) {
+    if (perfil_valido(3) && (!isset($_GET['code']) || !isset($_SESSION['user_first_name'])) && (!isset($_SESSION['nombre_tw']))) {
         header("location:login.php"); //cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
     else if (perfil_valido(1)) {
@@ -83,6 +83,13 @@
         }
 
         .precio p{
+            width:45%;
+            font-size: 1rem;
+            height: 30px;
+            margin: 0;
+        }
+
+        .precio div{
             width:45%;
             font-size: 1rem;
             height: 30px;
@@ -264,9 +271,8 @@
             cursor: pointer;
         }
 
-        .mensaje-elim{
-            width: 50%;
-            margin: auto;
+        .mensaje{
+            margin: 0 10px;
             text-align: center;
             background-color: #000;
             color: white;
@@ -289,41 +295,6 @@
             continuar.addEventListener("click", () => {
                 window.location = "productos.php?productos=todos";
             });     
-
-            let productos = document.getElementsByClassName('contenedor');
-            var subtotal = document.getElementById('subtotal');
-            var total = document.getElementById('total');
-            var sumaTotal = 0;
-
-            for (let i=1; i <= productos.length; i++){
-                var precioProducto = document.getElementById('precioS-'+i).textContent;
-                sumaTotal += parseInt(precioProducto.slice(1)); //Obtengo el total sin actualizar
-            }
-
-            for (let i=1; i <= productos.length; i++){
-                let valorSeleccionado = document.getElementsByName('cant-'+i);
-
-                valorSeleccionado[0].addEventListener ("change", () => {
-                    var cantSeleccionada = valorSeleccionado[0].value;
-
-                    var precioProd = document.getElementById('precioS-'+i).textContent;
-                    precioProd = precioProd.slice(1);
-
-                    var precioUnitario = document.getElementById('precioU-'+i).textContent;
-                    precioUnitario = precioUnitario.slice(1);
-
-                    var sumaSubtotal = parseInt(cantSeleccionada) * parseInt(precioUnitario);
-                    
-                    var precioSubtotal = document.getElementById('precioS-'+i);
-
-                    precioSubtotal.innerHTML= "<b>$" + sumaSubtotal + "</b>";
-
-                    sumaTotal = sumaTotal + sumaSubtotal - precioProd;
-                    subtotal.innerHTML = "$ " + sumaTotal;
-                    total.innerHTML = "<b>$ " + sumaTotal + "</b>";
-
-                });
-            }   
 
             let ocultar = document.getElementById('ocultar');
 
@@ -377,7 +348,6 @@
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
 						cantCarrito.innerHTML = datos.numero;
-                        console.log("hola");
                         window.location.href = 'carrito_compras.php';
 					}
 				}
@@ -395,8 +365,6 @@
     
     <main>           
         <?php 
-            $idUsuario =$_SESSION['idUsuario'];
-
             $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
             $lista_carrito = array();
             $productos_agregados = 0;
@@ -412,8 +380,7 @@
                 $productos_agregados = count($lista_carrito);
             }
 
-            echo"<input type='hidden' name='idUsuario' id='idUsuario' value='$idUsuario'/>
-
+            echo"
                 <div class='carrito'>";
                 
                 if ($lista_carrito != null){
@@ -450,7 +417,7 @@
                     </div>";
 
                 if (isset($_GET['elim'])){
-                    echo "<div class='mensaje-elim'>¡Se ha eliminado correctamente!</div>";
+                    echo "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
                 }
                 echo "
                 </div>";    
@@ -541,7 +508,12 @@
 
                             <div class='precio'>
                                 <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; margin-left:15px;'>Precio unitario </p> 
-                                <p id='precioU-$selectNumero' style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; font-family: Arial,Helvetica,sans-serif;'>$$precio_desc</p>
+                                <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; font-family: Arial,Helvetica,sans-serif;'>";
+                                    if($precio != $precio_desc){
+                                        echo "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
+                                    }
+                                echo    "<p style=''>$$precio_desc</p>
+                                </div>
                                 <p style='padding: 5px 0 0 5px; margin-left:15px'>Precio </p> 
                                 <p id='precioS-$selectNumero' style='padding: 5px 0 0 5px; font-family: Arial,Helvetica,sans-serif;'><b>$".$subtotal."</b></p>
                             </div>
@@ -568,18 +540,20 @@
                     </div>";
 
                 if (isset($_GET['elim'])){
-                    echo "<div class='mensaje-elim'>¡Se ha eliminado correctamente!</div>";
+                    echo "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+                }
+                else if (isset($_GET['error_pago'])){
+                    echo "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
                 }
                 echo "
                 </div>
                 <a href='carrito_xls.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
-                    <img src='images/logo_excel.png' title='Exportar a excel' alt='icono Excel.' > 
+                    <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
                 </a>"; 
             }                                           
         ?>
     </main>  
     
-
     <!--MERCADO PAGO-->
     <?php
         $preference->items = $productos_mp;

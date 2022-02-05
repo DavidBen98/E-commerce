@@ -1,6 +1,8 @@
 <?php 
+	include('config.php');
     require 'funciones.php';  
     require 'inc/conn.php';
+
     if (perfil_valido(1)) {
 		header("location:ve.php");
 	}
@@ -14,44 +16,52 @@
 
     if( $nombre == ""){
         $msjError .= "Debe ingresar su nombre"; 
-    }else if( $apellido == ""){
+    }
+    else if ($apellido == ""){
         $msjError .= "Debe ingresar apellido";
-    }else if( $email == ""){
+    }
+    else if ($email == ""){
         $msjError .= "Debe ingresar su email"; 
-    }else if( $txtIngresado == ""){
+    }
+    else if ($txtIngresado == ""){
         $msjError .= "Debe ingresar su consulta";
     }
     else{  
         global $db;
-        
-        $sql  = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`) 
-                  VALUES ('$email','$nombre','$apellido','$txtIngresado',false)
-        "; 
 
+        $sql = "SELECT id 
+                FROM `usuario` as u
+                WHERE u.email='$email'
+        ";
+        
         $rs = $db->query($sql);
 
-        $sql1 = "SELECT c.id 
-                FROM `consulta` as c INNER JOIN `usuario` as u ON (c.email = u.email)
-                WHERE c.email='$email'
-                GROUP BY c.id 
-        ";     
         $i=0; 
- 
-        $rs1 = $db->query($sql); 
-        
-        foreach ($rs1 as $row) { 
-            $i++;        
-            if($i !=0)   {
-                $sql1 ="UPDATE `consulta`
-                    SET `id_usuario` = {$row[c.id]}
-                ";
-            }
+
+        foreach ($rs as $row) { 
+            $i++; 
+            $id = $row['id'];       
         }; 
-        if ($i == 0){
-            header("location:contacto.php");
-        }  
-        else {//si un usuario registrado ingreso una consulta           
+
+        if ($i > 0){
+            $sql2 = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`,`usuario_id`) 
+                      VALUES ('$email','$nombre','$apellido','$txtIngresado','false','$id')
+            "; 
+        }
+        else{
+            $sql2 = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`,`usuario_id`) 
+                        VALUES ('$email','$nombre','$apellido','$txtIngresado','false',null)
+                        ";
+        }
+
+        $rs2 = $db->query($sql2);
+
+        if ((isset($_SESSION['user_email_address']) && $email == $_SESSION['user_email_address'])
+                    || ((isset($_SESSION['email'])) && $email == $_SESSION['email'])){//usuario registrado
             header("location:consulta_usuario.php");                       
         }   
+        else{
+            header("location:contacto.php?consulta=exito");
+        }
     }  
 ?>

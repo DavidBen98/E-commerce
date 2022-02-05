@@ -37,7 +37,6 @@
             if (!empty($data['id'])) {
 				$_SESSION['id'] = $data['id'];
 			}
-
 		}
 	}
 
@@ -107,7 +106,8 @@
 
     }//Si se inicio sesion con Twitter
     else if (isset($_SESSION["user_id"])){
-        $id = $_SESSION['user_id']; 
+        $id = $_SESSION['user_id'];
+        $_SESSION['perfil'] = 'U'; 
 
         $sql = "SELECT id_social
                 FROM `usuario_rs` as rs
@@ -169,8 +169,22 @@
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
             ('$usuario_id', '$id', 'Twitter')";
 
-            $db->query($sql);    
+            $db->query($sql);  
+            
+            $_SESSION['id_tw'] = $usuario_id;
         }
+        else{
+            $sql = "SELECT u.id
+                    FROM usuario as u 
+                    INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario";
+            
+            $rs = $db->query($sql);
+
+            foreach ($rs as $row){
+                $_SESSION['id_tw'] = $row['id'];
+            }
+        }
+
     }
     
     function agregarImgCategorias (){
@@ -225,11 +239,6 @@
     <script src="js/funciones.js"></script>
     <title>Muebles Giannis</title>
     <style>
-        #main{
-            background-color: #fef7f1;
-            padding-top: 30px;
-        }
-
         .categorias {
             display: flex;
             flex-wrap: wrap;
@@ -326,9 +335,10 @@
 
     <main id='main' class='main'>
         <form class="categorias">
-            <?php agregarImgCategorias(); ?>
+            <?php agregarImgCategorias();?>
         </form>
     </main>
+
     <?php
         echo $pie;
     ?>   

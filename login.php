@@ -245,6 +245,12 @@
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     		font-size: 14px;
 			margin:8px;
+            transition: all 0.3s linear;
+		}
+
+		.btn-google:hover{
+			background-color: #FF4500;
+            transition: all 0.3s linear;
 		}
 
 		.btn-twitter{
@@ -260,6 +266,12 @@
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     		font-size: 14px;
 			margin:8px;
+            transition: all 0.3s linear;
+		}
+
+		.btn-twitter:hover{
+			background-color: #00BFFF;
+            transition: all 0.3s linear;
 		}
 	
 		#sesion{
@@ -381,6 +393,15 @@
 							<div class='cont-reg'>
 								<label for='psw' class='form-label'>Repetir contraseña</label>				
 								<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
+							</div>
+
+							<div class='cont-reg'>
+							</div>
+
+							<div class='cont-reg' style='width:100%; justify-content:start; margin-left:20px; margin-top:10px;'>
+								<label style='margin-top:10px; text-align:start;'>
+									<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value='1'>Suscripción a las novedades
+								</label>			
 							</div>
 							
 							<div class='cont-reg registro'>

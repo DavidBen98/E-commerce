@@ -1,0 +1,21 @@
+Clave de API: VZtL1D6kiULEhnWS0tRtKXHDp
+Secreto de clave: k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE
+Token: AAAAAAAAAAAAAAAAAAAAAL2XYAEAAAAArW%2FD%2BkMG5joJ9ymaJV%2BaPQ1qfnQ%3Dpz9fnaloOSa8qDmLVBSGzCCSyau1Gjq8LXvR1agzEYxJSPbQJE
+
+
+ACCESO:
+Token de acceso: 318788939-DZnES7Qt0A4FweYDFrAEX2Iu9lczP7rXHEQkq5at
+Secreto del token de acceso: 6FW0RpvfqKPm5sHGnXn49C5cXxnbwoL0uVqSRP7f62uqZ
+
+
+ID de cliente: RGtEVWNRSUJHV1ItWXVWbUZDT1U6MTpjaQ
+Secreto del cliente: R_KjiC3prQx69Qv42qca-XNR3pJGAz5uCMN4D-sXCXLkt0JBs8
+
+
+
+http://127.0.0.1/E-commerceMuebleria/hybridauth.php?oauth_token=_cTftgAAAAABYJe9AAABfl9Lshw&oauth_verifier=WUnMye9GmL4PKahhCNMcxtnNcxH35y61
+
+
+GOOGLE:
+ID_CLIENTE: 594064547014-qtsmu9tgks9lsgucsl81mu850aadfi4a.apps.googleusercontent.com
+SECRETO: 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
