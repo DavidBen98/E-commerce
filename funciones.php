@@ -67,10 +67,12 @@
     $onclick2 = "window.location.href='consulta_usuario.php'";
     $onclick3 = "window.location.href='cerrar_sesion.php'";
     $onclick4 = "window.location.href='compras_usuario.php'";
+    $onclick5 = "window.location.href='favoritos.php'";
 
     $cont_usuarios = "  <div class='contenedor-btn'>        
-                            <div onclick=$onclick1 >Mis datos</div>     
+                            <div onclick=$onclick1 >Datos personales</div>     
                             <div onclick=$onclick4>Mis pedidos</div>
+                            <div onclick=$onclick5>Mis favoritos</div>
                             <div onclick=$onclick2>Historial de consultas</div>
                             <div onclick=$onclick3 style='border-bottom: none;'>Cerrar sesión</div>
                         </div> 

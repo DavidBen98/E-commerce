@@ -43,10 +43,15 @@
                             </div>"
                             .   crear_barra() . 
                 "               
-                            <a href='carrito_compras.php' title='Carrito de compras' class='header-img' id='usu-car'>
-                                <img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'>
-                                <span id='num-car'>$cantCarrito</span>
-                            </a>
+                            <div>
+                                <a href='favoritos.php' title='Favoritos' class='header-img' id='usu-fav'>
+                                    <img src='images/favoritos.png' alt='Favoritos' style='width:30px;' height='30'>
+                                </a>
+                                <a href='carrito_compras.php' title='Carrito de compras' class='header-img' id='usu-car'>
+                                    <img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'>
+                                    <span id='num-car'>$cantCarrito</span>
+                                </a>
+                            </div>
                         </div>     
                         <nav id='navigation'>
                             <ul>

@@ -304,10 +304,16 @@
                 for (let i=0; i < mp.length;i++){
                     mp[i].style.visibility = 'hidden';
                 }
-            }               
+            }     
+
+
         }
 	</script>
     <script>
+        function agregarFav (id){
+            window.location.href = 'agregarFavorito.php?id='+id;
+        }
+
 		function eliminarProducto (id){
 			var param = {
 				id: id
@@ -316,6 +322,28 @@
 			$.ajax({
 				data: param,
 				url: "eliminarCarrito.php",
+				method: "post",
+				success: function(data) {
+					var datos = JSON.parse(data);
+
+					if (datos['ok']){
+						let cantCarrito = document.getElementById('num-car');
+						cantCarrito.innerHTML = datos.numero;
+
+                        window.location.href = 'carrito_compras.php?elim=ok';
+					}
+				}
+			});			
+		}
+
+        function agregarFavorito (id){
+			var param = {
+				id: id
+			};
+
+			$.ajax({
+				data: param,
+				url: "agregarFavorito.php",
 				method: "post",
 				success: function(data) {
 					var datos = JSON.parse(data);
@@ -431,6 +459,7 @@
                 foreach($lista_carrito as $producto){
                     $subtotal = 0;
                     $id = $producto['id'];
+                    $onclick = "window.location.href='agregarFavorito.php?id=$id'";
                     $codigo = $producto['codigo'];
                     $descripcion = ucfirst($producto['descripcion']);
                     $marca = ucfirst($producto['marca']);
@@ -470,11 +499,11 @@
                                             <div class='elim-fav'>
                                                 <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
                                                     <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
-                                                    <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarProducto($id,$selectNumero)'> Eliminar producto</a>
+                                                    <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarProducto($id)'> Eliminar producto</a>
                                                 </div>
                                                 <div class='elim-producto' style='text-align:end;'>
                                                     <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
-                                                    <a id='agregar-fav-$selectNumero' class='fav-prod'> Agregar a favoritos</a>
+                                                    <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarFav($id)'> Agregar a favoritos</a>
                                                 </div>
                                             </div>
                                         </div>
