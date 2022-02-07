@@ -30,40 +30,13 @@
         }
     }
 
-    $sql = "SELECT id_producto
-            FROM favorito
-            WHERE '$id_prod' NOT IN(SELECT id_producto
-                                    FROM favorito
-                                    WHERE id_usuario = '$id_usuario')
+    $sql = "DELETE FROM favorito
+            WHERE (id_producto = '$id_prod' AND id_usuario = '$id_usuario')
     ";
-
+    
     $rs = $db->query($sql);
 
-    $i = 0;
-    foreach ($rs as $row){
-        $i++;
-    }
-
-    $sql = "SELECT id_producto
-            FROM favorito
-            WHERE id_usuario = '$id_usuario'";
-
-    $rs = $db->query ($sql);
-
-    $j = 0;
-    foreach ($rs as $row){
-        $j++;
-    }
-
-    if ($i > 0 || $j == 0){ //Si no está cargado ese producto o todavia no hay ningun producto con ese usuario
-        $sql = "INSERT INTO `favorito`(`id_producto`, `id_usuario`) VALUES ('$id_prod','$id_usuario')";
-
-        $rs = $db->query ($sql);
-        $datos = 'ok';
-    }
-    else{
-        $datos = 'false';
-    }
+    $datos = 'ok';
 
     echo $datos;
 ?>

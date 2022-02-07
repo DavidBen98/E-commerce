@@ -111,8 +111,7 @@
 
         .contenedor-btn div:hover{
             cursor: pointer;
-            background-color: #B2BABB;
-            color: white;
+            background-color: rgba(147, 81, 22,0.2);
             transition: all 0.3s linear;
         }
 

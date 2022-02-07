@@ -227,7 +227,7 @@
         }
 
         .continuar button:hover{
-            background-color: #B2BABB;
+            background-color: rgba(147, 81, 22,0.5);
             transition: all 0.3s linear;
             color: white;
             cursor:pointer;
@@ -281,6 +281,17 @@
             padding: 10px 5px;
             font-size: 1.1rem;
         }
+
+        .mensaje a{
+            text-decoration: underline;
+            color: white;
+            transition: all 0.5s linear;
+        }
+
+        .mensaje a:hover{
+            font-size:1.2rem;
+            transition: all 0.5s linear;
+        }
     </style>
     <script>
 		function excel() {			
@@ -311,8 +322,24 @@
 	</script>
     <script>
         function agregarFav (id){
-            window.location.href = 'agregarFavorito.php?id='+id;
-        }
+            var param = {
+				id: id
+			};
+
+			$.ajax({
+				data: param,
+				url: "agregarFavorito.php?id="+id,
+				method: "post",
+				success: function(data) {
+					if (data == 'ok'){
+                        window.location.href = 'carrito_compras.php?fav=ok';
+					}
+                    else{
+                        window.location.href = 'carrito_compras.php?fav=false';
+                    }
+				}
+			});			
+		}
 
 		function eliminarProducto (id){
 			var param = {
@@ -322,28 +349,6 @@
 			$.ajax({
 				data: param,
 				url: "eliminarCarrito.php",
-				method: "post",
-				success: function(data) {
-					var datos = JSON.parse(data);
-
-					if (datos['ok']){
-						let cantCarrito = document.getElementById('num-car');
-						cantCarrito.innerHTML = datos.numero;
-
-                        window.location.href = 'carrito_compras.php?elim=ok';
-					}
-				}
-			});			
-		}
-
-        function agregarFavorito (id){
-			var param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "agregarFavorito.php",
 				method: "post",
 				success: function(data) {
 					var datos = JSON.parse(data);
@@ -573,6 +578,19 @@
                 }
                 else if (isset($_GET['error_pago'])){
                     echo "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
+                }
+                else if (isset($_GET['fav'])){
+                    $fav = $_GET['fav'];
+                    if ($fav == 'ok'){
+                        echo "<div class='mensaje' style='background-color: #099;'>
+                                 ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+                              </div>";
+                    }
+                    else{
+                        echo "<div class='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
+                                 ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
+                              </div>";
+                    }
                 }
                 echo "
                 </div>

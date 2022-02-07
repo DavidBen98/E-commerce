@@ -18,6 +18,26 @@
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script>
+		function agregarFav (id){
+            var param = {
+				id: id
+			};
+
+			$.ajax({
+				data: param,
+				url: "agregarFavorito.php?id="+id,
+				method: "post",
+				success: function(data) {
+					if (data == 'ok'){
+                        window.location.href = window.location+'&fav=ok';
+					}
+                    else{
+                        window.location.href = window.location+'&fav=false';
+                    }
+				}
+			});			
+		}
+
 		function agregarProducto (id){
 			var param = {
 				id: id
@@ -40,7 +60,7 @@
 							var contenedor = document.getElementById('cont-descripcion');
 							var parrafo = document.createElement("p");
 							parrafo.setAttribute("class","parrafo-exito");
-							var contenido = document.createTextNode("¡Se ha añadido el producto de manera exitosa!");
+							var contenido = document.createTextNode("¡Se ha añadido el producto al carrito de compras!");
 
 							parrafo.appendChild(contenido);
 							contenedor.appendChild(parrafo);
@@ -71,6 +91,7 @@
 			padding: 10px;
 			background-color: white;
 			width: 90%;
+			border-radius:5px;
 		}
 
 		.contenedor h1{
@@ -110,8 +131,15 @@
 		}
 
 		#btn-enviar{
-			margin-top:15px;
+			margin-top:20px;
 			width:100%;
+			background: rgba(147, 81, 22,0.7); 
+			color: white;
+		}
+
+		#btn-enviar:hover{
+			background-color: rgba(147, 81, 22,1);
+			color: white;
 		}
 
 		#precio{
@@ -127,12 +155,38 @@
 		.parrafo-exito{
             background-color: #099;
 			width:100%;
-			padding: 5px 0;
+			padding: 10px 0;
 			color: white;
 			margin-top: 20px;
 			border-radius: 5px;
 			text-align:center;
 		}
+
+		#btn-fav:hover{
+			background-color: #000;
+		}
+
+		.mensaje{
+            text-align: center;
+            background-color: #000;
+            color: white;
+            border-radius:5px;
+			padding:10px 0;
+			margin-top:15px;
+			width:100%;
+            font-size: 1.1rem;
+        }
+
+        .mensaje a{
+            text-decoration: underline;
+            color: white;
+            transition: all 0.5s linear;
+        }
+
+        .mensaje a:hover{
+            font-size:1.2rem;
+            transition: all 0.5s linear;
+        }
 
 		@media print {				
 			header, #imprimir, #pie, #btn-enviar, .parrafo-exito{
@@ -220,8 +274,22 @@
 								}
 								else{
 									$boton = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>";
+									$boton .= "<input type='button' id='btn-fav' onclick='agregarFav($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>";
 									echo $boton;						
 								}
+					if (isset($_GET['fav'])){
+						$fav = $_GET['fav'];
+						if ($fav == 'ok'){
+							echo "<div class='mensaje' style='background-color: #099;'>
+									 ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+								  </div>";
+						}
+						else{
+							echo "<div class='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
+									 ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
+								  </div>";
+						}
+					}
 					echo	"</div>
 					</div>
 					

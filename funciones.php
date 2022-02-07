@@ -70,11 +70,11 @@
     $onclick5 = "window.location.href='favoritos.php'";
 
     $cont_usuarios = "  <div class='contenedor-btn'>        
-                            <div onclick=$onclick1 >Datos personales</div>     
+                            <div onclick=$onclick1 style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
                             <div onclick=$onclick4>Mis pedidos</div>
-                            <div onclick=$onclick5>Mis favoritos</div>
+                            <div onclick=$onclick5>Favoritos</div>
                             <div onclick=$onclick2>Historial de consultas</div>
-                            <div onclick=$onclick3 style='border-bottom: none;'>Cerrar sesión</div>
+                            <div onclick=$onclick3 style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
                         </div> 
     ";
 
