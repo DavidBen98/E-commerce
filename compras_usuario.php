@@ -37,10 +37,12 @@
         }
     }
 
-    $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
-            FROM `producto` as p 
-            INNER JOIN `favorito` as f on p.id = f.id_producto 
-            WHERE f.id_usuario = '$id_usuario'
+    $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , p.`precio`,`codigo`,p.`id`
+            FROM `compra` as c
+            INNER JOIN `detalle_compra` as d on d.id_compra = c.id
+            INNER JOIN `producto` as p on p.id = d.id_producto 
+            INNER JOIN `usuario` as u on u.id = c.id_usuario
+            WHERE c.id_usuario = '$id_usuario'
     "; 
 
     $rs = $db->query($sql);
@@ -48,7 +50,7 @@
     $div = "<div class='consulta'>
                 <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
                     <p style='height:40px; width:100%; font-size:1.3rem;padding:0;margin:0;display: flex; justify-content: center;align-items: center;'>
-                        <b style='font-family: museosans500,arial,sans-serif;'>Favoritos</b>
+                        <b style='font-family: museosans500,arial,sans-serif;'>Compras realizadas</b>
                     </p>
                 </div>            
     ";
@@ -62,7 +64,7 @@
 
     $selectNumero = 1; 
     if ($i == 0){
-                $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay productos favoritos</div>";
+                $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay compras realizadas</div>";
 
         $div .= "<div class='continuar' style='width: 100%; display: flex;'>
                         <button type='button' class='btn-final' id='continuar' style='margin:auto;'>

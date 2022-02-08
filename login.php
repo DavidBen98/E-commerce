@@ -338,6 +338,12 @@
 	<main id='main'>
 		<?php
 			if (isset($_GET['reg'])){
+				echo "<ol class='ruta'>
+                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                        <li style='border:none;text-decoration: none;'>Registro</li>
+                  </ol>
+            	";
+
 				echo "<form action='registro.php' method='post' class='' id='form-registro'>
 						<div class='form'>
 							<div class='cont-reg'>
@@ -439,6 +445,11 @@
 								</form>";
 			}
 			else if (!isset($_GET['login'])){
+				echo "<ol class='ruta'>
+                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                        <li style='border:none;text-decoration: none;'>Inicio de sesión</li>
+                  	</ol>
+            	";
 				$google= $google_client->createAuthUrl();
 				echo "<form action='inicio_sesion.php' method='post' class='formulario' novalidate>
 							<div id='sesion'>

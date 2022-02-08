@@ -163,6 +163,28 @@
             background-color:  rgba(147, 81, 22,0.2);
             transition: all 0.3s linear;
         }
+
+        .ruta{
+            width: 100%;
+			display: flex;
+			margin-top: 0;
+			background: #000;
+			padding-left: 20px;
+        }
+
+        .ruta li{
+            list-style-type: none;
+            padding: 0 10px;
+            border-right: 1px solid white;
+            margin: 4px 0;
+            text-decoration: underline;
+            color: white;
+			font-family: museosans500,arial,sans-serif;
+        }
+
+		.ruta li a{
+			color: white;
+		}
     </style>
 </head>
 <body id="body">
@@ -172,6 +194,11 @@
 
     <main>
         <?php 
+            echo "<ol class='ruta'>
+                    <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                    <li style='border:none;text-decoration: none;'>Datos personales</li>
+                  </ol>
+            ";
             echo "<div style='display:flex; justify-content:start;'>
                     <div class='contenedor-botones'>
                         $cont_usuarios

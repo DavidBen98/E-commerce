@@ -110,8 +110,9 @@
 	<style>
 		#main{
 			display:flex;
-			padding: 20px 0 10px 0;
+			padding: 5px 0 10px 0;
 			justify-content: center;
+			flex-wrap:wrap;
 		}
 
 		aside{
@@ -184,7 +185,6 @@
 		}
     </style>
     <script> 
-
 		if (window.addEventListener){
 			window.addEventListener ('load', () => {
 				let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
@@ -227,44 +227,6 @@
 				}	
 			})
 		}
-		//window.onload= cargarFunciones();
-        // window.onload = function() {
-        //     let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-        //     let catalogo = document.getElementById('catalogo'); //Boton excel
-
-        //     for (j=0;j<imagenes.length;j++){
-        //         let articulo = imagenes[j].getAttribute('alt');
-        //         imagenes[j].addEventListener("click", () => {
-        //             window.location = 'detalle_articulo.php?art='+articulo;});
-        //    	}
-
-        //     catalogo.addEventListener("click", () => { //Catalogo Excel
-        //         let variable = "";
-        //         for (j=0;j<imagenes.length-1;j++){
-        //             variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
-        //         }
-        //         variable+= imagenes[imagenes.length-1].getAttribute('alt');
-        //         window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
-        //     });
-
-        //     let cambiar = document.getElementById('cambiar-filtro');
-		// 	let form = document.getElementById('datos');
-
-		// 	if (cambiar != null){
-		// 		cambiar.addEventListener("click", () => {
-		// 			if (form.style.display == 'block'){
-		// 				form.style.display = 'none';
-		// 			}
-		// 			else{
-		// 				form.style.display = 'block';
-		// 			}
-		// 		});
-		// 	}
-			
-		// 	if (cambiar != null){
-		// 		form.style.display = 'none';
-		// 	}	
-        // }
     </script>
 </head>
 <body id="body">   
@@ -273,6 +235,23 @@
 	</header>
 	
 	<main id="main">
+		<?php
+			if (isset($_GET['cate'])){
+				echo "<ol class='ruta'>
+                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                        <li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
+                        <li style='border:none;text-decoration: none;'>Productos</li>
+                     </ol>
+            	";
+			}
+			else{
+				echo "<ol class='ruta'>
+                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                        <li style='border:none;text-decoration: none;'>Productos</li>
+                  </ol>
+            	";
+			}
+		?>
         <aside class="barra-lateral"> 
 			<?php 
 				$filtro = "";

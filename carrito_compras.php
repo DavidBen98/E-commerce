@@ -38,6 +38,7 @@
             display:flex;
             justify-content:center;
             padding-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         .carrito{
@@ -421,6 +422,13 @@
     
     <main>           
         <?php 
+            echo "<ol class='ruta'>
+                    <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                    <li style='border:none;text-decoration: none;'>Carrito de compras</li>
+                </ol>
+            ";
+
+
             $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
             $lista_carrito = array();
             $productos_agregados = 0;

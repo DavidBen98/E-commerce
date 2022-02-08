@@ -223,7 +223,7 @@ header a {
 /* PIE */
 main{
     background-color: rgba(147, 81, 22,0.5);
-    padding-top: 30px;
+    padding-top: 5px;
 }
 
 #pie{
@@ -467,4 +467,26 @@ option{
     border-radius: 50%;
     color: white;
     font-family: Roboto,Arial,Helvetica,sans-serif;
+}
+
+.ruta{
+    width: 100%;
+    display: flex;
+    margin-top: 0;
+    background: #000;
+    padding-left: 30px;
+}
+
+.ruta li{
+    list-style-type: none;
+    padding: 0 10px;
+    border-right: 1px solid white;
+    margin: 4px 0;
+    text-decoration: underline;
+    color: white;
+    font-family: museosans500,arial,sans-serif;
+}
+
+.ruta li a{
+    color: white;
 }

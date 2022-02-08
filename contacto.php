@@ -194,6 +194,13 @@
 	</header>
 
     <main id='main'>
+		<?php
+			echo "<ol class='ruta'>
+							<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+							<li style='border:none;text-decoration: none;'>Contacto</li>
+						</ol>
+			";
+		?>
 		<div style='width:100%; margin: 0 0 10px 0;'>
 			<h1>Contacto</h1>
 		</div>

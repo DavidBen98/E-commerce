@@ -33,8 +33,9 @@
 	<style>
 		#main{
 			display:flex;
-			padding: 20px 0 10px 0;
+			padding-bottom:10px;
 			justify-content:center;
+			flex-wrap:wrap;
 		}
 		
 		.img-cat{
@@ -89,7 +90,13 @@
 	</header>
 
 	<main id="main">	
-		<?php 						 
+		<?php 	
+			echo "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='border:none;text-decoration: none;'>Subcategorías</li>
+				</ol>
+			";
+		
 			crearImagenes($rs); 				
 		?>
 	</main>

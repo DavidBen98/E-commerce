@@ -69,6 +69,10 @@
         }
         $j++;
     }
+
+    if ($j == 0){
+        $div .= "<p>Aún no hay consultas realizadas </p>";
+    }
     $div .= "</div>";
 ?>
 <!DOCTYPE html>
@@ -150,6 +154,13 @@
 
     <main>
         <?php 
+
+            echo "<ol class='ruta'>
+                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                        <li style='border:none;text-decoration: none;'>Consulta de usuario</li>
+                    </ol>
+            ";
+
             echo "<div class='contenedor-botones'>
                     $cont_usuarios
                   </div>";

@@ -94,6 +94,7 @@
 		main{
 			display:flex;
 			justify-content: center;
+			flex-wrap:wrap;
 		}
 
 		#carac {
@@ -237,6 +238,13 @@
     <main id='main'>
 		<p class='h1' style='display:none;'>Muebles Giannis</p>
 		<?php
+			echo "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>
+					<li style='border:none;text-decoration: none;'>Detalle de artículo</li>
+				</ol>
+			";
+
 			global $db;
 			$variable = $_GET['art'] ;
 			$where_sql = "WHERE codigo = '$variable'";
