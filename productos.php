@@ -53,7 +53,34 @@
 
         $sql = completarWhere($sql, $filtros);
         $rs = $db->query($sql);
-    }	 
+    }
+	else if (isset($_GET['buscador'])){
+		$busqueda = $_GET['buscador'];
+
+		if (trim($busqueda) != ''){
+			$busqueda = str_replace('%20', ' ', $busqueda);
+			$busqueda = ucfirst($busqueda);
+			$palabras = explode (' ',$busqueda);			
+
+			$sql  = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
+					 FROM `producto` as p
+					 INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+					 INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+					 WHERE nombre_categoria LIKE '%".$busqueda."%' 
+					 OR nombre_subcategoria LIKE '%".$busqueda."%'
+					 OR descripcion LIKE '%".$busqueda."%'";
+
+			foreach ($palabras as $palabra){
+				if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
+					$sql .= " OR nombre_categoria LIKE '%".$palabra."%'
+							  OR nombre_subcategoria LIKE '%".$palabra."%'
+							  OR descripcion LIKE '%".$palabra."%'";
+				}
+			}
+			
+			$rs = $db->query($sql);
+		}
+	}	 
     else{
         $sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`
 				FROM producto";
@@ -157,43 +184,87 @@
 		}
     </style>
     <script> 
-        window.onload = function() {
-            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-            let catalogo = document.getElementById('catalogo'); //Boton excel
 
-            for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {
-                    window.location = 'detalle_articulo.php?art='+articulo;});
-           	}
+		if (window.addEventListener){
+			window.addEventListener ('load', () => {
+				let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
 
-            catalogo.addEventListener("click", () => { //Catalogo Excel
-                let variable = "";
-                for (j=0;j<imagenes.length-1;j++){
-                    variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
-                }
-                variable+= imagenes[imagenes.length-1].getAttribute('alt');
-                window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
-            });
+				for (j=0;j<imagenes.length;j++){
+					let articulo = imagenes[j].getAttribute('alt');
+					imagenes[j].addEventListener("click", () => {
+						window.location = 'detalle_articulo.php?art='+articulo;});
+				}
 
-            let cambiar = document.getElementById('cambiar-filtro');
-			let form = document.getElementById('datos');
+				let catalogo = document.getElementById('catalogo'); //Boton excel
 
-			if (cambiar != null){
-				cambiar.addEventListener("click", () => {
-					if (form.style.display == 'block'){
-						form.style.display = 'none';
-					}
-					else{
-						form.style.display = 'block';
-					}
-				});
-			}
+				if (catalogo != null){
+					catalogo.addEventListener("click", () => { //Catalogo Excel
+						let variable = "";
+						for (j=0;j<imagenes.length-1;j++){
+							variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
+						}
+						variable+= imagenes[imagenes.length-1].getAttribute('alt');
+						window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
+					});
+				}
+
+				let cambiar = document.getElementById('cambiar-filtro');
+				let form = document.getElementById('datos');
+
+				if (cambiar != null){
+					cambiar.addEventListener("click", () => {
+						if (form.style.display == 'block'){
+							form.style.display = 'none';
+						}
+						else{
+							form.style.display = 'block';
+						}
+					});
+				}
+				
+				if (cambiar != null){
+					form.style.display = 'none';
+				}	
+			})
+		}
+		//window.onload= cargarFunciones();
+        // window.onload = function() {
+        //     let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+        //     let catalogo = document.getElementById('catalogo'); //Boton excel
+
+        //     for (j=0;j<imagenes.length;j++){
+        //         let articulo = imagenes[j].getAttribute('alt');
+        //         imagenes[j].addEventListener("click", () => {
+        //             window.location = 'detalle_articulo.php?art='+articulo;});
+        //    	}
+
+        //     catalogo.addEventListener("click", () => { //Catalogo Excel
+        //         let variable = "";
+        //         for (j=0;j<imagenes.length-1;j++){
+        //             variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
+        //         }
+        //         variable+= imagenes[imagenes.length-1].getAttribute('alt');
+        //         window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
+        //     });
+
+        //     let cambiar = document.getElementById('cambiar-filtro');
+		// 	let form = document.getElementById('datos');
+
+		// 	if (cambiar != null){
+		// 		cambiar.addEventListener("click", () => {
+		// 			if (form.style.display == 'block'){
+		// 				form.style.display = 'none';
+		// 			}
+		// 			else{
+		// 				form.style.display = 'block';
+		// 			}
+		// 		});
+		// 	}
 			
-			if (cambiar != null){
-				form.style.display = 'none';
-			}	
-        };
+		// 	if (cambiar != null){
+		// 		form.style.display = 'none';
+		// 	}	
+        // }
     </script>
 </head>
 <body id="body">   

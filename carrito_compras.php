@@ -31,6 +31,7 @@
     <title>Muebles Giannis</title>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="js/funciones.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <style>
         main{
@@ -65,7 +66,7 @@
             object-fit: contain;
         }
 
-        .descripcion{
+        .descrip{
             width:70%;
             height:90%;
             display:flex;
@@ -219,15 +220,15 @@
         .continuar button{
             width:250px;
             height: 40px;
-            background: #ededed;
+            background: rgba(147, 81, 22,0.5);
             border-radius: 5px;
-            border: none;
+            border: 1px solid #000;
             font-weight: 700;
             cursor: pointer;
         }
 
         .continuar button:hover{
-            background-color: rgba(147, 81, 22,0.5);
+            background-color: rgba(147, 81, 22,1);
             transition: all 0.3s linear;
             color: white;
             cursor:pointer;
@@ -292,6 +293,20 @@
             font-size:1.2rem;
             transition: all 0.5s linear;
         }
+
+        .img-cat:hover{
+            cursor: pointer;
+        }
+
+        .enlace{
+            transition: all 0.5s linear;
+        }
+
+        .enlace:hover{
+            color: #000;
+            font-size:1.15rem;
+            transition: all 0.5s linear;
+        }
     </style>
     <script>
 		function excel() {			
@@ -300,27 +315,35 @@
 			document.getElementById("datos").submit(); 
 		}	
 
-        window.onload = function (){
-            let continuar = document.getElementById('continuar');
+        if (window.addEventListener){
+			window.addEventListener ('load', () => {
+                let continuar = document.getElementById('continuar');
 
-            continuar.addEventListener("click", () => {
-                window.location = "productos.php?productos=todos";
-            });     
+                continuar.addEventListener("click", () => {
+                    window.location = "productos.php?productos=todos";
+                });     
 
-            let ocultar = document.getElementById('ocultar');
+                let ocultar = document.getElementById('ocultar');
 
-            if (ocultar != null){
-                let mp = document.getElementsByClassName('mercadopago-button');
+                if (ocultar != null){
+                    let mp = document.getElementsByClassName('mercadopago-button');
 
-                for (let i=0; i < mp.length;i++){
-                    mp[i].style.visibility = 'hidden';
+                    for (let i=0; i < mp.length;i++){
+                        mp[i].style.visibility = 'hidden';
+                    }
+                }     
+
+                let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+
+                for (j=0;j<imagenes.length;j++){
+                    let articulo = imagenes[j].getAttribute('alt');
+                    imagenes[j].addEventListener("click", () => {
+                        window.location = 'detalle_articulo.php?art='+articulo;
+                    });
                 }
-            }     
-
-
+            });
         }
-	</script>
-    <script>
+
         function agregarFav (id){
             var param = {
 				id: id
@@ -495,12 +518,14 @@
                     $i++;
 
                     echo "<div class='contenedor'>
-                            <div class='descripcion'> 
+                            <div class='descrip'> 
                                 <div class='principal'>                                                                                          
-                                    <img src='images/$codigo.png' class='productos' alt='Codigo del producto:$codigo'>
+                                    <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
                                         <div class='titulo'>
-                                            <p style='color:#000; margin-top:10px;'>$descripcion</p> 
-                                            <p style='font-size:16px;'>$marca</p> 
+                                            <div style='display:flex; flex-wrap:wrap;'>
+                                                <a href='detalle_articulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
+                                                <a href='detalle_articulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                            </div> 
                                             <div class='elim-fav'>
                                                 <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
                                                     <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>

@@ -79,6 +79,7 @@
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title>   
+    <script src="js/funciones.js"></script>
     <style>
         main{
             display:flex;

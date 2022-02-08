@@ -25,12 +25,12 @@
 
     if (!isset($_SESSION['idUsuario'])){
         $sql = "SELECT u.id
-                FROM usuarios as u
-                INNER JOIN usuarios_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = $id_usuario
+                FROM usuario as u
+                INNER JOIN usuario_rs as rs ON rs.id = u.id
+                WHERE rs.id_social = '$id_usuario'
         ";
 
-        $rs = $db->execute($sql);
+        $rs = $db->query($sql);
 
         foreach ($rs as $row){
             $id_usuario = $row['id'];
@@ -48,7 +48,7 @@
     $div = "<div class='consulta'>
                 <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
                     <p style='height:40px; width:100%; font-size:1.3rem;padding:0;margin:0;display: flex; justify-content: center;align-items: center;'>
-                        <b>Favoritos</b>
+                        <b style='font-family: museosans500,arial,sans-serif;'>Favoritos</b>
                     </p>
                 </div>            
     ";
@@ -62,13 +62,11 @@
 
     $selectNumero = 1; 
     if ($i == 0){
-                $div .= "<div style='width:30%;'></div>
-                            <div style='margin:10px; width:50%;'> Aún no hay productos favoritos</div>
-                <div style='width:60%;'></div>";
+                $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay productos favoritos</div>";
 
-        $div .= "<div class='continuar'>
-                        <button type='button' class='btn-final' id='continuar' style='margin-left:40px;'>
-                            Continúa comprando
+        $div .= "<div class='continuar' style='width: 100%; display: flex;'>
+                        <button type='button' class='btn-final' id='continuar' style='margin:auto;'>
+                            Continúa navegando
                         </button>
                 </div>";
 
@@ -89,12 +87,14 @@
             $id = $row['id'];
     
             $div.= "<div class='contenedor'>
-                        <div class='descripcion'> 
+                        <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='images/$codigo.png' class='productos' alt='Codigo del producto:$codigo'>
-                                    <div class='titulo'>
-                                        <p style='color:#000; margin-top:10px;'>$descripcion</p> 
-                                        <p style='font-size:16px;'>$marca</p> 
+                                <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                    <div class='titulo' style='text-align:left;'>
+                                        <div style='display:flex; flex-wrap:wrap;'>
+                                            <a href='detalle_articulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
+                                            <a href='detalle_articulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                        </div>
                                         <div class='elim-fav'>
                                             <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
                                                 <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
@@ -141,14 +141,28 @@
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title> 
+    <script src="js/funciones.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script>
-        window.onload = function (){
-            let continuar = document.getElementById('continuar');
+        if (window.addEventListener){
+			window.addEventListener ('load', () => {
+                let continuar = document.getElementById('continuar');
 
-            continuar.addEventListener("click", () => {
-                window.location = "productos.php?productos=todos";
-            });  
+                if (continuar != null){
+                    continuar.addEventListener("click", () => {
+                        window.location = "productos.php?productos=todos";
+                    });  
+                }
+
+                let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+
+                for (j=0;j<imagenes.length;j++){
+                    let articulo = imagenes[j].getAttribute('alt');
+                    imagenes[j].addEventListener("click", () => {
+                        window.location = 'detalle_articulo.php?art='+articulo;
+                    });
+                }
+            });
         }
           
 		function agregarProducto (id){
@@ -170,12 +184,28 @@
 						let pExito = document.getElementsByClassName('parrafo-exito');
 
 						if (pExito[0] == null){
+
+                            let mensaje = document.getElementsByClassName('mensaje');
+
+                            if (mensaje[0] != null){
+                                mensaje[0].style.display = 'none';
+                            } 
+
 							var contenedor = document.getElementsByClassName('consulta');
 							var parrafo = document.createElement("p");
+                            var carrito = document.createElement("a");
+
 							parrafo.setAttribute("class","parrafo-exito");
-							var contenido = document.createTextNode("¡Se ha añadido el producto de manera exitosa!");
+							carrito.setAttribute("class","carrito-compras");
+							carrito.setAttribute("href","carrito_compras.php");
+							carrito.innerHTML = 'carrito de compras';
+
+							var contenido = document.createTextNode("¡Se ha añadido el producto al ");
+							var cont_final = document.createTextNode("!");
 
 							parrafo.appendChild(contenido);
+                            parrafo.appendChild(carrito);
+                            parrafo.appendChild(cont_final);
 							contenedor[0].appendChild(parrafo);
 						}
 					}
@@ -269,7 +299,7 @@
             object-fit: contain;
         }
 
-        .descripcion{
+        .descrip{
             width:100%;
             height:90%;
             display:flex;
@@ -314,9 +344,9 @@
         }
 
         .principal{
-            width:65%;
+            width:70%;
             display:flex;
-            justify-content:start;
+            justify-content: space-between;
             flex-wrap:wrap;
             height: 160px;
         }
@@ -333,6 +363,7 @@
             display:flex;
             flex-wrap:wrap;
             align-content:start;
+            padding-left: 100px;
         }
 
         .secundario p{
@@ -362,7 +393,7 @@
         }
 
         .titulo{
-            width:255px;
+            width:300px;
             height: auto;
         }
 
@@ -425,7 +456,7 @@
             height: 40px;
             background: rgba(147, 81, 22,0.5);
             border-radius: 5px;
-            border: none;
+            border: 1px solid #000;
             font-weight: 700;
             cursor: pointer;
         }
@@ -500,12 +531,37 @@
         .parrafo-exito{
             background-color: #099;
 			width:100%;
-			padding: 5px 0;
+			padding: 10px 0;
 			color: white;
-			margin-top: 20px;
+			margin:10px;
 			border-radius: 5px;
 			text-align:center;
 		}
+
+        .carrito-compras{
+            text-decoration: underline;
+            color: white;
+            transition: all 0.5s linear;
+        }
+
+        .carrito-compras:hover{
+            font-size:1.2rem;
+            transition: all 0.5s linear;
+        }
+
+        .img-cat:hover{
+            cursor: pointer;
+        }
+
+        .enlace{
+            transition: all 0.5s linear;
+        }
+
+        .enlace:hover{
+            color: #000;
+            font-size:1.15rem;
+            transition: all 0.5s linear;
+        }
     </style>
 </head>
 <body id="body">

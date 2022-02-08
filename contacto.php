@@ -14,6 +14,7 @@
     <title>Muebles Giannis</title>
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <script src="js/funciones.js"></script>
     <style>
 		body{
 			margin: 0;

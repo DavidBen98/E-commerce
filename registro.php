@@ -126,7 +126,7 @@
         $dire = trim($dire);
 
         $insertar = "INSERT INTO `usuario`(`nombreUsuario`, `contrasena`, `perfil`, `nroDni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`,`suscripcion`) 
-        VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')";
+                     VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')";
 
         $rs = $db->query($insertar);
 

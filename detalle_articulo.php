@@ -17,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="js/funciones.js"></script>
 	<script>
 		function agregarFav (id){
             var param = {
@@ -30,6 +31,9 @@
 				success: function(data) {
 					if (data == 'ok'){
                         window.location.href = window.location+'&fav=ok';
+					}
+					else if(data == 'login') {
+                        window.location.href = 'login.php';
 					}
                     else{
                         window.location.href = window.location+'&fav=false';
@@ -57,12 +61,28 @@
 						let pExito = document.getElementsByClassName('parrafo-exito');
 
 						if (pExito[0] == null){
+							let mensaje = document.getElementsByClassName('mensaje');
+
+                            if (mensaje[0] != null){
+                                mensaje[0].style.display = 'none';
+                            } 
+
 							var contenedor = document.getElementById('cont-descripcion');
 							var parrafo = document.createElement("p");
+                            var carrito = document.createElement("a");
 							parrafo.setAttribute("class","parrafo-exito");
-							var contenido = document.createTextNode("¡Se ha añadido el producto al carrito de compras!");
+
+							parrafo.setAttribute("class","parrafo-exito");
+							carrito.setAttribute("class","carrito-compras");
+							carrito.setAttribute("href","carrito_compras.php");
+							carrito.innerHTML = 'carrito de compras';
+
+							var contenido = document.createTextNode("¡Se ha añadido el producto al ");
+							var cont_final = document.createTextNode("!");
 
 							parrafo.appendChild(contenido);
+                            parrafo.appendChild(carrito);
+                            parrafo.appendChild(cont_final);
 							contenedor.appendChild(parrafo);
 						}
 					}
@@ -157,7 +177,7 @@
 			width:100%;
 			padding: 10px 0;
 			color: white;
-			margin-top: 20px;
+			margin-top: 15px;
 			border-radius: 5px;
 			text-align:center;
 		}
@@ -177,19 +197,19 @@
             font-size: 1.1rem;
         }
 
-        .mensaje a{
+        .mensaje a, .carrito-compras{
             text-decoration: underline;
             color: white;
             transition: all 0.5s linear;
         }
 
-        .mensaje a:hover{
+        .mensaje a:hover, .carrito-compras:hover{
             font-size:1.2rem;
             transition: all 0.5s linear;
         }
 
 		@media print {				
-			header, #imprimir, #pie, #btn-enviar, .parrafo-exito{
+			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav{
 				display:none;
 			}
 

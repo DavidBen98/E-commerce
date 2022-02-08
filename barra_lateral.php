@@ -42,7 +42,7 @@
 							</select>
 						</div>";
 		}
-		else if (isset($_GET['productos'])){ //Si se ingresa desde el nav ->productos
+		else if (isset($_GET['productos']) || isset($_GET['buscador'])){ //Si se ingresa desde el nav ->productos o desde la barra de navegacion
 			$arrCategorias = [];
 			$arrSubcategorias = [];
 

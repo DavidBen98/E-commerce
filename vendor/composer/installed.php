@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1d494302e4bb598d07f1f7308921109bb7923c3e',
+        'reference' => 'f4e590d71e7595fe23db9783efbf93e7727de41b',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1d494302e4bb598d07f1f7308921109bb7923c3e',
+            'reference' => 'f4e590d71e7595fe23db9783efbf93e7727de41b',
             'dev_requirement' => false,
         ),
         'composer/installers' => array(
@@ -215,6 +215,15 @@
             'install_path' => __DIR__ . '/../paragonie/random_compat',
             'aliases' => array(),
             'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.5.3',
+            'version' => '6.5.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => 'baeb7cde6b60b1286912690ab0693c7789a31e71',
             'dev_requirement' => false,
         ),
         'phpseclib/phpseclib' => array(

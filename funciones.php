@@ -63,6 +63,7 @@
 		$psw_encript = hash('sha512', $salt.$password);				
 		return $psw_encript; 
 	}
+    
     $onclick1 = "window.location.href='informacion_personal.php'";
     $onclick2 = "window.location.href='consulta_usuario.php'";
     $onclick3 = "window.location.href='cerrar_sesion.php'";

@@ -26,6 +26,7 @@
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="JS/jquery-3.3.1.min.js"></script>
+    <script src="js/funciones.js"></script>
 	<script>
         function validar(){
             document.getElementById('e_error').innerHTML="";
@@ -155,7 +156,7 @@
 		}
 
 		#registrarse{
-			width:85%;
+			width:100%;
 			height:55%;
 			margin-bottom: 2px;
 			border: 2px solid black;
@@ -165,15 +166,15 @@
 		}
 
 		.registro{
+			width:100%;
 			height:66px;
 			display:flex;
 			align-items:end;
 		}
 
 		#registrarse:hover, #iniciar:hover{
-			background-color: #B2BABB ;
+			background-color: rgba(147, 81, 22,0.5);
             transition: all 0.3s linear;
-            color: white;
             cursor:pointer;
 	    }
 
@@ -305,7 +306,7 @@
 		}
 
 		#iniciar{
-			width: 50%;
+			width: 100%;
 			height: 50px;
 			margin-bottom: 2px;
 			border: 2px solid black;
@@ -404,7 +405,7 @@
 								</label>			
 							</div>
 							
-							<div class='cont-reg registro'>
+							<div class='registro'>
 								<button id='registrarse'>Registrarse</button>
 							</div>
 						";

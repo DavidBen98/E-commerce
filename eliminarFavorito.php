@@ -18,8 +18,8 @@
 
     if (!isset($_SESSION['idUsuario'])){
         $sql = "SELECT u.id
-                FROM usuarios as u
-                INNER JOIN usuarios_rs as rs ON rs.id = u.id
+                FROM usuario as u
+                INNER JOIN usuario_rs as rs ON rs.id = u.id
                 WHERE rs.id_social = $id_usuario
         ";
 

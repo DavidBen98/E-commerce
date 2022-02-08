@@ -63,20 +63,23 @@
 			}
 			return false;
 		}
-        window.onload = function() {
-            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-			let categoria = getQueryVariable ('categoria');
- 
-			//Enviar a prod segun la subcategoria que se eligió
-            for (j=0;j<imagenes.length;j++){
-                let imagen = imagenes[j].getAttribute('alt');
-                imagen = imagen.substring(0, imagen.length - 1);
-				let title = imagenes[j].getAttribute('title');
-                imagenes[j].addEventListener("click", () => {
-					let redirigir = 'productos.php?articulos='+imagen+'&cate='+categoria+'&sub='+title;
-                    window.location = redirigir;
-				});
-            }
+
+        if (window.addEventListener){
+			window.addEventListener ('load', () => {
+				let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+				let categoria = getQueryVariable ('categoria');
+	
+				//Enviar a prod segun la subcategoria que se eligió
+				for (j=0;j<imagenes.length;j++){
+					let imagen = imagenes[j].getAttribute('alt');
+					imagen = imagen.substring(0, imagen.length - 1);
+					let title = imagenes[j].getAttribute('title');
+					imagenes[j].addEventListener("click", () => {
+						let redirigir = 'productos.php?articulos='+imagen+'&cate='+categoria+'&sub='+title;
+						window.location = redirigir;
+					});
+				}
+			});
         }            
     </script>
 </head>

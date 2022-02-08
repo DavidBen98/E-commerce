@@ -6,7 +6,7 @@
         $encab =  "  <div id='imagen'>
                         <div id='buscar'>
                             <input type='text' id='header-buscar' title='Barra de navegacion' placeholder='Buscar por producto, marca, categoría...'>
-                                <button id='lupa' onclick='subcategoria.php' title='lupa-buscar'>
+                                <button id='lupa' title='lupa-buscar'>
                                     <img src='images/lupa.png' title='lupa-buscar' alt='Lupa de buscar'  style='width:20px;' height='20' id='perfil'>
                                 </button>
                         </div>"
@@ -37,7 +37,7 @@
                             </div>
                             <div id='buscar'>
                                 <input type='text' id='header-buscar' title='Barra de navegacion' placeholder='Buscar por producto, marca, categoría...'>
-                                <button id='lupa' onclick='subcategoria.php' title='Buscar'>
+                                <button id='lupa' title='Buscar'>
                                     <img src='images/lupa.png' alt='Lupa de buscar' style='width:20px;' height='20' id='perfil'>
                                 </button>
                             </div>"

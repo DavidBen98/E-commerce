@@ -236,7 +236,6 @@
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
-    <script src="js/funciones.js"></script>
     <title>Muebles Giannis</title>
     <style>
         .categorias {
@@ -282,14 +281,14 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2em;
-            background-color: rgba(0,0,0,0.45);
+            background-color: rgba(0,0,0,0.8);
             border-radius:5px;
             width:180px;
             height:40px;
         }
 
         .img-texto{
-            background-color: rgba(0,0,0,0.45);
+            background-color: rgba(0,0,0,0.8);
             border-radius:5px;
             width:160px;
             margin:auto;
@@ -303,30 +302,33 @@
             imagen.style.borderRadius= "10px";
         }
 
-        window.onload = function() {
-           let img_cat = document.getElementsByClassName('img-cat');
-           let txt_cat = document.getElementsByClassName('texto');
+        if (window.addEventListener){
+			window.addEventListener ('load', () => {
+                let img_cat = document.getElementsByClassName('img-cat');
+                let txt_cat = document.getElementsByClassName('texto');
 
-            for (i=0;i<img_cat.length;i++){
-                let img = img_cat[i];
-                let txt = txt_cat[i];
+                for (i=0;i<img_cat.length;i++){
+                    let img = img_cat[i];
+                    let txt = txt_cat[i];
 
-                img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-                img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
-                                                       txt.style.opacity = "0";}
-                                     ); 
-                txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-            };
+                    img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
+                    img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
+                                                        txt.style.opacity = "0";}
+                                        ); 
+                    txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
+                };
 
-            let imagenes = document.getElementsByClassName('cont-images');
-            for (j=0;j<imagenes.length;j++){
-                let imagen = img_cat[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {
-                    window.location = 'subcategoria.php?categoria='+imagen;
-                });
-            };
-        };
+                let imagenes = document.getElementsByClassName('cont-images');
+                for (j=0;j<imagenes.length;j++){
+                    let imagen = img_cat[j].getAttribute('alt');
+                    imagenes[j].addEventListener("click", () => {
+                        window.location = 'subcategoria.php?categoria='+imagen;
+                    });
+                }
+            });
+        }
     </script>
+    <script src="js/funciones.js"></script>
 </head>
 <body id="body">
     <header> 
