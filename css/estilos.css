@@ -87,14 +87,6 @@ header a {
     align-items:center;
 }
 
-#navigation ul li ul {
-    display: none;
-}
-
-#navigation li:hover > ul{
-    display: block;
-}
-
 #header-img{
     padding-top: 10px;
 }
@@ -165,25 +157,24 @@ header a {
 }
 
 /*NAVEGACION*/
-#nav {
+#navigation ul{
     display: flex;
+    margin: 0;
+    padding: 0;
     justify-content: center;
-    width: 100%;
+}
+
+#navigation li:hover > ul{
+    display: block;
 }
 
 #navigation{
     background-color: white;
-    display: flex;
-    justify-content: center;
-}
-
-#navigation ul {
-    margin: 0;
-    padding: 0;
 }
 
 #navigation ul li {
     display: inline-block;
+    margin: 0 1px;
 }
 
 #navigation ul li a {

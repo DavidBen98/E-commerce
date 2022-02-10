@@ -235,7 +235,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="images/svg.svg">
     <title>Muebles Giannis</title>
     <style>
         .categorias {

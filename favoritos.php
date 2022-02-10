@@ -166,7 +166,7 @@
         }
           
 		function agregarProducto (id){
-			var param = {
+			let param = {
 				id: id
 			};
 
@@ -175,7 +175,7 @@
 				url: "agregarCarrito.php",
 				method: "post",
 				success: function(data) {
-					var datos = JSON.parse(data);
+					let datos = JSON.parse(data);
 
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
@@ -191,17 +191,17 @@
                                 mensaje[0].style.display = 'none';
                             } 
 
-							var contenedor = document.getElementsByClassName('consulta');
-							var parrafo = document.createElement("p");
-                            var carrito = document.createElement("a");
+							let contenedor = document.getElementsByClassName('consulta');
+							let parrafo = document.createElement("p");
+                            let carrito = document.createElement("a");
 
 							parrafo.setAttribute("class","parrafo-exito");
 							carrito.setAttribute("class","carrito-compras");
 							carrito.setAttribute("href","carrito_compras.php");
 							carrito.innerHTML = 'carrito de compras';
 
-							var contenido = document.createTextNode("¡Se ha añadido el producto al ");
-							var cont_final = document.createTextNode("!");
+							let contenido = document.createTextNode("¡Se ha añadido el producto al ");
+							let cont_final = document.createTextNode("!");
 
 							parrafo.appendChild(contenido);
                             parrafo.appendChild(carrito);
@@ -214,7 +214,7 @@
 		}  
 
         function eliminarFavorito (id){
-			var param = {
+			let param = {
 				id: id
 			};
 

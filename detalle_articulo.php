@@ -20,7 +20,14 @@
     <script src="js/funciones.js"></script>
 	<script>
 		function agregarFav (id){
-            var param = {
+			function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				let regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+			}
+
+            let param = {
 				id: id
 			};
 
@@ -29,21 +36,35 @@
 				url: "agregarFavorito.php?id="+id,
 				method: "post",
 				success: function(data) {
+					let url = window.location.href.split('?')[0];
+					let articulo = getParameterByName('art');
+					let parrafo = document.getElementsByClassName('parrafo-exito');
+					let mensaje = document.getElementsByClassName('mensaje');
+
+					if (mensaje[0] != null){
+						mensaje[0].style.display = 'block';
+					} 
+
+					if (parrafo[0] != null){
+						parrafo[0].style.display = 'none';
+					} 
+
 					if (data == 'ok'){
-                        window.location.href = window.location+'&fav=ok';
+
+                        window.location.href = url+'?art='+articulo+'&fav=ok'+'#mensaje';
 					}
 					else if(data == 'login') {
                         window.location.href = 'login.php';
 					}
                     else{
-                        window.location.href = window.location+'&fav=false';
+                        window.location.href = url+'?art='+articulo+'&fav=false'+'#mensaje';
                     }
 				}
 			});			
 		}
 
 		function agregarProducto (id){
-			var param = {
+			let param = {
 				id: id
 			};
 
@@ -52,7 +73,7 @@
 				url: "agregarCarrito.php",
 				method: "post",
 				success: function(data) {
-					var datos = JSON.parse(data);
+					let datos = JSON.parse(data);
 
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
@@ -67,23 +88,24 @@
                                 mensaje[0].style.display = 'none';
                             } 
 
-							var contenedor = document.getElementById('cont-descripcion');
-							var parrafo = document.createElement("p");
-                            var carrito = document.createElement("a");
-							parrafo.setAttribute("class","parrafo-exito");
+							let contenedor = document.getElementById('cont-descripcion');
+							let parrafo = document.createElement("p");
+                            let carrito = document.createElement("a");
 
 							parrafo.setAttribute("class","parrafo-exito");
+							parrafo.setAttribute("id","parrafo-exito");
 							carrito.setAttribute("class","carrito-compras");
 							carrito.setAttribute("href","carrito_compras.php");
 							carrito.innerHTML = 'carrito de compras';
 
-							var contenido = document.createTextNode("¡Se ha añadido el producto al ");
-							var cont_final = document.createTextNode("!");
+							let contenido = document.createTextNode("¡Se ha añadido el producto al ");
+							let cont_final = document.createTextNode("!");
 
 							parrafo.appendChild(contenido);
                             parrafo.appendChild(carrito);
                             parrafo.appendChild(cont_final);
 							contenedor.appendChild(parrafo);
+							window.location.hash = '#parrafo-exito';
 						}
 					}
 				}
@@ -308,12 +330,12 @@
 					if (isset($_GET['fav'])){
 						$fav = $_GET['fav'];
 						if ($fav == 'ok'){
-							echo "<div class='mensaje' style='background-color: #099;'>
+							echo "<div class='mensaje' id='mensaje' style='background-color: #099;'>
 									 ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
 								  </div>";
 						}
 						else{
-							echo "<div class='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
+							echo "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
 									 ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
 								  </div>";
 						}

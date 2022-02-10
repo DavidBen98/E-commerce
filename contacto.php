@@ -149,7 +149,7 @@
 		function validar(){
             document.getElementById("e_error").innerHTML="";
 
-			var exito = document.getElementsByClassName('parrafo-exito');
+			let  exito = document.getElementsByClassName('parrafo-exito');
 			exito[0].style.display = 'none';
 
 			nombre = document.getElementById("nombre").value;

@@ -310,6 +310,9 @@
         }
     </style>
     <script>
+        //PASAR TODAS LAS FUNCIONES A const excel = function () {} o const excel = () => {}
+        //USAR QUERYSELECTORALL
+        //MODIFICAR TODOS LOS WINDOW.ONLOAD POR DOCUMENT.ADDEVENTLISTENER('DOMCONTENTLOADED', () => {})
 		function excel() {			
 			document.getElementById("datos").method = "post";
 			document.getElementById("datos").action = "carrito_xls.php";
@@ -346,7 +349,7 @@
         }
 
         function agregarFav (id){
-            var param = {
+            let param = {
 				id: id
 			};
 
@@ -356,17 +359,17 @@
 				method: "post",
 				success: function(data) {
 					if (data == 'ok'){
-                        window.location.href = 'carrito_compras.php?fav=ok';
+                        window.location.href = 'carrito_compras.php?fav=ok#mensaje';
 					}
                     else{
-                        window.location.href = 'carrito_compras.php?fav=false';
+                        window.location.href = 'carrito_compras.php?fav=false#mensaje';
                     }
 				}
 			});			
 		}
 
 		function eliminarProducto (id){
-			var param = {
+			let param = {
 				id: id
 			};
 
@@ -375,13 +378,18 @@
 				url: "eliminarCarrito.php",
 				method: "post",
 				success: function(data) {
-					var datos = JSON.parse(data);
+					let datos = JSON.parse(data);
 
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
 						cantCarrito.innerHTML = datos.numero;
 
-                        window.location.href = 'carrito_compras.php?elim=ok';
+                        if (location.hash == '#mensaje'){
+                            location.reload();
+                        }
+                        else{
+                            window.location.href = 'carrito_compras.php?elim=ok#mensaje';
+                        }
 					}
 				}
 			});			
@@ -390,7 +398,7 @@
         function modificarProducto (id, producto){
             let valorSeleccionado = document.getElementsByName('cant-'+producto);
 
-			var param = {
+			let param = {
 				id: id,
                 cantidad: valorSeleccionado[0].value
 			};
@@ -400,7 +408,7 @@
 				url: "modificarCarrito.php",
 				method: "post",
 				success: function(data) {
-					var datos = JSON.parse(data);
+					let datos = JSON.parse(data);
 
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
@@ -427,7 +435,6 @@
                     <li style='border:none;text-decoration: none;'>Carrito de compras</li>
                 </ol>
             ";
-
 
             $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
             $lista_carrito = array();
@@ -481,7 +488,7 @@
                     </div>";
 
                 if (isset($_GET['elim'])){
-                    echo "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+                    echo "<div class='mensaje' id='msj'>¡El producto se ha eliminado correctamente!</div>";
                 }
                 echo "
                 </div>";    
@@ -607,7 +614,7 @@
                     </div>";
 
                 if (isset($_GET['elim'])){
-                    echo "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+                    echo "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
                 }
                 else if (isset($_GET['error_pago'])){
                     echo "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
@@ -615,12 +622,12 @@
                 else if (isset($_GET['fav'])){
                     $fav = $_GET['fav'];
                     if ($fav == 'ok'){
-                        echo "<div class='mensaje' style='background-color: #099;'>
+                        echo "<div class='mensaje' id='mensaje' style='background-color: #099;'>
                                  ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
                               </div>";
                     }
                     else{
-                        echo "<div class='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
+                        echo "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
                                  ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
                               </div>";
                     }
