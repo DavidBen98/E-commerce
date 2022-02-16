@@ -6,7 +6,7 @@
 	include("encabezado.php");
 
 	if (perfil_valido(2)) {
-		header("location:informacion_personal.php");
+		header("location:informacionPersonal.php");
 	} 
 	else if (perfil_valido(1)) {
 		header("ve.php");
@@ -22,7 +22,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis</title>
-    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="JS/jquery-3.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
@@ -70,7 +70,7 @@
 		function actualizarCiudad (){
 			$.ajax ({
 				type: "POST",
-				url: "rellenar_select.php",
+				url: "rellenarSelect.php",
 				data: "provincia=" + $('#provincia').val(),
 				success: function (r){
 					$('#ciudad').html (r);
@@ -368,7 +368,7 @@
 							<div class='cont-reg'>
 								<label for='provincia' class='form-label'>Provincia </label>
 								";
-								include('api_datos.php');
+								include('apiDatos.php');
 							echo "
 							</div> 
 							
@@ -450,7 +450,7 @@
                   	</ol>
             	";
 				$google= $google_client->createAuthUrl();
-				echo "<form action='inicio_sesion.php' method='post' class='formulario' novalidate>
+				echo "<form action='inicioSesion.php' method='post' class='formulario' novalidate>
 							<div id='sesion'>
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
 								<div class='cont-campo'>

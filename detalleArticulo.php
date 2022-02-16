@@ -16,7 +16,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Muebles Giannis</title>
-	<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="assets/css/estilos.css" media="screen">
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="js/funciones.js"></script>
@@ -97,7 +97,7 @@
 							parrafo.setAttribute("class","parrafo-exito");
 							parrafo.setAttribute("id","parrafo-exito");
 							carrito.setAttribute("class","carrito-compras");
-							carrito.setAttribute("href","carrito_compras.php");
+							carrito.setAttribute("href","carritoCompras.php");
 							carrito.innerHTML = 'carrito de compras';
 
 							let contenido = document.createTextNode("¡Se ha añadido el producto al ");

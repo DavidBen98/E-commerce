@@ -57,13 +57,15 @@
                     $this->verifyTokens();
                     $usuario = $this->cliente->account_verifyCredentials();
                     $_SESSION['nombre_tw'] = $usuario->name;
-                    $_SESSION['arroba_tw'] = $usuario->user_name;
-
-                    header('location: index.php');
-
-                    die();
+                    if (isset($usuario->user_name)){
+                        $_SESSION['arroba_tw'] = $usuario->user_name;
+                    }
+                    
+                    //header('location: index.php');
                     
                     return true;
+                    die();
+
                 }
             }
             return false;

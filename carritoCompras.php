@@ -28,7 +28,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <title>Muebles Giannis</title>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
@@ -317,7 +317,7 @@
         //TODO: PVALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
 		function excel() {			
 			document.getElementById("datos").method = "post";
-			document.getElementById("datos").action = "carrito_xls.php";
+			document.getElementById("datos").action = "carritoXLS.php";
 			document.getElementById("datos").submit(); 
 		}	
 
@@ -344,7 +344,7 @@
                 for (j=0;j<imagenes.length;j++){
                     let articulo = imagenes[j].getAttribute('alt');
                     imagenes[j].addEventListener("click", () => {
-                        window.location = 'detalle_articulo.php?art='+articulo;
+                        window.location = 'detalleArticulo.php?art='+articulo;
                     });
                 }
             });
@@ -361,10 +361,10 @@
 				method: "post",
 				success: function(data) {
 					if (data == 'ok'){
-                        window.location.href = 'carrito_compras.php?fav=ok#mensaje';
+                        window.location.href = 'carritoCompras.php?fav=ok#mensaje';
 					}
                     else{
-                        window.location.href = 'carrito_compras.php?fav=false#mensaje';
+                        window.location.href = 'carritoCompras.php?fav=false#mensaje';
                     }
 				}
 			});			
@@ -390,7 +390,7 @@
                             location.reload();
                         }
                         else{
-                            window.location.href = 'carrito_compras.php?elim=ok#mensaje';
+                            window.location.href = 'carritoCompras.php?elim=ok#mensaje';
                         }
 					}
 				}
@@ -415,7 +415,7 @@
 					if (datos['ok']){
 						let cantCarrito = document.getElementById('num-car');
 						cantCarrito.innerHTML = datos.numero;
-                        window.location.href = 'carrito_compras.php';
+                        window.location.href = 'carritoCompras.php';
 					}
 				}
 			});			
@@ -540,8 +540,8 @@
                                     <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
                                         <div class='titulo'>
                                             <div style='display:flex; flex-wrap:wrap;'>
-                                                <a href='detalle_articulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
-                                                <a href='detalle_articulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
+                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
                                             </div> 
                                             <div class='elim-fav'>
                                                 <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
@@ -636,7 +636,7 @@
                 }
                 echo "
                 </div>
-                <a href='carrito_xls.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
+                <a href='carritoXLS.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
                     <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
                 </a>"; 
             }                                           

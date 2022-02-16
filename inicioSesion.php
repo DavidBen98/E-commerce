@@ -52,7 +52,7 @@
 			header("location:ve.php");
 		}
 		else { 
-			header("location:informacion_personal.php");	
+			header("location:informacionPersonal.php");	
 		}				
 	} 
 ?>

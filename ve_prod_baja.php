@@ -75,7 +75,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Muebles Giannis - Las mejores marcas</title>
-    <link type="text/css"  href="css/ve_estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="assets/css/ve_estilos.css" rel="stylesheet"/>
     <style>
 		.cont{
 			width:400px;

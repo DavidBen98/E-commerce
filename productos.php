@@ -4,7 +4,7 @@
 	require 'inc/conn.php';
     include('config.php');
 	include ("encabezado.php");
-	include ("barra_lateral.php"); 
+	include ("barraLateral.php"); 
     //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
 	if ($perfil == "E"){ 
@@ -101,7 +101,7 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="js/funciones.js"></script>
@@ -194,10 +194,10 @@
 					let articulo = imagenes[j].getAttribute('alt');
 					imagenes[j].addEventListener("click", () => {
 						if (subc != -1){
-							window.location = 'detalle_articulo.php?art='+articulo+'&subc=ok';
+							window.location = 'detalleArticulo.php?art='+articulo+'&subc=ok';
 						}
 						else{
-							window.location = 'detalle_articulo.php?art='+articulo;
+							window.location = 'detalleArticulo.php?art='+articulo;
 						}
 					});
 				}
@@ -213,7 +213,7 @@
 							variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
 						}
 						variable+= imagenes[imagenes.length-1].getAttribute('alt');
-						window.location = 'listado_xls.php?imagen='+variable; //se manda por url, se recibe por get en listado_xls
+						window.location = 'listadoXLS.php?imagen='+variable; //se manda por url, se recibe por get en listadoXLS
 					});
 				}
 

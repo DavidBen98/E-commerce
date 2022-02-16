@@ -13,7 +13,7 @@
 	function recargarLista (){
 		$.ajax ({
 			type: "POST",
-			url: "rellenar_select.php",
+			url: "rellenarSelect.php",
 			data: "categoria= " + $('#categoria').val (),
 			success: function (r){
 				$('#subc').html (r);

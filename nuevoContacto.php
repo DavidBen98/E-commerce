@@ -58,7 +58,7 @@
 
         if ((isset($_SESSION['user_email_address']) && $email == $_SESSION['user_email_address'])
                     || ((isset($_SESSION['email'])) && $email == $_SESSION['email'])){//usuario registrado
-            header("location:consulta_usuario.php");                       
+            header("location:consultaUsuario.php");                       
         }   
         else{
             header("location:contacto.php?consulta=exito");

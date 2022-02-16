@@ -92,8 +92,8 @@
                                 <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
                                     <div class='titulo' style='text-align:left;'>
                                         <div style='display:flex; flex-wrap:wrap;'>
-                                            <a href='detalle_articulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
-                                            <a href='detalle_articulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                            <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
+                                            <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
                                         </div>
                                         <div class='elim-fav'>
                                             <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
@@ -138,7 +138,7 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title> 
     <script src="js/funciones.js"></script>
@@ -159,7 +159,7 @@
                 for (j=0;j<imagenes.length;j++){
                     let articulo = imagenes[j].getAttribute('alt');
                     imagenes[j].addEventListener("click", () => {
-                        window.location = 'detalle_articulo.php?art='+articulo;
+                        window.location = 'detalleArticulo.php?art='+articulo;
                     });
                 }
             });
@@ -197,7 +197,7 @@
 
 							parrafo.setAttribute("class","parrafo-exito");
 							carrito.setAttribute("class","carrito-compras");
-							carrito.setAttribute("href","carrito_compras.php");
+							carrito.setAttribute("href","carritoCompras.php");
 							carrito.innerHTML = 'carrito de compras';
 
 							let contenido = document.createTextNode("¡Se ha añadido el producto al ");

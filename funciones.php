@@ -7,13 +7,13 @@
         $links=''; 
 
         if (isset($_GET['code']) || isset($_SESSION['user_first_name'])){
-            $links = "  <a href='informacion_personal.php' title='Perfil'> <span>" 
+            $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
                         <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
-            $links = "  <a href='informacion_personal.php' title='Perfil'> 
+            $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
                         <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
@@ -23,10 +23,10 @@
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='cerrar_sesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
-            $links = "<a href='informacion_personal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='cerrar_sesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
+                        <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barra_sup ="<div id='barra-superior'>
@@ -64,10 +64,10 @@
 		return $psw_encript; 
 	}
     
-    $onclick1 = "window.location.href='informacion_personal.php'";
-    $onclick2 = "window.location.href='consulta_usuario.php'";
-    $onclick3 = "window.location.href='cerrar_sesion.php'";
-    $onclick4 = "window.location.href='compras_usuario.php'";
+    $onclick1 = "window.location.href='informacionPersonal.php'";
+    $onclick2 = "window.location.href='consultaUsuario.php'";
+    $onclick3 = "window.location.href='cerrarSesion.php'";
+    $onclick4 = "window.location.href='comprasUsuario.php'";
     $onclick5 = "window.location.href='favoritos.php'";
 
     $cont_usuarios = "  <div class='contenedor-btn'>        
@@ -107,7 +107,7 @@
 
     function crearImagenes ($consulta){
 		$i=0;	
-		echo "<form action='listado_xls.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
+		echo "<form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
 			echo "<h1 class='h1' style='display:none; width:100%; text-align:center; margin:0; padding-left: 100px;'> Muebles Giannis - Catálogo </h1>";
         
             if (!$consulta){

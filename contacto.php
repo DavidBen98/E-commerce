@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Muebles Giannis</title>
-    <link type="text/css"  href="css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="js/funciones.js"></script>
     <style>
@@ -213,7 +213,7 @@
 			<p>No dudes en comunicarte también por nuestra vía telefónica al 0800 - 0303 - 456 de lunes a viernes de 9 a 18 hs.</p>
 		</div>
 
-		<form action="nuevo_contacto.php" method="post" class="cont-con"> 
+		<form action="nuevoContacto.php" method="post" class="cont-con"> 
 				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre" Maxlength="35" >
 				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido" >
 				<input type="text" class="input" name="email" id="email" title="Email" value="" placeholder="Email" >
