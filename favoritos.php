@@ -71,7 +71,7 @@
                 </div>";
 
         if (isset($_GET['elim'])){
-            $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+            $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
         $div .= "</div>";    
     }
@@ -128,7 +128,7 @@
             $selectNumero++;
         }
         if (isset($_GET['elim'])){
-            $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+            $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
         $div .= "</div>";
     }
@@ -223,9 +223,13 @@
 				url: "eliminarFavorito.php?id="+id,
 				method: "post",
 				success: function(data) {
-                    console.log(data);
 					if (data == 'ok'){
-                        window.location.href = 'favoritos.php?elim=ok';
+                        if (location.hash == '#mensaje'){
+                            location.reload();
+                        }
+                        else{
+                            window.location.href = 'favoritos.php?elim=ok#mensaje';
+                        }
 					}
 				}
 			});			

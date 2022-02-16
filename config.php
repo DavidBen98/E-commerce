@@ -1,5 +1,4 @@
 <?php
-    //start session on web page
     session_start();
     //define ('TOKENTWITTER', 'VZtL1D6kiULEhnWS0tRtKXHDp');
     //define ('SECRETOCLAVETWITTER', 'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
@@ -12,11 +11,6 @@
     require_once 'vendor/autoload.php';
     require_once 'app/TwitterAuth.php';
     require_once 'vendor\jublonet\codebird-php\src\codebird.php';
-
-    \Codebird\Codebird::setConsumerKey('VZtL1D6kiULEhnWS0tRtKXHDp',
-    'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
-    
-    $cliente = \Codebird\Codebird::getInstance();
 
     if ($user==""){      
         //Make object of Google API Client for call Google API
@@ -40,4 +34,9 @@
             $perfil = "U";
         }
     }
+
+    \Codebird\Codebird::setConsumerKey('VZtL1D6kiULEhnWS0tRtKXHDp',
+    'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
+    
+    $cliente = \Codebird\Codebird::getInstance();
 ?>

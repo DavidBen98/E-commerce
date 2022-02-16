@@ -1,7 +1,7 @@
 <?php require 'inc/conn.php'; ?>
 
 <script src="JS/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
+<script>
 	$(document).ready(function(){
 		recargarLista();
 
@@ -107,7 +107,6 @@
 			}					
 		}
 		
-		//obtener el precio minimo
 		$sql1 = "SELECT min(precio) 
 						FROM `producto`
 						$where_sql
@@ -118,7 +117,6 @@
 			$valorMin = implode($row);
 		}
 
-		//obtener el precio maximo
 		$sql2 = "SELECT max(precio) 
 						FROM `producto`
 						$where_sql

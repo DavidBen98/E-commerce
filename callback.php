@@ -1,5 +1,5 @@
 <?php
-    require_once('config.php');
+    include 'config.php';
 	require_once('vendor/autoload.php');
     require_once('inc/conn.php');
 
@@ -86,7 +86,7 @@
         }
     }
     else if($auth->login()){
-        header ('location: login.php');
+        header ('location: index.php');
     }
     else{
         die('Error al inicio de sesion');

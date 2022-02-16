@@ -9,7 +9,8 @@
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
   
     if (perfil_valido(3) && (!isset($_GET['code']) || !isset($_SESSION['user_first_name'])) && (!isset($_SESSION['nombre_tw']))) {
-        header("location:login.php"); //cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
+        header("location:login.php"); 
+        //TODO: cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
     else if (perfil_valido(1)) {
         header("location:ve.php");
@@ -310,9 +311,10 @@
         }
     </style>
     <script>
-        //PASAR TODAS LAS FUNCIONES A const excel = function () {} o const excel = () => {}
-        //USAR QUERYSELECTORALL
-        //MODIFICAR TODOS LOS WINDOW.ONLOAD POR DOCUMENT.ADDEVENTLISTENER('DOMCONTENTLOADED', () => {})
+        //TODO: PASAR TODAS LAS FUNCIONES A const excel = function () {} o const excel = () => {}
+        //TODO: PUSAR QUERYSELECTORALL
+        //TODO: PMODIFICAR TODOS LOS WINDOW.ONLOAD POR DOCUMENT.ADDEVENTLISTENER('DOMCONTENTLOADED', () => {})
+        //TODO: PVALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
 		function excel() {			
 			document.getElementById("datos").method = "post";
 			document.getElementById("datos").action = "carrito_xls.php";
@@ -321,7 +323,7 @@
 
         if (window.addEventListener){
 			window.addEventListener ('load', () => {
-                let continuar = document.getElementById('continuar');
+            let continuar = document.getElementById('continuar');
 
                 continuar.addEventListener("click", () => {
                     window.location = "productos.php?productos=todos";

@@ -5,7 +5,7 @@
     include('config.php');
 	include ("encabezado.php");
 	include ("barra_lateral.php"); 
-    //AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
+    //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
 	if ($perfil == "E"){ 
 		header("location:ve.php");
@@ -98,7 +98,6 @@
         $rs = $db->query($sql);
     }
 ?>
-<html lang="es"> 
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -188,12 +187,22 @@
 		if (window.addEventListener){
 			window.addEventListener ('load', () => {
 				let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+				let url = window.location.search;
+				let subc = url.indexOf('cate',0);
 
 				for (j=0;j<imagenes.length;j++){
 					let articulo = imagenes[j].getAttribute('alt');
 					imagenes[j].addEventListener("click", () => {
-						window.location = 'detalle_articulo.php?art='+articulo;});
+						if (subc != -1){
+							window.location = 'detalle_articulo.php?art='+articulo+'&subc=ok';
+						}
+						else{
+							window.location = 'detalle_articulo.php?art='+articulo;
+						}
+					});
 				}
+
+				console.log (subc);
 
 				let catalogo = document.getElementById('catalogo'); //Boton excel
 

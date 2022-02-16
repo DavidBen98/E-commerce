@@ -7,6 +7,8 @@
 	if (perfil_valido(1)) {
         header("location:ve.php");
     }  	
+	//TODO: Arreglar la ruta de ida y vuelta
+	
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -232,7 +234,7 @@
         }
 
 		@media print {				
-			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav{
+			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav, .ruta{
 				display:none;
 			}
 
@@ -261,11 +263,14 @@
 		<p class='h1' style='display:none;'>Muebles Giannis</p>
 		<?php
 			echo "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>
-					<li style='border:none;text-decoration: none;'>Detalle de artículo</li>
-				</ol>
-			";
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>";
+					if (isset($_GET['subc'])){
+						echo "<li style='margin-left:5px;'><a href='subcategorias.php?'>Subcategorías</a></li>
+							<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>";
+					}
+					else{
+						echo "<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>";
+					}
 
 			global $db;
 			$variable = $_GET['art'] ;
@@ -280,6 +285,10 @@
 				$caract = $row['caracteristicas'];
 				$aCarac = explode (',', $caract);
 				$id = $row['id'];
+
+				echo 	"<li style='border:none;text-decoration: none;'>{$row['descripcion']}</li>
+					</ol>
+				";
 
 				echo "<div class='contenedor'> 
 							<div id='cont-images'>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php  
-	//EN LA SECCION REGISTRO AGREGAR SI QUIERE SUSCRIBIRSE O NO
 	include('config.php');
     include("pie.php");
 	require_once('vendor/autoload.php');
@@ -16,7 +15,7 @@
 	$auth = new TwitterAuth($cliente);
 
 	$login_button = "<a href=" . $google_client->createAuthUrl() . " class='btn-google'>Iniciar sesión con Google</a>
-				<a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
+					<a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
 ?>
 <html lang="es"> 
 <head>
@@ -492,6 +491,7 @@
 		?>
 	</main>
             
-    <?php echo $pie; ?>  
+    <?php var_dump($_SESSION);
+	echo $pie; ?>  
 </body>
 </html>

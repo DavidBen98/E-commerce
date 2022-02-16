@@ -1,7 +1,7 @@
 <?php   
+	include('config.php');
     include("pie.php");
     include ("inc/conn.php");
-	include('config.php');
 	require_once('vendor/autoload.php');
 
     if ($perfil == "E"){ 
@@ -42,7 +42,7 @@
 
     include("encabezado.php"); 
 
-    //Hacer funciones: existeUsuario y existeEmail
+    //TODO: Hacer funciones: existeUsuario y existeEmail
 
     //Si se inicio sesion con Google
     if (isset($_GET["code"])) {
@@ -157,9 +157,9 @@
                     $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
                             ('$nombreUsuario', 'U')";
                 }
-                //Sino unir el nombre y el arroba y ver si existe algun usuario con ese nombre de usuario
-                //En el caso de que exista un usuario con nombre+arroba probar con arroba+nombre
-                //Sino ver algo para hacer por defecto
+                //TODO: Sino unir el nombre y el arroba y ver si existe algun usuario con ese nombre de usuario
+                //TODO: En el caso de que exista un usuario con nombre+arroba probar con arroba+nombre
+                //TODO: Sino ver algo para hacer por defecto
             }
             
             $db->query($sql);
