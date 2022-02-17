@@ -5,7 +5,7 @@
     if (perfil_valido(1)){
         $encab =  "  <div id='imagen'>
                         <div id='buscar'>
-                            <input type='text' id='header-buscar' title='Barra de navegacion' placeholder='Buscar por producto, marca, categoría...'>
+                            <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                                 <button id='lupa' title='lupa-buscar'>
                                     <img src='images/lupa.png' title='lupa-buscar' alt='Lupa de buscar'  style='width:20px;' height='20' id='perfil'>
                                 </button>
@@ -32,11 +32,11 @@
                         <div id='container-header'>
                             <div id='logo'>
                                 <a href='index.php' id='link-logo'> 
-                                    <i id='titulo-principal'>Muebles Giannis</i>
+                                    <i id='titulo-principal' title='Muebles Giannis'>Muebles Giannis</i>
                                 </a>
                             </div>
                             <div id='buscar'>
-                                <input type='text' id='header-buscar' title='Barra de navegacion' placeholder='Buscar por producto, marca, categoría...'>
+                                <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                                 <button id='lupa' title='Buscar'>
                                     <img src='images/lupa.png' alt='Lupa de buscar' style='width:20px;' height='20' id='perfil'>
                                 </button>

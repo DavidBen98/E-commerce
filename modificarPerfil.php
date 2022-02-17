@@ -55,6 +55,9 @@
     }
     else{
         switch ($provincia) {
+            case '':
+                $ciudad = "";
+                break;
             case '02':
                 $provincia = "Ciudad Autónoma de Buenos Aires";
                 break;
@@ -130,11 +133,15 @@
         }
 
         $dire = "";
-        for ($i=0;$i<count($direccion);$i++){
-            if ($i == 2){
-                $dire .= ', ' . $direccion[$i];
-            }else{
-                $dire .= $direccion[$i] . ' ';
+
+        if ($direccion[0] != "" && $direccion[1] != "" && $direccion[2] != ""){
+            for ($i=0;$i<count($direccion);$i++){
+                if ($direccion[$i] != "")
+                if ($i == 2){
+                    $dire .= ', ' . $direccion[$i];
+                }else{
+                    $dire .= $direccion[$i] . ' ';
+                }
             }
         }
 

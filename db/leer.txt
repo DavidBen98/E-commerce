@@ -13,8 +13,5 @@ nombre: ChinaSuarez    |contraseña: 789
 nombre: caelenaShar    |contraseña: 987
 
 Correcciones para el final:
-	Buscador con funcionalidad
-	Crear tabla de marcas
 	Hacer todos los ABMs 
-	Agregar detalles a la impresion
-	Otorgar mas posibilidades de exportar la informacion a excel
+	Agregar detalles a la impresión

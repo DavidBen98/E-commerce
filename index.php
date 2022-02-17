@@ -186,47 +186,6 @@
         }
 
     }
-    
-    function agregarImgCategorias (){
-        global $db;
-        $sql = "SELECT nombre_categoria, id_categoria
-        FROM `categoria`"; 
-        
-        $rs = $db->query($sql);
-      
-        foreach ($rs as $row) { //categorias
-            $idCat =  $row['id_categoria'];
-            $nomCat = $row['nombre_categoria'];
-
-            //agrega la imagen categoria y le pone el titulo 
-            echo " <div class='categoria'>
-                        <div class='cont-images'> 
-                            <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
-                            <div class='texto'>
-                            <p class='img-titulo'>".
-                                strtoupper($nomCat) .
-                            "</p>";
-
-            $sql1 = "SELECT nombre_subcategoria
-            FROM `subcategoria`
-            INNER JOIN `categoria` ON categoria.id_categoria = subcategoria.id_categoria
-            WHERE subcategoria.id_categoria = '$idCat'";
-            
-            $rs1 = $db->query($sql1);
-
-            echo "<p class='img-texto'>";
-            $subcatNombre = " ";
-            foreach ($rs1 as $row1){ //subcategorias
-                $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
-            }
-            //agrega las diferentes subcategorias que pertenecen a esa categoria
-            echo "" .  ucwords($subcatNombre) . "          
-                            </p>     
-                        </div>
-                    </div>
-                </div>";
-        }
-    }  
 ?>
 <!DOCTYPE html>
 <html lang="es">

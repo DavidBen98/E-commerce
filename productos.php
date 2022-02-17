@@ -4,7 +4,6 @@
 	require 'inc/conn.php';
     include('config.php');
 	include ("encabezado.php");
-	include ("barraLateral.php"); 
     //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
 	if ($perfil == "E"){ 
@@ -53,6 +52,8 @@
 
         $sql = completarWhere($sql, $filtros);
         $rs = $db->query($sql);
+
+		echo $sql;
     }
 	else if (isset($_GET['buscador'])){
 		$busqueda = $_GET['buscador'];
@@ -236,6 +237,25 @@
 				}	
 			})
 		}
+
+		$(document).ready(function(){
+			recargarLista();
+
+			$('#categoria').change (function (){
+				recargarLista();
+			});
+		});
+
+		function recargarLista (){
+			$.ajax ({
+				type: "POST",
+				url: "rellenarSelect.php",
+				data: "categoria= " + $('#categoria').val (),
+				success: function (r){
+					$('#subc').html (r);
+				}
+			});
+		}	
     </script>
 </head>
 <body id="body">   

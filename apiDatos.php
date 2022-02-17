@@ -38,6 +38,4 @@
         }
     }
     $select .= "</select>";
-
-    //echo "<option value=".$dato->nombre.">". $dato->nombre . "</option>";
 ?>

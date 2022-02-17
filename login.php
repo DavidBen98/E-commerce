@@ -320,7 +320,7 @@
 		}
 
 		#titulo-is{
-			font-family: "Open Sans"; 
+			font-family: "museosans500,arial,sans-serif"; 
 			height: 30px; 
 			width:100%;
 			border-bottom: 1px solid #D3D3D3;

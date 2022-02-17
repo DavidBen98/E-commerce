@@ -234,7 +234,14 @@
                         let contenedor = document.getElementById('contenedorCiudad');
                         contenedor.style.width = "48%";
                         selectCiudad.style.display = 'block';
-                    }            
+                    }  
+                    else{
+                        let input = document.getElementsByClassName('dato');
+                        if (!input[0].readOnly){
+                            let contenedor = document.getElementById('contenedorCiudad');
+                            contenedor.style.width = '50%';
+                        }
+                    }          
 				}
 			});
 		}	
