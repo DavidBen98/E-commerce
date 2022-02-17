@@ -1,11 +1,12 @@
 <?php
-    include 'config.php';
-	require_once('vendor/autoload.php');
-    require_once('inc/conn.php');
+    require_once 'config.php';
+	require_once 'vendor/autoload.php';
+    require_once 'inc/conn.php';
 
 	$auth = new TwitterAuth($cliente);
-    global $db;
 
+    global $db;
+    
     //Si se realizó un pago con mercado pago
     if (isset($_GET['failure'])){ //Si falló
         header('location: carritoCompras.php?error_pago=fallo');

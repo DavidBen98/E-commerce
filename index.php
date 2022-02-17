@@ -9,7 +9,7 @@
     }
 
     $auth = new TwitterAuth($cliente);
-
+    $auth->getAuthUrl();
     //Si se valida el token al iniciar sesion con Google
     if (isset($_GET["code"])) {
 		$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);

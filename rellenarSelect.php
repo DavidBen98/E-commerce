@@ -1,4 +1,5 @@
 <?php require 'inc/conn.php';
+include 'apiDatos.php';
 
 global $db;
 
@@ -39,11 +40,12 @@ if (!empty($_POST['provincia'])){ //desde login(registrarse)
         $datos= $json->municipios;
     }
 
-    if ($provincia != 02){
+    if ($provincia != 02 && $provincia != -1){
         //si no es ciudad de bs as
         foreach ($datos as $name){    
             $municipio[] = $name -> nombre;    
         }
+
         sort($municipio);
 
         echo "<label for='ciudad' class='form-label'>Ciudad</label>
@@ -52,6 +54,46 @@ if (!empty($_POST['provincia'])){ //desde login(registrarse)
             echo "<option value='$nombre'>". $nombre . "</option>";
         }   
         echo "</select>";
+    }
+}
+
+if (!empty($_POST['prov'])){ //desde modificarDatos
+    $provincia = $_POST['prov'];
+    $ciudad = $_POST['ciudad'];
+
+    if ($provincia != "Ciudad Autónoma de Buenos Aires" && 
+        ($provincia == "Entre Ríos" || $provincia =="Santa Cruz" || $provincia == "Santiago del Estero")){
+        //Si es entre rios, santa cruz o santiago del estero
+        $url = 'https://apis.datos.gob.ar/georef/api/localidades?provincia='.$provincia.'&max=1000';
+        $json = file_get_contents($url);
+        $json = json_decode($json);
+        $datos= $json->localidades;
+    }
+    else if($provincia != "Ciudad Autónoma de Buenos Aires"){
+        //si es cualquier provincia menos las anteriores y ciudad de bs as
+        $url = 'https://apis.datos.gob.ar/georef/api/municipios?provincia='.$provincia.'&max=1000';
+        $json = file_get_contents($url);
+        $json = json_decode($json);
+        $datos= $json->municipios;
+    }
+
+    if ($provincia != "Ciudad Autónoma de Buenos Aires" && $provincia != -1){
+        //si no es ciudad de bs as
+        foreach ($datos as $name){    
+            $municipio[] = $name -> nombre;    
+        }
+        sort($municipio);
+
+        $selectCiudad =  "<select id='ciu' name='ciudad' class='form-select'>";  
+        foreach ($municipio as $nombre){ 
+            $selectCiudad .= "<option value='$nombre'>". $nombre . "</option>";
+        }   
+        $selectCiudad .= "</select>";
+    }
+
+    if(isset($selectCiudad)){
+        $datos = json_encode($selectCiudad,$ciudad);
+        echo $datos;
     }
 }
 ?>

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <?php  
-	include('config.php');
+	require_once('config.php');
     include("pie.php");
 	require_once('vendor/autoload.php');
 	include("encabezado.php");
+	include('apiDatos.php');
+
 
 	if (perfil_valido(2)) {
 		header("location:informacionPersonal.php");
@@ -16,6 +18,9 @@
 
 	$login_button = "<a href=" . $google_client->createAuthUrl() . " class='btn-google'>Iniciar sesión con Google</a>
 					<a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
+
+	$google= $google_client->createAuthUrl();
+	
 ?>
 <html lang="es"> 
 <head>
@@ -367,9 +372,7 @@
 							
 							<div class='cont-reg'>
 								<label for='provincia' class='form-label'>Provincia </label>
-								";
-								include('apiDatos.php');
-							echo "
+								$select
 							</div> 
 							
 							<div class='cont-reg' id='ciudad'>
@@ -449,7 +452,6 @@
                         <li style='border:none;text-decoration: none;'>Inicio de sesión</li>
                   	</ol>
             	";
-				$google= $google_client->createAuthUrl();
 				echo "<form action='inicioSesion.php' method='post' class='formulario' novalidate>
 							<div id='sesion'>
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
@@ -491,7 +493,6 @@
 		?>
 	</main>
             
-    <?php var_dump($_SESSION);
-	echo $pie; ?>  
+    <?php echo $pie; ?>  
 </body>
 </html>

@@ -19,11 +19,10 @@
             $reply = $this->cliente->oauth_requestToken([
                 'oauth_callback' => $this->clienteCallback
             ]);
-
             $this->storeTokens($reply->oauth_token, $reply->oauth_token_secret);
         }
 
-        protected function storeTokens($token, $tokenSecret){
+        public function storeTokens($token, $tokenSecret){
             $_SESSION['oauth_token'] = $token;
             $_SESSION['oauth_token_secret'] = $tokenSecret;
         }
@@ -46,6 +45,7 @@
         public function login(){
             if ($this->hasCallback()){
                 $this->verifyTokens();
+
                 $reply = $this->cliente->oauth_accessToken([
                     'oauth_verifier' => $_GET['oauth_verifier']
                 ]);
@@ -57,15 +57,12 @@
                     $this->verifyTokens();
                     $usuario = $this->cliente->account_verifyCredentials();
                     $_SESSION['nombre_tw'] = $usuario->name;
+                    
                     if (isset($usuario->user_name)){
                         $_SESSION['arroba_tw'] = $usuario->user_name;
                     }
                     
-                    //header('location: index.php');
-                    
                     return true;
-                    die();
-
                 }
             }
             return false;

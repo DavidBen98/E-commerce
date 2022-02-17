@@ -1,4 +1,5 @@
 <?php 
+    include_once 'config.php';
     $API_URL_prov= 'https://apis.datos.gob.ar/georef/api/provincias?';
 
     $json = file_get_contents($API_URL_prov);
@@ -20,11 +21,23 @@
 
     sort ($a);
 
-    echo "<select id='provincia' name='provincia'>";
+    $select = "<select id='provincia' name='provincia' title='Provincia'>
+                <option value='-1'>Seleccione una opción</option>";
+
     foreach ($a as $provincia){
-          echo "<option value=".$provincia['id'].">". $provincia['nombre']. "</option>";
+        if (isset($_SESSION ['provincia'])){
+            if ($_SESSION ['provincia'] == $provincia){
+                $select.= "<option value=".$provincia['id']."selected>". $provincia['nombre']. "</option>";
+            }
+            else{
+                $select.= "<option value=".$provincia['id'].">". $provincia['nombre']. "</option>";
+            }
+        }
+        else{
+            $select.= "<option value=".$provincia['id'].">". $provincia['nombre']. "</option>";
+        }
     }
-    echo "</select>";
+    $select .= "</select>";
 
     //echo "<option value=".$dato->nombre.">". $dato->nombre . "</option>";
 ?>
