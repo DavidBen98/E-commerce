@@ -72,14 +72,22 @@
                                     $select
                                 </div>
 
-                                <div class='renglon' id='ciudad'>
+                                <div class='renglon' id='renglonCiudad'>
                                     <p class='descripciones'>Ciudad</p>
                                     <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row['ciudad']}' readonly>
                                 </div>
 
                                 <div class='renglon'>
                                     <p class='descripciones'>Dirección</p>
-                                    <input type='text' class='dato' name='direccion' title='direccion' value='{$row['direccion']}' readonly>
+                                    <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row['direccion']}' readonly>
+								    <div class='direccion' style='width:47%; align-items:center; justify-content:end; display:none'>
+                                        <label for='direccion[]' class='form-label'>Calle</label>
+                                        <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
+                                        <label for='direccion[]' class='form-label'>Número</label>
+                                        <input type='text' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
+                                        <label for='direccion[]' class='form-label'>Depto</label>
+                                        <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
+                                    </div>
                                 </div>";
     }
 
@@ -98,6 +106,9 @@
                                     }
 
                                     $infoPersonal .= "</div>";
+                                }
+                                else if (isset($_GET['modif'])){
+                                    $infoPersonal .= "<p class='mensaje' id='mensaje' style='background:#099;'>¡Se ha realizado la modificación con éxito!</p>";
                                 }
     $infoPersonal .= "</form>";
 
@@ -119,6 +130,7 @@
             let cancelar = document.getElementById('cancelar');
             let modificar = document.getElementById('modificarDatos');
             let mensaje = document.getElementById ('mensaje');
+            let descripcion = document.getElementsByClassName('descripciones');
 
             if (input[0].readOnly){
                 for (let i=0; i< input.length; i++){
@@ -131,6 +143,10 @@
                 confirmar.style.display = 'block';
                 cancelar.style.display = 'block';
                 modificar.style.display = 'none';
+
+                for (let i=0; i<descripcion.length;i++){
+                    descripcion[i].style.border = 'none';
+                }
 
                 if (mensaje != null){
                     mensaje.style.display = 'none';
@@ -149,41 +165,76 @@
                 actualizarCiudad();
                 let inputCiudad = document.getElementById('inputCiudad');
                 inputCiudad.style.display = 'none';
+
+                let direccion = document.getElementsByClassName('dato');
+                direccion = direccion[7].value;
+
+                //Se utiliza auxDireccion porque algunas ciudades empiezan con numero, ej: 25 de mayo, 9 de julio...
+                let auxDireccion = direccion.substring(2,direccion.length);
+                let numeroDesde = auxDireccion.search(/[1-9]/);
+                let numeroHasta = direccion.indexOf(',', numeroDesde);
+                let numero = direccion.substring (numeroDesde+2, numeroHasta-1);
+                let calle = direccion.substring (0,numeroDesde+1);
+                let piso = direccion.substring(numeroHasta+2, direccion.length);
+
+                let inputDireccion = document.getElementById('direccion');
+                let inputCalle = document.getElementById('inputCalle');
+                let inputNumero = document.getElementById('inputNumero');
+                let inputPiso = document.getElementById('inputPiso');
+                let divDireccion = document.getElementsByClassName('direccion');
+                divDireccion = divDireccion[0];
+                divDireccion.style.display = 'flex';
+                inputDireccion.style.display = 'none';
+
+                inputCalle.value = calle;
+                inputNumero.value = numero;
+                inputPiso.value = piso;
             }
             else{
-                location.reload();
+                if (window.location == 'http://localhost/E-commerceMuebleria/informacionPersonal.php?modif=exito#mensaje'){
+                    window.location = 'informacionPersonal.php';
+                }
+                else{
+                    location.reload();
+                }
             }
         }
 
-        //$(document).ready(function(){
+        $(document).ready(function(){
+			actualizarCiudad();
+
             $('#provincia').change (function (){
                 actualizarCiudad();
             });
-		//});
+
+		});
 
 		function actualizarCiudad (ciudad){
+            let prov = "prov=" + $('#provincia').val();
+            let ciu = "ciudad=" + $('#inputCiudad').val();
+
 			$.ajax ({
 				type: "POST",
 				url: "rellenarSelect.php",
-				data: "prov=" + $('#provincia').val() + "ciudad=" + $('#inputCiudad').val(),
+				data: prov + "&" + ciu,
 				success: function (datos){
-                    let contenedorCiudad = document.getElementById('ciudad');
-                    let div = document.createElement('div');
-                    let select = datos['select'];
-                    console.log(select);
-                    // div.innerHTML = select;
-                    // contenedorCiudad.appendChild(div);
+                    let contenedorCiudad = document.getElementById('contenedorCiudad');
+                    let renglonCiudad = document.getElementById ('renglonCiudad');
 
-                    // let selectCiudad = document.getElementById('ciu');
-                    
-                    // for (let i=0; i<selectCiudad.length;i++){
-                    //     if (selectCiudad[i].value == datos->ciudad){
-                    //         selectCiudad[i].selected = true;
-                    //     }
-                    //     else{
-                    //         console.log (selectCiudad[i].value);
-                    //     }
-                    // }
+                    if (contenedorCiudad != null){
+                        renglonCiudad.removeChild(contenedorCiudad);
+                    }
+                    let div = document.createElement('div');
+                    div.setAttribute('id','contenedorCiudad');
+                    div.innerHTML = datos;
+                    renglonCiudad.appendChild(div);
+
+                    let selectCiudad = document.getElementById('ciu');
+                    if (selectCiudad != null){
+                        let contenedor = document.getElementById('contenedorCiudad');
+                        contenedor.style.width = "48%";
+                        selectCiudad.style.display = 'block';
+                    }            
 				}
 			});
 		}	
@@ -209,6 +260,9 @@
         }
 
         .descripciones{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color:white;
             border-right: 1px solid #D3D3D3;
             width:45%;
@@ -314,18 +368,31 @@
             font-size: 1.1rem;
         }
 
-        #provincia{
+        #provincia, #ciu{
             display:none;
             text-align:center;
             background-color: white;
             width: 45%;
             margin: 10px;
-            padding: 5px;
+            padding: 8px 24px;
             text-align: center;
             font-family: "Salesforce Sans", serif;
             font-size: 1.1rem;
             line-height: 1.5em;
             border-radius:5px;
+        }
+
+        #contenedorCiudad{
+            display:flex;
+            justify-content:center;
+        }
+
+        #ciu{
+            width:100%;
+        }
+
+        #inputNumero, #inputPiso{
+            width:8%;
         }
     </style>
 </head>

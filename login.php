@@ -380,7 +380,7 @@
 							</div> 
 							
 							<div class='cont-reg'>
-								<label for='direccion' class='form-label'>Dirección </label>
+								<label for='direccion[]' class='form-label'>Dirección </label>
 								<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
 								<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
 								<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
