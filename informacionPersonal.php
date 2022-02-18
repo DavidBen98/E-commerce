@@ -124,82 +124,6 @@
 	<script src="js/funciones.js"></script>
     <title>Muebles Giannis</title>
     <script>
-        function modDatos(provincia){
-            let input = document.getElementsByClassName('dato');
-            let confirmar = document.getElementById('confirmar');
-            let cancelar = document.getElementById('cancelar');
-            let modificar = document.getElementById('modificarDatos');
-            let mensaje = document.getElementById ('mensaje');
-            let descripcion = document.getElementsByClassName('descripciones');
-
-            if (input[0].readOnly){
-                for (let i=0; i< input.length; i++){
-                    if (i !== 4){
-                        input[i].readOnly = false;
-                        input[i].style.border = '1px solid #000';
-                        input[i].style.borderRadius = '5px';
-                    }
-                }
-                confirmar.style.display = 'block';
-                cancelar.style.display = 'block';
-                modificar.style.display = 'none';
-
-                for (let i=0; i<descripcion.length;i++){
-                    descripcion[i].style.border = 'none';
-                }
-
-                if (mensaje != null){
-                    mensaje.style.display = 'none';
-                }
-
-                let selectProvincia = document.getElementById('provincia');
-                selectProvincia.style.display = 'block';
-                document.getElementById('prov').style.display = 'none';
-
-                for (let i=0; i<selectProvincia.length;i++){
-                    if (selectProvincia[i].innerHTML == provincia){
-                        selectProvincia[i].selected = true;
-                    }
-                }
-
-                actualizarCiudad();
-                let inputCiudad = document.getElementById('inputCiudad');
-                inputCiudad.style.display = 'none';
-
-                let direccion = document.getElementsByClassName('dato');
-                direccion = direccion[7].value;
-
-                //Se utiliza auxDireccion porque algunas ciudades empiezan con numero, ej: 25 de mayo, 9 de julio...
-                let auxDireccion = direccion.substring(2,direccion.length);
-                let numeroDesde = auxDireccion.search(/[1-9]/);
-                let numeroHasta = direccion.indexOf(',', numeroDesde);
-                let numero = direccion.substring (numeroDesde+2, numeroHasta-1);
-                let calle = direccion.substring (0,numeroDesde+1);
-                let piso = direccion.substring(numeroHasta+2, direccion.length);
-
-                let inputDireccion = document.getElementById('direccion');
-                let inputCalle = document.getElementById('inputCalle');
-                let inputNumero = document.getElementById('inputNumero');
-                let inputPiso = document.getElementById('inputPiso');
-                let divDireccion = document.getElementsByClassName('direccion');
-                divDireccion = divDireccion[0];
-                divDireccion.style.display = 'flex';
-                inputDireccion.style.display = 'none';
-
-                inputCalle.value = calle;
-                inputNumero.value = numero;
-                inputPiso.value = piso;
-            }
-            else{
-                if (window.location == 'http://localhost/E-commerceMuebleria/informacionPersonal.php?modif=exito#mensaje'){
-                    window.location = 'informacionPersonal.php';
-                }
-                else{
-                    location.reload();
-                }
-            }
-        }
-
         $(document).ready(function(){
 			actualizarCiudad();
 
@@ -208,43 +132,6 @@
             });
 
 		});
-
-		function actualizarCiudad (ciudad){
-            let prov = "prov=" + $('#provincia').val();
-            let ciu = "ciudad=" + $('#inputCiudad').val();
-
-			$.ajax ({
-				type: "POST",
-				url: "rellenarSelect.php",
-				data: prov + "&" + ciu,
-				success: function (datos){
-                    let contenedorCiudad = document.getElementById('contenedorCiudad');
-                    let renglonCiudad = document.getElementById ('renglonCiudad');
-
-                    if (contenedorCiudad != null){
-                        renglonCiudad.removeChild(contenedorCiudad);
-                    }
-                    let div = document.createElement('div');
-                    div.setAttribute('id','contenedorCiudad');
-                    div.innerHTML = datos;
-                    renglonCiudad.appendChild(div);
-
-                    let selectCiudad = document.getElementById('ciu');
-                    if (selectCiudad != null){
-                        let contenedor = document.getElementById('contenedorCiudad');
-                        contenedor.style.width = "48%";
-                        selectCiudad.style.display = 'block';
-                    }  
-                    else{
-                        let input = document.getElementsByClassName('dato');
-                        if (!input[0].readOnly){
-                            let contenedor = document.getElementById('contenedorCiudad');
-                            contenedor.style.width = '50%';
-                        }
-                    }          
-				}
-			});
-		}	
     </script>
     <title>Muebles Giannis</title>   
     <style>

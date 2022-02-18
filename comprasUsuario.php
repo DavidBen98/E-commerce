@@ -104,7 +104,7 @@
                                             </div>
                                             <div class='elim-producto' style='text-align:end;'>
                                                 <img src='images/carrito.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar al carrito'>
-                                                <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProducto($id)'> Agregar al carrito</a>
+                                                <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -143,95 +143,27 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title> 
-    <script src="js/funciones.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="js/funciones.js"></script>
 	<script>
-        if (window.addEventListener){
-			window.addEventListener ('load', () => {
-                let continuar = document.getElementById('continuar');
+        document.addEventListener ('DOMContentLoaded', () => {
+            let continuar = document.getElementById('continuar');
 
-                if (continuar != null){
-                    continuar.addEventListener("click", () => {
-                        window.location = "productos.php?productos=todos";
-                    });  
-                }
+            if (continuar != null){
+                continuar.addEventListener("click", () => {
+                    window.location = "productos.php?productos=todos";
+                });  
+            }
 
-                let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
 
-                for (j=0;j<imagenes.length;j++){
-                    let articulo = imagenes[j].getAttribute('alt');
-                    imagenes[j].addEventListener("click", () => {
-                        window.location = 'detalleArticulo.php?art='+articulo;
-                    });
-                }
-            });
-        }
-          
-		function agregarProducto (id){
-			let param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "agregarCarrito.php",
-				method: "post",
-				success: function(data) {
-					let datos = JSON.parse(data);
-
-					if (datos['ok']){
-						let cantCarrito = document.getElementById('num-car');
-						cantCarrito.innerHTML = datos.numero;
-
-						let pExito = document.getElementsByClassName('parrafo-exito');
-
-						if (pExito[0] == null){
-
-                            let mensaje = document.getElementsByClassName('mensaje');
-
-                            if (mensaje[0] != null){
-                                mensaje[0].style.display = 'none';
-                            } 
-
-							let contenedor = document.getElementsByClassName('consulta');
-							let parrafo = document.createElement("p");
-                            let carrito = document.createElement("a");
-
-							parrafo.setAttribute("class","parrafo-exito");
-							carrito.setAttribute("class","carrito-compras");
-							carrito.setAttribute("href","carritoCompras.php");
-							carrito.innerHTML = 'carrito de compras';
-
-							let contenido = document.createTextNode("¡Se ha añadido el producto al ");
-							let cont_final = document.createTextNode("!");
-
-							parrafo.appendChild(contenido);
-                            parrafo.appendChild(carrito);
-                            parrafo.appendChild(cont_final);
-							contenedor[0].appendChild(parrafo);
-						}
-					}
-				}
-			});			
-		}  
-
-        function eliminarFavorito (id){
-			let param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "eliminarFavorito.php?id="+id,
-				method: "post",
-				success: function(data) {
-                    console.log(data);
-					if (data == 'ok'){
-                        window.location.href = 'favoritos.php?elim=ok';
-					}
-				}
-			});			
-		}
+            for (j=0;j<imagenes.length;j++){
+                let articulo = imagenes[j].getAttribute('alt');
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                });
+            }
+        });	
     </script>
     <style>
         main{
@@ -575,7 +507,7 @@
         <?php 
             echo "<ol class='ruta'>
                         <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='border:none;text-decoration: none;'>Favoritos</li>
+                        <li style='border:none;text-decoration: none;'>Mis compras</li>
                   </ol>
             ";
 

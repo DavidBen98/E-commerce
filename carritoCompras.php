@@ -32,8 +32,8 @@
     <title>Muebles Giannis</title>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
-    <script src="js/funciones.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="js/funciones.js"></script>
     <style>
         main{
             display:flex;
@@ -312,114 +312,111 @@
     </style>
     <script>
         //TODO: PASAR TODAS LAS FUNCIONES A const excel = function () {} o const excel = () => {}
-        //TODO: PUSAR QUERYSELECTORALL
-        //TODO: PMODIFICAR TODOS LOS WINDOW.ONLOAD POR DOCUMENT.ADDEVENTLISTENER('DOMCONTENTLOADED', () => {})
-        //TODO: PVALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
-		function excel() {			
+        //TODO: USAR QUERYSELECTORALL
+        //TODO: VALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
+		const excel = () => {			
 			document.getElementById("datos").method = "post";
 			document.getElementById("datos").action = "carritoXLS.php";
 			document.getElementById("datos").submit(); 
 		}	
 
-        if (window.addEventListener){
-			window.addEventListener ('load', () => {
+        document.addEventListener ('DOMContentLoaded', () => {
             let continuar = document.getElementById('continuar');
 
-                continuar.addEventListener("click", () => {
-                    window.location = "productos.php?productos=todos";
-                });     
+            continuar.addEventListener("click", () => {
+                window.location = "productos.php?productos=todos";
+            });     
 
-                let ocultar = document.getElementById('ocultar');
+            let ocultar = document.getElementById('ocultar');
 
-                if (ocultar != null){
-                    let mp = document.getElementsByClassName('mercadopago-button');
+            if (ocultar != null){
+                let mp = document.getElementsByClassName('mercadopago-button');
 
-                    for (let i=0; i < mp.length;i++){
-                        mp[i].style.visibility = 'hidden';
-                    }
-                }     
-
-                let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-
-                for (j=0;j<imagenes.length;j++){
-                    let articulo = imagenes[j].getAttribute('alt');
-                    imagenes[j].addEventListener("click", () => {
-                        window.location = 'detalleArticulo.php?art='+articulo;
-                    });
+                for (let i=0; i < mp.length;i++){
+                    mp[i].style.visibility = 'hidden';
                 }
-            });
-        }
+            }     
 
-        function agregarFav (id){
-            let param = {
-				id: id
-			};
+            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
 
-			$.ajax({
-				data: param,
-				url: "agregarFavorito.php?id="+id,
-				method: "post",
-				success: function(data) {
-					if (data == 'ok'){
-                        window.location.href = 'carritoCompras.php?fav=ok#mensaje';
-					}
-                    else{
-                        window.location.href = 'carritoCompras.php?fav=false#mensaje';
-                    }
-				}
-			});			
-		}
+            for (j=0;j<imagenes.length;j++){
+                let articulo = imagenes[j].getAttribute('alt');
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                });
+            }
+        });
 
-		function eliminarProducto (id){
-			let param = {
-				id: id
-			};
+        // const agregarFav = (id) => {
+        //     let param = {
+		// 		id: id
+		// 	};
 
-			$.ajax({
-				data: param,
-				url: "eliminarCarrito.php",
-				method: "post",
-				success: function(data) {
-					let datos = JSON.parse(data);
+		// 	$.ajax({
+		// 		data: param,
+		// 		url: "agregarFavorito.php?id="+id,
+		// 		method: "post",
+		// 		success: function(data) {
+		// 			if (data == 'ok'){
+        //                 window.location.href = 'carritoCompras.php?fav=ok#mensaje';
+		// 			}
+        //             else{
+        //                 window.location.href = 'carritoCompras.php?fav=false#mensaje';
+        //             }
+		// 		}
+		// 	});			
+		// }
 
-					if (datos['ok']){
-						let cantCarrito = document.getElementById('num-car');
-						cantCarrito.innerHTML = datos.numero;
+		// const eliminarProducto = (id) => {
+		// 	let param = {
+		// 		id: id
+		// 	};
 
-                        if (location.hash == '#mensaje'){
-                            location.reload();
-                        }
-                        else{
-                            window.location.href = 'carritoCompras.php?elim=ok#mensaje';
-                        }
-					}
-				}
-			});			
-		}
+		// 	$.ajax({
+		// 		data: param,
+		// 		url: "eliminarCarrito.php",
+		// 		method: "post",
+		// 		success: function(data) {
+		// 			let datos = JSON.parse(data);
 
-        function modificarProducto (id, producto){
-            let valorSeleccionado = document.getElementsByName('cant-'+producto);
+		// 			if (datos['ok']){
+		// 				let cantCarrito = document.getElementById('num-car');
+		// 				cantCarrito.innerHTML = datos.numero;
 
-			let param = {
-				id: id,
-                cantidad: valorSeleccionado[0].value
-			};
+        //                 if (location.hash == '#mensaje'){
+        //                     location.reload();
+        //                 }
+        //                 else{
+        //                     window.location.href = 'carritoCompras.php?elim=ok#mensaje';
+        //                 }
+		// 			}
+		// 		}
+		// 	});			
+		// }
 
-			$.ajax({
-				data: param,
-				url: "modificarCarrito.php",
-				method: "post",
-				success: function(data) {
-					let datos = JSON.parse(data);
+        // const modificarProducto = (id, producto) => {
+        //     let valorSeleccionado = document.getElementsByName('cant-'+producto);
 
-					if (datos['ok']){
-						let cantCarrito = document.getElementById('num-car');
-						cantCarrito.innerHTML = datos.numero;
-                        window.location.href = 'carritoCompras.php';
-					}
-				}
-			});			
-		}
+		// 	let param = {
+		// 		id: id,
+        //         cantidad: valorSeleccionado[0].value
+		// 	};
+
+		// 	$.ajax({
+		// 		data: param,
+		// 		url: "modificarCarrito.php",
+		// 		method: "post",
+		// 		success: function(data) {
+		// 			let datos = JSON.parse(data);
+
+		// 			if (datos['ok']){
+		// 				let cantCarrito = document.getElementById('num-car');
+		// 				cantCarrito.innerHTML = datos.numero;
+        //                 window.location.href = 'carritoCompras.php';
+		// 			}
+		// 		}
+		// 	});			
+		// }
 	</script>
 </head>
 <body id="body">

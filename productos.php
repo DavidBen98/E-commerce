@@ -185,77 +185,64 @@
 		}
     </style>
     <script> 
-		if (window.addEventListener){
-			window.addEventListener ('load', () => {
-				let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-				let url = window.location.search;
-				let subc = url.indexOf('cate',0);
+		document.addEventListener ('DOMContentLoaded', () => {
+			let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+			let url = window.location.search;
+			let subc = url.indexOf('cate',0);
 
-				for (j=0;j<imagenes.length;j++){
-					let articulo = imagenes[j].getAttribute('alt');
-					imagenes[j].addEventListener("click", () => {
-						if (subc != -1){
-							window.location = 'detalleArticulo.php?art='+articulo+'&subc=ok';
-						}
-						else{
-							window.location = 'detalleArticulo.php?art='+articulo;
-						}
-					});
-				}
+			for (j=0;j<imagenes.length;j++){
+				let articulo = imagenes[j].getAttribute('alt');
+				imagenes[j].addEventListener("click", () => {
+					if (subc != -1){
+						window.location = 'detalleArticulo.php?art='+articulo+'&subc=ok';
+					}
+					else{
+						window.location = 'detalleArticulo.php?art='+articulo;
+					}
+				});
+			}
 
-				console.log (subc);
+			console.log (subc);
 
-				let catalogo = document.getElementById('catalogo'); //Boton excel
+			let catalogo = document.getElementById('catalogo'); //Boton excel
 
-				if (catalogo != null){
-					catalogo.addEventListener("click", () => { //Catalogo Excel
-						let variable = "";
-						for (j=0;j<imagenes.length-1;j++){
-							variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
-						}
-						variable+= imagenes[imagenes.length-1].getAttribute('alt');
-						window.location = 'listadoXLS.php?imagen='+variable; //se manda por url, se recibe por get en listadoXLS
-					});
-				}
+			if (catalogo != null){
+				catalogo.addEventListener("click", () => { //Catalogo Excel
+					let variable = "";
+					for (j=0;j<imagenes.length-1;j++){
+						variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
+					}
+					variable+= imagenes[imagenes.length-1].getAttribute('alt');
+					window.location = 'listadoXLS.php?imagen='+variable; //se manda por url, se recibe por get en listadoXLS
+				});
+			}
 
-				let cambiar = document.getElementById('cambiar-filtro');
-				let form = document.getElementById('datos');
+			let cambiar = document.getElementById('cambiar-filtro');
+			let form = document.getElementById('datos');
 
-				if (cambiar != null){
-					cambiar.addEventListener("click", () => {
-						if (form.style.display == 'block'){
-							form.style.display = 'none';
-						}
-						else{
-							form.style.display = 'block';
-						}
-					});
-				}
-				
-				if (cambiar != null){
-					form.style.display = 'none';
-				}	
-			})
-		}
-
-		$(document).ready(function(){
-			recargarLista();
-
-			$('#categoria').change (function (){
-				recargarLista();
-			});
+			if (cambiar != null){
+				cambiar.addEventListener("click", () => {
+					if (form.style.display == 'block'){
+						form.style.display = 'none';
+					}
+					else{
+						form.style.display = 'block';
+					}
+				});
+			}
+			
+			if (cambiar != null){
+				form.style.display = 'none';
+			}	
 		});
 
-		function recargarLista (){
-			$.ajax ({
-				type: "POST",
-				url: "rellenarSelect.php",
-				data: "categoria= " + $('#categoria').val (),
-				success: function (r){
-					$('#subc').html (r);
-				}
+		$(document).ready(function(){
+			actualizarSubcategoria();
+
+			$('#categoria').change (function (){
+				actualizarSubcategoria();
 			});
-		}	
+		});	
     </script>
 </head>
 <body id="body">   

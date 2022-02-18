@@ -21,98 +21,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="js/funciones.js"></script>
 	<script>
-		function agregarFav (id){
-			function getParameterByName(name) {
-				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-				let regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-				results = regex.exec(location.search);
-				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-			}
-
-            let param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "agregarFavorito.php?id="+id,
-				method: "post",
-				success: function(data) {
-					let url = window.location.href.split('?')[0];
-					let articulo = getParameterByName('art');
-					let parrafo = document.getElementsByClassName('parrafo-exito');
-					let mensaje = document.getElementsByClassName('mensaje');
-
-					if (mensaje[0] != null){
-						mensaje[0].style.display = 'block';
-					} 
-
-					if (parrafo[0] != null){
-						parrafo[0].style.display = 'none';
-					} 
-
-					if (data == 'ok'){
-
-                        window.location.href = url+'?art='+articulo+'&fav=ok'+'#mensaje';
-					}
-					else if(data == 'login') {
-                        window.location.href = 'login.php';
-					}
-                    else{
-                        window.location.href = url+'?art='+articulo+'&fav=false'+'#mensaje';
-                    }
-				}
-			});			
-		}
-
-		function agregarProducto (id){
-			let param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "agregarCarrito.php",
-				method: "post",
-				success: function(data) {
-					let datos = JSON.parse(data);
-
-					if (datos['ok']){
-						let cantCarrito = document.getElementById('num-car');
-						cantCarrito.innerHTML = datos.numero;
-
-						let pExito = document.getElementsByClassName('parrafo-exito');
-
-						if (pExito[0] == null){
-							let mensaje = document.getElementsByClassName('mensaje');
-
-                            if (mensaje[0] != null){
-                                mensaje[0].style.display = 'none';
-                            } 
-
-							let contenedor = document.getElementById('cont-descripcion');
-							let parrafo = document.createElement("p");
-                            let carrito = document.createElement("a");
-
-							parrafo.setAttribute("class","parrafo-exito");
-							parrafo.setAttribute("id","parrafo-exito");
-							carrito.setAttribute("class","carrito-compras");
-							carrito.setAttribute("href","carritoCompras.php");
-							carrito.innerHTML = 'carrito de compras';
-
-							let contenido = document.createTextNode("¡Se ha añadido el producto al ");
-							let cont_final = document.createTextNode("!");
-
-							parrafo.appendChild(contenido);
-                            parrafo.appendChild(carrito);
-                            parrafo.appendChild(cont_final);
-							contenedor.appendChild(parrafo);
-							window.location.hash = '#parrafo-exito';
-						}
-					}
-				}
-			});			
-		}
 	</script>
 	<style>
 		main{
@@ -333,7 +241,7 @@
 								}
 								else{
 									$boton = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>";
-									$boton .= "<input type='button' id='btn-fav' onclick='agregarFav($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>";
+									$boton .= "<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>";
 									echo $boton;						
 								}
 					if (isset($_GET['fav'])){

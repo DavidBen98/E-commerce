@@ -158,8 +158,8 @@
                             ('$nombreUsuario', 'U')";
                 }
                 //TODO: Sino unir el nombre y el arroba y ver si existe algun usuario con ese nombre de usuario
-                //TODO: En el caso de que exista un usuario con nombre+arroba probar con arroba+nombre
-                //TODO: Sino ver algo para hacer por defecto
+                //En el caso de que exista un usuario con nombre+arroba probar con arroba+nombre
+                //Sino ver algo para hacer por defecto
             }
             
             $db->query($sql);
@@ -254,38 +254,29 @@
         }
     </style>
     <script>
-        function ponerMouse(texto,imagen){
-            texto.style.transition = "opacity 0.4s linear";
-            texto.style.opacity = "1";
-            imagen.style.transform="scale(0.9)";
-            imagen.style.borderRadius= "10px";
-        }
+        document.addEventListener ('DOMContentLoaded', () => {
+            let img_cat = document.getElementsByClassName('img-cat');
+            let txt_cat = document.getElementsByClassName('texto');
 
-        if (window.addEventListener){
-			window.addEventListener ('load', () => {
-                let img_cat = document.getElementsByClassName('img-cat');
-                let txt_cat = document.getElementsByClassName('texto');
+            for (i=0;i<img_cat.length;i++){
+                let img = img_cat[i];
+                let txt = txt_cat[i];
 
-                for (i=0;i<img_cat.length;i++){
-                    let img = img_cat[i];
-                    let txt = txt_cat[i];
+                img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
+                img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
+                                                    txt.style.opacity = "0";}
+                                    ); 
+                txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
+            };
 
-                    img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-                    img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
-                                                        txt.style.opacity = "0";}
-                                        ); 
-                    txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-                };
-
-                let imagenes = document.getElementsByClassName('cont-images');
-                for (j=0;j<imagenes.length;j++){
-                    let imagen = img_cat[j].getAttribute('alt');
-                    imagenes[j].addEventListener("click", () => {
-                        window.location = 'subcategoria.php?categoria='+imagen;
-                    });
-                }
-            });
-        }
+            let imagenes = document.getElementsByClassName('cont-images');
+            for (j=0;j<imagenes.length;j++){
+                let imagen = img_cat[j].getAttribute('alt');
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'subcategoria.php?categoria='+imagen;
+                });
+            }
+        });
     </script>
     <script src="js/funciones.js"></script>
 </head>

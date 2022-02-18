@@ -32,43 +32,12 @@
 	<script src="JS/jquery-3.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
 	<script>
-        function validar(){
-            document.getElementById('e_error').innerHTML="";
-
-			nombreUser = document.getElementById('nombreUsuario').value;
-			psw = document.getElementById('psw').value;
-			
-			txtErrores = "";
-
-            if(nombreUser == null || nombreUser.trim() == ""){
-				txtErrores += "Debe ingresar el nombre de usuario";
-            }     
-			else if(psw == null || psw.trim() == ""){
-				txtErrores += "Debe ingresar la contraseña";
-            }          
-			
-			let devolucion = false;
-            
-            if(txtErrores == ""){
-				devolucion = true;
-			}
-
-            if (!devolucion){
-                let error = document.getElementById('e_error');
-				error.style.display = 'block';
-                let hijo = document.createTextNode(txtErrores);
-				error.appendChild(hijo);
-            }
-
-            return devolucion;
-		}
-
 		$(document).ready(function(){
 			actualizarCiudad();
 
-		$('#provincia').change (function (){
-			actualizarCiudad();
-		});
+			$('#provincia').change (function (){
+				actualizarCiudad();
+			});
 
 		});
 
@@ -482,7 +451,7 @@
 						echo "</p>	
 
 								<div class='cont-campo' id='btn-iniciar'>
-									<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validar()'>
+									<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validarLogin()'>
 								</div>
 						</div>
 								<div class='redes'>" . $login_button . "

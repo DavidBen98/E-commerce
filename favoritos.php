@@ -45,7 +45,7 @@
 
     $rs = $db->query($sql);
 
-    $div = "<div class='consulta'>
+    $div = "<div class='consulta' id='consulta'>
                 <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
                     <p style='height:40px; width:100%; font-size:1.3rem;padding:0;margin:0;display: flex; justify-content: center;align-items: center;'>
                         <b style='font-family: museosans500,arial,sans-serif;'>Favoritos</b>
@@ -144,96 +144,24 @@
     <script src="js/funciones.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script>
-        if (window.addEventListener){
-			window.addEventListener ('load', () => {
-                let continuar = document.getElementById('continuar');
+        document.addEventListener ('DOMContentLoaded', () => {
+            let continuar = document.getElementById('continuar');
 
-                if (continuar != null){
-                    continuar.addEventListener("click", () => {
-                        window.location = "productos.php?productos=todos";
-                    });  
-                }
+            if (continuar != null){
+                continuar.addEventListener("click", () => {
+                    window.location = "productos.php?productos=todos";
+                });  
+            }
 
-                let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
 
-                for (j=0;j<imagenes.length;j++){
-                    let articulo = imagenes[j].getAttribute('alt');
-                    imagenes[j].addEventListener("click", () => {
-                        window.location = 'detalleArticulo.php?art='+articulo;
-                    });
-                }
-            });
-        }
-          
-		function agregarProducto (id){
-			let param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "agregarCarrito.php",
-				method: "post",
-				success: function(data) {
-					let datos = JSON.parse(data);
-
-					if (datos['ok']){
-						let cantCarrito = document.getElementById('num-car');
-						cantCarrito.innerHTML = datos.numero;
-
-						let pExito = document.getElementsByClassName('parrafo-exito');
-
-						if (pExito[0] == null){
-
-                            let mensaje = document.getElementsByClassName('mensaje');
-
-                            if (mensaje[0] != null){
-                                mensaje[0].style.display = 'none';
-                            } 
-
-							let contenedor = document.getElementsByClassName('consulta');
-							let parrafo = document.createElement("p");
-                            let carrito = document.createElement("a");
-
-							parrafo.setAttribute("class","parrafo-exito");
-							carrito.setAttribute("class","carrito-compras");
-							carrito.setAttribute("href","carritoCompras.php");
-							carrito.innerHTML = 'carrito de compras';
-
-							let contenido = document.createTextNode("¡Se ha añadido el producto al ");
-							let cont_final = document.createTextNode("!");
-
-							parrafo.appendChild(contenido);
-                            parrafo.appendChild(carrito);
-                            parrafo.appendChild(cont_final);
-							contenedor[0].appendChild(parrafo);
-						}
-					}
-				}
-			});			
-		}  
-
-        function eliminarFavorito (id){
-			let param = {
-				id: id
-			};
-
-			$.ajax({
-				data: param,
-				url: "eliminarFavorito.php?id="+id,
-				method: "post",
-				success: function(data) {
-					if (data == 'ok'){
-                        if (location.hash == '#mensaje'){
-                            location.reload();
-                        }
-                        else{
-                            window.location.href = 'favoritos.php?elim=ok#mensaje';
-                        }
-					}
-				}
-			});			
-		}
+            for (j=0;j<imagenes.length;j++){
+                let articulo = imagenes[j].getAttribute('alt');
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                });
+            }
+        });
     </script>
     <style>
         main{

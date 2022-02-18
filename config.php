@@ -35,7 +35,7 @@
         
         $google_client->addScope('profile');
 
-        if(isset($_SESSION['user_first_name'])){
+        if(isset($_SESSION['user_first_name']) || isset($_SESSION["user_id"])){
             $perfil = "U";
         }
     }
