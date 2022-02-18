@@ -145,7 +145,7 @@
         ";	
 	} 
 
-    function completarWhere ($sql,$filtros){
+    function completarWhere ($select,$from,$innerJoin,$where,$filtros){
         global $db;
         $rs = "";	
         $where_color = "";
@@ -214,18 +214,25 @@
         else{
             $where_sql .=  $where_marca;
         } 
-		
+
 		if($orderMasVen != 0){
-			$sql = "SELECT `codigo`, `descripcion`,`p`.`precio`, SUM(`cantidad`)
-					from `producto` as `p`
-					LEFT JOIN `detalle_compra` as `dc` ON `dc`.id_producto = `p`.codigo
-					$where_sql
-					GROUP  BY `codigo`
-					ORDER  BY `cantidad` DESC;";
+			$sql = $select . " " .
+                   $from . " " .
+                   $innerJoin . " " . 
+				   "LEFT JOIN `detalle_compra` as `dc` ON `dc`.id_producto = `p`.codigo" . 
+                   $where .
+				   $where_sql .
+                   "GROUP  BY p.`codigo`
+					ORDER  BY SUM(dc.`cantidad`) DESC;";
 		}
 		else{
-			$sql .= " $where_sql
-                 	    $orderBy";  
+			$sql = "   $select
+                        $from
+                        $innerJoin
+                        $where
+                        $where_sql
+                 	    $orderBy
+            ";  
 		}
 
         return $sql;       

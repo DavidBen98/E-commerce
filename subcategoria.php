@@ -17,7 +17,7 @@
 	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio
 	 		FROM subcategoria as s
 	 		INNER JOIN producto as p on s.id_subcategoria = p.id_subcategoria
-	 		Where `codigo` LIKE '$imagenes%%1'";
+	 		WHERE `codigo` LIKE '$imagenes%%1'";
 	
 	$rs = $db->query($sql);
 ?>
@@ -103,6 +103,5 @@
 	<?php 
 		echo $pie;
 	?>
-
 </body>
 </html>

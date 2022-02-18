@@ -26,34 +26,33 @@
 		$filtros[3] = $maximo;
 	}
 	
-    if(isset($_GET['productos'])){   
-        $sql  = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
-                FROM `producto` as p
-                INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-                INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria";
+    if(isset($_GET['productos'])){ 
+		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio";
+		$from = "FROM `producto` as p";
+		$innerJoin = "INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+						INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria";
 
         //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
         $categoria = (isset($_POST['categoria']))? intval($_POST['categoria']) : "";
         $subcategoria = (isset($_POST['subcategoria']))? intval($_POST['subcategoria']) : "";
 
         if ($categoria != ""){
-            $sql .= " WHERE p.id_categoria like '$categoria' ";
+            $where = " WHERE p.id_categoria like '$categoria' ";
         }
         else{
-            $sql .= " WHERE p.id_categoria like '%' ";
+            $where = " WHERE p.id_categoria like '%' ";
         }
 
         if ($subcategoria != ""){
-            $sql .= " AND p.id_subcategoria like '$subcategoria' ";
+            $where .= " AND p.id_subcategoria like '$subcategoria' ";
         }
         else{
-            $sql .= " AND p.id_subcategoria like '%' ";
+            $where .= " AND p.id_subcategoria like '%' ";
         }
 
-        $sql = completarWhere($sql, $filtros);
+        $sql = completarWhere($select,$from,$innerJoin,$where,$filtros);
         $rs = $db->query($sql);
 
-		echo $sql;
     }
 	else if (isset($_GET['buscador'])){
 		$busqueda = $_GET['buscador'];
@@ -88,14 +87,15 @@
 
         //Si entro desde subcategorias entonces la categoria y la subcategoria esta en la url
         $catSubcat = $_GET['articulos'];
-        $sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`, `id_subcategoria`
-                FROM producto
-                WHERE codigo like '$catSubcat%'";
+		$select = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`, `id_subcategoria`";
+		$from = "FROM producto";
+		$where = "WHERE codigo like '$catSubcat%'";
+		$innerJoin = "";
 
 		$categoria = $_GET['cate'];
 		$subcategoria = $_GET['sub'];
 
-        $sql = completarWhere($sql, $filtros);
+        $sql = completarWhere($select, $from, $innerJoin, $where, $filtros);
         $rs = $db->query($sql);
     }
 ?>
@@ -286,22 +286,23 @@
 				$filtro = "";
 				$url = $_SERVER["REQUEST_URI"];
 
-					if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
-						
-						$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
-						
-						echo "<div id='filtros-usados'>		
-								<div id='filtro'> $filtro </div>
-								<div class='btn-filtrado'>					
-									<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
-									<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
-							  	</div>
-							  </div>";
-					}
+				if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
+					
+					$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
+					
+					echo "<div id='filtros-usados'>		
+							<div id='filtro'> $filtro </div>
+							<div class='btn-filtrado'>					
+								<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
+								<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
+							</div>
+							</div>";
+				}
 
 				crearBarraLateral();
 			?>
 		</aside>
+		<section style='display:flex; width:70%;'>
         <?php
 			crearImagenes ($rs);
 
@@ -309,6 +310,7 @@
 						<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' title='Exportar a Excel' alt='Exportar a Excel'>
 					</div>";
         ?>
+		</section>
     </main>   
    
 	<?php echo $pie;?>

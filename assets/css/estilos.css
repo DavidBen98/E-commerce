@@ -369,7 +369,7 @@ aside select{
     flex-flow: row wrap;
     align-content: flex-start;
     padding-left: 30px;
-    width:59%;
+    width:100%;
 }
 
 #catalogo{
