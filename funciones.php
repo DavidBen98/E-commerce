@@ -106,6 +106,7 @@
 
     function crearImagenes ($consulta){
 		$i=0;	
+
 		echo "<form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
 			echo "<h1 class='h1' style='display:none; width:100%; text-align:center; margin:0; padding-left: 100px;'> Muebles Giannis - Catálogo </h1>";
         
@@ -118,7 +119,7 @@
                     $i++; 
                     echo "<div class='producto'>
                             <img src='images/{$row['codigo']}.png' class='img-cat' alt='{$row['codigo']}' title='".ucfirst($row['nombre_subcategoria'])."'> 
-                            <p class='descripcion'>". ucfirst($row['nombre_subcategoria'])." </p>
+                            <h2 class='tituloSubcat'>". ucfirst($row['nombre_subcategoria'])." </h2>
                         </div>";           
                 };		
             }
@@ -359,9 +360,8 @@
                         <div class='cont-images'> 
                             <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
                             <div class='texto'>
-                            <p class='img-titulo'>".
-                                strtoupper($nomCat) .
-                            "</p>";
+                                <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
+            ";
 
             $sql1 = "SELECT nombre_subcategoria
             FROM `subcategoria`
@@ -396,7 +396,7 @@
 			$form = "<form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
 						<div class='btn-select'>
 							<label for='orden' class='label'> Ordenar por </label>
-							<select class='form-select' name='orden' title='Ordenar elementos'> 
+							<select class='form-select' id='orden' name='orden' title='Ordenar elementos'> 
 								<option value='0'> Menor precio </option>
 								<option value='1'> Mayor precio </option>	
 								<option value='2'> Mas vendidos </option>
@@ -425,7 +425,7 @@
 				<form action='productos.php?productos=filtrado' method='post' id='datos'> 
 					<div class='btn-select'>
 						<label for='orden' class='label'> Ordenar por </label>
-						<select class='form-select' name='orden' title='Ordenar elementos'> 
+						<select class='form-select' name='orden' id='orden' title='Ordenar elementos'> 
 							<option value='0'> Menor precio </option>
 							<option value='1'> Mayor precio </option>	
 							<option value='2'> Mas vendidos </option>
@@ -490,8 +490,8 @@
 		
 		ksort($arrColores);
 		
-			echo" <div class='colores contenedor'>
-						<label class='ltitulo'><b>Colores</b></label>
+			echo" <fieldset class='colores contenedor'>
+						<legend class='ltitulo' for='colores'><b>Colores</b></legend>
 						<div id='colores' class='input'>
 			";
 		
@@ -504,12 +504,13 @@
 				</div>			
 			";
 		}
+        echo "</div> 
+        </fieldset>";
 
 		ksort($arrMarcas);
 
-		echo"</div> </div> 
-			<div class='marcas contenedor'>					
-				<label class='ltitulo'><b>Marcas</b></label>
+		echo"<fieldset class='marcas contenedor'>					
+				<legend class='ltitulo'><b>Marcas</b></legend>
 				<div id='marcas' class='input'>
 		";	
 
@@ -523,15 +524,17 @@
 				";
 		}
 		echo "</div>	
-				</div>
-				<div id='min-max'>
-					<label id='lmaxmin'><b>Mínimo - Máximo</b></label>	
-					<div class='input-minmax'>	
+				</fieldset>
+				<fieldset id='min-max'>
+				    <legend class='ltitulo' style='padding-top:20px;'><b>Precios</b></legend>  
+                    <label for='valorMin' class='lmaxmin' style='width: 50%; text-align: end;'>Mínimo -</label> 
+                    <label for='valorMax' class='lmaxmin' style='width: 47%; padding-left: 3%;'>Máximo</label>			
+					<div class='input-minmax'>
 						<input type='number' name='valorMin' id='valorMin' style='text-align:center; height: 20px;' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
 						- 
 						<input type='number' name='valorMax' id='valorMax' style='text-align:center; height: 20px;' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
 					</div>
-				</div>	
+				</fieldset>	
 				<p id='e_error'>
 
 				</p> 

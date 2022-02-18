@@ -15,3 +15,8 @@ nombre: caelenaShar    |contraseña: 987
 Correcciones para el final:
 	Hacer todos los ABMs 
 	Agregar detalles a la impresión
+
+ERRORES Y ALERTAS QUE SE IGNORAN DE MANERA CONSCIENTE: 
+CONTRASTE: BOTONES GOOGLE Y TWITTER
+LABEL: BUSCADOR DEL ENCABEZADO, INPUT DE LA PAGINA "CONTACTOS"
+ENLACE SUBRAYADO

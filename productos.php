@@ -10,22 +10,6 @@
 		header("location:ve.php");
 	} 
 
-	if (isset($_GET['cate']) || (isset($_GET['subc']))){
-		$ruta = "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
-					<li style='border:none;text-decoration: none;'>Productos</li>
-				</ol>
-		";
-	}
-	else{
-		$ruta = "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='border:none;text-decoration: none;'>Productos</li>
-				</ol>
-		";
-	}
-
     global $db;  
 	$rs = "";
     $categoria = "";
@@ -115,6 +99,7 @@
         $rs = $db->query($sql);
     }
 
+	//FILTROS DE LA BARRA LATERAL
 	$filtro = "";
 	$filtrado = "";
 	$url = $_SERVER["REQUEST_URI"];
@@ -126,13 +111,31 @@
 		$filtrado = "<div id='filtros-usados'>		
 						<div id='filtro'> $filtro </div>
 						<div class='btn-filtrado'>					
-							<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
+							<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrado de filtrado' value='Borrar filtros'>Borrar filtros</a>
 							<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
 						</div>
 					</div>
 		";
 	}
+
+	//RUTA DE NAVEGACIÓN
+	if (isset($_GET['cate']) || (isset($_GET['subc']))){
+		$ruta = "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
+					<li style='border:none;text-decoration: none;'>Productos</li>
+				</ol>
+		";
+	}
+	else{
+		$ruta = "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='border:none;text-decoration: none;'>Productos</li>
+				</ol>
+		";
+	}
 ?>
+<html lang="es">
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -162,12 +165,11 @@
 		}
 
 		#min-max{
-			width:100%;
 			display:flex;
 			flex-wrap:wrap;
 			justify-content:center;
-			padding-left:4px;
 			margin-top: 20px;
+			border: none;
 		}
 
 		.btn-select{
@@ -178,6 +180,7 @@
 			display:block;
 			width:100%;
 			text-align:center;
+			padding-top: 20px;
 		}
 
 		.marcas, .colores{
@@ -185,6 +188,7 @@
 			overflow-x: hidden;
 			overflow-y: auto;
 			margin-top: 20px;
+			border: none;
 		}
 
 		.color, .marca{

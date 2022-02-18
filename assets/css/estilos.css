@@ -16,8 +16,9 @@ header a {
 }
 
 #titulo-principal{
-    font-size: 1.3em;
+    font-size: 1.5rem;
     font-weight: normal;
+    line-height: inherit;
 }
 
 /*PRIMER CONTENEDOR DE ENVIO A TODO EL PAIS*/
@@ -151,9 +152,21 @@ header a {
     font-size:1.15rem;
 }
 
+#inicio{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+    border:none;
+    background-color: #000;
+    font-family: "Salesforce Sans", serif;
+}
+
 #inicio:hover, #sus_nov:hover, #iniciarSesion:hover, #btn-registrar:hover{
     transition: all 0.5s linear;
     color: rgb(147, 81, 22);
+    cursor: pointer;
 }
 
 /*NAVEGACION*/
@@ -284,7 +297,7 @@ button a{
     background-color: white;
 }
 
-.descripcion{
+.descripcion, .tituloSubcat{
     display:flex;
     width:230px;
     height:25%;
@@ -294,6 +307,11 @@ button a{
     margin: 0;
     padding: 10px 0;
 } 
+
+.tituloSubcat{
+    font-weight: normal;
+    font-size: 1.2rem;
+}
 
 .btn-select{
     display:flex;

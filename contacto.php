@@ -30,7 +30,6 @@
 			text-align:center;
 			font-size: 2.3rem;
 			margin: 0 auto;
-			font-family: museosans500,arial,sans-serif;
 		}
 
 		.cont-con{
@@ -154,11 +153,11 @@
     <main id='main'>
 		<ol class='ruta'>
 			<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-			<li style='border:none;text-decoration: none;'>Contacto</li>
+			<li style='border:none;text-decoration: none; '>Contacto</li>
 		</ol>
 			
 		<div style='width:100%; margin: 0 0 10px 0;'>
-			<h1>Contacto</h1>
+			<h1 style='font-family: museosans500,arial,sans-serif;'>Contacto</h1>
 		</div>
 
 		<div style='margin-bottom:10px; width:100%;'>

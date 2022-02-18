@@ -7,6 +7,6 @@
 					Av. Cochabamba 321, Noroeste, Bahia Blanca <br> 
 					Todos los derechos reservados <br> 
 				</p>	
-				<a href='index.php' id='inicio' title='Página de inicio'> Inicio</a>  								    					       
+				<button id='inicio' title='Página de inicio'> Inicio</button>  								    					       
 	";		
 ?>

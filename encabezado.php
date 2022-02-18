@@ -32,7 +32,7 @@
                         <div id='container-header'>
                             <div id='logo'>
                                 <a href='index.php' id='link-logo'> 
-                                    <i id='titulo-principal' title='Muebles Giannis'>Muebles Giannis</i>
+                                    <h1><i id='titulo-principal' title='Logo del comercio'>Muebles Giannis</i></h1>
                                 </a>
                             </div>
                             <div id='buscar'>

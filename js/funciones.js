@@ -1,6 +1,13 @@
 window.onload = function (){
     let busqueda = document.getElementById ('lupa');
     let filtro = document.getElementById ('header-buscar'); 
+    let inicio = document.getElementById ('inicio');
+
+    if (inicio != null){
+        inicio.addEventListener ('click', () => {
+            window.location.href = 'index.php';
+        });
+    }
     
     if (busqueda != null){
         filtro.addEventListener ("keydown", function (event){

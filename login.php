@@ -59,9 +59,12 @@
 						</div> 
 						
 						<div class='cont-reg'>
-							<label for='direccion[]' class='form-label'>Dirección </label>
+							<label class='form-label'>Dirección </label>
+							<label class='form-label' for='calle' style='display:none;'>Calle </label>
 							<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
+							<label class='form-label' for='numero' style='display:none;'>Numero</label>
 							<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
+							<label class='form-label' for='piso' style='display:none;'>Piso</label>
 							<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
 						</div> 
 
@@ -79,7 +82,7 @@
 						</div>
 							
 						<div class='cont-reg'>
-							<label for='psw' class='form-label'>Repetir contraseña</label>				
+							<label for='psw2' class='form-label'>Repetir contraseña</label>				
 							<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
 						</div>
 
@@ -183,15 +186,15 @@
     <script src="js/funciones.js"></script>
 	<script>
 		$(document).ready(function(){
-			actualizarCiudad();
+			actualizarCiudadRegistro();
 
 			$('#provincia').change (function (){
-				actualizarCiudad();
+				actualizarCiudadRegistro();
 			});
 
 		});
 
-		function actualizarCiudad (){
+		function actualizarCiudadRegistro (){
 			$.ajax ({
 				type: "POST",
 				url: "rellenarSelect.php",
@@ -439,16 +442,16 @@
 		}
 
 		#titulo-is{
-			font-family: "museosans500,arial,sans-serif"; 
+			font-family: museosans500,arial,sans-serif; 
 			height: 30px; 
 			width:100%;
 			border-bottom: 1px solid #D3D3D3;
 			text-align:center;
 			padding-bottom:10px;
-			color: #979A9A;
+			font-size: 1.8rem;
 		}
 
-		::placeholder{
+		main ::placeholder{
 			text-align:center;
 		}
 	</style>
