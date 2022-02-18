@@ -6,7 +6,6 @@
 	include("encabezado.php");
 	include('apiDatos.php');
 
-
 	if (perfil_valido(2)) {
 		header("location:informacionPersonal.php");
 	} 
@@ -17,10 +16,161 @@
 	$auth = new TwitterAuth($cliente);
 
 	$login_button = "<a href=" . $google_client->createAuthUrl() . " class='btn-google'>Iniciar sesión con Google</a>
-					<a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
+					 <a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
 
 	$google= $google_client->createAuthUrl();
-	
+
+	if (isset($_GET['reg'])){
+		$ruta = "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='border:none;text-decoration: none;'>Registro</li>
+				</ol>
+		";
+
+		$form = "<form action='registro.php' method='post' class='' id='form-registro'>
+					<div class='form'>
+						<div class='cont-reg'>
+							<label for='nombre' class='form-label'>Nombre</label>
+							<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
+						</div>  
+
+						<div class='cont-reg'>
+							<label for='apellido' class='form-label'>Apellido</label>				
+							<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' required>
+						</div>
+
+						<div class='cont-reg'>
+							<label for='dni' class='form-label'>Número de DNI </label>
+							<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' required>	
+						</div>
+						
+						<div class='cont-reg'>
+							<label for='email' class='form-label'>Email</label>
+							<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' required>	
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='provincia' class='form-label'>Provincia </label>
+							$select
+						</div> 
+						
+						<div class='cont-reg' id='ciudad'>
+							<label for='ciudad' class='form-label'>Ciudad</label>
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='direccion[]' class='form-label'>Dirección </label>
+							<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
+							<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
+							<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
+						</div> 
+
+						<div class='cont-reg'>
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+							<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+						</div> 
+						
+						<div class='cont-reg'>
+							<label for='psw' class='form-label'>Contraseña</label>				
+							<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' required>
+						</div>
+							
+						<div class='cont-reg'>
+							<label for='psw' class='form-label'>Repetir contraseña</label>				
+							<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
+						</div>
+
+						<div class='cont-reg'>
+						</div>
+
+						<div class='cont-reg' style='width:100%; justify-content:start; margin-left:20px; margin-top:10px;'>
+							<label style='margin-top:10px; text-align:start;'>
+								<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value='1'>Suscripción a las novedades
+							</label>			
+						</div>
+						
+						<div class='registro'>
+							<button id='registrarse'>Registrarse</button>
+						</div>
+		";
+
+		if (isset($_GET['error'])){
+			$error = isset($_GET['error']);
+
+			$form .= "<div id='error-reg'> <p>";
+			
+			if ($error == "4"){
+				$form .= "El usuario, email y/o DNI ingresado ya existen";
+			}
+			else if ($error == "1"){
+				$form .= "Las contraseñas no coindiden, reintente por favor";
+			}
+			else if ($error == "2"){
+				$form .= "El dni ingresado no es válido";
+			}
+			else if ($error == "3"){
+				$form .= "Falta ingresar al menos un campo";
+			}
+			$form .= "</p></div>";
+		}
+		else if (isset($_GET['registro'])){
+			$form .= "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
+		}
+		
+		$form .= "</div>
+				<div class='redes'>
+						$login_button 
+				</div>
+			</form>
+		";
+	}
+	else if (!isset($_GET['login'])){
+		$ruta = "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='border:none;text-decoration: none;'>Inicio de sesión</li>
+				</ol>
+		";
+
+		$form = "<form action='inicioSesion.php' method='post' class='formulario' novalidate>
+					<div id='sesion'>
+						<h1 id='titulo-is'>Iniciar Sesión</h1>	
+						<div class='cont-campo'>
+							<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+							<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+						</div>  
+
+						<div class='cont-campo'>
+							<label for='psw' class='form-label'>Contraseña</label>				
+							<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' required>
+						</div>
+
+						<p class='e_error' style='display:none;'>";
+							$error ='';
+							if(isset($_GET['error'])){
+								$error = $_GET['error'];
+								if ($error == '0'){
+									$form .= "<p class='e_error'>Complete los campos por favor</p>";
+								}
+								else if($error == '1'){
+									$form .= "<p class='e_error'>El usuario ingresado no existe</p>";
+								}
+								else if($error == '2'){
+									$form .= "<p class='e_error'>La contraseña ingresada es inválida</p>";
+								}
+							}						
+				$form .= "</p>	
+						<div class='cont-campo' id='btn-iniciar'>
+							<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validarLogin()'>
+						</div>
+					</div>
+
+					<div class='redes'> $login_button </div>
+				</form>	
+				";
+	}	
 ?>
 <html lang="es"> 
 <head>
@@ -309,159 +459,13 @@
 	?>
 
 	<main id='main'>
-		<?php
-			if (isset($_GET['reg'])){
-				echo "<ol class='ruta'>
-                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='border:none;text-decoration: none;'>Registro</li>
-                  </ol>
-            	";
+		<?= $ruta; ?>
 
-				echo "<form action='registro.php' method='post' class='' id='form-registro'>
-						<div class='form'>
-							<div class='cont-reg'>
-								<label for='nombre' class='form-label'>Nombre</label>
-								<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
-							</div>  
-
-							<div class='cont-reg'>
-								<label for='apellido' class='form-label'>Apellido</label>				
-								<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' required>
-							</div>
-
-							<div class='cont-reg'>
-								<label for='dni' class='form-label'>Número de DNI </label>
-								<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' required>	
-							</div>
-							
-							<div class='cont-reg'>
-								<label for='email' class='form-label'>Email</label>
-								<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' required>	
-							</div> 
-							
-							<div class='cont-reg'>
-								<label for='provincia' class='form-label'>Provincia </label>
-								$select
-							</div> 
-							
-							<div class='cont-reg' id='ciudad'>
-								<label for='ciudad' class='form-label'>Ciudad</label>
-							</div> 
-							
-							<div class='cont-reg'>
-								<label for='direccion[]' class='form-label'>Dirección </label>
-								<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
-								<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
-								<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
-							</div> 
-
-							<div class='cont-reg'>
-							</div> 
-							
-							<div class='cont-reg'>
-								<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-								<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
-							</div> 
-							
-							<div class='cont-reg'>
-								<label for='psw' class='form-label'>Contraseña</label>				
-								<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' required>
-							</div>
-								
-							<div class='cont-reg'>
-								<label for='psw' class='form-label'>Repetir contraseña</label>				
-								<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
-							</div>
-
-							<div class='cont-reg'>
-							</div>
-
-							<div class='cont-reg' style='width:100%; justify-content:start; margin-left:20px; margin-top:10px;'>
-								<label style='margin-top:10px; text-align:start;'>
-									<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value='1'>Suscripción a las novedades
-								</label>			
-							</div>
-							
-							<div class='registro'>
-								<button id='registrarse'>Registrarse</button>
-							</div>
-						";
-
-						if (isset($_GET['error'])){
-							$error = isset($_GET['error']);
-
-							echo "<div id='error-reg'> <p>";
-							
-							if ($error == "4"){
-								echo "El usuario, email y/o DNI ingresado ya existen";
-							}
-							else if ($error == "1"){
-								echo "Las contraseñas no coindiden, reintente por favor";
-							}
-							else if ($error == "2"){
-							 	echo "El dni ingresado no es válido";
-							}
-							else if ($error == "3"){
-							 	echo "Falta ingresar al menos un campo";
-							}
-							echo "</p></div>";
-						}
-						else if (isset($_GET['registro'])){
-							echo "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
-						}
-						echo "</div>
-								<div class='redes'>
-									 $login_button 
-								</div>
-								</form>";
-			}
-			else if (!isset($_GET['login'])){
-				echo "<ol class='ruta'>
-                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='border:none;text-decoration: none;'>Inicio de sesión</li>
-                  	</ol>
-            	";
-				echo "<form action='inicioSesion.php' method='post' class='formulario' novalidate>
-							<div id='sesion'>
-								<h1 id='titulo-is'>Iniciar Sesión</h1>	
-								<div class='cont-campo'>
-									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
-								</div>  
-
-								<div class='cont-campo'>
-									<label for='psw' class='form-label'>Contraseña</label>				
-									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' required>
-								</div>
-
-								<p class='e_error' style='display:none;'>";
-									$error ='';
-									if(isset($_GET['error'])){
-										$error = $_GET['error'];
-										if ($error == '0'){
-											echo "<p class='e_error'>Complete los campos por favor</p>";
-										}
-										else if($error == '1'){
-											echo "<p class='e_error'>El usuario ingresado no existe</p>";
-										}
-										else if($error == '2'){
-											echo "<p class='e_error'>La contraseña ingresada es inválida</p>";
-										}
-									}						
-						echo "</p>	
-
-								<div class='cont-campo' id='btn-iniciar'>
-									<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validarLogin()'>
-								</div>
-						</div>
-								<div class='redes'>" . $login_button . "
-									
-								</div>
-							</form>	";
-			}
-		?>
+		<?= $form; ?>
 	</main>
             
-    <?php echo $pie; ?>  
+    <footer id='pie'>
+		<?= $pie; ?> 
+	</footer> 
 </body>
 </html>

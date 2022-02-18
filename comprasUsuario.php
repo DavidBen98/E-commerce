@@ -500,27 +500,23 @@
 </head>
 <body id="body">
     <header>
-        <?php echo $encab; ?> 
+        <?= $encab; ?> 
     </header>
 
     <main>
-        <?php 
-            echo "<ol class='ruta'>
-                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='border:none;text-decoration: none;'>Mis compras</li>
-                  </ol>
-            ";
+        <ol class='ruta'>
+            <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+            <li style='border:none;text-decoration: none;'>Mis compras</li>
+        </ol>
+        <div class='contenedor-botones'>
+            <?=$cont_usuarios; ?>
+        </div>
 
-            echo "<div class='contenedor-botones'>
-                    $cont_usuarios
-                  </div>";
-
-            echo $div;
-        ?>  
+        <?= $div; ?>  
     </main>
 
-    <?php
-        echo $pie;
-    ?>
+    <footer id='pie'>
+		<?= $pie; ?> 
+	</footer>
 </body>
 </html>

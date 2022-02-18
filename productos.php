@@ -10,6 +10,22 @@
 		header("location:ve.php");
 	} 
 
+	if (isset($_GET['cate']) || (isset($_GET['subc']))){
+		$ruta = "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
+					<li style='border:none;text-decoration: none;'>Productos</li>
+				</ol>
+		";
+	}
+	else{
+		$ruta = "<ol class='ruta'>
+					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+					<li style='border:none;text-decoration: none;'>Productos</li>
+				</ol>
+		";
+	}
+
     global $db;  
 	$rs = "";
     $categoria = "";
@@ -98,6 +114,24 @@
         $sql = completarWhere($select, $from, $innerJoin, $where, $filtros);
         $rs = $db->query($sql);
     }
+
+	$filtro = "";
+	$filtrado = "";
+	$url = $_SERVER["REQUEST_URI"];
+
+	if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
+		
+		$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
+		
+		$filtrado = "<div id='filtros-usados'>		
+						<div id='filtro'> $filtro </div>
+						<div class='btn-filtrado'>					
+							<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
+							<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
+						</div>
+					</div>
+		";
+	}
 ?>
 <head> 
     <meta charset="UTF-8">
@@ -251,56 +285,26 @@
 	</header>
 	
 	<main id="main">
-		<?php
-			if (isset($_GET['cate'])){
-				echo "<ol class='ruta'>
-                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
-                        <li style='border:none;text-decoration: none;'>Productos</li>
-                     </ol>
-            	";
-			}
-			else{
-				echo "<ol class='ruta'>
-                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='border:none;text-decoration: none;'>Productos</li>
-                  </ol>
-            	";
-			}
-		?>
+		<?= $ruta; ?>
+
         <aside class="barra-lateral"> 
-			<?php 
-				$filtro = "";
-				$url = $_SERVER["REQUEST_URI"];
+			<?= $filtrado; ?>
 
-				if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
-					
-					$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
-					
-					echo "<div id='filtros-usados'>		
-							<div id='filtro'> $filtro </div>
-							<div class='btn-filtrado'>					
-								<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrar filtros' value='Borrar filtros'>Borrar filtros</a>
-								<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
-							</div>
-							</div>";
-				}
-
-				crearBarraLateral();
-			?>
+			<?= crearBarraLateral(); ?>
 		</aside>
-		<section style='display:flex; width:70%;'>
-        <?php
-			crearImagenes ($rs);
 
-			echo "  <div class='btn-doc'>
-						<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' title='Exportar a Excel' alt='Exportar a Excel'>
-					</div>";
-        ?>
+		<section style='display:flex; width:70%;'>
+			<?= crearImagenes ($rs); ?>
+			
+			<div class='btn-doc'>
+				<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' title='Exportar a Excel' alt='Exportar a Excel'>
+			</div>
 		</section>
     </main>   
    
-	<?php echo $pie;?>
+	<footer id='pie'>
+		<?= $pie; ?> 
+	</footer>
 
 </body> 
 </html>

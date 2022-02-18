@@ -1,6 +1,22 @@
 <?php
     require_once 'inc/conn.php';
 
+    define('PSW_SEMILLA','34a@$#aA9823$');	
+    $onclick1 = "window.location.href='informacionPersonal.php'";
+    $onclick2 = "window.location.href='consultaUsuario.php'";
+    $onclick3 = "window.location.href='cerrarSesion.php'";
+    $onclick4 = "window.location.href='comprasUsuario.php'";
+    $onclick5 = "window.location.href='favoritos.php'";
+
+    $cont_usuarios = "  <div class='contenedor-btn'>        
+                            <div onclick=$onclick1 style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
+                            <div onclick=$onclick4>Mis pedidos</div>
+                            <div onclick=$onclick5>Favoritos</div>
+                            <div onclick=$onclick2>Historial de consultas</div>
+                            <div onclick=$onclick3 style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
+                        </div> 
+    ";
+
     function crear_barra() {
         global $user;
         global $perfil;
@@ -55,8 +71,6 @@
         
         return $valido;  
     }
-
-    define('PSW_SEMILLA','34a@$#aA9823$');	
 	
 	function generar_clave_encriptada($password) {			
 		$salt = PSW_SEMILLA;		 
@@ -64,21 +78,6 @@
 		return $psw_encript; 
 	}
     
-    $onclick1 = "window.location.href='informacionPersonal.php'";
-    $onclick2 = "window.location.href='consultaUsuario.php'";
-    $onclick3 = "window.location.href='cerrarSesion.php'";
-    $onclick4 = "window.location.href='comprasUsuario.php'";
-    $onclick5 = "window.location.href='favoritos.php'";
-
-    $cont_usuarios = "  <div class='contenedor-btn'>        
-                            <div onclick=$onclick1 style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
-                            <div onclick=$onclick4>Mis pedidos</div>
-                            <div onclick=$onclick5>Favoritos</div>
-                            <div onclick=$onclick2>Historial de consultas</div>
-                            <div onclick=$onclick3 style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
-                        </div> 
-    ";
-
     function mostrarInfoPersonal(){
         global $db; 
         $nombreUser = $_SESSION['user'];

@@ -24,6 +24,13 @@ const ponerMouse = (texto,imagen) => {
     imagen.style.borderRadius= "10px";
 }
 
+//CARRITO COMPRAS
+const excel = () => {			
+    document.getElementById("datos").method = "post";
+    document.getElementById("datos").action = "carritoXLS.php";
+    document.getElementById("datos").submit(); 
+}	
+
 //UTILIZADAS EN CARRITO COMPRAS
 const agregarFav = (id) => {
         let param = {
@@ -411,6 +418,48 @@ const validarLogin = () => {
 
     return devolucion;
 }
+
+//CONTACTO
+const validarContacto = () => {
+    document.getElementById("e_error").innerHTML="";
+
+    let  exito = document.getElementsByClassName('parrafo-exito');
+    exito[0].style.display = 'none';
+
+    nombre = document.getElementById("nombre").value;
+    apellido = document.getElementById("apellido").value;
+    email = document.getElementById("email").value;
+    txtIngresado = document.getElementById("txtIngresado").value;
+
+    txtErrores = "";
+
+    if( nombre == null || nombre.trim() == ""){
+        txtErrores += "Debe ingresar su nombre";
+    }
+    else if( apellido == null || apellido.trim() == ""){
+        txtErrores += "Debe ingresar su apellido";
+    }
+    else if( email == null || email.trim() == ""){
+        txtErrores += "Debe ingresar su email";
+    }
+    else if( txtIngresado == null || txtIngresado.trim() == ""){
+        txtErrores += "Debe ingresar una consulta";
+    }
+
+    let devolucion = false;
+    
+    if(txtErrores == ""){
+        devolucion = true;
+    }
+
+    if (!devolucion){
+        let error = document.getElementById("e_error");
+        let hijo = document.createTextNode(txtErrores);
+        error.appendChild(hijo);
+    }
+
+    return devolucion;
+}  
 
 //PRODUCTOS
 const actualizarSubcategoria = () => {

@@ -5,13 +5,18 @@
     include("encabezado.php"); 
 
     if (perfil_valido(3)) {
-       header("location:index.php");
+       header("location:login.php");
     }
     else if (perfil_valido(1)) {
         header("location:ve.php");
     }  
 
     global $db; 
+
+    $ruta = "<ol class='ruta'>
+                <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                <li style='border:none;text-decoration: none;'>Datos personales</li>
+            </ol>";
     
     if (isset($_SESSION['idUsuario'])){
         $idUsuario = $_SESSION['idUsuario'];
@@ -296,23 +301,18 @@
     </header>
 
     <main>
-        <?php 
-            echo "<ol class='ruta'>
-                    <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                    <li style='border:none;text-decoration: none;'>Datos personales</li>
-                  </ol>
-            ";
-            echo "<div style='display:flex; justify-content:start;'>
-                    <div class='contenedor-botones'>
-                        $cont_usuarios
-                    </div>
-                        $infoPersonal
-                 </div>";
-        ?>
+        <?= $ruta; ?>
+
+        <div style='display:flex; justify-content:start;'>
+            <div class='contenedor-botones'>
+                <?= $cont_usuarios; ?>
+            </div>
+                <?= $infoPersonal; ?>
+            </div>
     </main>
 
-    <?php
-        echo $pie;
-    ?>
+    <footer id='pie'>
+		<?= $pie; ?> 
+	</footer>
 </body>
 </html>

@@ -517,8 +517,8 @@
         ?>  
     </main>
 
-    <?php
-        echo $pie;
-    ?>
+    <footer id='pie'>
+		<?= $pie; ?> 
+	</footer>
 </body>
 </html>

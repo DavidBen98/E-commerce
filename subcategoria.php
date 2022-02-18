@@ -9,6 +9,12 @@
 		header("location:ve.php");
 	}	 
 
+	$ruta = "<ol class='ruta'>
+				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+				<li style='border:none;text-decoration: none;'>Subcategorías</li>
+			</ol>
+	";
+
 	global $db;  
 
 	$imagenes = $_GET['categoria'];
@@ -71,23 +77,17 @@
 </head>
 <body id="body"> 
 	<header>
-		<?php echo $encab; ?> 
+		<?= $encab; ?> 
 	</header>
 
-	<main id="main">	
-		<?php 	
-			echo "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='border:none;text-decoration: none;'>Subcategorías</li>
-				</ol>
-			";
-		
-			crearImagenes($rs); 				
-		?>
+	<main id="main">
+		<?= $ruta; ?>
+
+		<?= crearImagenes($rs); ?>
 	</main>
 		
-	<?php 
-		echo $pie;
-	?>
+	<footer id='pie'>
+		<?= $pie; ?> 
+	</footer>
 </body>
 </html>

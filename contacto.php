@@ -145,62 +145,18 @@
 			margin:10px;
 		}
     </style>
-	<script>
-		function validar(){
-            document.getElementById("e_error").innerHTML="";
-
-			let  exito = document.getElementsByClassName('parrafo-exito');
-			exito[0].style.display = 'none';
-
-			nombre = document.getElementById("nombre").value;
-			apellido = document.getElementById("apellido").value;
-			email = document.getElementById("email").value;
-			txtIngresado = document.getElementById("txtIngresado").value;
-
-			txtErrores = "";
-
-			if( nombre == null || nombre.trim() == ""){
-				txtErrores += "Debe ingresar su nombre";
-			}
-			else if( apellido == null || apellido.trim() == ""){
-				txtErrores += "Debe ingresar su apellido";
-			}
-			else if( email == null || email.trim() == ""){
-				txtErrores += "Debe ingresar su email";
-			}
-			else if( txtIngresado == null || txtIngresado.trim() == ""){
-				txtErrores += "Debe ingresar una consulta";
-			}
-
-			let devolucion = false;
-            
-            if(txtErrores == ""){
-				devolucion = true;
-			}
-  
-            if (!devolucion){
-                let error = document.getElementById("e_error");
-                let hijo = document.createTextNode(txtErrores);
-				error.appendChild(hijo);
-            }
-
-            return devolucion;
-		}    
-	</script>
 </head>
 <body>
 	<header>
-		<?php echo $encab;?>
+		<?= $encab; ?>
 	</header>
 
     <main id='main'>
-		<?php
-			echo "<ol class='ruta'>
-							<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-							<li style='border:none;text-decoration: none;'>Contacto</li>
-						</ol>
-			";
-		?>
+		<ol class='ruta'>
+			<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+			<li style='border:none;text-decoration: none;'>Contacto</li>
+		</ol>
+			
 		<div style='width:100%; margin: 0 0 10px 0;'>
 			<h1>Contacto</h1>
 		</div>
@@ -225,15 +181,16 @@
 					<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar" onclick="javascript:return validar()"> <br>
 				</div>
 				<?php
-				if (isset($_GET['consulta'])){
-					echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";
-				}
-
+					if (isset($_GET['consulta'])){
+						echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";
+					}
 				?>
 		</form>		 	 
 	</main>
 	
-	<?php echo $pie;?>
+	<footer id='pie'>
+		<?= $pie; ?> 
+	</footer>
 	
 </body>
 </html>

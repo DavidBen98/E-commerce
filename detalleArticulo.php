@@ -7,8 +7,123 @@
 	if (perfil_valido(1)) {
         header("location:ve.php");
     }  	
-	//TODO: Arreglar la ruta de ida y vuelta
 	
+	global $db;
+
+	$ruta = "<ol class='ruta'>
+				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>";
+
+	if (isset($_GET['subc'])){
+		$ruta .= "<li style='margin-left:5px;'><a href='subcategorias.php?'>Subcategorías</a></li>
+			  	  <li style='margin-left:5px;'><a href='productos.php?productos=todos&subc=ok'>Productos</a></li>
+		";
+	}
+	else{
+		$ruta .= "<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>";
+	}
+
+	$variable = $_GET['art'] ;
+	$where_sql = "WHERE codigo = '$variable'";
+
+	$sql = "SELECT *
+			FROM `producto`
+			$where_sql 
+	";
+
+	$rs = $db->query($sql);
+
+	foreach ($rs as $row) { 	
+		$ruta .= "<li style='border:none;text-decoration: none;'>{$row['descripcion']}</li>
+			</ol>
+		";
+
+		$caract = $row['caracteristicas'];
+		$aCarac = explode (',', $caract);
+		$id = $row['id'];
+
+		//Separar la descripción que viene en la columna "caracteristicas" en la BD
+		$parrafoCarasteristica = "";
+		for ($i=0;$i<count($aCarac);$i++){
+			$posicion = stripos ($aCarac[$i],':');
+			$caracteristica = substr($aCarac[$i], 0, $posicion+1);
+			$caracteristica = ucfirst($caracteristica); 
+			$detalle = substr($aCarac[$i], $posicion+2, strlen($aCarac[$i]));
+			$caracteristica = "<b> $caracteristica </b>";
+
+			$parrafoCarasteristica .= "<p> $caracteristica $detalle </p><br>";
+		} 
+
+		if($row['stock'] == 0){
+			$stock .= "<p>Lo sentimos, no poseemos stock de este artículo.
+							Si desea saber cuando volverá a tener stock suscríbase a las novedades.
+							Gracias.
+					  </p>
+			";
+		}
+		else{
+			$botones = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
+						<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>";						
+		}
+
+		if (isset($_GET['fav'])){
+			$fav = $_GET['fav'];
+			if ($fav == 'ok'){
+				$mensaje = "<div class='mensaje' id='mensaje' style='background-color: #099;'>
+								¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+						   </div>
+				";
+			}
+			else{
+				$mensaje = "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
+								¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
+						   </div>
+				";
+			}
+		}
+
+		$contenedor = "<div class='contenedor'> 
+							<div id='cont-images'>
+								<img src='images/$variable.png' class='img-cat' title='{$row['descripcion']}' >                                   
+							</div>
+
+							<div id='cont-descripcion'>
+								<div class='cont-fund'>
+									<input type='hidden' name='codImg' value='$variable' />
+									
+									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>
+									
+									<span id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</span>
+									<input type='hidden' name='precio' value='{$row['precio']}' />
+								</div>
+
+								<div class='carac-prod'>
+									<div id='carac' name='carac' title='Caracteristicas'>
+										<p><b>Material: </b>" .  $row['material'] . "</p><br>
+										<p><b>Color:</b> " . $row['color'] . " </p><br>
+										<p><b>Marca:</b> " . $row['marca'].  "</p><br>
+										$parrafoCarasteristica
+									</div>
+								</div>
+		";
+								
+								if($row['stock'] == 0){
+									$contenedor .= $sinStock; 
+								}
+								else{
+									$contenedor .= $botones;						
+								}
+
+								if (isset($fav)){
+									$contenedor .= $mensaje;
+								}
+
+		$contenedor .=	"</div>
+			</div>
+			
+			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
+					<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
+			</a>";                    
+	}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,8 +135,6 @@
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="js/funciones.js"></script>
-	<script>
-	</script>
 	<style>
 		main{
 			display:flex;
@@ -165,110 +278,19 @@
 </head>
 <body>
 	<header>
-    	<?php echo $encab; ?>
+    	<?= $encab; ?>
 	</header>
+	
     <main id='main'>
 		<p class='h1' style='display:none;'>Muebles Giannis</p>
-		<?php
-			echo "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>";
-					if (isset($_GET['subc'])){
-						echo "<li style='margin-left:5px;'><a href='subcategorias.php?'>Subcategorías</a></li>
-							<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>";
-					}
-					else{
-						echo "<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>";
-					}
 
-			global $db;
-			$variable = $_GET['art'] ;
-			$where_sql = "WHERE codigo = '$variable'";
-			
-			$sql = "SELECT *
-					FROM `producto`
-					$where_sql; ";
-			$rs = $db->query($sql);
-				
-			foreach ($rs as $row) { 	
-				$caract = $row['caracteristicas'];
-				$aCarac = explode (',', $caract);
-				$id = $row['id'];
+		<?= $ruta ?>
 
-				echo 	"<li style='border:none;text-decoration: none;'>{$row['descripcion']}</li>
-					</ol>
-				";
-
-				echo "<div class='contenedor'> 
-							<div id='cont-images'>
-								<img src='images/$variable.png' class='img-cat' title='{$row['descripcion']}' >                                   
-							</div>
-							<div id='cont-descripcion'>
-								<div class='cont-fund'>
-									<input type='hidden' name='codImg' value='$variable' />
-									
-									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>
-									
-									<span id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</span>
-									<input type='hidden' name='precio' value='{$row['precio']}' />
-								</div>
-								<div class='carac-prod'>
-									
-									<div id='carac' name='carac' title='Caracteristicas'> ";
-									echo "
-										<p><b>Material: </b>" .  $row['material'] . "</p><br>
-										<p><b>Color:</b> " . $row['color'] . " </p><br>
-										<p><b>Marca:</b> " . $row['marca'].  "</p><br>
-									";
-									
-									//Separar la descripcion que viene en la columna "caracteristicas" en la BD
-									for ($i=0;$i<count($aCarac);$i++){
-										$posicion = stripos ($aCarac[$i],':');
-										$caracteristica = substr($aCarac[$i], 0, $posicion+1);
-										$caracteristica = ucfirst($caracteristica); 
-										$detalle = substr($aCarac[$i], $posicion+2, strlen($aCarac[$i]));
-										$caracteristica = "<b>". $caracteristica  ."</b>";
-										echo "<p>$caracteristica $detalle</p><br>";
-									} 
-									echo "</div>
-								</div>";
-								
-								if($row['stock'] == 0){
-									echo "<p>Lo sentimos, no poseemos stock de este artículo.
-									Si desea saber cuando volverá a tener stock suscríbase a las novedades.
-									Gracias.
-									</p>
-									";
-								}
-								else{
-									$boton = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>";
-									$boton .= "<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>";
-									echo $boton;						
-								}
-					if (isset($_GET['fav'])){
-						$fav = $_GET['fav'];
-						if ($fav == 'ok'){
-							echo "<div class='mensaje' id='mensaje' style='background-color: #099;'>
-									 ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
-								  </div>";
-						}
-						else{
-							echo "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
-									 ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
-								  </div>";
-						}
-					}
-					echo	"</div>
-					</div>
-					
-					<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
-							<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
-					</a>";                    
-			}
-		?>
+		<?= $contenedor ?>
 	</main>
-			
-	<?php 
-		echo $pie; 
-	?> 	 
+	
+	<footer id='pie'>
+		<?= $pie; ?> 
+	</footer>	 
 </body>
 </html>

@@ -22,7 +22,220 @@
 
     $productos_mp = array();
 
+    $ruta = "<ol class='ruta'>
+                <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+                <li style='border:none;text-decoration: none;'>Carrito de compras</li>
+            </ol>
+    ";
+
     global $db; 
+
+    $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+    $lista_carrito = array();
+    $productos_agregados = 0;
+
+    if ($productos != null){
+        foreach ($productos as $key => $cantidad){
+            $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
+                                 FROM producto
+                                 WHERE id=?");
+            $sql -> execute ([$key]);
+            $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+        }
+        $productos_agregados = count($lista_carrito);
+    }
+
+    $carrito = "<div class='carrito'>";
+        
+    if ($lista_carrito != null){
+        $carrito .= "<div class='checkout-btn cont-btn'>";
+    }
+    else{
+        $carrito .= "<div class='checkout-btn cont-btn' id='ocultar'>";
+    }
+
+    $carrito .= "<div>
+                    <p style='margin:0; height:30px;'>
+                        <b style='font-family: museosans500,arial,sans-serif;'>CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS</b><br>
+                    </p>
+                    <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
+                        $productos_agregados PRODUCTO
+    ";
+                    
+    if ($productos_agregados != 1){
+        $carrito .= "S"; //PRODUCTOS
+    }
+
+    $carrito .= "   </p>
+            </div>
+        </div>
+    ";
+
+    if ($lista_carrito == null){
+        $carrito .= "<div style='margin:10px;'> Aún no hay productos agregados</div>";
+
+        $carrito .= "<div class='contenedor-botones'>
+                        <div class= 'botones'>
+                            <div class='continuar'>
+                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
+                            </div>
+                        </div>
+                    </div>
+        ";
+
+        if (isset($_GET['elim'])){
+            $carrito .= "<div class='mensaje' id='msj'>¡El producto se ha eliminado correctamente!</div>";
+        }
+
+        $carrito .= "</div>";    
+
+    }
+    else{
+        $selectNumero = 1; 
+        $total = 0;
+        $i = 1;
+
+        foreach($lista_carrito as $producto){
+            $subtotal = 0;
+            $id = $producto['id'];
+            $onclick = "window.location.href='agregarFavorito.php?id=$id'";
+            $codigo = $producto['codigo'];
+            $descripcion = ucfirst($producto['descripcion']);
+            $marca = ucfirst($producto['marca']);
+            $color = ucfirst($producto['color']);
+            $material = ucfirst($producto['material']);
+            $stock = intval($producto['stock']);
+            $cantidad = intval($producto['cantidad']);
+            $precio = intval($producto['precio']);
+            $descuento = intval($producto['descuento']);
+            $precio_desc = $precio - (($precio * $descuento) /100);
+            $subtotal += $cantidad * $precio_desc; 
+            $total += $subtotal; 
+
+            if ($stock < $cantidad){
+                $cantidad = $stock;
+            }
+            
+            $item = new MercadoPago\Item();
+            $item->id = $i;
+            $item->title = $descripcion;
+            $item->quantity = $cantidad;
+            $item->unit_price = $precio_desc;
+            $item->currency_id = "ARS";
+
+            array_push($productos_mp, $item);
+            unset ($item);
+
+            $i++;
+
+            $carrito .= "<div class='contenedor'>
+                            <div class='descrip'> 
+                                <div class='principal'>                                                                                          
+                                    <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                        <div class='titulo'>
+                                            <div style='display:flex; flex-wrap:wrap;'>
+                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
+                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                            </div> 
+                                            <div class='elim-fav'>
+                                                <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
+                                                    <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
+                                                    <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarProducto($id)'> Eliminar producto</a>
+                                                </div>
+                                                <div class='elim-producto' style='text-align:end;'>
+                                                    <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
+                                                    <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarFav($id)'> Agregar a favoritos</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class='secundario'>
+                                        <p class='definir'> 
+                                            <b>Color:</b>
+                                        </p> 
+                                        <p class='caract'> $color </p>
+                                        <p class='definir'> 
+                                            <b>Material:</b>
+                                        </p> 
+                                        <p class='caract'>$material</p>
+                                        <p class='definir'>
+                                            <b>Cantidad:</b>
+                                        </p> 
+                                        <p class='caract'>
+                                            <select class='cant-compra' name='cant-$selectNumero' title='Cantidad' onchange='modificarProducto($id, $selectNumero)'>";
+                                                for ($j=1; $j<=$stock; $j++){
+                                                    if ($j == $cantidad){
+                                                        $carrito .= "<option value='$j' selected>$j</option>";
+                                                    }
+                                                    else{
+                                                        $carrito .= "<option value='$j'>$j</option>";
+                                                    }
+                                                }
+                $carrito .="               </select>
+                                </p>
+                        </div>                                            
+                    </div>
+
+                    <div class='precio'>
+                        <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; margin-left:15px;'>Precio unitario </p> 
+                        <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; font-family: Arial,Helvetica,sans-serif;'>";
+                            if($precio != $precio_desc){
+                        $carrito .= "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
+                            }
+                        $carrito .=    "<p style=''>$$precio_desc</p>
+                        </div>
+                        <p style='padding: 5px 0 0 5px; margin-left:15px'>Precio </p> 
+                        <p id='precioS-$selectNumero' style='padding: 5px 0 0 5px; font-family: Arial,Helvetica,sans-serif;'><b>$".$subtotal."</b></p>
+                    </div>
+                </div>
+            ";
+
+            $selectNumero++;
+        }
+
+        $carrito .= "<div class='contenedor-botones'>
+                        <div class= 'botones'>
+                            <div class='totales' style='height:40px;'>
+                                <p class='subtotal txt-totales'>Subtotal:</p> 
+                                <p class='subtotal txt-totales' id='subtotal' style='padding-right:10px; justify-content:end;'> $$total </p>
+                            </div>
+                            <div class='totales' style='height:50px;'>
+                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b>Total</b> </p> 
+                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
+                            </div>
+                            <div class='checkout btn-final'></div>
+                            <div class='continuar'>
+                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
+                            </div>
+                        </div>
+                    </div>
+        ";
+
+        if (isset($_GET['elim'])){
+            $carrito .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+        }
+        else if (isset($_GET['error_pago'])){
+            $carrito .= "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
+        }
+        else if (isset($_GET['fav'])){
+            $fav = $_GET['fav'];
+            if ($fav == 'ok'){
+                $carrito .= "<div class='mensaje' id='mensaje' style='background-color: #099;'>
+                                ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+                            </div>";
+            }
+            else{
+                $carrito .= "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
+                                ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
+                            </div>";
+            }
+        }
+        $carrito .= "
+        </div>
+        <a href='carritoXLS.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
+            <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
+        </a>"; 
+    }  
 ?>  
 <html lang="es">
 <head>
@@ -311,14 +524,8 @@
         }
     </style>
     <script>
-        //TODO: PASAR TODAS LAS FUNCIONES A const excel = function () {} o const excel = () => {}
         //TODO: USAR QUERYSELECTORALL
         //TODO: VALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
-		const excel = () => {			
-			document.getElementById("datos").method = "post";
-			document.getElementById("datos").action = "carritoXLS.php";
-			document.getElementById("datos").submit(); 
-		}	
 
         document.addEventListener ('DOMContentLoaded', () => {
             let continuar = document.getElementById('continuar');
@@ -346,299 +553,22 @@
                 });
             }
         });
-
-        // const agregarFav = (id) => {
-        //     let param = {
-		// 		id: id
-		// 	};
-
-		// 	$.ajax({
-		// 		data: param,
-		// 		url: "agregarFavorito.php?id="+id,
-		// 		method: "post",
-		// 		success: function(data) {
-		// 			if (data == 'ok'){
-        //                 window.location.href = 'carritoCompras.php?fav=ok#mensaje';
-		// 			}
-        //             else{
-        //                 window.location.href = 'carritoCompras.php?fav=false#mensaje';
-        //             }
-		// 		}
-		// 	});			
-		// }
-
-		// const eliminarProducto = (id) => {
-		// 	let param = {
-		// 		id: id
-		// 	};
-
-		// 	$.ajax({
-		// 		data: param,
-		// 		url: "eliminarCarrito.php",
-		// 		method: "post",
-		// 		success: function(data) {
-		// 			let datos = JSON.parse(data);
-
-		// 			if (datos['ok']){
-		// 				let cantCarrito = document.getElementById('num-car');
-		// 				cantCarrito.innerHTML = datos.numero;
-
-        //                 if (location.hash == '#mensaje'){
-        //                     location.reload();
-        //                 }
-        //                 else{
-        //                     window.location.href = 'carritoCompras.php?elim=ok#mensaje';
-        //                 }
-		// 			}
-		// 		}
-		// 	});			
-		// }
-
-        // const modificarProducto = (id, producto) => {
-        //     let valorSeleccionado = document.getElementsByName('cant-'+producto);
-
-		// 	let param = {
-		// 		id: id,
-        //         cantidad: valorSeleccionado[0].value
-		// 	};
-
-		// 	$.ajax({
-		// 		data: param,
-		// 		url: "modificarCarrito.php",
-		// 		method: "post",
-		// 		success: function(data) {
-		// 			let datos = JSON.parse(data);
-
-		// 			if (datos['ok']){
-		// 				let cantCarrito = document.getElementById('num-car');
-		// 				cantCarrito.innerHTML = datos.numero;
-        //                 window.location.href = 'carritoCompras.php';
-		// 			}
-		// 		}
-		// 	});			
-		// }
 	</script>
 </head>
 <body id="body">
 
     <header>
-        <?php
-		    echo $encab;     
-        ?>
+        <?= $encab; ?>
     </header>
     
-    <main>           
-        <?php 
-            echo "<ol class='ruta'>
-                    <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                    <li style='border:none;text-decoration: none;'>Carrito de compras</li>
-                </ol>
-            ";
-
-            $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
-            $lista_carrito = array();
-            $productos_agregados = 0;
-
-            if ($productos != null){
-                foreach ($productos as $key => $cantidad){
-                    $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
-                                         FROM producto
-                                         WHERE id=?");
-                    $sql -> execute ([$key]);
-                    $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
-                }
-                $productos_agregados = count($lista_carrito);
-            }
-
-            echo"
-                <div class='carrito'>";
-                
-                if ($lista_carrito != null){
-                    echo "<div class='checkout-btn cont-btn'>";
-                }
-                else{
-                    echo "<div class='checkout-btn cont-btn' id='ocultar'>";
-                }
-
-                echo "<div>
-                            <p style='margin:0; height:30px;'>
-                                <b style='font-family: museosans500,arial,sans-serif;'>CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS</b><br>
-                            </p>
-                            <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
-                                " . $productos_agregados . " PRODUCTO";
-                                
-                if ($productos_agregados != 1){
-                    echo "S"; //PRODUCTOS
-                }
-
-                echo"       </p>
-                        </div>
-                    </div>";
-
-            if ($lista_carrito == null){
-                echo "<div style='margin:10px;'> Aún no hay productos agregados</div>";
-
-                echo "<div class='contenedor-botones'>
-                        <div class= 'botones'>
-                            <div class='continuar'>
-                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
-                            </div>
-                        </div>
-                    </div>";
-
-                if (isset($_GET['elim'])){
-                    echo "<div class='mensaje' id='msj'>¡El producto se ha eliminado correctamente!</div>";
-                }
-                echo "
-                </div>";    
-
-            }
-            else{
-                $selectNumero = 1; 
-                $total = 0;
-                $i = 1;
-
-                foreach($lista_carrito as $producto){
-                    $subtotal = 0;
-                    $id = $producto['id'];
-                    $onclick = "window.location.href='agregarFavorito.php?id=$id'";
-                    $codigo = $producto['codigo'];
-                    $descripcion = ucfirst($producto['descripcion']);
-                    $marca = ucfirst($producto['marca']);
-                    $color = ucfirst($producto['color']);
-                    $material = ucfirst($producto['material']);
-                    $stock = intval($producto['stock']);
-                    $cantidad = intval($producto['cantidad']);
-                    $precio = intval($producto['precio']);
-                    $descuento = intval($producto['descuento']);
-                    $precio_desc = $precio - (($precio * $descuento) /100);
-                    $subtotal += $cantidad * $precio_desc; 
-                    $total += $subtotal; 
-
-                    if ($stock < $cantidad){
-                        $cantidad = $stock;
-                    }
-                    
-                    $item = new MercadoPago\Item();
-                    $item->id = $i;
-                    $item->title = $descripcion;
-                    $item->quantity = $cantidad;
-                    $item->unit_price = $precio_desc;
-                    $item->currency_id = "ARS";
-
-                    array_push($productos_mp, $item);
-                    unset ($item);
-
-                    $i++;
-
-                    echo "<div class='contenedor'>
-                            <div class='descrip'> 
-                                <div class='principal'>                                                                                          
-                                    <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
-                                        <div class='titulo'>
-                                            <div style='display:flex; flex-wrap:wrap;'>
-                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
-                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
-                                            </div> 
-                                            <div class='elim-fav'>
-                                                <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
-                                                    <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
-                                                    <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarProducto($id)'> Eliminar producto</a>
-                                                </div>
-                                                <div class='elim-producto' style='text-align:end;'>
-                                                    <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
-                                                    <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarFav($id)'> Agregar a favoritos</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                <div class='secundario'>
-                                        <p class='definir'> 
-                                            <b>Color:</b>
-                                        </p> 
-                                        <p class='caract'> $color </p>
-                                        <p class='definir'> 
-                                            <b>Material:</b>
-                                        </p> 
-                                        <p class='caract'>$material</p>
-                                        <p class='definir'>
-                                            <b>Cantidad:</b>
-                                        </p> 
-                                        <p class='caract'>
-                                            <select class='cant-compra' name='cant-$selectNumero' title='Cantidad' onchange='modificarProducto($id, $selectNumero)'>";
-                                                for ($j=1; $j<=$stock; $j++){
-                                                    if ($j == $cantidad){
-                                                        echo "<option value='$j' selected>$j</option>";
-                                                    }
-                                                    else{
-                                                        echo "<option value='$j'>$j</option>";
-                                                    }
-                                                }
-                        echo"               </select>
-                                        </p>
-                                </div>                                            
-                            </div>
-
-                            <div class='precio'>
-                                <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; margin-left:15px;'>Precio unitario </p> 
-                                <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; font-family: Arial,Helvetica,sans-serif;'>";
-                                    if($precio != $precio_desc){
-                                        echo "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
-                                    }
-                                echo    "<p style=''>$$precio_desc</p>
-                                </div>
-                                <p style='padding: 5px 0 0 5px; margin-left:15px'>Precio </p> 
-                                <p id='precioS-$selectNumero' style='padding: 5px 0 0 5px; font-family: Arial,Helvetica,sans-serif;'><b>$".$subtotal."</b></p>
-                            </div>
-                        </div>";
-
-                    $selectNumero++;
-                }
-
-                echo "<div class='contenedor-botones'>
-                        <div class= 'botones'>
-                            <div class='totales' style='height:40px;'>
-                                <p class='subtotal txt-totales'>Subtotal:</p> 
-                                <p class='subtotal txt-totales' id='subtotal' style='padding-right:10px; justify-content:end;'> $$total </p>
-                            </div>
-                            <div class='totales' style='height:50px;'>
-                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b>Total</b> </p> 
-                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
-                            </div>
-                            <div class='checkout btn-final'></div>
-                            <div class='continuar'>
-                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
-                            </div>
-                        </div>
-                    </div>";
-
-                if (isset($_GET['elim'])){
-                    echo "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
-                }
-                else if (isset($_GET['error_pago'])){
-                    echo "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
-                }
-                else if (isset($_GET['fav'])){
-                    $fav = $_GET['fav'];
-                    if ($fav == 'ok'){
-                        echo "<div class='mensaje' id='mensaje' style='background-color: #099;'>
-                                 ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
-                              </div>";
-                    }
-                    else{
-                        echo "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
-                                 ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
-                              </div>";
-                    }
-                }
-                echo "
-                </div>
-                <a href='carritoXLS.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
-                    <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
-                </a>"; 
-            }                                           
-        ?>
-    </main>  
+    <main>      
+        <?= $ruta; ?>
+        <?= $carrito; ?>
+    </main> 
+    
+    <footer id='pie'>
+        <?= $pie; ?> 
+    </footer>
     
     <!--MERCADO PAGO-->
     <?php
@@ -654,6 +584,7 @@
     
         $preference->save();
     ?>
+
     <script>
         const mp = new MercadoPago('TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608', {
             locale: "es-AR",
@@ -688,9 +619,7 @@
             });
         }      
     </script>  
+    <!-- -->
 
-    <?php
-        echo $pie;
-    ?> 
 </body>
 </html>
