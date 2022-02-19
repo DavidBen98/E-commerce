@@ -1,7 +1,9 @@
 <?php
     require_once 'inc/conn.php';
+    require_once 'config.php';
 
-    define('PSW_SEMILLA','34a@$#aA9823$');	
+    define('PSW_SEMILLA','34a@$#aA9823$');
+
     $onclick1 = "window.location.href='informacionPersonal.php'";
     $onclick2 = "window.location.href='consultaUsuario.php'";
     $onclick3 = "window.location.href='cerrarSesion.php'";
@@ -543,4 +545,87 @@
 				</div>
 			</form>";
 	}	
+
+    function existeEmail(){
+        global $db;
+
+        if (isset($_SESSION['user_email_address'])){
+            $email = $_SESSION['user_email_address'];
+            $where = "WHERE (u.email = '$email')";
+        }
+        else{
+            $where = "WHERE (u.email = '%')";
+        }
+
+        $sql = "SELECT id_social, id_usuario
+                FROM `usuario_rs` as rs
+                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+                $where";
+
+        $resultado = $db->query($sql);
+
+        $existe = false;
+        foreach ($resultado as $r){
+            $existe = true;
+            break;
+        }
+
+        return $existe;
+    }
+
+    function existeIdUsuario ($redSocial){    
+        global $db;
+
+        if (isset($_SESSION['id'])){
+            $id = $_SESSION['id']; 
+        }
+        else if (isset($_SESSION['user_id'])){
+            $id = $_SESSION['user_id'];
+        }
+
+        $sql = "SELECT id_social, id_usuario
+                FROM `usuario_rs` as rs
+                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+                WHERE id_social = '$id' AND servicio = '$redSocial'";
+
+        $resultado = $db->query($sql);
+
+        $existe = false;
+        foreach ($resultado as $r){
+            $existe = true;
+            break;
+        }
+
+        return $existe;
+    }
+
+    function existeNombreUsuario ($redSocial){
+        global $db;
+
+        if ($_SESSION['user_first_name']){
+            $nombre = $_SESSION['user_first_name'];
+            $apellido = $_SESSION['user_last_name'];
+
+            $where = "WHERE nombreUsuario = '$nombre$apellido' AND servicio = '$redSocial'";
+        }
+        else if ($_SESSION['nombre_tw']){
+            $nombreUsuario = $_SESSION['nombre_tw'];
+            $nombreUsuario = preg_replace('([^A-Za-z0-9])', '', $nombreUsuario);
+            $where = "WHERE nombreUsuario = '$nombreUsuario' AND servicio = '$redSocial'";
+        }
+
+        $sql = "SELECT nombreUsuario
+                FROM usuario
+                $where";
+        
+        $result = $db->query($sql);
+
+        $existe = false;
+        foreach ($resultado as $r){
+            $existe = true;
+            break;
+        }
+
+        return $existe;
+    }
 ?>

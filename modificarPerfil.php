@@ -20,7 +20,7 @@
         $sql = "SELECT u.id
                 FROM usuario as u
                 INNER JOIN usuario_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = $id_usuario
+                WHERE rs.id_social = '$id_usuario'
         ";
 
         $rs = $db->query($sql);

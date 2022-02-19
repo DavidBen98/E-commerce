@@ -46,38 +46,22 @@
 
     //Si se inicio sesion con Google
     if (isset($_GET["code"])) {
-        //Ver si ese usuario está registrado
-        $id = $_SESSION['id']; 
+        $nombre = $_SESSION['user_first_name'];
+        $apellido = $_SESSION['user_last_name'];
         $email = $_SESSION['user_email_address'];
 
-        $sql = "SELECT id_social, id_usuario
-                FROM `usuario_rs` as rs
-                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                WHERE (id_social = '$id' OR u.email = '$email')";
+        $existe = existeIdUsuario('Google');
 
-        $resultado = $db->query($sql);
-        $i = 0;
-        foreach ($resultado as $r){
-            $i++;
+        if (!$existe){
+            $existe = existeEmail();
         }
 
         //Si ese id que devuelve Google no existe y tampoco existe el email
-        if ($i == 0){
-            $nombre = $_SESSION['user_first_name'];
-            $apellido = $_SESSION['user_last_name'];
-
-            $sql = "SELECT nombreUsuario
-                    FROM usuario
-                    WHERE nombreUsuario = '$nombre$apellido'";
+        if (!$existe){
+            $existe = existeNombreUsuario('Google');
             
-            $result = $db->query($sql);
-
-            foreach ($result as $r){
-                $i++;
-            }
-
             //Si no existe una persona con ese nombre de usuario
-            if ($i == 0){
+            if (!$existe){
                 $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil) VALUES
                 ('$nombre$apellido','$nombre', '$apellido', '$email', 'U')";
             }
@@ -97,45 +81,33 @@
             $db->query($sql);
         }
         else{
+            $sql = "SELECT id_social, id_usuario
+                    FROM `usuario_rs` as rs
+                    INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+                    WHERE (u.email = '$email')";
+
             $resultado = $db->query($sql);
 
             foreach($resultado as $row){
                 $_SESSION['idUsuario'] = $row['id_usuario'];
             }
         }
-
     }//Si se inicio sesion con Twitter
     else if (isset($_SESSION["user_id"])){
         $id = $_SESSION['user_id'];
         $_SESSION['perfil'] = 'U'; 
 
-        $sql = "SELECT id_social
-                FROM `usuario_rs` as rs
-                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                WHERE (id_social = '$id')";
-
-        $resultado = $db->query($sql);
-        $i = 0;
-        foreach ($resultado as $r){
-            $i++;
-        }
+        $existe = existeIdUsuario('Twitter');
 
         //Si ese id que devuelve Twitter no existe
-        if ($i == 0){
+        if (!$existe){
             $nombreUsuario = $_SESSION['nombre_tw'];
             $nombreUsuario = preg_replace('([^A-Za-z0-9])', '', $nombreUsuario);
-            $sql = "SELECT nombreUsuario
-                    FROM usuario
-                    WHERE nombreUsuario = '$nombreUsuario'";
-
-            $result = $db->query($sql);
-
-            foreach ($result as $r){
-                $i++;
-            }
+            
+            $existe = existeNombreUsuario('Twitter');
 
             //Si no existe una persona con ese nombre de usuario
-            if ($i == 0){
+            if (!$existe){
                 $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
                 ('$nombreUsuario', 'U')";
             }
@@ -143,8 +115,8 @@
                 $nombreUsuario = $_SESSION['arroba_tw'];
 
                 $sql = "SELECT nombreUsuario
-                    FROM usuario
-                    WHERE nombreUsuario = '$nombreUsuario'";
+                        FROM usuario
+                        WHERE nombreUsuario = '$nombreUsuario'";
 
                 $result = $db->query($sql);
                 $i=0;
@@ -167,7 +139,7 @@
             $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-            ('$usuario_id', '$id', 'Twitter')";
+                    ('$usuario_id', '$id', 'Twitter')";
 
             $db->query($sql);  
             
@@ -176,7 +148,8 @@
         else{
             $sql = "SELECT u.id
                     FROM usuario as u 
-                    INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario";
+                    INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
+                    WHERE rs.id_social = '$id'";
             
             $rs = $db->query($sql);
 
@@ -184,7 +157,6 @@
                 $_SESSION['id_tw'] = $row['id'];
             }
         }
-
     }
 ?>
 <!DOCTYPE html>
@@ -193,8 +165,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <!--<link rel="icon" type="image/png" href="images/svg.svg"> -->
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title>
     <style>
@@ -255,6 +225,8 @@
             margin:auto;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="js/funciones.js"></script>
     <script>
         document.addEventListener ('DOMContentLoaded', () => {
             let img_cat = document.getElementsByClassName('img-cat');
@@ -280,7 +252,6 @@
             }
         });
     </script>
-    <script src="js/funciones.js"></script>
 </head>
 <body id="body">
     <header> 
