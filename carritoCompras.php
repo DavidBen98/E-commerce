@@ -59,8 +59,7 @@
                         <b style='font-family: museosans500,arial,sans-serif;'>CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS</b><br>
                     </p>
                     <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
-                        $productos_agregados PRODUCTO
-    ";
+                        $productos_agregados PRODUCTO";
                     
     if ($productos_agregados != 1){
         $carrito .= "S"; //PRODUCTOS
@@ -98,7 +97,6 @@
         foreach($lista_carrito as $producto){
             $subtotal = 0;
             $id = $producto['id'];
-            $onclick = "window.location.href='agregarFavorito.php?id=$id'";
             $codigo = $producto['codigo'];
             $descripcion = ucfirst($producto['descripcion']);
             $marca = ucfirst($producto['marca']);
@@ -137,14 +135,14 @@
                                                 <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
                                                 <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
                                             </div> 
-                                            <div class='elim-fav'>
-                                                <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
+                                            <div class='contenedor-eventos'>
+                                                <div class='evento-producto' style='width: 45%;padding-right: 8px; border-right: 1px solid #D3D3D3;'>
                                                     <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
-                                                    <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarProducto($id)'> Eliminar producto</a>
+                                                    <button class='elim-prod' value='$id'> Eliminar producto</button>
                                                 </div>
-                                                <div class='elim-producto' style='text-align:end;'>
+                                                <div class='evento-producto' style='text-align:end;'>
                                                     <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
-                                                    <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarFav($id)'> Agregar a favoritos</a>
+                                                    <button class='fav-prod' value='$id'> Agregar a favoritos</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -275,9 +273,9 @@
         }
 
         .productos{
-            width: 160px;
-            height:160px;
-            padding-right: 10px;
+            width: 30%;
+            height: 160px;
+            padding-right: 2%;
             object-fit: contain;
         }
 
@@ -341,7 +339,7 @@
         }
 
         .secundario{
-            width:45%;
+            width:35%;
             display:flex;
             justify-content: end;
             flex-wrap:wrap;
@@ -376,7 +374,7 @@
         }
 
         .titulo{
-            width:255px;
+            width: 68%;
             height: auto;
         }
 
@@ -453,17 +451,17 @@
             padding: 5px 10px;
         }
 
-        .elim-fav{
+        .contenedor-eventos{
             display:flex;
             justify-content:space-between;
-            width:100%;
+            width:80%;
             text-align:start;
             margin-top:20px;
             font-size: 0.75rem;
             align-items:center;
         }
 
-        .elim-producto{
+        .evento-producto{
             color: #858585;
             display: flex;
             align-items: center;
@@ -473,11 +471,25 @@
             padding-left: 2px;
             transition: all 0.5s linear;
             color: #858585;
+            font-family: "Salesforce Sans", serif;  
+            line-height: 1.5rem;
+            background-color: white;
+            border:none;
+            font-size: 0.75rem;
+            padding-right:0;
+            padding-left:4px;
         }
 
         .elim-prod{
             transition: all 0.5s linear;
             color: #858585;
+            font-family: "Salesforce Sans", serif;  
+            line-height: 1.5rem;
+            background-color: white;
+            border:none;
+            font-size: 0.75rem;
+            padding-left: 4px;
+            padding-right: 0;
         }
 
         .fav-prod:hover, .elim-prod:hover{

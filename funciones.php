@@ -549,7 +549,7 @@
     function existeEmail(){
         global $db;
 
-        if (isset($_SESSION['user_email_address'])){
+        if ($redSocial == 'Google'){
             $email = $_SESSION['user_email_address'];
             $where = "WHERE (u.email = '$email')";
         }
@@ -573,13 +573,15 @@
         return $existe;
     }
 
-    function existeIdUsuario ($redSocial){    
+    function existeIdUsuario (){    
         global $db;
 
-        if (isset($_SESSION['id'])){
+        $redSocial = $_SESSION['servicio'];
+
+        if ($redSocial == 'Google'){
             $id = $_SESSION['id']; 
         }
-        else if (isset($_SESSION['user_id'])){
+        else if ($redSocial == 'Twitter'){
             $id = $_SESSION['user_id'];
         }
 
@@ -599,16 +601,17 @@
         return $existe;
     }
 
-    function existeNombreUsuario ($redSocial){
+    function existeNombreUsuario (){
         global $db;
 
-        if ($_SESSION['user_first_name']){
+        $redSocial = $_SESSION['servicio'];
+
+        if ($redSocial == 'Google'){
             $nombre = $_SESSION['user_first_name'];
             $apellido = $_SESSION['user_last_name'];
-
             $where = "WHERE nombreUsuario = '$nombre$apellido' AND servicio = '$redSocial'";
         }
-        else if ($_SESSION['nombre_tw']){
+        else if ($redSocial == 'Twitter'){
             $nombreUsuario = $_SESSION['nombre_tw'];
             $nombreUsuario = preg_replace('([^A-Za-z0-9])', '', $nombreUsuario);
             $where = "WHERE nombreUsuario = '$nombreUsuario' AND servicio = '$redSocial'";

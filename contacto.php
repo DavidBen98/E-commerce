@@ -15,6 +15,15 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="js/funciones.js"></script>
+	<script>
+		document.addEventListener ('DOMContentLoaded', () => {
+			let btnEnviar = document.getElementById('enviar');
+
+			btnEnviar.addEventListener ("click", () => {
+				return validarContacto();
+			})
+		});
+	</script>
     <style>
 		body{
 			margin: 0;
@@ -46,7 +55,7 @@
         .input{
 			width: 90%;
 			height: 50px;
-			margin: 10px auto;
+			margin: 20px auto 0 auto;
 			padding: 0 10px;
 			font-size: 1.1em;
 			border-radius: 5px;
@@ -69,6 +78,7 @@
 		   border: 2px solid black;
 		   font-size: 1.1em;
 		   padding-top:5px;
+		   margin: 20px auto 0 auto;
 	    }
 
 		.txt-area::placeholder{
@@ -169,16 +179,19 @@
 		</div>
 
 		<form action="nuevoContacto.php" method="post" class="cont-con"> 
-				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre" Maxlength="35" >
-				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido" >
-				<input type="text" class="input" name="email" id="email" title="Email" value="" placeholder="Email" >
-				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta' name="txtIngresado" ></textarea>
+				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Juan" Maxlength="35" required>
+				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Example" required>
+				
+				<?php
+					if (!(isset($_SESSION['servicio']) || $perfil == "U")){
+						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: example@gmail.com' required>";
+					}
+				?>
+				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta' name="txtIngresado" required></textarea>
 				<p id="e_error">
 
                 </p>
-				<div class="cont-btn">
-					<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar" onclick="javascript:return validar()"> <br>
-				</div>
+				<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar">
 				<?php
 					if (isset($_GET['consulta'])){
 						echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";

@@ -2,6 +2,28 @@ window.onload = function (){
     let busqueda = document.getElementById ('lupa');
     let filtro = document.getElementById ('header-buscar'); 
     let inicio = document.getElementById ('inicio');
+    let eliminarCarrito = document.getElementsByClassName('elim-prod');
+    let agregarFavorito = document.getElementsByClassName ('fav-prod');
+
+    if (eliminarCarrito[0] != null){
+        for (let i=0; i<eliminarCarrito.length;i++){
+            eliminarCarrito[i].addEventListener ("click", () => {
+                let id = eliminarCarrito[i].value;
+
+                eliminarProducto (id);
+            });
+        }
+    }
+
+    if (agregarFavorito[0] != null){
+        for (let i=0; i<agregarFavorito.length;i++){
+            agregarFavorito[i].addEventListener ("click", () => {
+                let id = agregarFavorito[i].value;
+
+                agregarFav (id);
+            });
+        }
+    }
 
     if (inicio != null){
         inicio.addEventListener ('click', () => {
@@ -19,8 +41,6 @@ window.onload = function (){
             window.location.href = 'productos.php?buscador='+filtro.value;
         });
     }
-        //TODO: MODIFICAR TODOS LOS WINDOW.ONLOAD POR DOCUMENT.ADDEVENTLISTENER('DOMCONTENTLOADED', () => {})
-
 }
 
 //INDEX
@@ -430,8 +450,10 @@ const validarLogin = () => {
 const validarContacto = () => {
     document.getElementById("e_error").innerHTML="";
 
-    let  exito = document.getElementsByClassName('parrafo-exito');
-    exito[0].style.display = 'none';
+    let exito = document.getElementsByClassName('parrafo-exito');
+    if (exito[0] != null){
+        exito[0].style.display = 'none';
+    }
 
     nombre = document.getElementById("nombre").value;
     apellido = document.getElementById("apellido").value;
@@ -441,16 +463,16 @@ const validarContacto = () => {
     txtErrores = "";
 
     if( nombre == null || nombre.trim() == ""){
-        txtErrores += "Debe ingresar su nombre";
+        txtErrores = "Debe ingresar su nombre";
     }
     else if( apellido == null || apellido.trim() == ""){
-        txtErrores += "Debe ingresar su apellido";
+        txtErrores = "Debe ingresar su apellido";
     }
     else if( email == null || email.trim() == ""){
-        txtErrores += "Debe ingresar su email";
+        txtErrores = "Debe ingresar su email";
     }
     else if( txtIngresado == null || txtIngresado.trim() == ""){
-        txtErrores += "Debe ingresar una consulta";
+        txtErrores = "Debe ingresar una consulta";
     }
 
     let devolucion = false;

@@ -49,8 +49,9 @@
         $nombre = $_SESSION['user_first_name'];
         $apellido = $_SESSION['user_last_name'];
         $email = $_SESSION['user_email_address'];
+        $_SESSION['servicio'] = 'Google';
 
-        $existe = existeIdUsuario('Google');
+        $existe = existeIdUsuario();
 
         if (!$existe){
             $existe = existeEmail();
@@ -58,7 +59,7 @@
 
         //Si ese id que devuelve Google no existe y tampoco existe el email
         if (!$existe){
-            $existe = existeNombreUsuario('Google');
+            $existe = existeNombreUsuario();
             
             //Si no existe una persona con ese nombre de usuario
             if (!$existe){
@@ -95,16 +96,17 @@
     }//Si se inicio sesion con Twitter
     else if (isset($_SESSION["user_id"])){
         $id = $_SESSION['user_id'];
+        $_SESSION['servicio'] = 'Twitter';
         $_SESSION['perfil'] = 'U'; 
 
-        $existe = existeIdUsuario('Twitter');
+        $existe = existeIdUsuario();
 
         //Si ese id que devuelve Twitter no existe
         if (!$existe){
             $nombreUsuario = $_SESSION['nombre_tw'];
             $nombreUsuario = preg_replace('([^A-Za-z0-9])', '', $nombreUsuario);
             
-            $existe = existeNombreUsuario('Twitter');
+            $existe = existeNombreUsuario();
 
             //Si no existe una persona con ese nombre de usuario
             if (!$existe){

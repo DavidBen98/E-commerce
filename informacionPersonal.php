@@ -98,7 +98,7 @@
 
     $infoPersonal .=            "<div class='renglon' style='border:none;'>
                                     <input type='button' id='modificarDatos' onclick='modDatos($prov)' class='btn' value='Modificar datos'>
-                                    <input type='button' id='cancelar' onclick='modDatos()' class='btn' value='Cancelar' style='display:none;'>  
+                                    <input type='button' id='cancelar' class='btn' value='Cancelar' style='display:none;'>  
                                     <input type='submit' id='confirmar' class='btn' value='Confirmar' style='display:none;'>
                                 </div>";
 
@@ -135,6 +135,14 @@
             $('#provincia').change (function (){
                 actualizarCiudad();
             });
+
+            let cancelar = document.getElementById('cancelar');
+
+            if (cancelar != null){
+                cancelar.addEventListener ("click", () => {
+                    window.location.href = 'informacionPersonal.php';
+                });
+            }
 
 		});
     </script>
