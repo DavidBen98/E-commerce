@@ -30,9 +30,14 @@
     $rs = $db->query($sql);
 
     $div = "<div class='consulta'>
-                <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
-                    <p style='height:40px;'><b>Consulta</b></p>
-                    <p style='height:40px;'><b>Respuesta</b></p>
+                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
+                    <h1 style='margin: 0; display: flex; align-items: center;'>
+                        <b style='font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>Consultas realizadas</b>
+                    </h1>
+                </div>    
+                <div class='renglon' style='border-bottom:1px solid #858585;'>      
+                    <p><b>Consulta</b></p>
+                    <p><b>Respuesta</b></p>
                 </div>            
     ";
     $i = 0;

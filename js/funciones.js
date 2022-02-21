@@ -5,6 +5,7 @@ window.onload = function (){
     let agregarCarrito = document.getElementsByClassName('prod-fav');
     let eliminarCarrito = document.getElementsByClassName('elim-prod');
     let agregarFavorito = document.getElementsByClassName ('fav-prod');
+    let eliminarFavorito = document.getElementsByClassName ('elim-fav');
 
     if (agregarCarrito[0] != null){
         for (let i=0; i<agregarCarrito.length;i++){
@@ -32,6 +33,16 @@ window.onload = function (){
                 let id = agregarFavorito[i].value;
 
                 agregarFav (id);
+            });
+        }
+    }
+
+    if (eliminarFavorito[0] != null){
+        for (let i=0; i<eliminarFavorito.length;i++){
+            eliminarFavorito[i].addEventListener ("click", () => {
+                let id = eliminarFavorito[i].value;
+
+                eliminarFav(id);
             });
         }
     }
@@ -80,12 +91,12 @@ const agregarFav = (id) => {
             url: "agregarFavorito.php?id="+id,
             method: "post",
             success: function(data) {
-                // if (data == 'ok'){
-                //     window.location.href = 'carritoCompras.php?fav=ok#mensaje';
-                // }
-                // else{
-                //     window.location.href = 'carritoCompras.php?fav=false#mensaje';
-                // }
+                if (data == 'ok'){
+                    window.location.href = 'carritoCompras.php?fav=ok#mensaje';
+                }
+                else{
+                    window.location.href = 'carritoCompras.php?fav=false#mensaje';
+                }
             }
         });			
 }
@@ -160,6 +171,9 @@ const agregarFavorito = (id) => {
         method: "post",
         success: function(data) {
             let url = window.location.href.split('?')[0];
+            let categoria = getParameterByName ('categoria');
+            let subcategoria = getParameterByName ('subcategoria');
+            let articulos = getParameterByName ('articulos');
             let articulo = getParameterByName('art');
             let parrafo = document.getElementsByClassName('parrafo-exito');
             let mensaje = document.getElementsByClassName('mensaje');
@@ -173,14 +187,15 @@ const agregarFavorito = (id) => {
             } 
 
             if (data == 'ok'){
-
-                window.location.href = url+'?art='+articulo+'&fav=ok'+'#mensaje';
+                window.location.href = url+'?categoria='+categoria+'&subcategoria='+subcategoria+
+                                    '&articulos='+articulos+'&art='+articulo+'&fav=ok'+'#mensaje';
             }
             else if(data == 'login') {
                 window.location.href = 'login.php';
             }
             else{
-                window.location.href = url+'?art='+articulo+'&fav=false'+'#mensaje';
+                window.location.href = url+'?categoria='+categoria+'&subcategoria='+subcategoria+
+                '&articulos='+articulos+'&art='+articulo+'&fav=false'+'#mensaje';
             }
         }
     });			
@@ -291,7 +306,7 @@ const agregarProductoCompra = (id) => {
     });			
 }  
 
-const eliminarFavorito = (id) => {
+const eliminarFav = (id) => {
     let param = {
         id: id
     };

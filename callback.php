@@ -83,7 +83,7 @@
 
             unset($_SESSION['carrito']);
 
-            header('location:informacionPersonal.php');
+            header('location:index.php');
         }
     }
     else if($auth->login()){

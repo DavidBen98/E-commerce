@@ -46,6 +46,11 @@
         include('apiDatos.php');
 
         $infoPersonal = "<form action='modificarPerfil.php' method='post' class='cont-perfil'> 
+                                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
+                                    <h1 style='margin: 0; display: flex; align-items: center;'>
+                                        <b style='font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>Mis datos</b>
+                                    </h1>
+                                </div>    
                                 <div class='renglon'>
                                     <p class='descripciones'>Nombre de usuario</p>
                                     <input type='text'  class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row['nombreusuario']}' readonly>

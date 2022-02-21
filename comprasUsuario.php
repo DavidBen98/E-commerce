@@ -48,10 +48,10 @@
     $rs = $db->query($sql);
 
     $div = "<div class='consulta'>
-                <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
-                    <p style='height:40px; width:100%; font-size:1.3rem;padding:0;margin:0;display: flex; justify-content: center;align-items: center;'>
-                        <b style='font-family: museosans500,arial,sans-serif;'>Compras realizadas</b>
-                    </p>
+                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
+                    <h1 style='margin: 0; display: flex; align-items: center;'>
+                        <b style='font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>Compras realizadas</b>
+                    </h1>
                 </div>            
     ";
     $i = 0;

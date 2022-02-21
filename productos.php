@@ -119,7 +119,7 @@
 	}
 
 	//RUTA DE NAVEGACIÓN
-	if ((isset($_GET['cate'])) || (isset($_GET['catda']))){
+	if (isset($_GET['cate'])){
 		$ruta = "<ol class='ruta'>
 					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
 					<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
@@ -228,16 +228,21 @@
 			let url = window.location.search;
 
 			for (j=0;j<imagenes.length;j++){
-				let articulo = imagenes[j].getAttribute('alt');
+				let articulos = "";
 				let categoria = getQueryVariable ('cate');
+				let articulo = imagenes[j].getAttribute('alt');
 				if (categoria != false){
 					categoria = getQueryVariable ('cate');
+					subcategoria = getQueryVariable ('sub');
+					articulos = getQueryVariable ('articulos');
 				}
 				else{
 					categoria = getQueryVariable ('catda');
+					subcategoria = getQueryVariable ('subda');
 				}
 				imagenes[j].addEventListener("click", () => {
-					window.location = 'detalleArticulo.php?categoria='+categoria+'&art='+articulo;
+					window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
+					'&articulos='+articulos+'&art='+articulo;
 				});
 			}
 

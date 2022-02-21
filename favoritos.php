@@ -46,10 +46,10 @@
     $rs = $db->query($sql);
 
     $div = "<div class='consulta' id='consulta'>
-                <div class='renglon' style='border-bottom:1px solid #858585; height:40px;'>      
-                    <p style='height:40px; width:100%; font-size:1.3rem;padding:0;margin:0;display: flex; justify-content: center;align-items: center;'>
-                        <b style='font-family: museosans500,arial,sans-serif;'>Favoritos</b>
-                    </p>
+                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
+                    <h1 style='margin: 0; display: flex; align-items: center;'>
+                        <b style='font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>Favoritos</b>
+                    </h1>
                 </div>            
     ";
     $i = 0;
@@ -99,7 +99,6 @@
                                             <div class='evento-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
                                                 <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
                                                 <button class='elim-fav' value='$id'> Eliminar producto</button>
-                                                <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
                                             </div>
                                             <div class='evento-producto' style='text-align:end;'>
                                                 <img src='images/carrito.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar al carrito'>
@@ -415,7 +414,7 @@
             align-items:center;
         }
 
-        .elim-producto{
+        .evento-producto{
             color: #858585;
             display: flex;
             align-items: center;
@@ -427,12 +426,19 @@
             color: #858585;
         }
 
-        .elim-prod{
+        .elim-fav {
             transition: all 0.5s linear;
             color: #858585;
+            font-family: "Salesforce Sans", serif;
+            line-height: 1.5rem;
+            background-color: white;
+            border: none;
+            font-size: 0.75rem;
+            padding-left: 4px;
+            padding-right: 0;
         }
 
-        .prod-fav:hover, .elim-prod:hover{
+        .prod-fav:hover, .elim-fav:hover{
             color: #000;
             transition: all 0.5s linear;
             font-size: 0.8rem;
