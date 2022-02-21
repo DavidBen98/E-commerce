@@ -8,8 +8,6 @@
         header("location:ve.php");
     }
 
-    $auth = new TwitterAuth($cliente);
-    $auth->getAuthUrl();
     //Si se valida el token al iniciar sesion con Google
     if (isset($_GET["code"])) {
 		$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
@@ -37,19 +35,18 @@
             if (!empty($data['id'])) {
 				$_SESSION['id'] = $data['id'];
 			}
+
+            $_SESSION['servicio'] = 'Google';
 		}
 	}
 
     include("encabezado.php"); 
-
-    //TODO: Hacer funciones: existeUsuario y existeEmail
 
     //Si se inicio sesion con Google
     if (isset($_GET["code"])) {
         $nombre = $_SESSION['user_first_name'];
         $apellido = $_SESSION['user_last_name'];
         $email = $_SESSION['user_email_address'];
-        $_SESSION['servicio'] = 'Google';
 
         $existe = existeIdUsuario();
 

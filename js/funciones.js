@@ -2,8 +2,19 @@ window.onload = function (){
     let busqueda = document.getElementById ('lupa');
     let filtro = document.getElementById ('header-buscar'); 
     let inicio = document.getElementById ('inicio');
+    let agregarCarrito = document.getElementsByClassName('prod-fav');
     let eliminarCarrito = document.getElementsByClassName('elim-prod');
     let agregarFavorito = document.getElementsByClassName ('fav-prod');
+
+    if (agregarCarrito[0] != null){
+        for (let i=0; i<agregarCarrito.length;i++){
+            agregarCarrito[i].addEventListener ("click", () => {
+                let id = agregarCarrito[i].value;
+
+                eliminarProducto (id);
+            });
+        }
+    }
 
     if (eliminarCarrito[0] != null){
         for (let i=0; i<eliminarCarrito.length;i++){
@@ -69,12 +80,12 @@ const agregarFav = (id) => {
             url: "agregarFavorito.php?id="+id,
             method: "post",
             success: function(data) {
-                if (data == 'ok'){
-                    window.location.href = 'carritoCompras.php?fav=ok#mensaje';
-                }
-                else{
-                    window.location.href = 'carritoCompras.php?fav=false#mensaje';
-                }
+                // if (data == 'ok'){
+                //     window.location.href = 'carritoCompras.php?fav=ok#mensaje';
+                // }
+                // else{
+                //     window.location.href = 'carritoCompras.php?fav=false#mensaje';
+                // }
             }
         });			
 }
@@ -175,7 +186,7 @@ const agregarFavorito = (id) => {
     });			
 }
 
-//DETALLE ARTICULO Y DETALLE ARTICULO
+//DETALLE ARTICULO y FAVORITOS
 const agregarProducto = (id) => {
     let param = {
         id: id
@@ -202,7 +213,9 @@ const agregarProducto = (id) => {
                     } 
 
                     let contenedor = document.getElementById('cont-descripcion');//Si se ejecuta en carrito compras
+                    let favoritos = false;
                     if (contenedor == null){
+                        favoritos = true;
                         contenedor = document.getElementById('consulta'); //Si se ejecuta en favoritos
                     }
 
@@ -229,7 +242,7 @@ const agregarProducto = (id) => {
     });			
 }		
 
-//UTILIZADAS EN COMPRASUSUARIO
+//UTILIZADAS EN FAVORITOS
 const agregarProductoCompra = (id) => {
     let param = {
         id: id

@@ -7,7 +7,6 @@ ACCESO:
 Token de acceso: 318788939-DZnES7Qt0A4FweYDFrAEX2Iu9lczP7rXHEQkq5at
 Secreto del token de acceso: 6FW0RpvfqKPm5sHGnXn49C5cXxnbwoL0uVqSRP7f62uqZ
 
-
 ID de cliente: RGtEVWNRSUJHV1ItWXVWbUZDT1U6MTpjaQ
 Secreto del cliente: R_KjiC3prQx69Qv42qca-XNR3pJGAz5uCMN4D-sXCXLkt0JBs8
 

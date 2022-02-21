@@ -198,7 +198,7 @@
                                 <p class='subtotal txt-totales' id='subtotal' style='padding-right:10px; justify-content:end;'> $$total </p>
                             </div>
                             <div class='totales' style='height:50px;'>
-                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b>Total</b> </p> 
+                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b style='font-size: 1.1rem;'>Total</b> </p> 
                                 <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
                             </div>
                             <div class='checkout btn-final'></div>
@@ -413,7 +413,7 @@
 
         .subtotal{
             background-color: #E9E9E9;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         .total{
@@ -449,6 +449,9 @@
 
         .cant-compra{
             padding: 5px 10px;
+            border-color: #D3D3D3;
+            border-radius: 2px;
+            color: #4a4a4a;
         }
 
         .contenedor-eventos{

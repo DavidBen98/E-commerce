@@ -95,14 +95,15 @@
                                             <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
                                             <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
                                         </div>
-                                        <div class='elim-fav'>
-                                            <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
+                                        <div class='contenedor-eventos'>
+                                            <div class='evento-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
                                                 <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
+                                                <button class='elim-fav' value='$id'> Eliminar producto</button>
                                                 <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
                                             </div>
-                                            <div class='elim-producto' style='text-align:end;'>
+                                            <div class='evento-producto' style='text-align:end;'>
                                                 <img src='images/carrito.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar al carrito'>
-                                                <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProducto($id)'> Agregar al carrito</a>
+                                                <a id='agregar-fav-$selectNumero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -141,8 +142,8 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title> 
-    <script src="js/funciones.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="js/funciones.js"></script>
 	<script>
         document.addEventListener ('DOMContentLoaded', () => {
             let continuar = document.getElementById('continuar');
@@ -404,7 +405,7 @@
             padding: 5px 10px;
         }
 
-        .elim-fav{
+        .contenedor-eventos{
             display:flex;
             justify-content:space-between;
             width:100%;
@@ -420,7 +421,7 @@
             align-items: center;
         } 
         
-        .fav-prod{
+        .prod-fav{
             padding-left: 2px;
             transition: all 0.5s linear;
             color: #858585;
@@ -431,7 +432,7 @@
             color: #858585;
         }
 
-        .fav-prod:hover, .elim-prod:hover{
+        .prod-fav:hover, .elim-prod:hover{
             color: #000;
             transition: all 0.5s linear;
             font-size: 0.8rem;

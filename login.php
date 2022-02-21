@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php  
+	require_once('vendor/autoload.php');
 	require_once('config.php');
     include("pie.php");
-	require_once('vendor/autoload.php');
 	include("encabezado.php");
 	include('apiDatos.php');
 

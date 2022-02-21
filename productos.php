@@ -119,7 +119,7 @@
 	}
 
 	//RUTA DE NAVEGACIÓN
-	if (isset($_GET['cate']) || (isset($_GET['subc']))){
+	if ((isset($_GET['cate'])) || (isset($_GET['catda']))){
 		$ruta = "<ol class='ruta'>
 					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
 					<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
@@ -226,21 +226,20 @@
 		document.addEventListener ('DOMContentLoaded', () => {
 			let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
 			let url = window.location.search;
-			let subc = url.indexOf('cate',0);
 
 			for (j=0;j<imagenes.length;j++){
 				let articulo = imagenes[j].getAttribute('alt');
+				let categoria = getQueryVariable ('cate');
+				if (categoria != false){
+					categoria = getQueryVariable ('cate');
+				}
+				else{
+					categoria = getQueryVariable ('catda');
+				}
 				imagenes[j].addEventListener("click", () => {
-					if (subc != -1){
-						window.location = 'detalleArticulo.php?art='+articulo+'&subc=ok';
-					}
-					else{
-						window.location = 'detalleArticulo.php?art='+articulo;
-					}
+					window.location = 'detalleArticulo.php?categoria='+categoria+'&art='+articulo;
 				});
 			}
-
-			console.log (subc);
 
 			let catalogo = document.getElementById('catalogo'); //Boton excel
 
