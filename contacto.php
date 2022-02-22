@@ -67,22 +67,23 @@
 		}
 
 	    .txt-area{
-		   height: 100px;
-		   width: 90%;
-		   background-color: white;
-		   color: black;
-		   padding: 0 10px;
-		   margin: auto;
-		   border-radius: 5px;
-		   resize: none;
-		   border: 2px solid black;
-		   font-size: 1.1em;
-		   padding-top:5px;
-		   margin: 20px auto 0 auto;
+			width: 90%;
+			height: 100px;
+			background-color: white;
+			color: black;
+			margin: 20px auto 0 auto;
+			padding: 5px 10px 0 10px;
+			resize: none;
+			border: 2px solid black;
+			border-radius: 5px;
+			font-size: 1.1em;
+			font-family: "Arial", serif;
 	    }
 
 		.txt-area::placeholder{
-			font-family: "Salesforce Sans", serif;
+			font-family: "Arial", serif;
+			font-size: 1em;
+			padding-top: 2px;
 		}
 
 		.cont-btn{
@@ -99,16 +100,19 @@
 		   font-size:1.2em;
 		   background-color: white;
 		   border-radius: .1875rem;
+		   transition: all 0.3s linear;
 	    }
 
 		.btn-enviar:hover {
 			background-color: rgba(147, 81, 22,0.5);
             transition: all 0.3s linear;
-            cursor:pointer
+            cursor:pointer;
+			color:white;
         }
 
 		#e_error{
-			color: red;
+			background: red;
+			color: white;
 			font-size: 0.8em;
 			padding-left:10px;
 		}
@@ -179,15 +183,15 @@
 		</div>
 
 		<form action="nuevoContacto.php" method="post" class="cont-con"> 
-				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Juan" Maxlength="35" required>
-				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Example" required>
+				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" required>
+				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" required>
 				
 				<?php
 					if (!(isset($_SESSION['servicio']) || $perfil == "U")){
-						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: example@gmail.com' required>";
+						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: jhonDoe@gmail.com' required>";
 					}
 				?>
-				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta' name="txtIngresado" required></textarea>
+				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" required></textarea>
 				<p id="e_error">
 
                 </p>

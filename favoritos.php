@@ -47,8 +47,8 @@
 
     $div = "<div class='consulta' id='consulta'>
                 <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
-                    <h1 style='margin: 0; display: flex; align-items: center;'>
-                        <b style='font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>Favoritos</b>
+                    <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
+                        Favoritos
                     </h1>
                 </div>            
     ";
@@ -91,10 +91,10 @@
                             <div class='principal'>                                                                                          
                                 <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
                                     <div class='titulo' style='text-align:left;'>
-                                        <div style='display:flex; flex-wrap:wrap;'>
-                                            <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
-                                            <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
-                                        </div>
+                                        <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
+                                            <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
+                                            <p class='enlace' style='font-size:16px; color: #858585;'> $marca</p>
+                                        </div> 
                                         <div class='contenedor-eventos'>
                                             <div class='evento-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
                                                 <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
@@ -108,18 +108,16 @@
                                     </div>
                             </div>
                             <div class='secundario'>
-                                    <p class='definir'> 
+                                    <div class='definir'> 
                                         <b>Color:</b>
-                                    </p> 
-                                    <p class='caract'> $color </p>
-                                    <p class='definir'> 
                                         <b>Material:</b>
-                                    </p> 
-                                    <p class='caract'>$material</p>
-                                    <p class='definir'> 
                                         <b>Precio:</b>
-                                    </p> 
-                                    <p>$$precio</p>
+                                    </div> 
+                                    <div class='caract'> 
+                                        <p>$color </p>
+                                        <p>$material</p>
+                                        <p>$$precio</p>
+                                    </div>
                             </div>                                            
                         </div>
                     </div>
@@ -158,6 +156,19 @@
             for (j=0;j<imagenes.length;j++){
                 let articulo = imagenes[j].getAttribute('alt');
                 imagenes[j].addEventListener("click", () => {
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                });
+            }
+
+            let contenedorEnlaces = document.getElementsByClassName('cont-enlaces');
+
+            for (j=0;j<imagenes.length;j++){
+                let articulo = imagenes[j].getAttribute('alt');
+                imagenes[j].addEventListener("click", () => {
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                });
+
+                contenedorEnlaces[j].addEventListener ("click" , () => {
                     window.location = 'detalleArticulo.php?art='+articulo;
                 });
             }
@@ -206,7 +217,7 @@
         }
 
         .consulta{
-            width:75%;
+            width:70%;
             background-color:white;
             display:flex;
             flex-wrap:wrap;
@@ -214,6 +225,7 @@
             border-radius:5px;
             border: 1px solid black;
             margin-bottom: 30px;
+            margin-left:4%;
             padding: 0 10px;
         }
 
@@ -225,41 +237,17 @@
         }
 
         .productos{
-            width: 160px;
-            height:160px;
+            width: 30%;
+            height:80%;
             padding-right: 10px;
             object-fit: contain;
         }
 
         .descrip{
             width:100%;
-            height:90%;
+            height:100%;
             display:flex;
-            justify-content:start;
-        }
-
-        .precio{
-            width:250px;
-            height: 100%;
-            display: flex;
-            align-content: center;
-            flex-wrap:wrap;
-            justify-content:space-between;
-            border-left: 1px solid #D3D3D3;
-        }
-
-        .precio p{
-            width:45%;
-            font-size: 1rem;
-            height: 30px;
-            margin: 0;
-        }
-
-        .precio div{
-            width:45%;
-            font-size: 1rem;
-            height: 30px;
-            margin: 0;
+            justify-content: space-between;
         }
 
         .cont-btn{
@@ -276,11 +264,11 @@
         }
 
         .principal{
-            width:70%;
+            width:60%;
             display:flex;
             justify-content: space-between;
             flex-wrap:wrap;
-            height: 160px;
+            height: 100%;
         }
 
         .principal p{
@@ -291,26 +279,28 @@
         }
 
         .secundario{
-            width:45%;
-            display:flex;
-            flex-wrap:wrap;
-            align-content:start;
-            padding-left: 100px;
+            width: 40%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: start;
+            justify-content: center;
         }
 
-        .secundario p{
-            margin: 10px 0;
-            color: #000;
-            text-align:start;
-            font-size: 1rem;
+        .definir, .caract{
+            width:65%;
+            height:100%;
+            display:flex;
+            flex-wrap:wrap;
+            align-items:start;
         }
 
         .definir{
             width:30%;
         }
 
-        .caract{
-            width:70%;
+        .caract p{
+            margin:0;
+            width:100%;
         }
 
         .mercadopago-button{
@@ -325,7 +315,7 @@
         }
 
         .titulo{
-            width:300px;
+            width: 60%;
             height: auto;
         }
 
@@ -410,7 +400,7 @@
             width:100%;
             text-align:start;
             margin-top:20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             align-items:center;
         }
 
@@ -433,7 +423,7 @@
             line-height: 1.5rem;
             background-color: white;
             border: none;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             padding-left: 4px;
             padding-right: 0;
         }
@@ -441,7 +431,7 @@
         .prod-fav:hover, .elim-fav:hover{
             color: #000;
             transition: all 0.5s linear;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -480,12 +470,12 @@
         .carrito-compras{
             text-decoration: underline;
             color: white;
-            transition: all 0.5s linear;
+            transition: all 0.4s ease-in;
         }
 
         .carrito-compras:hover{
-            font-size:1.2rem;
-            transition: all 0.5s linear;
+            font-size:1.3rem;
+            transition: all 0.4s ease-in;
         }
 
         .img-cat:hover{
@@ -493,13 +483,14 @@
         }
 
         .enlace{
-            transition: all 0.5s linear;
+            transition: all 0.4s ease-in;
         }
 
         .enlace:hover{
             color: #000;
-            font-size:1.15rem;
-            transition: all 0.5s linear;
+            font-size:1.2rem;
+            transition: all 0.4s ease-in;;
+            cursor: pointer;
         }
     </style>
 </head>

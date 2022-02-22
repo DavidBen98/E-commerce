@@ -16,8 +16,6 @@
         header("location:ve.php");
     }
 
-    $productos_mp = array();
-
     $ruta = "<ol class='ruta'>
                 <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
                 <li style='border:none;text-decoration: none;'>Carrito de compras</li>
@@ -50,9 +48,9 @@
     }
 
     $carrito .= "<div>
-                    <p style='margin:0; height:30px;'>
-                        <b style='font-family: museosans500,arial,sans-serif;'>CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS</b><br>
-                    </p>
+                    <h1 style='font-family: museosans500,arial,sans-serif; margin:0; font-size:1rem;'>
+                    CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS
+                    </h1>
                     <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
                         $productos_agregados PRODUCTO";
                     
@@ -184,8 +182,8 @@
                                 <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b style='font-size: 1.1rem;'>Total</b> </p> 
                                 <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
                             </div>
-                            <div class='btnMP'>
-                                <button type='button' class='btn-final' id='continuar'>Proceder a la compra</button>
+                            <div class='btnRedirigir'>
+                                <button type='button' class='btn-final'>Proceder a la compra</button>
                             </div>
                             <div class='continuar'>
                                 <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
@@ -263,9 +261,10 @@
 
         .descrip{
             width:70%;
-            height:90%;
-            display:flex;
-            justify-content:start;
+            height: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: center;
         }
 
         .precio{
@@ -378,7 +377,7 @@
             height: 20%;
         }
 
-        .continuar{
+        .btnRedirigir, .continuar{
             height: 20%;
         }
 
@@ -412,17 +411,36 @@
             color: #000;
         }
 
-        .continuar button{
+        .btnRedirigir button{
             width:250px;
             height: 40px;
-            background: rgba(147, 81, 22,0.5);
+            background: #009ee3;
+            color: white; 
+            border:none;
             border-radius: 5px;
-            border: 1px solid #000;
             font-weight: 700;
             cursor: pointer;
         }
 
-        .continuar button:hover{
+        .btnRedirigir button:hover{
+            transition: all 0.3s linear;
+            color: white;
+            cursor:pointer;
+            background: #099;
+        }
+
+        #continuar{
+            width:250px;
+            height: 40px;
+            background: rgba(147, 81, 22,0.5);
+            color: #000;
+            border-radius: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+        }
+
+        #continuar:hover{
             background-color: rgba(147, 81, 22,1);
             transition: all 0.3s linear;
             color: white;
@@ -526,9 +544,9 @@
         //TODO: VALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
 
         document.addEventListener ('DOMContentLoaded', () => {
-            let continuar = document.getElementById('continuar');
+            let btnRedirigir = document.getElementById('continuar');
 
-            continuar.addEventListener("click", () => {
+            btnRedirigir.addEventListener("click", () => {
                 window.location = "productos.php?productos=todos";
             });     
 

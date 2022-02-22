@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <?php
-    require 'config.php';
-    include("pie.php"); 
-    require 'inc/conn.php';
-    require 'vendor/autoload.php';
+    include ("pie.php"); 
+    include ("inc/conn.php");
+    include ('config.php');
+    require_once 'vendor/autoload.php';
+    define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
+    define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
+
+    MercadoPago\SDK::setAccessToken(TOKENMERCADOPAGO);
+
+    $preference = new MercadoPago\Preference();
+
+    $productos_mp = array();
+
+    global $db; 
 
     $ruta = "<ol class='ruta'>
                 <li><a href='index.php'>Inicio</a></li>
@@ -11,18 +21,13 @@
                 <li style='border:none;text-decoration: none;'>Pago</li>
             </ol>
     ";
-
-    MercadoPago\SDK::setAccessToken('TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
-    
-    $preference = new MercadoPago\Preference();
-
-    global $db; 
-    $productos_mp = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+        
+    $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
     $lista_carrito = array();
     $productos_agregados = 0;
 
-    if ($productos_mp != null){
-        foreach ($productos_mp as $key => $cantidad){
+    if ($productos != null){
+        foreach ($productos as $key => $cantidad){
             $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
                                  FROM producto
                                  WHERE id=?");
@@ -45,79 +50,73 @@
     }
 
     $carrito .= "<div>
-                    <p style='margin:0; height:30px;'>
-                        <b style='font-family: museosans500,arial,sans-serif;'>FINALIZAR COMPRA</b><br>
-                    </p>
+                    <h1 style='font-family: museosans500,arial,sans-serif; margin:0; font-size:1rem;'>FINALIZAR COMPRA</h1>
                     <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
-                        RESUMEN";
-
-    $carrito .= "   </p>
-            </div>
-        </div>
-    ";
-
-
-        $selectNumero = 1; 
-        $total = 0;
-        $i = 1;
-
-        foreach($lista_carrito as $producto){
-            $subtotal = 0;
-            $id = $producto['id'];
-            $codigo = $producto['codigo'];
-            $descripcion = ucfirst($producto['descripcion']);
-            $marca = ucfirst($producto['marca']);
-            $color = ucfirst($producto['color']);
-            $material = ucfirst($producto['material']);
-            $stock = intval($producto['stock']);
-            $cantidad = intval($producto['cantidad']);
-            
-            if ($stock < $cantidad){
-                $cantidad = $stock;
-            }
-
-            $precio = intval($producto['precio']);
-            $descuento = intval($producto['descuento']);
-            $precio_desc = $precio - (($precio * $descuento) /100);
-            $subtotal += $cantidad * $precio_desc; 
-            $total += $subtotal; 
- 
-            $item = new MercadoPago\Item();
-            $item->id = $i;
-            $item->title = $descripcion;
-            $item->quantity = $cantidad;
-            $item->unit_price = $precio_desc;
-            $item->currency_id = "ARS";
-
-            array_push($productos_mp, $item);
-            unset ($item);
-
-            $i++;
-
-            $carrito .= "<div class='contenedor'>
-                                <div class='principal'>                                                                                          
-                                    <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
-                                        <div class='titulo'>
-                                            <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
-                                                <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
-                                                <p class='enlace'>Cantidad: $cantidad</p> 
-                                            </div>
-                                            <div class='enlace' style='width:40%;'>
-                                                <p id='precioS-$selectNumero' style='width:100%; text-align:center;font-family: Arial,Helvetica,sans-serif;'><b>$".$subtotal."</b></p>
-                                            </div>
-                                        </div>
-                                </div>                                          
+                        RESUMEN
+                    </p>
                 </div>
-            ";
+            </div>";
 
-            $selectNumero++;
+    $total = 0;
+    $i = 1;
+
+    foreach($lista_carrito as $producto){
+        $subtotal = 0;
+        $id = $producto['id'];
+        $codigo = $producto['codigo'];
+        $descripcion = ucfirst($producto['descripcion']);
+        $marca = ucfirst($producto['marca']);
+        $color = ucfirst($producto['color']);
+        $material = ucfirst($producto['material']);
+        $stock = intval($producto['stock']);
+        $cantidad = intval($producto['cantidad']);
+        
+        if ($stock < $cantidad){
+            $cantidad = $stock;
         }
+
+        $precio = intval($producto['precio']);
+        $descuento = intval($producto['descuento']);
+        $precio_desc = $precio - (($precio * $descuento) /100);
+        $subtotal += $cantidad * $precio_desc; 
+        $total += $subtotal; 
+
+        $item = new MercadoPago\Item();
+        $item->id = $i;
+        $item->title = $descripcion;
+        $item->quantity = $cantidad;
+        $item->unit_price = $precio_desc;
+        $item->currency_id = "ARS";
+
+        array_push($productos_mp, $item);
+        unset ($item);
+
+        $i++;
+
+        $carrito .= "<div class='contenedor'>
+                            <div class='principal'>                                                                                          
+                                <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                    <div class='titulo'>
+                                        <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
+                                            <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
+                                            <p class='enlace'>Cantidad: $cantidad</p> 
+                                        </div>
+                                        <div class='enlace' style='width:30%;'>
+                                            <p style='width:100%; text-align:end;font-family: Arial,Helvetica,sans-serif;'>
+                                                <b>$".$subtotal."</b>
+                                            </p>
+                                        </div>
+                                    </div>
+                            </div>                                          
+                    </div>
+        ";
+    }
 
         $carrito .= "<div class='contenedor-botones'>
                         <div class= 'botones'>
                             <div class='totales' style='height:50px;'>
-                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b style='font-size: 1.1rem;'>Precio final:</b> </p> 
-                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:center;'><b>$$total</b></p>
+                                <p class='txt-totales total' style='border-bottom-left-radius: 5px; width:60%;'><b style='font-size: 1.1rem;'>Precio final:</b> </p> 
+                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:center; width:40%;'><b>$$total</b></p>
                             </div>
                             <div class='checkout btn-final'></div>
                         </div>
@@ -205,7 +204,6 @@
             display:flex;
             justify-content:space-between;
             margin: 0 10px;
-            height: 60px;
             border-bottom: 1px solid #D3D3D3;
             padding-top: 10px;
         }
@@ -278,10 +276,7 @@
         }
 
         .botones{
-            height:100%;
-            width:250px;
             margin: 0 10px;
-
         }
 
         .botones .checkout {
@@ -298,7 +293,7 @@
 
         .totales{
             display:flex;
-            width:250px;
+            width:220px;
             margin: 0;
             justify-content:center;
         }
@@ -315,7 +310,6 @@
         .txt-totales{
             display:flex;
             align-items:center;
-            width: 50%;
             font-family: museosans500,arial,sans-serif;
             padding-left: 10px;
             margin: 0;
@@ -401,6 +395,10 @@
         header{
             background-color: rgba(147, 81, 22,0.5);
             padding-top:20px;
+        }
+
+        .mercadopago-button{
+            width: 220px;
         }
     </style>
 </head>

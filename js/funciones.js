@@ -83,7 +83,7 @@ window.onload = function (){
         }
     }
 
-    let mp = document.getElementsByClassName('btnMP');
+    let mp = document.getElementsByClassName('btnRedirigir');
 
     if (mp[0] != null){
         mp[0].addEventListener ("click", () => {

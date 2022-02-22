@@ -31,8 +31,8 @@
 
     $div = "<div class='consulta'>
                 <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
-                    <h1 style='margin: 0; display: flex; align-items: center;'>
-                        <b style='font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>Consultas realizadas</b>
+                    <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
+                        Consultas realizadas
                     </h1>
                 </div>    
                 <div class='renglon' style='border-bottom:1px solid #858585;'>      
