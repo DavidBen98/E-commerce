@@ -16,10 +16,6 @@
         header("location:ve.php");
     }
 
-    MercadoPago\SDK::setAccessToken(TOKENMERCADOPAGO);
-
-    $preference = new MercadoPago\Preference();
-
     $productos_mp = array();
 
     $ruta = "<ol class='ruta'>
@@ -91,7 +87,6 @@
     else{
         $selectNumero = 1; 
         $total = 0;
-        $i = 1;
 
         foreach($lista_carrito as $producto){
             $subtotal = 0;
@@ -113,18 +108,6 @@
             $precio_desc = $precio - (($precio * $descuento) /100);
             $subtotal += $cantidad * $precio_desc; 
             $total += $subtotal; 
- 
-            $item = new MercadoPago\Item();
-            $item->id = $i;
-            $item->title = $descripcion;
-            $item->quantity = $cantidad;
-            $item->unit_price = $precio_desc;
-            $item->currency_id = "ARS";
-
-            array_push($productos_mp, $item);
-            unset ($item);
-
-            $i++;
 
             $carrito .= "<div class='contenedor'>
                             <div class='descrip'> 
@@ -201,7 +184,9 @@
                                 <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b style='font-size: 1.1rem;'>Total</b> </p> 
                                 <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
                             </div>
-                            <div class='checkout btn-final'></div>
+                            <div class='btnMP'>
+                                <button type='button' class='btn-final' id='continuar'>Proceder a la compra</button>
+                            </div>
                             <div class='continuar'>
                                 <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
                             </div>
@@ -211,9 +196,6 @@
 
         if (isset($_GET['elim'])){
             $carrito .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
-        }
-        else if (isset($_GET['error_pago'])){
-            $carrito .= "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
         }
         else if (isset($_GET['fav'])){
             $fav = $_GET['fav'];
@@ -591,61 +573,6 @@
     <footer id='pie'>
         <?= $pie; ?> 
     </footer>
-    
-    <!--MERCADO PAGO-->
-    <?php
-        $preference->items = $productos_mp;
-
-        var_dump ($preference->items[0]->quantity);
-
-        $preference->back_urls = array (
-            "success" => "localhost/E-commerceMuebleria/callback.php",
-            "failure" => "localhost/E-commerceMuebleria/callback.php?failure=true"
-        );
-    
-        $preference->auto_return = "approved";
-        $preference->binary_mode = true;
-    
-        $preference->save();
-
-        echo $preference->id;
-    ?>
-
-    <script>
-        const mp = new MercadoPago('TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608', {
-            locale: "es-AR",
-        });
-
-        // Inicializa el checkout
-        mp.checkout({
-            preference: {
-                id: '<?php echo $preference->id; ?>'
-            },
-            render: {
-                container: ".checkout-btn", // Indica el nombre de la clase donde se mostrará el botón de pago
-                label: "Proceder a la compra" 
-            }
-        });
-
-        const mercadoPago = new MercadoPago('TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608', {
-            locale: "es-AR",
-        });
-
-        let btnMP = document.getElementsByClassName('checkout');
-
-        if (btnMP[0] != null){
-            mercadoPago.checkout({
-                preference: {
-                    id: '<?php echo $preference->id; ?>'
-                },
-                render: {
-                    container: ".checkout",
-                    label: "Proceder a la compra"
-                }
-            });
-        }      
-    </script>  
-    <!-- -->
 
 </body>
 </html>

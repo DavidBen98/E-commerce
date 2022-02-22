@@ -82,6 +82,14 @@ window.onload = function (){
             });
         }
     }
+
+    let mp = document.getElementsByClassName('btnMP');
+
+    if (mp[0] != null){
+        mp[0].addEventListener ("click", () => {
+            window.location.href = 'pago.php';
+        })
+    }
 }
 
 //INDEX
@@ -188,25 +196,11 @@ const modificarProducto = (id,producto) => {
             if (datos['ok']){
                 let cantCarrito = document.getElementById('num-car');
                 cantCarrito.innerHTML = datos.numero;
-                console.log(datos.item);
             }
         }
     });	
-
-    // let dato = items[producto]['quantity'];
-    // console.log(dato);
-    // var data = {dato: cantidad};
     
-    // fetch ('https://api.mercadopago.com/checkout/preferences/2',{
-    //     method: 'PUT',
-    //     headers: {
-    //         'Authorization': 'TOKENMERCADOPAGO',
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body:{
-
-    //     }
-    // });
+    
 }
 
 //UTILIZADAS EN DETALLE ARTICULO

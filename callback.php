@@ -9,7 +9,7 @@
     
     //Si se realizó un pago con mercado pago
     if (isset($_GET['failure'])){ //Si falló
-        header('location: carritoCompras.php?error_pago=fallo');
+        header('location: pago.php?error_pago=fallo');
     }
     else if(isset($_GET['payment_id'])){
         $payment_id = $_GET['payment_id'];   
