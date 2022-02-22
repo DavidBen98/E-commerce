@@ -2,10 +2,12 @@ window.onload = function (){
     let busqueda = document.getElementById ('lupa');
     let filtro = document.getElementById ('header-buscar'); 
     let inicio = document.getElementById ('inicio');
+    let nuevaConsulta = document.getElementById ('nuevaConsulta');
     let agregarCarrito = document.getElementsByClassName('prod-fav');
     let eliminarCarrito = document.getElementsByClassName('elim-prod');
     let agregarFavorito = document.getElementsByClassName ('fav-prod');
     let eliminarFavorito = document.getElementsByClassName ('elim-fav');
+    let modificarCarrito = document.getElementsByClassName ('cant-compra');
 
     if (agregarCarrito[0] != null){
         for (let i=0; i<agregarCarrito.length;i++){
@@ -62,6 +64,23 @@ window.onload = function (){
         busqueda.addEventListener ("click", () =>{
             window.location.href = 'productos.php?buscador='+filtro.value;
         });
+    }
+
+    if (nuevaConsulta != null){
+        nuevaConsulta.addEventListener ('click', () => {
+            window.location.href = 'contacto.php';
+        });
+    }
+
+    if (modificarCarrito[0] != null){
+        for (let i=0; i<modificarCarrito.length;i++){
+            modificarCarrito[i].addEventListener ("change", () => {
+                let labelSelect = document.getElementsByClassName('labelSelect');
+                let id = labelSelect[i].id;
+
+                modificarProducto(id,i+1);
+            });
+        }
     }
 }
 
@@ -128,12 +147,35 @@ const eliminarProducto = (id) => {
     });			
 }
 
-const modificarProducto = (id, producto) => {
+const modificarProducto = (id,producto) => {
     let valorSeleccionado = document.getElementsByName('cant-'+producto);
+    let productos = document.getElementsByClassName('contenedor');
+    let subtotal = document.getElementById('subtotal');
+    let total = document.getElementById('total');
+    let sumaTotal = 0;
+
+    for (let i=1; i <= productos.length; i++){
+        let precioProducto = document.getElementById('precioS-'+i).textContent;
+        sumaTotal += parseInt(precioProducto.slice(1)); //Obtengo el total sin actualizar
+    }
+
+    let cantidad = valorSeleccionado[0].value;
+    let precioProd = document.getElementById('precioS-'+producto).textContent;
+    precioProd = precioProd.slice(1);
+    let precioUnitario = document.getElementById('precioU-'+producto).textContent;
+    precioUnitario = precioUnitario.slice(1);
+    let sumaSubtotal = parseInt(cantidad) * parseInt(precioUnitario);
+    
+    let precioSubtotal = document.getElementById('precioS-'+producto);
+    precioSubtotal.innerHTML= "<b>$" + sumaSubtotal + "</b>";
+
+    sumaTotal = sumaTotal + sumaSubtotal - precioProd;
+    subtotal.innerHTML = "$ " + sumaTotal;
+    total.innerHTML = "<b>$ " + sumaTotal + "</b>";
 
     let param = {
         id: id,
-        cantidad: valorSeleccionado[0].value
+        cantidad: valorSeleccionado[0].value,
     };
 
     $.ajax({
@@ -146,10 +188,25 @@ const modificarProducto = (id, producto) => {
             if (datos['ok']){
                 let cantCarrito = document.getElementById('num-car');
                 cantCarrito.innerHTML = datos.numero;
-                window.location.href = 'carritoCompras.php';
+                console.log(datos.item);
             }
         }
-    });			
+    });	
+
+    // let dato = items[producto]['quantity'];
+    // console.log(dato);
+    // var data = {dato: cantidad};
+    
+    // fetch ('https://api.mercadopago.com/checkout/preferences/2',{
+    //     method: 'PUT',
+    //     headers: {
+    //         'Authorization': 'TOKENMERCADOPAGO',
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body:{
+
+    //     }
+    // });
 }
 
 //UTILIZADAS EN DETALLE ARTICULO
@@ -187,15 +244,25 @@ const agregarFavorito = (id) => {
             } 
 
             if (data == 'ok'){
-                window.location.href = url+'?categoria='+categoria+'&subcategoria='+subcategoria+
-                                    '&articulos='+articulos+'&art='+articulo+'&fav=ok'+'#mensaje';
+                if (categoria != ""){
+                    window.location.href = url+'?categoria='+categoria+'&subcategoria='+subcategoria+
+                    '&articulos='+articulos+'&art='+articulo+'&fav=ok'+'#mensaje';
+                }
+                else{
+                    window.location.href = url+'?art='+articulo+'&fav=ok'+'#mensaje';
+                }
             }
             else if(data == 'login') {
                 window.location.href = 'login.php';
             }
             else{
-                window.location.href = url+'?categoria='+categoria+'&subcategoria='+subcategoria+
-                '&articulos='+articulos+'&art='+articulo+'&fav=false'+'#mensaje';
+                if (categoria != ""){
+                    window.location.href = url+'?categoria='+categoria+'&subcategoria='+subcategoria+
+                    '&articulos='+articulos+'&art='+articulo+'&fav=false'+'#mensaje';
+                }
+                else{
+                    window.location.href = url+'?art='+articulo+'&fav=false'+'#mensaje';
+                }
             }
         }
     });			

@@ -321,7 +321,7 @@
                 <?= $cont_usuarios; ?>
             </div>
                 <?= $infoPersonal; ?>
-            </div>
+        </div>
     </main>
 
     <footer id='pie'>

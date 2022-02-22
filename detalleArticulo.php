@@ -13,10 +13,10 @@
 	$ruta = "<ol class='ruta'>
 				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>";
 
-	$cat = $_GET['categoria'];
-	$sub = $_GET['subcategoria'];
-	$art = $_GET['articulos'];
-	if ($cat != "false"){
+	$cat = isset($_GET['categoria'])? $_GET['categoria'] : null;
+	$sub = isset($_GET['subcategoria'])? $_GET['subcategoria']: null;
+	$art = isset($_GET['articulos'])? $_GET['articulos']: null;
+	if ($cat != null){
 		$ruta .= "<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$cat'>Subcategorías</a></li>
 			  	  <li style='margin-left:5px;'><a href='productos.php?articulos=$art&cate=$cat&sub=$sub'>Productos</a></li>
 		";

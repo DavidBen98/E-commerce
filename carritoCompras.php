@@ -29,7 +29,6 @@
     ";
 
     global $db; 
-
     $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
     $lista_carrito = array();
     $productos_agregados = 0;
@@ -104,16 +103,17 @@
             $material = ucfirst($producto['material']);
             $stock = intval($producto['stock']);
             $cantidad = intval($producto['cantidad']);
+            
+            if ($stock < $cantidad){
+                $cantidad = $stock;
+            }
+
             $precio = intval($producto['precio']);
             $descuento = intval($producto['descuento']);
             $precio_desc = $precio - (($precio * $descuento) /100);
             $subtotal += $cantidad * $precio_desc; 
             $total += $subtotal; 
-
-            if ($stock < $cantidad){
-                $cantidad = $stock;
-            }
-            
+ 
             $item = new MercadoPago\Item();
             $item->id = $i;
             $item->title = $descripcion;
@@ -131,9 +131,9 @@
                                 <div class='principal'>                                                                                          
                                     <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
                                         <div class='titulo'>
-                                            <div style='display:flex; flex-wrap:wrap;'>
-                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
-                                                <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                            <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
+                                                <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
+                                                <p class='enlace' style='font-size:16px; color: #858585;'> $marca</p>
                                             </div> 
                                             <div class='contenedor-eventos'>
                                                 <div class='evento-producto' style='width: 45%;padding-right: 8px; border-right: 1px solid #D3D3D3;'>
@@ -157,10 +157,10 @@
                                         </p> 
                                         <p class='caract'>$material</p>
                                         <p class='definir'>
-                                            <b>Cantidad:</b>
+                                            <label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label>
                                         </p> 
                                         <p class='caract'>
-                                            <select class='cant-compra' name='cant-$selectNumero' title='Cantidad' onchange='modificarProducto($id, $selectNumero)'>";
+                                            <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
                                                 for ($j=1; $j<=$stock; $j++){
                                                     if ($j == $cantidad){
                                                         $carrito .= "<option value='$j' selected>$j</option>";
@@ -254,7 +254,7 @@
         }
 
         .carrito{
-            width:90%;
+            width:80%;
             background-color: white;
             padding:10px;
             font-size: 1rem;
@@ -457,7 +457,7 @@
         .contenedor-eventos{
             display:flex;
             justify-content:space-between;
-            width:80%;
+            width: 90%;
             text-align:start;
             margin-top:20px;
             font-size: 0.75rem;
@@ -536,6 +536,7 @@
             color: #000;
             font-size:1.15rem;
             transition: all 0.5s linear;
+            cursor: pointer;
         }
     </style>
     <script>
@@ -560,13 +561,19 @@
             }     
 
             let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+            let contenedorEnlaces = document.getElementsByClassName('cont-enlaces');
 
             for (j=0;j<imagenes.length;j++){
                 let articulo = imagenes[j].getAttribute('alt');
                 imagenes[j].addEventListener("click", () => {
                     window.location = 'detalleArticulo.php?art='+articulo;
                 });
+
+                contenedorEnlaces[j].addEventListener ("click" , () => {
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                });
             }
+
         });
 	</script>
 </head>
@@ -589,6 +596,8 @@
     <?php
         $preference->items = $productos_mp;
 
+        var_dump ($preference->items[0]->quantity);
+
         $preference->back_urls = array (
             "success" => "localhost/E-commerceMuebleria/callback.php",
             "failure" => "localhost/E-commerceMuebleria/callback.php?failure=true"
@@ -598,6 +607,8 @@
         $preference->binary_mode = true;
     
         $preference->save();
+
+        echo $preference->id;
     ?>
 
     <script>

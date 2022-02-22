@@ -228,22 +228,22 @@
 			let url = window.location.search;
 
 			for (j=0;j<imagenes.length;j++){
-				let articulos = "";
 				let categoria = getQueryVariable ('cate');
+				let subcategoria = getQueryVariable ('sub');
+				let articulos = getQueryVariable ('articulos');
 				let articulo = imagenes[j].getAttribute('alt');
+
 				if (categoria != false){
-					categoria = getQueryVariable ('cate');
-					subcategoria = getQueryVariable ('sub');
-					articulos = getQueryVariable ('articulos');
+					imagenes[j].addEventListener("click", () => {
+						window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
+						'&articulos='+articulos+'&art='+articulo;
+					});
 				}
 				else{
-					categoria = getQueryVariable ('catda');
-					subcategoria = getQueryVariable ('subda');
+					imagenes[j].addEventListener("click", () => {
+						window.location = 'detalleArticulo.php?art='+articulo;
+					});
 				}
-				imagenes[j].addEventListener("click", () => {
-					window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
-					'&articulos='+articulos+'&art='+articulo;
-				});
 			}
 
 			let catalogo = document.getElementById('catalogo'); //Boton excel

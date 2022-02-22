@@ -60,25 +60,21 @@
         
         $pregunta = ucfirst($row['texto']);
 
-        if ($j+1 == $i){
-            $div .= "   <div class='renglon'> 
-                            <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
-                            <p>$respuesta</p>
-                        </div>";
-        }
-        else{
-            $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
-                            <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
-                            <p>$respuesta</p>
-                        </div>";
-        }
+        $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
+                        <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
+                        <p>$respuesta</p>
+                    </div>";
         $j++;
     }
 
     if ($j == 0){
         $div .= "<p>Aún no hay consultas realizadas </p>";
     }
-    $div .= "</div>";
+
+    $div .= "<div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
+                <button class='btn' id='nuevaConsulta' style='margin:15px;'>Nueva consulta </button>
+            </div>
+    </div>";
 ?>
 <!DOCTYPE html>
 <html lang="es">

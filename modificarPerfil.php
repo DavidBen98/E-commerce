@@ -155,6 +155,4 @@
 
         header ('location: informacionPersonal.php?modif=exito#mensaje');
     }
-    
-
 ?>
