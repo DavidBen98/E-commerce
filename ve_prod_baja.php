@@ -1,6 +1,7 @@
 <?php 
     include("encabezado.php");
     require 'inc/conn.php';
+    
     if (!perfil_valido(1)) {
         header("location:index.php");
     }

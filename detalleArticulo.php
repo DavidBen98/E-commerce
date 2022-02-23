@@ -86,7 +86,7 @@
 
 		$contenedor = "<div class='contenedor'> 
 							<div id='cont-images'>
-								<img src='images/$variable.png' class='img-cat' title='{$row['descripcion']}' >                                   
+								<img src='images/$variable.png' class='img-cat' title='Producto en detalle' alt='{$row['descripcion']}'>                                   
 							</div>
 
 							<div id='cont-descripcion'>

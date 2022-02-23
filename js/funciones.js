@@ -45,6 +45,9 @@ window.onload = function (){
         else if (ev.target.matches('#btnCerrarSesion')){
             window.location.href='cerrarSesion.php';
         }
+        else if (ev.target.matches('#procederCompra')){
+            window.location.href='pago.php';
+        }
 	});
 
     document.addEventListener('keydown', ev => {

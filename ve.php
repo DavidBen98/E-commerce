@@ -84,6 +84,23 @@
             background-color: #000;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.addEventListener('click', ev => {
+                if (ev.target.matches('#altaProductos')){
+                    window.location.href='ve_prod_alta.php';
+                }
+                else if (ev.target.matches('#bajaProductos')){
+                    window.location.href='ve_prod_baja.php';
+                }
+                else if (ev.target.matches('#modProductos')){
+                    window.location.href='ve_prod_mod.php';
+                }
+            });
+            
+        });
+    </script>
 </head>
 
 <body id='body'>
@@ -92,9 +109,9 @@
 	</header>
     <main>
         <div id="contenedor-botones">
-            <button class="btn hover" onclick="window.location.href='ve_prod_alta.php'">ALTA <BR> Productos</button>
-            <button class="btn hover" onclick="window.location.href='ve_prod_baja.php'">BAJA <BR> Productos</button>
-            <button class="btn hover" onclick="window.location.href='ve_prod_mod.php'">MODIFICACIÓN Productos</button>
+            <button class="btn hover" id='altaProductos'>ALTA <BR> Productos</button>
+            <button class="btn hover" id='bajaProductos'>BAJA <BR> Productos</button>
+            <button class="btn hover" id='modProductos'>MODIFICACIÓN Productos</button>
         </div>
     </main>
 </body>

@@ -142,6 +142,7 @@
             justify-content:center;
             padding-bottom: 30px;
             flex-wrap: wrap;
+            min-height:400px;
         }
 
         .carrito{
@@ -366,7 +367,7 @@
 
         header{
             background-color: rgba(147, 81, 22,0.5);
-            padding-top:20px;
+            padding: 20px 0;
         }
 
         .mercadopago-button{

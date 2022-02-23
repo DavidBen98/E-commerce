@@ -14,11 +14,12 @@
 	}
 
 	$auth = new TwitterAuth($cliente);
-
-	$login_button = "<a href=" . $google_client->createAuthUrl() . " class='btn-google'>Iniciar sesión con Google</a>
-					 <a href=".$auth->getAuthUrl()." class='btn-twitter'>Iniciar sesión con Twitter</a>";
-
 	$google= $google_client->createAuthUrl();
+	$twitter = $auth->getAuthUrl();
+
+	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>
+					 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>";
+
 
 	if (isset($_GET['reg'])){
 		$ruta = "<ol class='ruta'>
@@ -125,7 +126,7 @@
 		
 		$form .= "</div>
 				<div class='redes'>
-						$login_button 
+					$login_button
 				</div>
 			</form>
 		";

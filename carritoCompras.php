@@ -183,7 +183,7 @@
                                 <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
                             </div>
                             <div class='btnRedirigir'>
-                                <button type='button' class='btn-final'>Proceder a la compra</button>
+                                <button type='button' class='btn-final' id='procederCompra'>Proceder a la compra</button>
                             </div>
                             <div class='continuar'>
                                 <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
@@ -440,6 +440,7 @@
             font-weight: 700;
             cursor: pointer;
             border: none;
+            margin-bottom: 10px;
         }
 
         #continuar:hover{

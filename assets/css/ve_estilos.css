@@ -9,7 +9,6 @@ header{
 /*EMPIEZA HEADER*/
 #imagen{
     height: 130px;
-    background-image: url('../images/encab.png');
     background-size: cover;
 }
 
