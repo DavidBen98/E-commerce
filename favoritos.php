@@ -141,39 +141,6 @@
     <title>Muebles Giannis</title> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="js/funciones.js"></script>
-	<script>
-        document.addEventListener ('DOMContentLoaded', () => {
-            let continuar = document.getElementById('continuar');
-
-            if (continuar != null){
-                continuar.addEventListener("click", () => {
-                    window.location = "productos.php?productos=todos";
-                });  
-            }
-
-            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-
-            for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {
-                    window.location = 'detalleArticulo.php?art='+articulo;
-                });
-            }
-
-            let contenedorEnlaces = document.getElementsByClassName('cont-enlaces');
-
-            for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {
-                    window.location = 'detalleArticulo.php?art='+articulo;
-                });
-
-                contenedorEnlaces[j].addEventListener ("click" , () => {
-                    window.location = 'detalleArticulo.php?art='+articulo;
-                });
-            }
-        });
-    </script>
     <style>
         main{
             display:flex;

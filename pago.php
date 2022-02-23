@@ -46,7 +46,7 @@
         $carrito .= "<div class='checkout-btn cont-btn'>";
     }
     else{
-        $carrito .= "<div class='checkout-btn cont-btn' id='ocultar'>";
+        $carrito .= "<div class='checkout-btn cont-btn'>";
     }
 
     $carrito .= "<div>
@@ -283,10 +283,6 @@
             height: 20%;
         }
 
-        .continuar{
-            height: 20%;
-        }
-
         .btn-final{
             margin-top:10px;
         }
@@ -314,23 +310,6 @@
             padding-left: 10px;
             margin: 0;
             color: #000;
-        }
-
-        .continuar button{
-            width:250px;
-            height: 40px;
-            background: rgba(147, 81, 22,0.5);
-            border-radius: 5px;
-            border: 1px solid #000;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .continuar button:hover{
-            background-color: rgba(147, 81, 22,1);
-            transition: all 0.3s linear;
-            color: white;
-            cursor:pointer;
         }
 
         .cant-compra{

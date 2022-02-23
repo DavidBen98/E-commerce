@@ -539,43 +539,6 @@
             cursor: pointer;
         }
     </style>
-    <script>
-        //TODO: USAR QUERYSELECTORALL
-        //TODO: VALIDAD CON PHP: EXISTE LA FUNCION FILTER_VAR(MI VARIABLE, TIPO(FILTER_VALIDATE_INT))
-
-        document.addEventListener ('DOMContentLoaded', () => {
-            let btnRedirigir = document.getElementById('continuar');
-
-            btnRedirigir.addEventListener("click", () => {
-                window.location = "productos.php?productos=todos";
-            });     
-
-            let ocultar = document.getElementById('ocultar');
-
-            if (ocultar != null){
-                let mp = document.getElementsByClassName('mercadopago-button');
-
-                for (let i=0; i < mp.length;i++){
-                    mp[i].style.visibility = 'hidden';
-                }
-            }     
-
-            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-            let contenedorEnlaces = document.getElementsByClassName('cont-enlaces');
-
-            for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {
-                    window.location = 'detalleArticulo.php?art='+articulo;
-                });
-
-                contenedorEnlaces[j].addEventListener ("click" , () => {
-                    window.location = 'detalleArticulo.php?art='+articulo;
-                });
-            }
-
-        });
-	</script>
 </head>
 <body id="body">
 

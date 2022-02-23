@@ -1,96 +1,145 @@
 window.onload = function (){
-    let busqueda = document.getElementById ('lupa');
     let filtro = document.getElementById ('header-buscar'); 
-    let inicio = document.getElementById ('inicio');
-    let nuevaConsulta = document.getElementById ('nuevaConsulta');
-    let agregarCarrito = document.getElementsByClassName('prod-fav');
     let eliminarCarrito = document.getElementsByClassName('elim-prod');
     let agregarFavorito = document.getElementsByClassName ('fav-prod');
-    let eliminarFavorito = document.getElementsByClassName ('elim-fav');
     let modificarCarrito = document.getElementsByClassName ('cant-compra');
 
-    if (agregarCarrito[0] != null){
-        for (let i=0; i<agregarCarrito.length;i++){
-            agregarCarrito[i].addEventListener ("click", () => {
-                let id = agregarCarrito[i].value;
+    document.addEventListener('click', ev => {
+        if (ev.target.matches('#inicio')){
+            window.location.href = 'index.php';
+        }
+        else if (ev.target.matches('#lupa')){
+            window.location.href = 'productos.php?buscador='+filtro.value;
+        }
+        else if (ev.target.matches('#nuevaConsulta')){
+            window.location.href = 'contacto.php';
+        }
+        else if (ev.target.matches('.btnRedirigir')){
+            window.location.href = 'pago.php';
+        }
+        else if (ev.target.matches('#cancelar')){
+            window.location.href = 'informacionPersonal.php';
+        }
+        else if (ev.target.matches('#continuar')){
+            window.location = "productos.php?productos=todos";
+        }
+        else if (ev.target.matches('#ocultar')){
+            let mp = document.getElementsByClassName('mercadopago-button');
 
-                eliminarProducto (id);
+            for (let i=0; i < mp.length;i++){
+                mp[i].style.visibility = 'hidden';
+            }
+        }
+	});
+
+    document.addEventListener('keydown', ev => {
+        if (ev.target.matches('#header-buscar')){
+            if (ev.key === "Enter"){
+                window.location.href = 'productos.php?buscador='+filtro.value;
+            }
+        }
+    });
+
+    document.addEventListener('change', ev => {
+        for (let i=0; i<modificarCarrito.length;i++){
+            let labelSelect = document.getElementsByClassName('labelSelect');
+            let id = labelSelect[i].id;
+
+            modificarProducto(id,i+1);
+        }
+    });
+        
+    let url = window.location.pathname;
+    let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+
+    if(url.indexOf('productos') !== -1) {
+        $(imagenes).each ((index,imagen,array) => {
+            imagen.addEventListener ('click', () => {
+                let categoria = getQueryVariable ('cate');
+                let subcategoria = getQueryVariable ('sub');
+                let articulos = getQueryVariable ('articulos');
+                let articulo = imagen.getAttribute('alt');
+
+                if (categoria != false){
+                    window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
+                    '&articulos='+articulos+'&art='+articulo;
+                }
+                else{
+                    window.location = 'detalleArticulo.php?art='+articulo;
+                }
+            })
+        });
+    }
+    else if((url.indexOf('carritoCompras') !== -1) || (url.indexOf('comprasUsuario') !== -1)
+    || (url.indexOf('favoritos') !== -1 )){
+        $(imagenes).each ((index,imagen,array)=>{
+            imagen.addEventListener ('click', () => {
+                let articulo = imagen.getAttribute('alt');
+                window.location = 'detalleArticulo.php?art='+articulo;
+            });
+        });
+
+        let contenedorEnlaces = document.getElementsByClassName('cont-enlaces');
+
+        for (j=0;j<imagenes.length;j++){
+            let articulo = imagenes[j].getAttribute('alt');
+
+            contenedorEnlaces[j].addEventListener ("click" , () => {
+                window.location = 'detalleArticulo.php?art='+articulo;
             });
         }
     }
+    else if(url.indexOf('subcategoria') !== -1){
+        let categoria = getQueryVariable ('categoria');
 
-    if (eliminarCarrito[0] != null){
+        //Enviar a prod segun la subcategoria que se eligió
+        $(imagenes).each ((index,imagen,array)=>{
+            imagen.addEventListener ('click', () => {
+                let img = imagen.getAttribute('alt');
+                img = img.substring(0, 4);
+                let title = imagen.getAttribute('title');
+                window.location = 'productos.php?articulos='+img+'&cate='+categoria+'&sub='+title;
+            });
+        });
+    }
+
+    if (url.indexOf('carritoCompras') !== -1){
         for (let i=0; i<eliminarCarrito.length;i++){
             eliminarCarrito[i].addEventListener ("click", () => {
                 let id = eliminarCarrito[i].value;
-
                 eliminarProducto (id);
             });
         }
-    }
 
-    if (agregarFavorito[0] != null){
         for (let i=0; i<agregarFavorito.length;i++){
             agregarFavorito[i].addEventListener ("click", () => {
                 let id = agregarFavorito[i].value;
-
                 agregarFav (id);
             });
         }
     }
+    else if (url.indexOf('favorito') !== -1){
+        let agregarCarrito = document.getElementsByClassName('prod-fav');
+        let eliminarFavorito = document.getElementsByClassName ('elim-fav');
 
-    if (eliminarFavorito[0] != null){
+        for (let i=0; i<agregarCarrito.length;i++){
+            agregarCarrito[i].addEventListener ("click", () => {
+                let id = agregarCarrito[i].value;
+                agregarProducto (id);
+            });
+        }
+
+        console.log("entre");
+
         for (let i=0; i<eliminarFavorito.length;i++){
             eliminarFavorito[i].addEventListener ("click", () => {
                 let id = eliminarFavorito[i].value;
-
                 eliminarFav(id);
-            });
+            })
         }
-    }
-
-    if (inicio != null){
-        inicio.addEventListener ('click', () => {
-            window.location.href = 'index.php';
-        });
-    }
-    
-    if (busqueda != null){
-        filtro.addEventListener ("keydown", function (event){
-            if (event.key === "Enter"){
-                window.location.href = 'productos.php?buscador='+filtro.value;
-            }
-        })
-        busqueda.addEventListener ("click", () =>{
-            window.location.href = 'productos.php?buscador='+filtro.value;
-        });
-    }
-
-    if (nuevaConsulta != null){
-        nuevaConsulta.addEventListener ('click', () => {
-            window.location.href = 'contacto.php';
-        });
-    }
-
-    if (modificarCarrito[0] != null){
-        for (let i=0; i<modificarCarrito.length;i++){
-            modificarCarrito[i].addEventListener ("change", () => {
-                let labelSelect = document.getElementsByClassName('labelSelect');
-                let id = labelSelect[i].id;
-
-                modificarProducto(id,i+1);
-            });
-        }
-    }
-
-    let mp = document.getElementsByClassName('btnRedirigir');
-
-    if (mp[0] != null){
-        mp[0].addEventListener ("click", () => {
-            window.location.href = 'pago.php';
-        })
     }
 }
+
 
 //INDEX
 const ponerMouse = (texto,imagen) => {

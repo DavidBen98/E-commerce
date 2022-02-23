@@ -28,7 +28,13 @@
         }
 
         public function verifyTokens(){
-            $this->cliente->setToken($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+            if (isset($_SESSION['oauth_token'])){
+                $this->cliente->setToken($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+            }
+            else{
+                $this->requestTokens();
+                $this->cliente->setToken($_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+            }
         }
 
         public function isLogin(){
@@ -63,6 +69,9 @@
                     }
                     
                     return true;
+                }
+                else if ($reply->httpstatus == 401){
+                    header ('location: login.php?error=401');
                 }
             }
             return false;

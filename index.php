@@ -228,12 +228,12 @@
     <script src="js/funciones.js"></script>
     <script>
         document.addEventListener ('DOMContentLoaded', () => {
-            let img_cat = document.getElementsByClassName('img-cat');
-            let txt_cat = document.getElementsByClassName('texto');
+            let imgCat = document.getElementsByClassName('img-cat');
+            let txtCat = document.getElementsByClassName('texto');
 
-            for (i=0;i<img_cat.length;i++){
-                let img = img_cat[i];
-                let txt = txt_cat[i];
+            for (i=0;i<imgCat.length;i++){
+                let img = imgCat[i];
+                let txt = txtCat[i];
 
                 img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
                 img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
@@ -244,7 +244,7 @@
 
             let imagenes = document.getElementsByClassName('cont-images');
             for (j=0;j<imagenes.length;j++){
-                let imagen = img_cat[j].getAttribute('alt');
+                let imagen = imgCat[j].getAttribute('alt');
                 imagenes[j].addEventListener("click", () => {
                     window.location = 'subcategoria.php?categoria='+imagen;
                 });

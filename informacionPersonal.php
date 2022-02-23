@@ -3,6 +3,7 @@
     include ("inc/conn.php");
     include ('config.php');
     include("encabezado.php"); 
+    include('apiDatos.php');
 
     if (perfil_valido(3)) {
        header("location:login.php");
@@ -43,7 +44,6 @@
         $ciudad =  isset($row['ciudad'])? $row['ciudad'] : null;
         $ciudad = json_encode ($ciudad);
         
-        include('apiDatos.php');
 
         $infoPersonal = "<form action='modificarPerfil.php' method='post' class='cont-perfil'> 
                                 <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
@@ -140,14 +140,6 @@
             $('#provincia').change (function (){
                 actualizarCiudad();
             });
-
-            let cancelar = document.getElementById('cancelar');
-
-            if (cancelar != null){
-                cancelar.addEventListener ("click", () => {
-                    window.location.href = 'informacionPersonal.php';
-                });
-            }
 
 		});
     </script>
