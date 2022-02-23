@@ -155,7 +155,7 @@
             align-items:center;
             border-bottom: 1px solid #D3D3D3;
             width:100%;
-            height:180px;
+            min-height:130px;
             padding:10px 0;
             margin: 0 10px;
         }
@@ -184,7 +184,6 @@
         }
 
         .consulta{
-            width:70%;
             background-color:white;
             display:flex;
             flex-wrap:wrap;
@@ -192,7 +191,7 @@
             border-radius:5px;
             border: 1px solid black;
             margin-bottom: 30px;
-            margin-left:4%;
+            margin-left:2%;
             padding: 0 10px;
         }
 
@@ -231,7 +230,7 @@
         }
 
         .principal{
-            width:60%;
+            width:50%;
             display:flex;
             justify-content: space-between;
             flex-wrap:wrap;
@@ -246,11 +245,11 @@
         }
 
         .secundario{
-            width: 40%;
+            width: 50%;
             display: flex;
             flex-wrap: wrap;
             align-content: start;
-            justify-content: center;
+            justify-content: end;
         }
 
         .definir, .caract{
@@ -258,11 +257,15 @@
             height:100%;
             display:flex;
             flex-wrap:wrap;
-            align-items:start;
+            align-items:center;
         }
 
         .definir{
             width:30%;
+        }
+
+        .definir b{
+            width:100%;
         }
 
         .caract p{
@@ -282,7 +285,7 @@
         }
 
         .titulo{
-            width: 60%;
+            width: 65%;
             height: auto;
         }
 
@@ -292,7 +295,10 @@
             padding-bottom: 10px;
             width:20%;
             display:block;
-            margin: 0 20px 20px 10px;
+            margin: 0 0 20px 1%;
+            border-radius: 5px;
+            padding-top:0;
+            background-color: rgba(0, 0, 0,0);
         }
 
         .botones{
@@ -467,19 +473,21 @@
     </header>
 
     <main>
-        <?php 
-            echo "<ol class='ruta'>
-                        <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                        <li style='border:none;text-decoration: none;'>Favoritos</li>
-                  </ol>
-            ";
 
-            echo "<div class='contenedor-botones'>
-                    $cont_usuarios
-                  </div>";
+        <ol class='ruta'>
+            <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+            <li style='border:none;text-decoration: none;'>Favoritos</li>
+        </ol>
 
-            echo $div;
-        ?>  
+        <aside class='contenedor-botones'>
+            <?= $cont_usuarios; ?>
+        </aside>
+
+        <section style='display:flex; width:78%; height:auto;'>
+            <?= $div; ?>
+        </section>
+        
+
     </main>
 
     <footer id='pie'>

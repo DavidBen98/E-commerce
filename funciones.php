@@ -4,18 +4,12 @@
 
     define('PSW_SEMILLA','34a@$#aA9823$');
 
-    $onclick1 = "window.location.href='informacionPersonal.php'";
-    $onclick2 = "window.location.href='consultaUsuario.php'";
-    $onclick3 = "window.location.href='cerrarSesion.php'";
-    $onclick4 = "window.location.href='comprasUsuario.php'";
-    $onclick5 = "window.location.href='favoritos.php'";
-
     $cont_usuarios = "  <div class='contenedor-btn'>        
-                            <div onclick=$onclick1 style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
-                            <div onclick=$onclick4>Mis pedidos</div>
-                            <div onclick=$onclick5>Favoritos</div>
-                            <div onclick=$onclick2>Historial de consultas</div>
-                            <div onclick=$onclick3 style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
+                            <div id='btnInfoPersonal' style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
+                            <div id='btnCompraUsuario'>Mis pedidos</div>
+                            <div id='btnFavoritos'>Favoritos</div>
+                            <div id='btnConsultas'>Historial de consultas</div>
+                            <div id='btnCerrarSesion' style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
                         </div> 
     ";
 
@@ -131,8 +125,8 @@
                     echo "<div class='producto'>
                             <img src='images/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
                             <div class='caracteristicas'>
-                                <p class='descripcion'>". ucfirst($row['descripcion'])." </p>
-                                <p class='precio' style='text-align:center;'> $". ucfirst($row['precio'])." </p>
+                                <h2 class='descripcion' style='margin:0;font-weight:normal; font-size:1.1rem;'>". ucfirst($row['descripcion'])." </h2>
+                                <h3 class='precio' style='text-align:center;font-weight:normal; font-size:1.2rem;'> $". ucfirst($row['precio'])." </h3>
                             </div>
                         </div>";           
                 };

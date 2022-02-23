@@ -34,11 +34,7 @@
                     <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
                         Consultas realizadas
                     </h1>
-                </div>    
-                <div class='renglon' style='border-bottom:1px solid #858585;'>      
-                    <p><b>Consulta</b></p>
-                    <p><b>Respuesta</b></p>
-                </div>            
+                </div>         
     ";
     $i = 0;
 
@@ -46,29 +42,34 @@
         $i++;
     }
 
-    $rs = $db->query($sql);
-
-    $j = 0;
-    foreach ($rs as $row) { 
-        $respuesta = "";                     
-        if ($row['respondido']){
-            $respuesta = "Ha sido contestada la consulta";
-        }
-        else{
-            $respuesta = "Pendiente";
-        }
-        
-        $pregunta = ucfirst($row['texto']);
-
-        $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
-                        <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
-                        <p>$respuesta</p>
-                    </div>";
-        $j++;
-    }
-
-    if ($j == 0){
+    if ($i == 0){
         $div .= "<p>Aún no hay consultas realizadas </p>";
+    }
+    else{
+        $div .= "<div class='renglon' style='border-bottom:1px solid #858585;'>      
+                    <p><b>Consulta</b></p>
+                    <p><b>Respuesta</b></p>
+                </div> 
+        ";
+        
+        $rs = $db->query($sql);
+
+        foreach ($rs as $row) { 
+            $respuesta = "";                     
+            if ($row['respondido']){
+                $respuesta = "Ha sido contestada la consulta";
+            }
+            else{
+                $respuesta = "Pendiente";
+            }
+            
+            $pregunta = ucfirst($row['texto']);
+    
+            $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
+                            <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
+                            <p>$respuesta</p>
+                        </div>";
+        }
     }
 
     $div .= "<div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
@@ -96,6 +97,9 @@
             width:20%;
             display:block;
             margin: 0 80px 30px 20px;
+            border-radius: 5px;
+            padding:0;
+            background-color: rgba(0, 0, 0,0);
         }
 
         .contenedor-btn{
@@ -159,9 +163,9 @@
             <li style='border:none;text-decoration: none;'>Consulta de usuario</li>
         </ol>
         
-        <div class='contenedor-botones'>
+        <aside class='contenedor-botones'>
             <?= $cont_usuarios; ?>
-        </div>
+        </aside>
 
         <?= $div; ?>  
     </main>

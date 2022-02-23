@@ -267,14 +267,7 @@
             align-items:center;
             width: 68%;
         }
-
-        .contenedor-botones{
-            display:flex;
-            justify-content: end;
-            flex-wrap: wrap;
-            padding-bottom: 10px;
-        }
-
+        
         .botones{
             margin: 0 10px;
         }

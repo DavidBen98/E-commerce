@@ -364,6 +364,8 @@
             justify-content: end;
             flex-wrap: wrap;
             padding-bottom: 10px;
+            border-radius: 5px;
+            padding:0;
         }
 
         .botones{

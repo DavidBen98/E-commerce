@@ -338,6 +338,9 @@
             width:20%;
             display:block;
             margin: 0 20px 20px 10px;
+            border-radius: 5px;
+            padding-top:0;
+            background-color: rgba(0, 0, 0,0);
         }
 
         .botones{
@@ -508,9 +511,9 @@
             <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
             <li style='border:none;text-decoration: none;'>Mis compras</li>
         </ol>
-        <div class='contenedor-botones'>
+        <aside class='contenedor-botones'>
             <?=$cont_usuarios; ?>
-        </div>
+        </aside>
 
         <?= $div; ?>  
     </main>

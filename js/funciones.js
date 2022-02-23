@@ -30,6 +30,21 @@ window.onload = function (){
                 mp[i].style.visibility = 'hidden';
             }
         }
+        else if (ev.target.matches('#btnInfoPersonal')){
+            window.location.href='informacionPersonal.php';
+        }
+        else if (ev.target.matches('#btnCompraUsuario')){
+            window.location.href='comprasUsuario.php';
+        }
+        else if (ev.target.matches('#btnFavoritos')){
+            window.location.href='favoritos.php';
+        }
+        else if (ev.target.matches('#btnConsultas')){
+            window.location.href='consultaUsuario.php';
+        }
+        else if (ev.target.matches('#btnCerrarSesion')){
+            window.location.href='cerrarSesion.php';
+        }
 	});
 
     document.addEventListener('keydown', ev => {
@@ -139,7 +154,6 @@ window.onload = function (){
         }
     }
 }
-
 
 //INDEX
 const ponerMouse = (texto,imagen) => {
@@ -455,6 +469,7 @@ const modDatos = (provincia) => {
                 input[i].style.borderRadius = '5px';
             }
         }
+
         confirmar.style.display = 'block';
         cancelar.style.display = 'block';
         modificar.style.display = 'none';
@@ -467,6 +482,8 @@ const modDatos = (provincia) => {
             mensaje.style.display = 'none';
         }
 
+        descripcion[5].style.display='none';
+        descripcion[6].style.display='flex';
         let selectProvincia = document.getElementById('provincia');
         selectProvincia.style.display = 'block';
         document.getElementById('prov').style.display = 'none';
@@ -477,6 +494,9 @@ const modDatos = (provincia) => {
             }
         }
 
+        descripcion[7].style.display='none';
+        descripcion[8].style.display='flex';
+
         actualizarCiudad();
         let inputCiudad = document.getElementById('inputCiudad');
         inputCiudad.style.display = 'none';
@@ -485,11 +505,11 @@ const modDatos = (provincia) => {
         direccion = direccion[7].value;
 
         //Se utiliza auxDireccion porque algunas ciudades empiezan con numero, ej: 25 de mayo, 9 de julio...
-        let auxDireccion = direccion.substring(2,direccion.length);
+        let auxDireccion = direccion.substring(4,direccion.length);
         let numeroDesde = auxDireccion.search(/[1-9]/);
         let numeroHasta = direccion.indexOf(',', numeroDesde);
-        let numero = direccion.substring (numeroDesde+2, numeroHasta-1);
-        let calle = direccion.substring (0,numeroDesde+1);
+        let numero = direccion.substring (numeroDesde+4, numeroHasta-1);
+        let calle = direccion.substring (0,numeroDesde+3);
         let piso = direccion.substring(numeroHasta+2, direccion.length);
 
         let inputDireccion = document.getElementById('direccion');
@@ -506,7 +526,7 @@ const modDatos = (provincia) => {
         inputPiso.value = piso;
     }
     else{
-        if (window.location == 'http://localhost/E-commerceMuebleria/informacionPersonal.php?modif=exito#mensaje'){
+        if (window.hash == '#mensaje'){
             window.location = 'informacionPersonal.php';
         }
         else{

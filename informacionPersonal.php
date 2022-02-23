@@ -52,50 +52,52 @@
                                     </h1>
                                 </div>    
                                 <div class='renglon'>
-                                    <p class='descripciones'>Nombre de usuario</p>
-                                    <input type='text'  class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row['nombreusuario']}' readonly>
+                                    <label class='descripciones' for='nombreUsuario'>Nombre de usuario</label>
+                                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row['nombreusuario']}' readonly>
                                 </div>
 
                                 <div class='renglon'>
-                                    <p class='descripciones'>Número de DNI</p>
-                                    <input type='number' class='dato' name='dni' title='dni' value='{$row['nrodni']}' readonly>
+                                    <label class='descripciones' for='dni'>Número de DNI</label>
+                                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row['nrodni']}' readonly>
                                 </div>
 
                                 <div class='renglon'>
-                                    <p class='descripciones'>Nombre</p>
-                                    <input type='text' class='dato' name='nombre' title='nombre' value='{$row['nombre']}' readonly>
+                                    <label class='descripciones' for='nombre'>Nombre</label>
+                                    <input type='text' class='dato' id='nombre' name='nombre' title='nombre' value='{$row['nombre']}' readonly>
                                 </div>
 
                                 <div class='renglon'>
-                                    <p class='descripciones'>Apellido</p>
-                                    <input type='text' class='dato' name='apellido' title='apellido' value='{$row['apellido']}' readonly>
+                                    <label class='descripciones' for='apellido'>Apellido</label>
+                                    <input type='text' class='dato' name='apellido' id='apellido' title='apellido' value='{$row['apellido']}' readonly>
                                 </div>
 
                                 <div class='renglon'>
-                                    <p class='descripciones'>Email</p>
-                                    <input type='email' class='dato' name='email' title='email' value='{$row['email']}' readonly>
+                                    <label class='descripciones' for='email'>Email</label>
+                                    <input type='email' class='dato' id='email' name='email' title='email' value='{$row['email']}' readonly>
                                 </div>
 
                                 <div class='renglon'>
-                                    <p class='descripciones'>Provincia</p>
+                                    <label class='descripciones' for='prov'>Provincia</label>
                                     <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row['provincia']}' readonly> 
+                                    <label class='descripciones' for='provincia' style='display:none'>Provincia</label>
                                     $select
                                 </div>
 
                                 <div class='renglon' id='renglonCiudad'>
-                                    <p class='descripciones'>Ciudad</p>
+                                    <label class='descripciones' for='inputCiudad'>Ciudad</label>
                                     <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row['ciudad']}' readonly>
+                                    <label class='descripciones' for='ciu' style='display:none;'>Ciudad</label>
                                 </div>
 
                                 <div class='renglon'>
-                                    <p class='descripciones'>Dirección</p>
+                                    <label class='descripciones' for='direccion'>Dirección</label>
                                     <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row['direccion']}' readonly>
 								    <div class='direccion' style='width:47%; align-items:center; justify-content:end; display:none'>
-                                        <label for='direccion[]' class='form-label'>Calle</label>
+                                        <label for='inputCalle' class='form-label'>Calle</label>
                                         <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
-                                        <label for='direccion[]' class='form-label'>Número</label>
+                                        <label for='inputNumero' class='form-label'>Número</label>
                                         <input type='text' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
-                                        <label for='direccion[]' class='form-label'>Depto</label>
+                                        <label for='inputPiso' class='form-label'>Depto</label>
                                         <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
                                     </div>
                                 </div>";
@@ -210,6 +212,9 @@
             width:20%;
             display:block;
             margin: 0 80px 0 20px;
+            border-radius: 5px;
+            padding:0;
+            background-color: rgba(0, 0, 0,0);
         }
 
         .contenedor-btn{
@@ -309,10 +314,12 @@
         <?= $ruta; ?>
 
         <div style='display:flex; justify-content:start;'>
-            <div class='contenedor-botones'>
+            <aside class='contenedor-botones'>
                 <?= $cont_usuarios; ?>
-            </div>
-                <?= $infoPersonal; ?>
+            </aside>
+
+            <?= $infoPersonal; ?>
+
         </div>
     </main>
 
