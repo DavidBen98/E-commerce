@@ -1,111 +1,64 @@
 <?php 
     include("encabezado.php");
+    include_once('funciones.php');
+
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
+
+    $lista = obtenerSubcategorias();
+
+    $form = " <form class='cont' enctype='multipart/form-data'>     
+                    <label for='subcategoria' class=''>Subcategoría</label>
+                    $lista
+                    
+                    <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
+            </form>	"
 ?>
 <!DOCTYPE html>
-<?php  
-	$form="
-			
-	";
-?>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Muebles Giannis - Las mejores marcas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
-	<style>
-		main div{
-			background-color:white;
-			height:100px;
-			width:300px;
-		}
-
-		main div{
-			background-color:white;
-			height:100px;
-			width:300px;
-		}
-
-        #imagen{
-            display:flex;
-            align-items:center;
-            width: 100%;
-            
-        }
-        #buscar{
-            display:flex;
-            justify-content: center;
-            align-items: center;
-            width:80%;
-            height:100%;
-            margin-left:50px;
-        }
-
-        #btn-lupa{
-            width:40px;
-            height:40px;
-            display:flex;
-            align-items:center;
-            margin-right:20px;
-        }
-
-        #header-buscar{
-            width:490px;
-            margin:0;
-        }
-
-        #lupa{
-            height:33px;
-            border-radius:5px;
-        }
-
-        #span{
-            width:110px;
-            margin: auto;
-        }
-
-        #barra_superior{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            width: 160px;
-            font-size: 1.3rem;
-            background-color: #40D6E5;
-            border-radius: 5px;
-            height:30px;
-        }
-
-        #cerrar{
-            padding:4px 5px 5px;
-            text-decoration: none;
-            color: white;
-            background-color:black;
-            height:20px;
-            border-radius: 5px;
-            margin:auto;
-        }
-	</style>
-      <script>
-        //Validar
+    <title>Muebles Giannis - Las mejores marcas</title>
+    <script>
     </script>
+    <style>
+        .cont{
+            width:40%;
+            height: auto;
+            justify-content:center;
+        }
+
+        .cont input, .cont label, .cont select{
+            width:100%;
+            height:40px;
+            text-align:center;
+            margin-bottom: 10px;
+        }
+
+        .cont label{
+            font-size: 1.3rem;
+        }
+
+        .btn{
+            margin:20px 0;
+        }
+
+        select{
+            font-size: 1.1rem;
+        }
+
+    </style>
 </head>
 <body>
-	<header>
+    <header id='header'>
         <?php echo $encab; ?>
 	</header>
-    <main>
-            <form action=' ' method='post' class='cont-baj'>
-				
-                <?php  crearListas(); ?>
-
-				<br>
-
-				<div class='cont-btn'>
-					<input type='submit' class='btn-enviar' name='bAceptar' id='bAceptar' title='Aceptar' value='Aceptar'> <br>
-				</div>
-			</form>				
-	</main>
+    <main id='main'>
+        <?= $form; ?>
+    </main> 
 </body>
 </html>

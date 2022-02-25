@@ -9,102 +9,55 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <style>
-        .contenedor{
-            display:flex;
-            width:500px;
+        .cont{
+            width:40%;
+            height: 250px;
         }
 
-        input{
-            width:300px;
+        .form-control{
+            cursor: pointer;
         }
 
-        main div{
-			height:100px;
-			width:300px;
-		}
-
-        form{
-            display:flex;
-            width: 500px;
-            flex-wrap: wrap;
-        }
-
-        #imagen{
-            display:flex;
-            align-items:center;
-            width: 100%;
-            
-        }
-        #buscar{
-            display:flex;
-            justify-content: center;
-            align-items: center;
-            width:80%;
-            height:100%;
-            margin-left:50px;
-        }
-
-        #btn-lupa{
-            width:40px;
-            height:40px;
-            display:flex;
-            align-items:center;
-            margin-right:20px;
-        }
-
-        #header-buscar{
-            width:490px;
-            margin:0;
-        }
-
-        #lupa{
-            height:33px;
-            border-radius:5px;
-        }
-
-        #span{
-            width:110px;
-            margin: auto;
-        }
-        
-        #cerrar{
-            padding:4px 5px 5px;
-            text-decoration: none;
-            color: white;
-            background-color:black;
-            height:20px;
-            border-radius: 5px;
+        .btn{
             margin:auto;
         }
 
-        .col-sm-2{
-            display:block;
+        .archivo{
+            display:flex;
+            justify-content:center;
+            width:100%;
+            margin:20px;
+        }
+
+        .contenedor label{
+            height:40px;
+            font-size: 1.2rem;
         }
     </style>
-    <script>
-	</script>
 </head>
 <body>
-    <header>
+    <header id='header'>
         <?php echo $encab; ?>
 	</header>
-    <main>
+    <main id='main'>
         <?php echo "
-                    <form action=' ' method='post'>
+                    <form action='eventosCat.php' enctype='multipart/form-data' class='cont' method='post'>
                         <div class='contenedor'>
-                            <label for='nombre'class='col-sm-2 form-label'>Nombre</label>
-                            <div class='cont-input'>
-                                <input type='' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
-                            </div>
+                            <label for='nombre'class=''>Nombre de categoría</label>
+                            <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
                         </div>
-                        <input type='file' class='form-control' id='inputGroupFile04' aria-label='Upload'>           
-                        <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Aceptar'>          
+                        <div class='archivo'>
+                            <input type='file' class='form-control' id='imagen' aria-label='Upload'>           
+                        </div>    
+                        <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>          
                     </form> 
                 "; 
         ?> 
+
     </main>
 </body>
 </html>

@@ -41,7 +41,7 @@
                         <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
-        $barra_sup ="<div id='barra-superior'>
+        $barra_sup ="<div id='perfilUsuario'>
                         $links
                     </div> ";
                     
@@ -624,5 +624,65 @@
         }
 
         return $existe;
+    }
+
+    function obtenerCategorias(){
+        global $db; 
+
+        //trae los nombres de las categorias
+        $sql = "SELECT nombre_categoria, id_categoria
+                FROM `categoria` 
+                GROUP BY nombre_categoria 
+        "; 
+    
+        $rs = $db->query($sql); 
+    
+        //lista de categorias
+        $listas = " 
+                <select id='categoria' class='hover' name='categoria'> 
+        ";
+    
+        $nomCat = "";
+        
+        foreach ($rs as $row) {
+            $listas .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
+            $nomCat .= $row['nombre_categoria'] . ",";	
+        }
+    
+        $arrNomCat = explode(",",$nomCat); 
+    
+        $listas .= " </select> "; 
+
+        return $listas;
+    }
+
+    function obtenerSubcategorias(){
+        global $db; 
+
+        //trae los nombres de las categorias
+        $sql = "SELECT nombre_subcategoria, id_subcategoria
+                FROM `subcategoria` 
+                GROUP BY nombre_subcategoria 
+        "; 
+    
+        $rs = $db->query($sql); 
+    
+        //lista de categorias
+        $listas = " 
+                <select id='subcategoria' class='hover' name='subcategoria'> 
+        ";
+    
+        $nomCat = "";
+        
+        foreach ($rs as $row) {
+            $listas .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
+            $nomCat .= $row['nombre_subcategoria'] . ",";	
+        }
+    
+        $arrNomCat = explode(",",$nomCat); 
+    
+        $listas .= " </select> "; 
+
+        return $listas;
     }
 ?>

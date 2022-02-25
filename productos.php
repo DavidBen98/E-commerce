@@ -223,68 +223,8 @@
 		}
     </style>
     <script> 
-			// $.ready(function(){
-			// 		console.log ("entre aca");
-
-			// 		imagenes.forEach ((imagen) => {
-			// 			let categoria = getQueryVariable ('cate');
-			// 			let subcategoria = getQueryVariable ('sub');
-			// 			let articulos = getQueryVariable ('articulos');
-			// 			let articulo = imagen.getAttribute('alt');
-						
-			// 			//redirigir();
-			// 			console.log (articulo);
-			// 			if (categoria != false){
-			// 				window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
-			// 				'&articulos='+articulos+'&art='+articulo;
-			// 			}
-			// 			else{
-			// 				window.location = 'detalleArticulo.php?art='+articulo;
-			// 			}
-            //     	});
-			// });
 		document.addEventListener ('DOMContentLoaded', () => {
 			let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-
-            //for (j=0;j<imagenes.length;j++){
-				// $.ready(function(){
-				// 	console.log ("entre aca");
-
-				// 	imagenes.forEach ((imagen) => {
-				// 		let categoria = getQueryVariable ('cate');
-				// 		let subcategoria = getQueryVariable ('sub');
-				// 		let articulos = getQueryVariable ('articulos');
-				// 		let articulo = imagen.getAttribute('alt');
-						
-				// 		//redirigir();
-				// 		console.log (articulo);
-				// 		if (categoria != false){
-				// 			window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
-				// 			'&articulos='+articulos+'&art='+articulo;
-				// 		}
-				// 		else{
-				// 			window.location = 'detalleArticulo.php?art='+articulo;
-				// 		}
-                // 	});
-				// });
-			// for (j=0;j<imagenes.length;j++){
-			// 	let categoria = getQueryVariable ('cate');
-			// 	let subcategoria = getQueryVariable ('sub');
-			// 	let articulos = getQueryVariable ('articulos');
-			// 	let articulo = imagenes[j].getAttribute('alt');
-
-			// 	if (categoria != false){
-			// 		imagenes[j].addEventListener("click", () => {
-			// 			window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
-			// 			'&articulos='+articulos+'&art='+articulo;
-			// 		});
-			// 	}
-			// 	else{
-			// 		imagenes[j].addEventListener("click", () => {
-			// 			window.location = 'detalleArticulo.php?art='+articulo;
-			// 		});
-			// 	}
-			// }
 
 			let catalogo = document.getElementById('catalogo'); //Boton excel
 
@@ -324,23 +264,6 @@
 			$('#categoria').change (function (){
 				actualizarSubcategoria();
 			});
-
-			let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
-
-			// $('.img-cat').each (function(index,imagen,array){
-			// 	let categoria = getQueryVariable ('cate');
-			// 	let subcategoria = getQueryVariable ('sub');
-			// 	let articulos = getQueryVariable ('articulos');
-			// 	let articulo = imagen.getAttribute('alt');
-
-			// 	if (categoria != false){
-			// 		window.location = 'detalleArticulo.php?categoria='+categoria+'&subcategoria='+subcategoria+
-			// 		'&articulos='+articulos+'&art='+articulo;
-			// 	}
-			// 	else{
-			// 		window.location = 'detalleArticulo.php?art='+articulo;
-			// 	}
-			// });
 		});	
     </script>
 </head>

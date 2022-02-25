@@ -658,6 +658,7 @@ const actualizarSubcategoria = () => {
         url: "rellenarSelect.php",
         data: "categoria= " + $('#categoria').val (),
         success: function (r){
+            console.log("subcategorias");
             $('#subc').html (r);
         }
     });

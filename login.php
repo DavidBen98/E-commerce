@@ -164,6 +164,9 @@
 								else if($error == '2'){
 									$form .= "<p class='e_error'>La contraseña ingresada es inválida</p>";
 								}
+								else if ($error == '401'){
+									$form .= "<p class='e_error'>Ha ocurrido un error inesperado, reintente nuevamente por favor</p>";
+								}
 							}						
 				$form .= "</p>	
 						<div class='cont-campo' id='btn-iniciar'>

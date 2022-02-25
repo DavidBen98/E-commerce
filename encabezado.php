@@ -3,7 +3,11 @@
     $cantCarrito = cantidadCarrito();
 
     if (perfil_valido(1)){
-        $encab =  "  <div id='imagen'>
+        $encab =  " <div id='logo'>
+                            <a href='index.php' id='link-logo'> 
+                                <h1><i id='titulo-principal' title='Logo del comercio'>Muebles Giannis</i></h1>
+                            </a>
+                        </div>
                         <div id='buscar'>
                             <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                                 <button id='lupa' title='lupa-buscar'>
@@ -12,11 +16,11 @@
                         </div>"
                         .
                             crear_barra() . "
-                     </div>
+                    
                         <nav id='navigation'>
                             <ul>
                                 <li><a href='ve.php'>Productos</a></li>
-                                <li><a href='ve_cat_abm.php'>Categorias</a></li>
+                                <li><a href='ve_cat_abm.php'>Categorías</a></li>
                                 <li><a href='consultas.php'>Consultas</a></li>
                                 <li><a href='ventas.php'>Ventas</a></li>
                                 <li><a href='usuarios.php'>Usuarios</a></li>

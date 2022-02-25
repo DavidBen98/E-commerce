@@ -9,7 +9,7 @@
 
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM subcategoria
-                WHERE id_categoria = $cate";
+                WHERE id_categoria = '$cate'";
 
         $rs = $db->query($sql); 
 
@@ -50,7 +50,7 @@
             sort($municipio);
 
             echo "<label for='ciudad' class='form-label'>Ciudad</label>
-                <select id='ciu' name='ciudad' class='form-select'>";  
+                  <select id='ciu' name='ciudad' class='form-select'>";  
             foreach ($municipio as $nombre){ 
                 echo "<option value='$nombre'>". $nombre . "</option>";
             }   
@@ -61,6 +61,7 @@
     if (!empty($_POST['prov'])){ //desde modificarDatos
         $provincia = $_POST['prov'];
         $ciudad = $_POST['ciudad'];
+
         $selectCiudad = "";
         if ($provincia != 02 && ($provincia == 30 || $provincia ==78 || $provincia == 86)){
             //Si es entre rios, santa cruz o santiago del estero
@@ -85,7 +86,8 @@
 
             sort($municipio);
 
-            $selectCiudad =  "<select id='ciu' name='ciudad' title='ciudad' class='form-select'>";  
+            $selectCiudad =  "<select id='ciu' name='ciudad' title='ciudad' class='form-select'>"; 
+
             foreach ($municipio as $nombre){ 
                 if ($nombre == $ciudad){
                     $selectCiudad .= "<option value='$nombre' selected>". $nombre . "</option>";

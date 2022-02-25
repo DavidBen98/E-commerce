@@ -23,7 +23,7 @@ header a {
 
 /*PRIMER CONTENEDOR DE ENVIO A TODO EL PAIS*/
 #html-slot {
-    background-color: black;
+    background-color: #000;
     text-align: center;
 }
 #html-slot span{
@@ -117,7 +117,7 @@ header a {
     background-color: white;
 }
 
-#barra-superior{
+#perfilUsuario{
     display:flex;
     align-items: center;
     justify-content: center;

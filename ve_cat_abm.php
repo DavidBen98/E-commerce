@@ -9,104 +9,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            document.addEventListener('click', ev => {
+                if (ev.target.matches('#altaCat')){
+                    window.location.href='ve_cat_alta.php';
+                }
+                else if (ev.target.matches('#bajaCat')){
+                    window.location.href='ve_cat_baja.php';
+                }
+                else if (ev.target.matches('#modCat')){
+                    window.location.href='ve_cat_mod.php';
+                }
+                else if (ev.target.matches('#altaSubcat')){
+                    window.location.href='ve_subc_alta.php';
+                }
+                else if (ev.target.matches('#bajaSubcat')){
+                    window.location.href='ve_subc_baja.php';
+                }
+                else if (ev.target.matches('#modSubcat')){
+                    window.location.href='ve_subc_mod.php';
+                }
+            });
+
+        }); 
+    </script>
     <style>
-        main{
-            height:470px;
-        }
-
-        .cont{
-            display:flex;
-            width:1300px;
-            height:500px;
-            background-color: #000;
-            margin:auto;
-        }
-
-        label{
-            color:white;
-            width:100%;
-        }
-
-        main div{
-			background-color:white;
-			height:100px;
-			width:300px;
-		}
-
-        #imagen{
-            display:flex;
-            align-items:center;
-            width: 100%;
-            
-        }
-        #buscar{
-            display:flex;
-            justify-content: center;
-            align-items: center;
-            width:80%;
-            height:100%;
-            margin-left:50px;
-        }
-
-        #btn-lupa{
-            width:40px;
-            height:40px;
-            display:flex;
-            align-items:center;
-            margin-right:20px;
-        }
-
-        #header-buscar{
-            width:490px;
-            margin:0;
-        }
-
-        #lupa{
-            height:33px;
-            border-radius:5px;
-        }
-
-        #span{
-            width:110px;
-            margin: auto;
-        }
-
-        #cerrar{
-            padding:4px 5px 5px;
-            text-decoration: none;
-            color: white;
-            background-color:black;
-            height:20px;
-            border-radius: 5px;
-            margin:auto;
-        }
-
-        .cont-cat{
-            background-color: #000;
-            width:400px;
+        #main{
+            height:auto;
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id='header'>
         <?php echo $encab; ?>
 	</header>
     <main id='main'>
-        <div class='cont'>
-            <div class='cont-cat'>
-                <button class='btn hover' onclick="window.location.href='ve_cat_alta.php'">ALTA <BR> Categorías</button>
-                <button class='btn hover' onclick="window.location.href='ve_cat_baja.php'">BAJA <BR> Categorías</button>
-                <button class='btn hover' onclick="window.location.href='ve_cat_mod.php'">MODIFICACIÓN Categorías</button>
-            </div>
 
-            <div class='cont-cat'>
-                <button class='btn hover' onclick="window.location.href='ve_subc_alta.php'">ALTA <BR> Subcategorías</button>
-                <button class='btn hover' onclick="window.location.href='ve_subc_baja.php'">BAJA <BR> Subcategorías</button>
-                <button class='btn hover' onclick="window.location.href='ve_subc_mod.php'">MODIFICACIÓN Subcategorías</button>
-            </div>
+        <div class='cont cat'>
+            <h1 style='text-align:center; width:100%;'>CATEGORÍAS</h1>
+            <button class='btn hover' id='altaCat'>ALTA</button>
+            <button class='btn hover' id='bajaCat'>BAJA</button>
+            <button class='btn hover' id='modCat'>MODIFICACIÓN</button>
         </div>
+
+        <div class='cont subc'>
+            <h2 style='text-align:center;  width:100%;'>SUBCATEGORÍAS</h1>
+            <button class='btn hover' id='altaSubcat'>ALTA</button>
+            <button class='btn hover' id='bajaSubcat'>BAJA</button>
+            <button class='btn hover' id='modSubcat'>MODIFICACIÓN</button>
+        </div>
+
     </main>
 </body>
 </html>
