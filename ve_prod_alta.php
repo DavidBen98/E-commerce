@@ -216,7 +216,7 @@
         }
 
         #codigo{
-            color: #828282;
+            background-color: #ccc;
         }
 
         #imagen{
