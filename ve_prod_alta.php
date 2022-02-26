@@ -29,6 +29,10 @@
             <div class='contenedor'>
                 <label for='imagen'>Imagen</label>
                 <input type='file' class='form-control' name='imagen' id='imagen' title='Seleccionar imagen' value=''>
+                <div style='width:100%; display: flex; justify-content: center; align-items: center;'>
+                    <input type='checkbox' class='form-control' name='portada' id='portada' title='Portada' value='Imagen de portada'>  
+                    <label for='portada' id='lPortada'>Imagen de portada</label>
+                </div>
             </div>
                     
             <div class='contenedor'>
@@ -38,31 +42,31 @@
 
             <div class='contenedor' id='color'>
                 <label style='width:100%; height:40px;'>Color</label>
-                <div><input type='radio' id='amarillo' name='color' value='' checked><label for='amarillo'>Amarillo</label></div>
-                <div><input type='radio' id='azul' name='color' value=''><label for='azul'>Azul</label></div>
-                <div><input type='radio' id='beige' name='beige' value=''><label for='beige'>Beige</label></div>
-                <div><input type='radio' id='blanco' name='color' value=''><label for='blanco'>Blanco</label></div>
-                <div><input type='radio' id='blancoviejo' name='color' value=''><label for='blancoviejo'>Blanco viejo</label></div>
-                <div><input type='radio' id='celeste' name='color' value=''><label for='celeste'>Celeste</label></div>
-                <div><input type='radio' id='gris' name='color' value=''><label for='gris'>Gris</label></div>
-                <div><input type='radio' id='marron' name='color' value=''><label for='marron'>Marrón</label></div>
-                <div><input type='radio' id='morado' name='color' value=''><label for='morado'>Morado</label></div>
-                <div><input type='radio' id='naranja' name='color' value=''><label for='naranja'>Naranja</label></div>
-                <div><input type='radio' id='negro' name='color' value=''><label for='negro'>Negro</label></div>
-                <div><input type='radio' id='rojo' name='color' value=''><label for='rojo'>Rojo</label></div>
-                <div><input type='radio' id='rosa' name='color' value=''><label for='rosa'>Rosa</label></div>
-                <div><input type='radio' id='verde' name='color' value=''><label for='verde'>Verde</label></div>
-                <div><input type='radio' id='violeta' name='color' value=''><label for='violeta'>Violeta</label></div>
+                <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
+                <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
+                <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
+                <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
+                <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
+                <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
+                <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
+                <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
+                <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
+                <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
+                <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
+                <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
+                <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
+                <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
+                <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
             </div>
 
             <div class='contenedor' id='caracteristicas'>
-                <label for='alto'>Características (en centímetros)</label>
+                <label for='alto'>Características (Números redondos, en centímetros)</label>
                 <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
-                <input type='text' class='form-control' name='caracteristicas[]' id='alto' title='alto' value=''>
+                <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='0' step='5'>
                 <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
-                <input type='text' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value=''>
+                <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='0' step='5'>
                 <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
-                <input type='text' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value=''>
+                <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='0' step='5'>
             </div>
 
             <div class='contenedor'>
@@ -77,12 +81,12 @@
 
             <div class='contenedor'>
                 <label for='precio'>Precio unitario (Solo número, sin puntos ni comas)</label>
-                <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000'>  
+                <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' minValue='1'>  
             </div>
 
             <div class='contenedor'>
                 <label for='descuento'>Descuento (Solo número)</label>
-                <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value=''>  
+                <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
             </div>
 
             <div class='contenedor' id='agregar'>
@@ -106,7 +110,7 @@
                     type: "POST",
                     url: "actCodigo.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
-                    success: function (datos){
+                    success: function (nroProducto){
                         let input = document.getElementById('codigo');
                         let categoria = document.getElementById('categoria');
                         categoria = categoria.options[categoria.selectedIndex].text;
@@ -116,7 +120,7 @@
                         subcategoria = subcategoria.options[subcategoria.selectedIndex].text;
                         subcategoria = subcategoria.substring(0,2);
 
-                        let codigo = (categoria + subcategoria + datos).toLowerCase();
+                        let codigo = (categoria + subcategoria + nroProducto).toLowerCase();
                         input.setAttribute('value',codigo);
 
                         let caracUno = document.getElementById ('caracUno');
@@ -126,43 +130,34 @@
 
                         codigo = (categoria + subcategoria).toLowerCase();
 
-                        //No escalable al agregar mas categorias
-                        if (codigo == "come" || codigo == "cosi" || codigo == "como" || codigo == "dome" 
-                        || codigo == "dopl" || codigo == "lifu" || codigo == "lisi" || codigo == "ofbi"
-                        || codigo == "ofme"){
-                            caracUno.innerHTML = "Alto";
-                            caracDos.innerHTML = "Ancho";
-
-                            if (codigo != "come" && codigo != "cosi"){
-                                caracTres.style.display = 'block';
-                                caracTres.innerHTML = "Profundidad";
-                            }
-                            else{
-                                caracTres.style.display = 'none';
-                            }
-                        }
-                        else if (codigo == "doca"){
-                            caracUno.innerHTML = 'Plazas';
-                            caracDos.innerHTML = 'Largo';
-                            caracTres.style.display = 'block';
-                            caracTres.innerHTML = "Ancho";
+                        //No escalable al agregar mas categorias/subcategorias
+                        if (codigo == "ofsi"){
+                            caracUno.innerHTML = "Altura del respaldo";
+                            caracDos.innerHTML = "Altura del piso al asiento";
                         }
                         else if (codigo == "doco"){
                             caracUno.innerHTML = "Largo";
                             caracDos.innerHTML = "Ancho";
-                            caracTres.style.display = 'block';
                             caracTres.innerHTML = "Alto";
                         }
-                        else if (codigo == "ofsi"){
-                            caracUno.innerHTML = "Altura del respaldo";
-                            caracDos.innerHTML = "Altura del piso al asiento";
-                            caracTres.style.display = 'none';
+                        else if (codigo == "doca"){
+                            caracUno.innerHTML = 'Plazas';
+                            caracDos.innerHTML = 'Largo';
+                            caracTres.innerHTML = "Ancho";
+                        }
+                        else{
+                            caracUno.innerHTML = "Alto";
+                            caracDos.innerHTML = "Ancho";
+                            caracTres.innerHTML = "Profundidad";
                         }
 
-                        if (codigo != "come" && codigo != "cosi"){
+
+                        if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
+                            caracTres.style.display = 'block';
                             inputProfundidad.style.display = 'block';
                         }
                         else{
+                            caracTres.style.display = 'none';
                             inputProfundidad.style.display = 'none';
                         }
 
@@ -197,9 +192,13 @@
         });
 	</script>
     <style>
+        #main{
+            height: auto;
+        }
         .cont{
             height:auto;
             width:40%;
+            margin-bottom: 20px;
         }
 
         .contenedor{
@@ -223,6 +222,15 @@
         #imagen{
             padding:20px 0 0 10px;
             border:none;
+        }
+
+        #portada{
+            width:5%;
+            height:auto;
+        }
+
+        #lPortada{
+            width:auto;
         }
 
         #color{
