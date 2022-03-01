@@ -25,10 +25,9 @@
                     window.location.href='ve_prod_baja.php';
                 }
                 else if (ev.target.matches('#modProductos')){
-                    window.location.href='ve_prod_mod.php';
+                    window.location.href='ve_prod_baja.php?modif=true';
                 }
-            });
-            
+            });   
         });
     </script>
     <style>

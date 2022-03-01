@@ -20,7 +20,8 @@
                     </div>   
                     
                     <input type='submit' class='btn' name='bAgregarSubCat' id='bAgregarSubCat' title='Agregar subcategoria' value='Agregar subcategoria'>    
-            </form>	"
+            </form>	
+    ";
 ?>
 <!DOCTYPE html>
 <html lang="es">

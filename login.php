@@ -306,6 +306,7 @@
 			background-color: rgba(147, 81, 22,0.5);
             transition: all 0.3s linear;
             cursor:pointer;
+			color: white
 	    }
 
 		#form-registro{
@@ -442,7 +443,6 @@
 			border: 2px solid black;
 			font-size: 1.1em;
 			background-color: white;
-			border-radius: .1875rem;
 		}
 
 		#titulo-is{

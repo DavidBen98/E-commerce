@@ -20,6 +20,13 @@
             <div class='contenedor' id='imagen'>
             </div>
     ";
+    
+    if (isset($_GET['elim'])){
+        $prod .= "
+        <div class='contenedor' id='elim'>
+            <p>Se ha eliminado el producto de manera exitosa</p>
+        </div>";
+    }
 ?>
 <html lang="es">
 <head>
@@ -35,7 +42,7 @@
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "elimProd.php",
+                    url: "ve_elimProd.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (datos){
                         let input = document.getElementById('imagen');
@@ -44,10 +51,23 @@
 
                         let imagen = document.getElementsByClassName('imagen');
 
+
                         for (let i = 0; i < imagen.length; i++){
                             imagen[i].addEventListener ('click', () => {
-                                alert ("¿Desea eliminar el producto con código " + imagen[i].alt + "?");
-                            })
+
+                                if (window.location.search === '?modif=true'){
+                                    window.location.href = 've_prod_mod.php?codigo='+imagen[i].alt;
+                                }
+                                else{
+                                    let confirmar = confirm ("¿Desea eliminar el producto con código " + imagen[i].alt + "?");
+    
+                                    if (confirmar){
+                                        let codigo = imagen[i].alt;
+    
+                                        window.location.href = 've_elimProd.php?eliminar='+codigo;
+                                    }
+                                }
+                            });
                         }
                     }
                 });
@@ -92,7 +112,6 @@
 
         .contenedor{
             margin: 10px 0;
-            background:rgba(147, 81, 22,0.4);
             padding-bottom:10px;
         }
         .contenedor select{
@@ -125,6 +144,13 @@
 
         #agregar{
             background:transparent;
+        }
+      
+        #elim{
+            background: #000;
+            color: white;
+            border-radius: 5px;
+            padding: 0;
         }
 
     </style>

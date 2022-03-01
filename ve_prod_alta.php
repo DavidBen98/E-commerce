@@ -7,8 +7,12 @@
         header("location:index.php");
     }
 
-    $lista = obtenerCategorias();
 
+    $lista = obtenerCategorias();
+    //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
+    //Está conformado así para simplificar 
+    //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
+    //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
     $prod = "<div class='contenedor'>
                 <label for='categoria'>Categoría</label>
                 $lista
@@ -88,11 +92,16 @@
                 <label for='descuento'>Descuento (Solo número)</label>
                 <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
             </div>
-
             <div class='contenedor' id='agregar'>
-                <input type='submit' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
-            </div>
-    ";
+                    <input type='submit' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
+            </div>";
+
+            if (isset($_GET['error'])){
+                $prod .="
+                <div class='contenedor' id='error'>
+                    <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                </div>";
+            }
 ?>
 <html lang="es">
 <head>
@@ -131,35 +140,7 @@
                         codigo = (categoria + subcategoria).toLowerCase();
 
                         //No escalable al agregar mas categorias/subcategorias
-                        if (codigo == "ofsi"){
-                            caracUno.innerHTML = "Altura del respaldo";
-                            caracDos.innerHTML = "Altura del piso al asiento";
-                        }
-                        else if (codigo == "doco"){
-                            caracUno.innerHTML = "Largo";
-                            caracDos.innerHTML = "Ancho";
-                            caracTres.innerHTML = "Alto";
-                        }
-                        else if (codigo == "doca"){
-                            caracUno.innerHTML = 'Plazas';
-                            caracDos.innerHTML = 'Largo';
-                            caracTres.innerHTML = "Ancho";
-                        }
-                        else{
-                            caracUno.innerHTML = "Alto";
-                            caracDos.innerHTML = "Ancho";
-                            caracTres.innerHTML = "Profundidad";
-                        }
-
-
-                        if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
-                            caracTres.style.display = 'block';
-                            inputProfundidad.style.display = 'block';
-                        }
-                        else{
-                            caracTres.style.display = 'none';
-                            inputProfundidad.style.display = 'none';
-                        }
+                        verCaract();
 
                     }
                 });
@@ -189,6 +170,37 @@
             $('#categoria').change (function (){
                 actualizar ();
             });
+
+            function verCaract (){
+                            if (codigo == "ofsi"){
+                                caracUno.innerHTML = "Altura del respaldo";
+                                caracDos.innerHTML = "Altura del piso al asiento";
+                            }
+                            else if (codigo == "doco"){
+                                caracUno.innerHTML = "Largo";
+                                caracDos.innerHTML = "Ancho";
+                                caracTres.innerHTML = "Alto";
+                            }
+                            else if (codigo == "doca"){
+                                caracUno.innerHTML = 'Plazas';
+                                caracDos.innerHTML = 'Largo';
+                                caracTres.innerHTML = "Ancho";
+                            }
+                            else{
+                                caracUno.innerHTML = "Alto";
+                                caracDos.innerHTML = "Ancho";
+                                caracTres.innerHTML = "Profundidad";
+                            }
+    
+                            if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
+                                caracTres.style.display = 'block';
+                                inputProfundidad.style.display = 'block';
+                            }
+                            else{
+                                caracTres.style.display = 'none';
+                                inputProfundidad.style.display = 'none';
+                            }
+                        }
         });
 	</script>
     <style>
@@ -257,6 +269,13 @@
 
         #agregar{
             background:transparent;
+        }
+
+        #error{
+            background: #000;
+            color: white;
+            border-radius: 5px;
+            padding: 0;
         }
 
     </style>
