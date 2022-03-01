@@ -20,7 +20,6 @@
         $datos['marca'] =  $row['marca'] ;
         $datos['stock'] = $row['stock'];
         $datos['caracteristicas'] = $row['caracteristicas'];
-        //$datos['imagen'] = $row['imagen'];
         $datos['material'] = $row['material'];
         $datos['precio'] = $row['precio'];
         $datos['descuento'] = $row['descuento'];

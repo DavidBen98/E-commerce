@@ -7,47 +7,49 @@
         header("location:index.php");
     }
 
-
     $lista = obtenerCategorias();
     //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
-    $prod = "<div id='contUbicacion'>
-                <div class='contenedor' id='catActual'>
 
+    $codigo = $_GET['codigo'];
+
+    $prod = "<form class='cont' action='modificarUbicación.php' method='post' id='contUbicacion'>
+                <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
+
+                <div class='contenedor' id='catActual'>
+                    
                 </div>
+
+                <div class='contenedor' style='display:none;>
+                    <input type='hidden' name='codigo' class='btn btn-enviar' title='' value='$codigo'>     
+                </div>
+
                 <div class='contenedor'>
                     <label for='categoria'>Categoría nueva</label>
                     $lista
                 </div>
+
                 <div class='contenedor' id='subc'>
                     
                 </div>
 
                 <div class='contenedor' id='ubicacion'>
-                    <input type='submit' name='aceptar' class='btn btn-enviar' title='' value='Modificar ubicación'>
+                    <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
                 </div>
-            </div>
+            </form>
 
-            <div id='contCaracteristicas'>
+            <form class='cont' action='modificarCaract.php' method='post' id='contCaracterísticas'>
+                <h2 style='text-align:center; margin: auto;'>Características</h2>
                 <div class='contenedor'>
                     <label for='codigo'>Código</label>
-                    <input type='text' name='codigo' readonly class='form-control-plaintext' id='codigo' title='Código' value='' readonly> 
+                    <input type='text' name='codigo' readonly class='form-control-plaintext' id='codigo' title='Código' value='$codigo' readonly> 
                 </div>
 
                 <div class='contenedor'>
                     <label for='descripcion'>Descripción</label>
                     <input type='text' class='form-control' name='descripcion' id='descripcion' title='Descripción' value=''>
-                </div>
-
-                <div class='contenedor'>
-                    <label for='imagen'>Imagen</label>
-                    <input type='file' class='form-control' name='imagen' id='imagen' title='Seleccionar imagen' value=''>
-                    <div style='width:100%; display: flex; justify-content: center; align-items: center;'>
-                        <input type='checkbox' class='form-control' name='portada' id='portada' title='Portada' value='Imagen de portada'>  
-                        <label for='portada' id='lPortada'>Imagen de portada</label>
-                    </div>
                 </div>
                         
                 <div class='contenedor'>
@@ -100,20 +102,21 @@
                 </div>
 
                 <div class='contenedor'>
-                    <label for='descuento'>Descuento (Solo número)</label>
+                    <label for='descuento'>Porcentaje de descuento (Solo número)</label>
                     <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
                 </div>
-                <div class='contenedor' id='agregar'>
-                        <input type='submit' name='aceptar' class='btn btn-enviar' title='' value='Modificar características'>
-                </div>
-            </div>";
-
-            if (isset($_GET['error'])){
-                $prod .="
-                <div class='contenedor' id='error'>
-                    <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                <div class='contenedor' id='caracteristicas'>
+                        <input type='submit' name='caracteristicas' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
                 </div>";
-            }
+
+        if (isset($_GET['error'])){
+            $prod .="
+            <div class='contenedor' id='error'>
+                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+            </div>";
+        }
+            
+    $prod .= "</form>";
 ?>
 <html lang="es">
 <head>
@@ -236,10 +239,12 @@
                                         });
             }    
             
-
             async function init (){
                 let act = await actualizar ();
                 completarDatos ();
+
+                let label = document.getElementsByClassName('label');
+                label[0].innerText = 'Subcategoría nueva';
             }
 
             $('#categoria').change (function (){
@@ -336,6 +341,15 @@
             text-align:center;
             margin: 5px;
         }
+
+        .btn:hover{
+            background: #000;
+        }
+
+        #contUbicacion{
+            margin-right:10px;
+            width:30%;
+        }
     </style>
 </head>
 <body>
@@ -344,11 +358,9 @@
 	</header>
 
     <main id='main'>
-        <form class='cont' action='altaProducto.php' method='post' enctype='multipart/form-data'>
-            <?php 
-                echo $prod; 
-            ?>
-        </form>
+        <?php 
+            echo $prod; 
+        ?>
     </main>
 </body>
 </html>

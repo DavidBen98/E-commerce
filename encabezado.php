@@ -3,6 +3,9 @@
     $cantCarrito = cantidadCarrito();
 
     if (perfil_valido(1)){
+        // <li><a href='consultas.php'>Consultas</a></li>
+        // <li><a href='ventas.php'>Ventas</a></li>
+        // <li><a href='usuarios.php'>Usuarios</a></li>
         $encab =  " <div id='logo'>
                             <a href='index.php' id='link-logo'> 
                                 <h1><i id='titulo-principal' title='Logo del comercio'>Muebles Giannis</i></h1>
@@ -21,9 +24,6 @@
                             <ul>
                                 <li><a href='ve.php'>Productos</a></li>
                                 <li><a href='ve_cat_abm.php'>Categorías</a></li>
-                                <li><a href='consultas.php'>Consultas</a></li>
-                                <li><a href='ventas.php'>Ventas</a></li>
-                                <li><a href='usuarios.php'>Usuarios</a></li>
                             </ul>
                         </nav> 
                     ";

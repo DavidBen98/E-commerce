@@ -286,7 +286,7 @@
 	</header>
 
     <main id='main'>
-        <form class='cont' action='altaProducto.php' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='ve_altaProducto.php' method='post' enctype='multipart/form-data'>
             <?php 
                 echo $prod; 
             ?>
