@@ -12,14 +12,14 @@
     $subcategorias = obtenerSubcategorias();
     
     $form = "<div style='width:100%; display:flex; justify-content:center;'>
-                <form action='ve_modCategoria.php' id='formUbicacion' method='post' class='cont'>
+                <form action='ve_modificarUbicacionSubcat.php' id='formUbicacion' method='post' class='cont'>
                     <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
 
                     <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>Subcategoría</label>
                     $subcategorias
 
                     <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
-                        Nueva categoría
+                        Nueva ubicación
                     </label>
                     $lista
 
@@ -28,7 +28,7 @@
                     </div>
                 </form>
 
-                <form action='ve_modCategoria.php' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
+                <form action='ve_modificarCaractSubcat.php' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
                     <h2 style='text-align:center; margin: auto;'>Características</h2>
                 
                     <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>Subcategoría</label>
