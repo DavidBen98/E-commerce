@@ -5,27 +5,27 @@
         header("location:index.php");
     }
 
-        $lista = obtenerCategorias();
-      
-        $form = "  <form action='eventosCat.php' method='post' enctype='multipart/form-data' class='cont'>
-                        <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
-                            Categoría
-                        </label>
-                        $lista
-                        <div class='contenedor'>
-                            <label for='nombre'class=''>Nuevo nombre</label>
-                            <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''>
-                        </div>
+    $lista = obtenerCategorias();
+    
+    $form = "  <form action='ve_modCategoria.php' method='post' enctype='multipart/form-data' class='cont'>
+                    <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
+                        Categoría
+                    </label>
+                    $lista
+                    <div class='contenedor'>
+                        <label for='nombre'class=''>Nuevo nombre</label>
+                        <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''>
+                    </div>
 
-                        <div class='archivo'>
-                            <input type='file' class='form-control' id='imagen' aria-label='Upload'>           
-                        </div> 
+                    <div class='archivo'>
+                        <input type='file' class='form-control' id='imagen' aria-label='Upload'>           
+                    </div> 
 
-                        <div class='contenedor'>      	 
-                            <input type='submit' class='btn' name='bAceptar' id='bAceptar' title='bAceptar' value='Modificar categoría'>     	 
-                        </div>
-                </form>
-        ";
+                    <div class='contenedor'>      	 
+                        <input type='submit' class='btn' name='bAceptar' id='bAceptar' title='bAceptar' value='Modificar categoría'>     	 
+                    </div>
+            </form>
+    ";
 ?>
 <!DOCTYPE html>
 <html lang="es">

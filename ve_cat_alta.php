@@ -18,10 +18,6 @@
             height: 250px;
         }
 
-        .form-control{
-            cursor: pointer;
-        }
-
         .btn{
             margin:auto;
         }
@@ -44,18 +40,24 @@
         <?php echo $encab; ?>
 	</header>
     <main id='main'>
-        <?php echo "
-                    <form action='eventosCat.php' enctype='multipart/form-data' class='cont' method='post'>
-                        <div class='contenedor'>
-                            <label for='nombre'class=''>Nombre de categoría</label>
-                            <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
-                        </div>
-                        <div class='archivo'>
-                            <input type='file' class='form-control' id='imagen' aria-label='Upload'>           
-                        </div>    
-                        <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>          
-                    </form> 
-                "; 
+
+        <?php 
+            echo "
+                <form action='ve_altaCategoria.php' enctype='multipart/form-data' class='cont' method='post'>
+                    
+                    <div class='contenedor'>
+                        <label for='nombre'class=''>Nombre de categoría</label>
+                        <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
+                    </div>
+
+                    <div class='archivo'>
+                        <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
+                    </div>    
+
+                    <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>          
+                
+                </form> 
+            "; 
         ?> 
 
     </main>

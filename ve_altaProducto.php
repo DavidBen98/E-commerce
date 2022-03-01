@@ -59,8 +59,6 @@
                         '$precio', '$categoria', '$subcategoria', '$descuento')
         ";
 
-        echo $sql;
-
         $rs = $db->query($sql);
 
         $idProducto = $db->lastInsertId();

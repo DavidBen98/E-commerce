@@ -12,7 +12,7 @@
     $listas = obtenerCategorias();
 
 	$form="
-            <form action='eventosCat.php' method='post' class='cont'>
+            <form action='ve_bajaCategoria.php' method='post' class='cont'>
                 <label for='categoria'>CATEGORÍA</label>
                 $listas
                 <input type='submit' class='btn btn-enviar' name='eliminar' id='eliminar' title='Eliminar' value='Eliminar categoría'>

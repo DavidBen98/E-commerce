@@ -8,7 +8,7 @@
 
     $lista = obtenerCategorias();
 
-    $form = " <form class='cont' enctype='multipart/form-data'>     
+    $form = " <form class='cont' action='ve_altaSubcategoria.php' enctype='multipart/form-data'>     
                     <label for='nombre'class='col-sm-2 form-label'>Nombre de subcategoría</label>
                     <input type='text' name='tNombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
                     

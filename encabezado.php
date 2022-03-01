@@ -24,6 +24,7 @@
                             <ul>
                                 <li><a href='ve.php'>Productos</a></li>
                                 <li><a href='ve_cat_abm.php'>Categorías</a></li>
+                                <li><a href='ve_subcat_abm.php'>Subcategorías</a></li>
                             </ul>
                         </nav> 
                     ";
