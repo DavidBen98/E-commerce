@@ -5,13 +5,16 @@
     
     $id = isset($_POST['categoria'])? $_POST['categoria']: null;
 
-    if ($nombre !== null && $check !== false){
+    if ($id !== null){
         $sql = "DELETE FROM categoria WHERE id_categoria = '$id'
         ";
 
         $rs = $db->query($sql);
+
+        header ("location: veCategoriaBaja.php?elim=exito");
+
     }
     else{
-        header ("location: ve_cat_baja.php?error=data");
+        header ("location: veCategoriaBaja.php?error=data");
     }
 ?>

@@ -7,7 +7,7 @@
     //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
 	if ($perfil == "E"){ 
-		header("location:ve.php");
+		header("location:veABMProducto.php");
 	} 
 
     global $db;  

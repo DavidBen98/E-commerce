@@ -12,6 +12,6 @@
         $rs = $db->query($sql);
     }
     else{
-        header ("location: ve_subc_baja.php?error=data");
+        header ("location: veSubcategoriaBaja.php?error=data");
     }
 ?>

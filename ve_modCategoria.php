@@ -21,6 +21,6 @@
         $rs = $db->query($sql);
     }
     else{
-        header ("location: ve_prod_alta.php?error=data");
+        header ("location: veProductoAlta.php?error=data");
     }
 ?>

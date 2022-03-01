@@ -5,7 +5,7 @@
     include_once("pie.php");
 	 
 	if (perfil_valido(1)) {
-        header("location:ve.php");
+        header("location:veABMProducto.php");
     }  	
 	
 	global $db;

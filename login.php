@@ -10,7 +10,7 @@
 		header("location:informacionPersonal.php");
 	} 
 	else if (perfil_valido(1)) {
-		header("ve.php");
+		header("veABMProducto.php");
 	}
 
 	$auth = new TwitterAuth($cliente);

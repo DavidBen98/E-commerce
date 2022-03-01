@@ -3,6 +3,22 @@
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
+
+    $form= "<form action='veFuncCategoriaAlta.php' enctype='multipart/form-data' class='cont' method='post'>
+                    
+                <div class='contenedor'>
+                    <label for='nombre'class=''>Nombre de categoría</label>
+                    <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
+                </div>
+
+                <div class='archivo'>
+                    <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
+                </div>    
+
+                <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>          
+
+            </form>
+    ";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,24 +57,9 @@
 	</header>
     <main id='main'>
 
-        <?php 
-            echo "
-                <form action='ve_altaCategoria.php' enctype='multipart/form-data' class='cont' method='post'>
-                    
-                    <div class='contenedor'>
-                        <label for='nombre'class=''>Nombre de categoría</label>
-                        <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
-                    </div>
-
-                    <div class='archivo'>
-                        <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
-                    </div>    
-
-                    <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>          
-                
-                </form> 
-            "; 
-        ?> 
+        <h1 style='width:100%;text-align:center;'>Alta categoría</h1>
+    
+        <?= $form ?> 
 
     </main>
 </body>

@@ -24,7 +24,7 @@
     if (isset($_GET['elim'])){
         $prod .= "
         <div class='contenedor' id='elim'>
-            <p>Se ha eliminado el producto de manera exitosa</p>
+            <p>¡Se ha eliminado el producto de manera exitosa!</p>
         </div>";
     }
 ?>
@@ -36,7 +36,6 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link type="text/css"  href="assets/css/ve_estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<!--<script src="js/funciones.js"></script> -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const actualizarCodigo = () => {
@@ -56,7 +55,7 @@
                             imagen[i].addEventListener ('click', () => {
 
                                 if (window.location.search === '?modif=true'){
-                                    window.location.href = 've_prod_mod.php?codigo='+imagen[i].alt;
+                                    window.location.href = 'veProductoModif.php?codigo='+imagen[i].alt;
                                 }
                                 else{
                                     let confirmar = confirm ("¿Desea eliminar el producto con código " + imagen[i].alt + "?");
@@ -162,6 +161,9 @@
 
     <main id='main'>
         <form class='cont' action='altaProducto.php' method='post' enctype='multipart/form-data'>
+
+            <h1 style='width:100%;text-align:center;'>Baja producto</h1>
+
             <?php 
                 echo $prod; 
             ?>

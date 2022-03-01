@@ -42,15 +42,17 @@
             $caract = "Alto: ".strval($caracteristicas[0]). "cm,ancho: ".strval($caracteristicas[1]) ."cm";
         }
 
-        $sql = "UPDATE producto SET descripcion = '$descripcion', material = '$material', color = $color,
-                caracteristicas = '$caract', marca = '$marca', stock = '$stock', precio = '$precio', 
+        $sql = "UPDATE producto SET descripcion = '$descripcion', material = '$material', color = '$color',
+                caracteristicas = '$caract', marca = '$marca', stock = '$cant', precio = '$precio', 
                 descuento= '$descuento'
                 WHERE codigo = '$codigo'
         ";
 
         $rs = $db->query($sql);
+
+        header ("location: veProductoModif.php?modif=exito&codigo=$codigo");
     }
     else{
-        header ("location: ve_prod_mod.php?error=data");
+        header ("location: veProductoModif.php?error=data");
     }
 ?>

@@ -8,7 +8,7 @@
         header("location:login.php");
     }
     else if (perfil_valido(1)) {
-        header("location:ve.php");
+        header("location:veABMProducto.php");
     } 
                  
     global $db;

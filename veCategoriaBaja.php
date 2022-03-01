@@ -12,7 +12,7 @@
     $listas = obtenerCategorias();
 
 	$form="
-            <form action='ve_bajaCategoria.php' method='post' class='cont'>
+            <form action='veFuncCategoriaBaja.php' method='post' class='cont'>
                 <label for='categoria'>CATEGORÍA</label>
                 $listas
                 <input type='submit' class='btn btn-enviar' name='eliminar' id='eliminar' title='Eliminar' value='Eliminar categoría'>
@@ -49,8 +49,13 @@
 	<header id='header'>
         <?php echo $encab; ?>
 	</header>
+
     <main id='main'>
-		<?php echo $form; ?>
+
+        <h1 style='width:100%;text-align:center;'>Baja categoría</h1>
+
+		<?= $form; ?>
+
 	</main>
 </body>
 </html>

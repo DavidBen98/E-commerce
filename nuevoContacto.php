@@ -4,7 +4,7 @@
     require 'inc/conn.php';
 
     if (perfil_valido(1)) {
-		header("location:ve.php");
+		header("location:veABMProducto.php");
 	}
 
     $nombre =(isset($_POST['nombre']) && !empty($_POST['nombre']))? trim($_POST['nombre']):"";

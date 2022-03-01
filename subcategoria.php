@@ -6,7 +6,7 @@
 	include ("inc/conn.php"); 
 	
 	if ($perfil == "E"){ 
-		header("location:ve.php");
+		header("location:veABMProducto.php");
 	}	 
 
 	$ruta = "<ol class='ruta'>

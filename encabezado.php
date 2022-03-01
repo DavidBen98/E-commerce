@@ -22,9 +22,9 @@
                     
                         <nav id='navigation'>
                             <ul>
-                                <li><a href='ve.php'>Productos</a></li>
-                                <li><a href='ve_cat_abm.php'>Categorías</a></li>
-                                <li><a href='ve_subcat_abm.php'>Subcategorías</a></li>
+                                <li><a href='veABMProducto.php'>Productos</a></li>
+                                <li><a href='veABMCategoria.php'>Categorías</a></li>
+                                <li><a href='veABMSubcategoria.php'>Subcategorías</a></li>
                             </ul>
                         </nav> 
                     ";

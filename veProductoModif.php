@@ -15,14 +15,20 @@
 
     $codigo = $_GET['codigo'];
 
-    $prod = "<form class='cont' action='modificarUbicación.php' method='post' id='contUbicacion'>
-                <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
+    $prod = "<form class='cont' action='ve_modificarUbicacion.php' method='post' id='contUbicacion'>
+                <h2 style='text-align:center; margin: auto;'>Ubicación</h2>";
+            
+                if (isset($_GET['modUbi'])){
+                    $prod .= "<div class='mensaje'>
+                            <p> ¡El producto '$codigo' se ha cambiado de ubicación exitosamente!</p>     
+                         </div>";
+                }
 
-                <div class='contenedor' id='catActual'>
+    $prod .= "  <div class='contenedor' id='catActual'>
                     
                 </div>
 
-                <div class='contenedor' style='display:none;>
+                <div class='contenedor' style='display:none;'>
                     <input type='hidden' name='codigo' class='btn btn-enviar' title='' value='$codigo'>     
                 </div>
 
@@ -40,7 +46,15 @@
                 </div>
             </form>
 
-            <form class='cont' action='modificarCaract.php' method='post' id='contCaracterísticas'>
+            <form class='cont' action='ve_modificarCaract.php' method='post' id='contCaracterísticas'>";
+
+            if (isset($_GET['modif'])){
+                $prod .= "<div class='mensaje'>
+                            <p> ¡El producto '$codigo' se ha modificado exitosamente!</p>     
+                         </div>";
+            }
+
+    $prod .= "
                 <h2 style='text-align:center; margin: auto;'>Características</h2>
                 <div class='contenedor'>
                     <label for='codigo'>Código</label>
@@ -79,11 +93,11 @@
                 <div class='contenedor' id='caracteristicas'>
                     <label for='alto'>Características (Números redondos, en centímetros)</label>
                     <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='0' step='5'>
+                    <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value=''>
                     <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='0' step='5'>
+                    <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value=''>
                     <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='0' step='5'>
+                    <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value=''>
                 </div>
 
                 <div class='contenedor'>
@@ -106,7 +120,7 @@
                     <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
                 </div>
                 <div class='contenedor' id='caracteristicas'>
-                        <input type='submit' name='caracteristicas' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
+                        <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
                 </div>";
 
         if (isset($_GET['error'])){
@@ -157,10 +171,14 @@
 
                     let elementoTres = numero;
                     document.getElementById('profundidad').value = elementoTres;
+                    document.getElementById('profundidad').setAttribute('value', elementoTres);
                 }       
 
                 document.getElementById('alto').value = elementoUno;
                 document.getElementById('ancho').value = elementoDos;
+
+                document.getElementById('alto').setAttribute('value',elementoUno);
+                document.getElementById('ancho').setAttribute('value',elementoDos);
 
                 verCaract (codigo);
             }
@@ -201,7 +219,7 @@
             const completarDatos = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "ve_obtenerDatos.php",
+                    url: "veFuncObtenerDatos.php",
                     data: "codigo=" + codigo,
                     success: function (datos){
                         let data = JSON.parse(datos);
@@ -348,7 +366,18 @@
 
         #contUbicacion{
             margin-right:10px;
-            width:30%;
+            width:40%;
+        }
+
+        .mensaje{
+            display:flex;
+            justify-content: center;
+            background-color: #099;
+            color: white;
+            border-radius:5px;
+            font-size: 1.1rem;
+            width:100%;
+            margin: 10px 0;
         }
     </style>
 </head>
@@ -358,6 +387,7 @@
 	</header>
 
     <main id='main'>
+        <h1 style='width:100%;text-align:center;'>Modificar producto</h1>
         <?php 
             echo $prod; 
         ?>

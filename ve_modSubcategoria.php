@@ -21,6 +21,6 @@
         $rs = $db->query($sql);
     }
     else{
-        header ("location: ve_subc_mod.php?error=data");
+        header ("location: veSubcategoriaModif.php?error=data");
     }
 ?>

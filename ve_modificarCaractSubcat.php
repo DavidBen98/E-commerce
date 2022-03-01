@@ -14,6 +14,6 @@
         $rs = $db->query($sql);
     }
     else{
-        header ("location: ve_prod_mod.php?error=data");
+        header ("location: veProductoModif.php?error=data");
     }
 ?>

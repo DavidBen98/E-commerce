@@ -5,7 +5,7 @@
 	require_once('vendor/autoload.php');
 
     if ($perfil == "E"){ 
-        header("location:ve.php");
+        header("location:veABMProducto.php");
     }
 
     //Si se valida el token al iniciar sesion con Google

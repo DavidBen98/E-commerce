@@ -12,4 +12,6 @@
             WHERE codigo = '$codigo'";
 
     $rs = $db->query($sql);
+
+    header("location: veProductoModif.php?modUbi=exito&codigo=$codigo")
 ?>

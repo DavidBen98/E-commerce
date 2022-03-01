@@ -10,7 +10,7 @@
         ";
 
         $rs = $db -> query ($sql);
-        header ("location: ve_prod_baja.php?elim=exito");
+        header ("location: veProductoBaja.php?elim=exito");
     }
     else{
         $categoria = $_POST['categoria'];

@@ -287,6 +287,9 @@
 
     <main id='main'>
         <form class='cont' action='ve_altaProducto.php' method='post' enctype='multipart/form-data'>
+
+            <h1 style='width:100%;text-align:center;'>Alta producto</h1>
+
             <?php 
                 echo $prod; 
             ?>

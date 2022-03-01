@@ -19,13 +19,13 @@
 
             document.addEventListener('click', ev => {
                 if (ev.target.matches('#altaProductos')){
-                    window.location.href='ve_prod_alta.php';
+                    window.location.href='veProductoAlta.php';
                 }
                 else if (ev.target.matches('#bajaProductos')){
-                    window.location.href='ve_prod_baja.php';
+                    window.location.href='veProductoBaja.php';
                 }
                 else if (ev.target.matches('#modProductos')){
-                    window.location.href='ve_prod_baja.php?modif=true';
+                    window.location.href='veProductoBaja.php?modif=true';
                 }
             });   
         });

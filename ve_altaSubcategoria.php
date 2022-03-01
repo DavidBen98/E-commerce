@@ -23,6 +23,6 @@
         $rs = $db->query($sql);
     }
     else{
-        header ("location: ve_subc_alta.php?error=data");
+        header ("location: veSubcategoriaAlta.php?error=data");
     }
 ?>

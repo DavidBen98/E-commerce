@@ -5,7 +5,7 @@
     include("pie.php");
 
 	if (perfil_valido(1)) {
-        header("location:ve.php");
+        header("location:veABMProducto.php");
     }  
 ?>
 <html lang="es">

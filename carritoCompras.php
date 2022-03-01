@@ -13,7 +13,7 @@
         //TODO: cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
     else if (perfil_valido(1)) {
-        header("location:ve.php");
+        header("location:veABMProducto.php");
     }
 
     $ruta = "<ol class='ruta'>

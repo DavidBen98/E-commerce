@@ -49,7 +49,7 @@
 			$_SESSION["user"]="";
 		} 
 		else if ($_SESSION["perfil"]=="E"){
-			header("location:ve.php");
+			header("location:veABMProducto.php");
 		}
 		else { 
 			header("location:index.php");	

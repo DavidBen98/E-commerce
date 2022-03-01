@@ -19,8 +19,11 @@
         ";
 
         $rs = $db->query($sql);
+
+        header ("location: veCategoriaAlta.php?alta=exito");
+
     }
     else{
-        header ("location: ve_prod_alta.php?error=data");
+        header ("location: veCategoriaAlta.php?error=data");
     }
 ?>
