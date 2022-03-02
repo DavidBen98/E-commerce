@@ -3,26 +3,26 @@
 
     global $db;
     
-    $nombre = isset($_POST['tNombre'])? $_POST['tNombre']: null;
     $id_categoria = isset($_POST['categoria'])? $_POST['categoria']: null;
-
+    $nombre = isset($_POST['nombre']) && $_POST['nombre'] !== ""? $_POST['nombre']: null;
   
     $imagen = $_FILES["imagen"]["tmp_name"];
-    $portada = isset($_POST['portada'])? 1: 0;
 
     $check = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : false;
     if($check !== false){
         $imagen = addslashes(file_get_contents($imagen));
     }
 
-    if ($nombre !== null && $id_categoria !== false){
-        $sql = "INSERT INTO subcategoria (`nombre_subcategoria`,`id_categoria`) 
-                VALUES ('$nombre','$id_categoria')
+    if ($nombre !== null && $categoria !== null){
+        $sql = "UPDATE categoria SET nombre_categoria = '$nombre'
+                WHERE id_categoria = '$id_categoria'
         ";
 
         $rs = $db->query($sql);
+
+        header ("location: veCategoriaAlta.php?modif=exito");
     }
     else{
-        header ("location: veSubcategoriaAlta.php?error=data");
+        header ("location: veCategoriaAlta.php?error=data");
     }
 ?>

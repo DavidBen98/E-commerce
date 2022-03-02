@@ -15,7 +15,7 @@
 
     $codigo = $_GET['codigo'];
 
-    $prod = "<form class='cont' action='ve_modificarUbicacion.php' method='post' id='contUbicacion'>
+    $prod = "<form class='cont' action='veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
                 <h2 style='text-align:center; margin: auto;'>Ubicación</h2>";
             
                 if (isset($_GET['modUbi'])){
@@ -46,7 +46,7 @@
                 </div>
             </form>
 
-            <form class='cont' action='ve_modificarCaract.php' method='post' id='contCaracterísticas'>";
+            <form class='cont' action='veFuncProductoModifCaract.php' method='post' id='contCaracterísticas'>";
 
             if (isset($_GET['modif'])){
                 $prod .= "<div class='mensaje'>
@@ -123,7 +123,13 @@
                         <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
                 </div>";
 
-        if (isset($_GET['error'])){
+        if (isset($_GET['modif'])){
+            $form .= "
+            <div class='contenedor' id='elim'>
+                <p>¡Se ha modificado el producto de manera exitosa!</p>
+            </div>";
+        }
+        else if (isset($_GET['error'])){
             $prod .="
             <div class='contenedor' id='error'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
@@ -382,15 +388,16 @@
     </style>
 </head>
 <body>
+
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
 
     <main id='main'>
         <h1 style='width:100%;text-align:center;'>Modificar producto</h1>
-        <?php 
-            echo $prod; 
-        ?>
+
+        <?= $prod; ?>
     </main>
+
 </body>
 </html>

@@ -9,24 +9,36 @@
 
     $lista = obtenerCategorias();
 
-    $prod = "<div class='contenedor'>
-                <label for='categoria'>Categoría</label>
-                $lista
-            </div>
-            <div class='contenedor' id='subc'>
-                
-            </div>
+    $form = "<form class='cont' action='veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
+                <h1 style='width:100%;text-align:center;'>Baja producto</h1>
 
-            <div class='contenedor' id='imagen'>
-            </div>
+                <div class='contenedor'>
+                    <label for='categoria'>Categoría</label>
+                    $lista
+                </div>
+
+                <div class='contenedor' id='subc'>
+                    
+                </div>
+
+                <div class='contenedor' id='imagen'>
+                </div>
     ";
     
     if (isset($_GET['elim'])){
-        $prod .= "
+        $form .= "
         <div class='contenedor' id='elim'>
             <p>¡Se ha eliminado el producto de manera exitosa!</p>
         </div>";
     }
+    else if (isset($_GET['error'])){
+        $form .="<div class='contenedor' id='error'>
+                    <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                </div>
+        ";
+    }
+
+    $form .= "</form>";
 ?>
 <html lang="es">
 <head>
@@ -41,7 +53,7 @@
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "ve_elimProd.php",
+                    url: "veFuncProductoBaja.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (datos){
                         let input = document.getElementById('imagen');
@@ -63,7 +75,7 @@
                                     if (confirmar){
                                         let codigo = imagen[i].alt;
     
-                                        window.location.href = 've_elimProd.php?eliminar='+codigo;
+                                        window.location.href = 'veFuncProductoBaja.php?eliminar='+codigo;
                                     }
                                 }
                             });
@@ -156,18 +168,12 @@
 </head>
 <body>
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
 
     <main id='main'>
-        <form class='cont' action='altaProducto.php' method='post' enctype='multipart/form-data'>
-
-            <h1 style='width:100%;text-align:center;'>Baja producto</h1>
-
-            <?php 
-                echo $prod; 
-            ?>
-        </form>
+        <?= $form; ?>
     </main>
+
 </body>
 </html>

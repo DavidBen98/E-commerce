@@ -36,18 +36,19 @@
     </style>
 </head>
 <body>
+    
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
-    <main id='main'>
 
+    <main id='main'>
         <div class='cont cat'>
             <h1 style='text-align:center; width:100%;'>CATEGORÍAS</h1>
             <button class='btn hover' id='altaCat'>ALTA</button>
             <button class='btn hover' id='bajaCat'>BAJA</button>
             <button class='btn hover' id='modCat'>MODIFICACIÓN</button>
         </div>
-
     </main>
+
 </body>
 </html>

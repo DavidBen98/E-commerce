@@ -19,8 +19,11 @@
         ";
 
         $rs = $db->query($sql);
+
+        header ("location: veSubcategoriaModif.php?modifC=exito");
+
     }
     else{
-        header ("location: veSubcategoriaModif.php?error=data");
+        header ("location: veSubcategoriaModif.php?errorC=data");
     }
 ?>

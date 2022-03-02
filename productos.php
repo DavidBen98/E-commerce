@@ -30,7 +30,8 @@
 		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio";
 		$from = "FROM `producto` as p";
 		$innerJoin = "INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-						INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria";
+					  INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+		";
 
         //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
         $categoria = (isset($_POST['categoria']))? intval($_POST['categoria']) : "";
@@ -52,7 +53,6 @@
 
         $sql = completarWhere($select,$from,$innerJoin,$where,$filtros);
         $rs = $db->query($sql);
-
     }
 	else if (isset($_GET['buscador'])){
 		$busqueda = $_GET['buscador'];
@@ -62,13 +62,14 @@
 			$busqueda = ucfirst($busqueda);
 			$palabras = explode (' ',$busqueda);			
 
-			$sql  = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
-					 FROM `producto` as p
-					 INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-					 INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-					 WHERE nombre_categoria LIKE '%".$busqueda."%' 
-					 OR nombre_subcategoria LIKE '%".$busqueda."%'
-					 OR descripcion LIKE '%".$busqueda."%'";
+			$sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
+					FROM `producto` as p
+					INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+					INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+					WHERE nombre_categoria LIKE '%".$busqueda."%' 
+					OR nombre_subcategoria LIKE '%".$busqueda."%'
+					OR descripcion LIKE '%".$busqueda."%'
+			";
 
 			foreach ($palabras as $palabra){
 				if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
@@ -82,18 +83,16 @@
 		}
 	}	 
     else{
-        $sql = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`
-				FROM producto";
-
         //Si entro desde subcategorias entonces la categoria y la subcategoria esta en la url
-        $catSubcat = $_GET['articulos'];
-		$select = "SELECT `codigo`, `descripcion`, `precio`,`id_categoria`, `id_subcategoria`";
-		$from = "FROM producto";
-		$where = "WHERE codigo like '$catSubcat%'";
-		$innerJoin = "";
-
-		$categoria = $_GET['cate'];
+        $categoria = $_GET['cate'];
 		$subcategoria = $_GET['sub'];
+
+		$select = "SELECT p.`codigo`, p.`descripcion`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+		$from = "FROM producto as p";
+		$innerJoin = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+					  INNER JOIN categoria as c on c.id_categoria = p.id_categoria
+		";
+		$where = "WHERE nombre_subcategoria='$subcategoria' AND nombre_categoria='$categoria'";
 
         $sql = completarWhere($select, $from, $innerJoin, $where, $filtros);
         $rs = $db->query($sql);

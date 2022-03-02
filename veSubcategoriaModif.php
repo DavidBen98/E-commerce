@@ -11,8 +11,9 @@
 
     $subcategorias = obtenerSubcategorias();
     
-    $form = "<div style='width:100%; display:flex; justify-content:center;'>
-                <form action='ve_modificarUbicacionSubcat.php' id='formUbicacion' method='post' class='cont'>
+    $form = "<h1 style='width:100%;text-align:center;'>Modificar subcategoría</h1>
+             <div style='width:100%; display:flex; justify-content:center; margin-bottom: 20px;'>                
+                <form action='veFuncSubcategoriaUbicacion.php' id='formUbicacion' method='post' class='cont'>
                     <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
 
                     <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>Subcategoría</label>
@@ -25,10 +26,24 @@
 
                     <div class='contenedor' id='ubicacion'>
                         <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
-                    </div>
-                </form>
+                    </div>";
 
-                <form action='ve_modificarCaractSubcat.php' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
+                    if (isset($_GET['modifU'])){
+                        $form .= "
+                        <div class='contenedor' id='elim'>
+                            <p>¡Se ha modificado el producto de manera exitosa!</p>
+                        </div>";
+                    }
+                    else if (isset($_GET['errorU'])){
+                        $prod .="
+                        <div class='contenedor' id='error'>
+                            <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                        </div>";
+                    }
+
+        $form .="</form>
+
+                <form action='veFuncSubcategoriaCarac.php' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
                     <h2 style='text-align:center; margin: auto;'>Características</h2>
                 
                     <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>Subcategoría</label>
@@ -45,8 +60,22 @@
 
                     <div class='contenedor'>      	 
                         <input type='submit' class='btn' name='bAceptar' id='bAceptar' title='bAceptar' value='Modificar características'>     	 
-                    </div>
-                </form>
+                    </div>";
+
+                    if (isset($_GET['modifC'])){
+                        $form .= "
+                        <div class='contenedor' id='elim'>
+                            <p>¡Se ha modificado el producto de manera exitosa!</p>
+                        </div>";
+                    }
+                    else if (isset($_GET['errorC'])){
+                        $prod .="
+                        <div class='contenedor' id='error'>
+                            <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                        </div>";
+                    }
+                    
+            $form .="</form>
             </div>
     ";
 ?>
@@ -62,6 +91,10 @@
 		//Validar
 	</script>
     <style>
+        #main{
+            height: auto;
+        }
+
         .cont{
             width:40%;
             justify-content:center;
@@ -93,11 +126,11 @@
 </head>
 <body>
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
 
     <main id='main'>
-        <?php echo $form; ?>
+        <?= $form; ?>
     </main> 
 
 </body>

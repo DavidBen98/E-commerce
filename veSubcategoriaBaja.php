@@ -8,12 +8,28 @@
 
     $lista = obtenerSubcategorias();
 
-    $form = " <form class='cont' enctype='multipart/form-data'>     
-                    <label for='subcategoria' class=''>Subcategoría</label>
-                    $lista
-                    
-                    <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
-            </form>	"
+    $form = " <form class='cont' action='veFuncSubcategoriaBaja' enctype='multipart/form-data'>     
+                <label for='subcategoria' class=''>Subcategoría</label>
+                $lista
+                
+                <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
+            ";
+
+            if (isset($_GET['elim'])){
+                $form .= "<div class='contenedor' id='error'>
+                             <p> ¡Se ha eliminado la subcategoría con éxito! </p>
+                          </div>
+                ";
+            }
+            else if (isset($_GET['error'])){
+                $form .="<div class='contenedor' id='error'>
+                            <p> Error: los datos ingresados no son correctos, reintente por favor </p>
+                        </div>
+                ";
+            }
+
+    $form .= "</form>
+    ";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,11 +70,14 @@
     </style>
 </head>
 <body>
+
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
+
     <main id='main'>
         <?= $form; ?>
     </main> 
+    
 </body>
 </html>

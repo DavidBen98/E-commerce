@@ -36,18 +36,19 @@
     </style>
 </head>
 <body>
-    <header id='header'>
-        <?php echo $encab; ?>
-	</header>
-    <main id='main'>
 
-        <div class='cont subc'>
+    <header id='header'>
+        <?= $encab; ?>
+	</header>
+
+    <main id='main'>
+        <div class='cont'>
             <h2 style='text-align:center;  width:100%;'>SUBCATEGORÍAS</h1>
             <button class='btn hover' id='altaSubcat'>ALTA</button>
             <button class='btn hover' id='bajaSubcat'>BAJA</button>
             <button class='btn hover' id='modSubcat'>MODIFICACIÓN</button>
         </div>
-
     </main>
+
 </body>
 </html>

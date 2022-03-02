@@ -18,12 +18,14 @@
 	global $db;  
 
 	$imagenes = $_GET['categoria'];
-	$imagenes = substr($imagenes,0,2);
+	//$imagenes = substr($imagenes,0,2);
 
 	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio
 	 		FROM subcategoria as s
 	 		INNER JOIN producto as p on s.id_subcategoria = p.id_subcategoria
-	 		WHERE `codigo` LIKE '$imagenes%%1'";
+			INNER JOIN categoria as c on c.id_categoria = s.id_categoria
+	 		WHERE c.nombre_categoria = '$imagenes' AND `codigo` LIKE '%1'
+	";
 	
 	$rs = $db->query($sql);
 ?>

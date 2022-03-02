@@ -133,7 +133,7 @@
             }
 
             if ($i == 0){
-                echo "<p>No existe ningún resultado que coincida con la búsqueda ingresada </p>";
+                echo "<p> No existe ningún resultado que coincida con la búsqueda ingresada </p>";
             }
                     
         echo "	</div>
@@ -222,12 +222,12 @@
 					ORDER  BY SUM(dc.`cantidad`) DESC;";
 		}
 		else{
-			$sql = "   $select
-                        $from
-                        $innerJoin
-                        $where
-                        $where_sql
-                 	    $orderBy
+			$sql = "$select
+                    $from
+                    $innerJoin
+                    $where
+                    $where_sql
+                 	$orderBy
             ";  
 		}
 
@@ -359,10 +359,11 @@
                                 <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
             ";
 
-            $sql1 = "SELECT nombre_subcategoria
-            FROM `subcategoria`
-            INNER JOIN `categoria` ON categoria.id_categoria = subcategoria.id_categoria
-            WHERE subcategoria.id_categoria = '$idCat'";
+            $sql1 ="SELECT nombre_subcategoria
+                    FROM `subcategoria`
+                    INNER JOIN `categoria` ON categoria.id_categoria = subcategoria.id_categoria
+                    WHERE subcategoria.id_categoria = '$idCat'
+            ";
             
             $rs1 = $db->query($sql1);
 
@@ -385,7 +386,7 @@
 
 		$producto = "";
 
-		if (isset($_GET['articulos'])){ //Si se ingresa desde imagenes
+		if (isset($_GET['articulos'])){ //Si se ingresa desde subcategorias
 			$producto = $_GET['articulos'];
 			$categoria = $_GET['cate'];
 			$subcategoria = $_GET['sub']; 
@@ -404,9 +405,10 @@
 			$arrSubcategorias = [];
 
 			$sql  = "SELECT c.id_categoria,c.nombre_categoria,descripcion, material,color,caracteristicas,marca,stock, precio, s.nombre_subcategoria
-			FROM `producto`
-			INNER JOIN categoria as c ON producto.id_categoria = c.id_categoria
-			INNER JOIN subcategoria as s ON producto.id_subcategoria = s.id_subcategoria";
+                    FROM `producto`
+                    INNER JOIN categoria as c ON producto.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON producto.id_subcategoria = s.id_subcategoria
+            ";
 			
 			$rs = $db->query($sql);
 
@@ -445,13 +447,20 @@
 
 		$arrColores = [];
 		$arrMarcas = [];
-		$variable = substr($producto,0,4);
+		//$variable = substr($producto,0,4);
 		
-		$where_sql = " WHERE codigo like '$variable%'";
-		
-		$sql  = "SELECT id_categoria,descripcion, material,color,caracteristicas,marca,stock, precio, id_subcategoria
-				FROM `producto`
-				$where_sql";
+		//$where_sql = " WHERE codigo like '$variable%'";
+        $innerJoin = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
+        ";
+
+		$where_sql = " WHERE s.nombre_subcategoria='$subcategoria' AND c.nombre_categoria='$categoria'";
+
+		$sql  = "SELECT p.id_categoria, p.id_subcategoria,descripcion, material,color,caracteristicas,marca,stock, precio
+				FROM `producto` as p
+                $innerJoin
+				$where_sql
+        ";
 
 		$rs = $db->query($sql); 
 
@@ -465,9 +474,11 @@
 		}
 		
 		$sql1 = "SELECT min(precio) 
-						FROM `producto`
-						$where_sql
-						; ";
+                 FROM `producto` as p
+                 $innerJoin
+                 $where_sql
+		";
+
 		$rs1 = $db->query($sql1);
 		
 		foreach ($rs1 as $row) {
@@ -475,9 +486,11 @@
 		}
 
 		$sql2 = "SELECT max(precio) 
-						FROM `producto`
-						$where_sql
-						; ";
+                FROM `producto` as p
+                $innerJoin
+                $where_sql
+		";
+
 		$rs2 = $db->query($sql2);
 		
 		foreach ($rs2 as $row) {
@@ -517,7 +530,7 @@
 						<input type='checkbox' class='input' name='marca[]' id='$id' title='Marca $indice' value='$indice'>													  																															
 						<label for='$id'> ".ucfirst($indice)."</label>	
 					</div>				
-				";
+			";
 		}
 		echo "</div>	
 				</fieldset>
@@ -537,7 +550,8 @@
 				<div id='botones' class='botones'>
 					<input type='submit'  id='filtros' class='btn' name='Aplicar filtros' title='Aplicar filtros' value='Aplicar filtros'>						
 				</div>
-			</form>";
+			</form>
+        ";
 	}	
 
     function existeEmail(){

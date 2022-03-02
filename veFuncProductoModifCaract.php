@@ -53,6 +53,6 @@
         header ("location: veProductoModif.php?modif=exito&codigo=$codigo");
     }
     else{
-        header ("location: veProductoModif.php?error=data");
+        header ("location: veProductoModif.php?error=data&codigo=$codigo");
     }
 ?>

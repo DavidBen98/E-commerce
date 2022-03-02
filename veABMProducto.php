@@ -16,7 +16,6 @@
     <title>Muebles Giannis - Las mejores marcas</title>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-
             document.addEventListener('click', ev => {
                 if (ev.target.matches('#altaProductos')){
                     window.location.href='veProductoAlta.php';
@@ -48,7 +47,8 @@
             <button class="btn hover" id='altaProductos'>ALTA</button>
             <button class="btn hover" id='bajaProductos'>BAJA</button>
             <button class="btn hover" id='modProductos'>MODIFICACIÓN</button>
-        </div>
+        </div>      
     </main>
+    
 </body>
 </html>

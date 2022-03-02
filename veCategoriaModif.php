@@ -7,7 +7,9 @@
 
     $lista = obtenerCategorias();
     
-    $form = "  <form action='ve_modCategoria.php' method='post' enctype='multipart/form-data' class='cont'>
+    $form = "  <form action='veFuncCategoriaModif.php' method='post' enctype='multipart/form-data' class='cont'>
+                    <h1 style='width:100%;text-align:center;'>Modificar categoría</h1>
+                                    
                     <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
                         Categoría
                     </label>
@@ -24,7 +26,22 @@
                     <div class='contenedor'>      	 
                         <input type='submit' class='btn' name='bAceptar' id='bAceptar' title='bAceptar' value='Modificar categoría'>     	 
                     </div>
-            </form>
+            ";
+
+            if (isset($_GET['modif'])){
+                $form .= "<div class='contenedor' id='error'>
+                             <p> ¡Se ha modificado la categoría con éxito! </p>
+                          </div>
+                ";
+            }
+            else if (isset($_GET['error'])){
+                $form .="<div class='contenedor' id='error'>
+                            <p> Error: los datos ingresados no son correctos, reintente por favor </p>
+                        </div>
+                ";
+            }
+
+    $form .= "</form>
     ";
 ?>
 <!DOCTYPE html>
@@ -39,6 +56,10 @@
 		//Validar
 	</script>
     <style>
+        #main{
+            height: auto;
+        }
+
         .cont{
             width:40%;
             justify-content:center;
@@ -64,12 +85,13 @@
     </style>
 </head>
 <body>
+    
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
 
     <main id='main'>
-        <?php echo $form; ?>
+        <?= $form; ?>
     </main> 
 
 </body>

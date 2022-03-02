@@ -4,10 +4,11 @@
         header("location:index.php");
     }
 
-    $form= "<form action='veFuncCategoriaAlta.php' enctype='multipart/form-data' class='cont' method='post'>
-                    
+    $form= "<form action='veFuncCategoriaAlta.php' enctype='multipart/form-data' class='cont' method='post'>            
+                <h1 style='width:100%;text-align:center;'>Alta categoría</h1>
+
                 <div class='contenedor'>
-                    <label for='nombre'class=''>Nombre de categoría</label>
+                    <label for='nombre'>Nombre de categoría</label>
                     <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
                 </div>
 
@@ -15,9 +16,22 @@
                     <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
                 </div>    
 
-                <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>          
+                <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>
+            ";
+            
+            if (isset($_GET['alta'])){
+                $form .= "<div class='contenedor' id='error'>
+                             <p> ¡Se ha añadido la categoría con éxito! </p>
+                          </div>";
+            }
+            else if (isset($_GET['error'])){
+                $form .="
+                <div class='contenedor' id='error'>
+                    <p> Error: los datos ingresados no son correctos, reintente por favor </p>
+                </div>";
+            }
 
-            </form>
+    $form .= "</form>         
     ";
 ?>
 <!DOCTYPE html>
@@ -31,7 +45,7 @@
     <style>
         .cont{
             width:40%;
-            height: 250px;
+            height: auto;
         }
 
         .btn{
@@ -52,15 +66,14 @@
     </style>
 </head>
 <body>
+
     <header id='header'>
-        <?php echo $encab; ?>
+        <?= $encab; ?>
 	</header>
-    <main id='main'>
 
-        <h1 style='width:100%;text-align:center;'>Alta categoría</h1>
-    
-        <?= $form ?> 
-
+    <main id='main'>  
+        <?= $form; ?> 
     </main>
+
 </body>
 </html>

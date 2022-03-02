@@ -69,7 +69,7 @@
         
         $rs = $db -> query($sql);
 
-        header ("location: veProductoAlta.php?insert=true");
+        header ("location: veProductoAlta.php?alta=true");
     }
     else{
         header ("location: veProductoAlta.php?error=data");

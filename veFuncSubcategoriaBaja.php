@@ -10,6 +10,8 @@
         ";
 
         $rs = $db->query($sql);
+
+        header ("location: veSubcategoriaBaja.php?elim=exito");
     }
     else{
         header ("location: veSubcategoriaBaja.php?error=data");
