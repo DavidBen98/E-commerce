@@ -147,8 +147,6 @@ window.onload = function (){
             });
         }
 
-        console.log("entre");
-
         for (let i=0; i<eliminarFavorito.length;i++){
             eliminarFavorito[i].addEventListener ("click", () => {
                 let id = eliminarFavorito[i].value;
@@ -658,7 +656,6 @@ const actualizarSubcategoria = () => {
         url: "rellenarSelect.php",
         data: "categoria= " + $('#categoria').val (),
         success: function (r){
-            console.log("subcategorias");
             $('#subc').html (r);
         }
     });

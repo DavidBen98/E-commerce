@@ -89,7 +89,7 @@
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='images/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                <img src='images/$id/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
                                     <div class='titulo' style='text-align:left;'>
                                         <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
                                             <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
@@ -480,7 +480,7 @@
         </ol>
 
         <aside class='contenedor-botones'>
-            <?= $cont_usuarios; ?>
+            <?= CONT_USUARIOS; ?>
         </aside>
 
         <section style='display:flex; width:78%; height:auto;'>

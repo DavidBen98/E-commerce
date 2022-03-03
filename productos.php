@@ -27,7 +27,7 @@
 	}
 	
     if(isset($_GET['productos'])){ 
-		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio";
+		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
 		$from = "FROM `producto` as p";
 		$innerJoin = "INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
 					  INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
@@ -62,7 +62,7 @@
 			$busqueda = ucfirst($busqueda);
 			$palabras = explode (' ',$busqueda);			
 
-			$sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio
+			$sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio, p.id, p.descuento
 					FROM `producto` as p
 					INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
 					INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
@@ -75,7 +75,8 @@
 				if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
 					$sql .= " OR nombre_categoria LIKE '%".$palabra."%'
 							  OR nombre_subcategoria LIKE '%".$palabra."%'
-							  OR descripcion LIKE '%".$palabra."%'";
+							  OR descripcion LIKE '%".$palabra."%'
+					";
 				}
 			}
 			
@@ -87,7 +88,7 @@
         $categoria = $_GET['cate'];
 		$subcategoria = $_GET['sub'];
 
-		$select = "SELECT p.`codigo`, p.`descripcion`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+		$select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
 		$from = "FROM producto as p";
 		$innerJoin = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					  INNER JOIN categoria as c on c.id_categoria = p.id_categoria
@@ -250,11 +251,9 @@
 						form.style.display = 'block';
 					}
 				});
-			}
-			
-			if (cambiar != null){
+
 				form.style.display = 'none';
-			}	
+			}
 		});
 
 		$(document).ready(function(){

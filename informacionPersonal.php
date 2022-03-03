@@ -315,7 +315,7 @@
 
         <div style='display:flex; justify-content:start;'>
             <aside class='contenedor-botones'>
-                <?= $cont_usuarios; ?>
+                <?= CONT_USUARIOS; ?>
             </aside>
 
             <?= $infoPersonal; ?>

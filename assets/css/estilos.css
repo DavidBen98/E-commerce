@@ -299,13 +299,12 @@ button a{
 
 .descripcion, .tituloSubcat{
     display:flex;
-    width:230px;
     height:25%;
     justify-content:center;
     text-align:center;
     background-color: white;
     margin: 0;
-    padding: 10px 0;
+    padding: 10px 5px;
 } 
 
 .tituloSubcat{

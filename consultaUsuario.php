@@ -164,7 +164,7 @@
         </ol>
         
         <aside class='contenedor-botones'>
-            <?= $cont_usuarios; ?>
+            <?= CONT_USUARIOS; ?>
         </aside>
 
         <?= $div; ?>  

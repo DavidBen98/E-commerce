@@ -4,14 +4,14 @@
 
     define('PSW_SEMILLA','34a@$#aA9823$');
 
-    $cont_usuarios = "  <div class='contenedor-btn'>        
-                            <div id='btnInfoPersonal' style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
-                            <div id='btnCompraUsuario'>Mis pedidos</div>
-                            <div id='btnFavoritos'>Favoritos</div>
-                            <div id='btnConsultas'>Historial de consultas</div>
-                            <div id='btnCerrarSesion' style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
-                        </div> 
-    ";
+    define ('CONT_USUARIOS', "<div class='contenedor-btn'>        
+                                <div id='btnInfoPersonal' style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
+                                <div id='btnCompraUsuario'>Mis pedidos</div>
+                                <div id='btnFavoritos'>Favoritos</div>
+                                <div id='btnConsultas'>Historial de consultas</div>
+                                <div id='btnCerrarSesion' style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
+                            </div> "
+    );
 
     function crear_barra() {
         global $user;
@@ -114,21 +114,32 @@
                 foreach ($consulta as $row) {
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='images/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <img src='images/{$row['id']}/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='".ucfirst($row['nombre_subcategoria'])."'> 
                             <h2 class='tituloSubcat'>". ucfirst($row['nombre_subcategoria'])." </h2>
-                        </div>";           
+                        </div>
+                    ";           
                 };		
             }
             else{
                 foreach ($consulta as $row) {
                     $i++; 
-                    echo "<div class='producto'>
-                            <img src='images/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
-                            <div class='caracteristicas'>
-                                <h2 class='descripcion' style='margin:0;font-weight:normal; font-size:1.1rem;'>". ucfirst($row['descripcion'])." </h2>
-                                <h3 class='precio' style='text-align:center;font-weight:normal; font-size:1.2rem;'> $". ucfirst($row['precio'])." </h3>
+                    echo "<div class='producto' style='height:auto;'>
+                            <img src='images/{$row['id']}/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+                            <div class='caracteristicas' style='height:auto;'>
+                                <h2 class='descripcion' style='margin:0;font-weight:normal; font-size:1.1rem;min-height:65px;align-items:center;'>". ucfirst($row['descripcion'])." </h2>
+                                <div style='display:block; justify-content:center; align-items:center;'>";
+                                    if ($row['descuento'] != 0){
+                                        $precio_descuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
+                                        echo "<h3 class='precio' style='text-align:center;font-weight:normal; font-size:1.2rem; margin-top:15px; margin-bottom:0;'> $". $precio_descuento ." </h3>";
+                                        echo "<h3 class='precio' style='text-align:center;font-weight:normal; font-size:0.8rem;margin:0; text-decoration: line-through;'> $". ucfirst($row['precio'])." </h3>";
+                                    }
+                                    else{
+                                        echo "<h3 class='precio' style='text-align:center;font-weight:normal; font-size:1.2rem; margin-top: 15px;'> $". ucfirst($row['precio'])." </h3>";
+                                    }
+                    echo"       </div>
                             </div>
-                        </div>";           
+                        </div>
+                    ";           
                 };
             }
 
@@ -219,7 +230,8 @@
                    $where .
 				   $where_sql .
                    "GROUP  BY p.`codigo`
-					ORDER  BY SUM(dc.`cantidad`) DESC;";
+					ORDER  BY SUM(dc.`cantidad`) DESC;
+            ";
 		}
 		else{
 			$sql = "$select
@@ -372,12 +384,14 @@
             foreach ($rs1 as $row1){ //subcategorias
                 $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
             }
+
             //agrega las diferentes subcategorias que pertenecen a esa categoria
             echo "" .  ucwords($subcatNombre) . "          
                             </p>     
                         </div>
                     </div>
-                </div>";
+                </div>
+            ";
         }
     }  
 
@@ -398,11 +412,14 @@
 								<option value='1'> Mayor precio </option>	
 								<option value='2'> Mas vendidos </option>
 							</select>
-						</div>";
+						</div>
+            ";
 		}
 		else if (isset($_GET['productos']) || isset($_GET['buscador'])){ //Si se ingresa desde el nav ->productos o desde la barra de navegacion
 			$arrCategorias = [];
 			$arrSubcategorias = [];
+            $categoria = "%";
+            $subcategoria = "%";
 
 			$sql  = "SELECT c.id_categoria,c.nombre_categoria,descripcion, material,color,caracteristicas,marca,stock, precio, s.nombre_subcategoria
                     FROM `producto`
@@ -431,7 +448,8 @@
 					</div>
 					<div class='btn-select'>
 						<label for='categoria' class='label'> Categorías </label>
-						<select class='form-select' id='categoria' name='categoria' title='Categorias'>";
+						<select class='form-select' id='categoria' name='categoria' title='Categorias'>
+            ";
 
 			foreach($arrCategorias as $indice => $valor){
 				$form .=" <option value='$valor'> $indice </option>";
@@ -440,7 +458,9 @@
 			$form .= "</select>
 					</div>
 					<div id='subc' class='btn-select'>
-				</div>";
+				</div>
+            ";
+
 		}
 
 		echo $form;
@@ -454,7 +474,7 @@
 					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
         ";
 
-		$where_sql = " WHERE s.nombre_subcategoria='$subcategoria' AND c.nombre_categoria='$categoria'";
+		$where_sql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
 
 		$sql  = "SELECT p.id_categoria, p.id_subcategoria,descripcion, material,color,caracteristicas,marca,stock, precio
 				FROM `producto` as p

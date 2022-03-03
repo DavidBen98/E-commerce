@@ -20,7 +20,7 @@
 	$imagenes = $_GET['categoria'];
 	//$imagenes = substr($imagenes,0,2);
 
-	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio
+	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio, p.id
 	 		FROM subcategoria as s
 	 		INNER JOIN producto as p on s.id_subcategoria = p.id_subcategoria
 			INNER JOIN categoria as c on c.id_categoria = s.id_categoria
