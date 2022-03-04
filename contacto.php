@@ -161,7 +161,7 @@
 </head>
 <body>
 	<header>
-		<?= $encab; ?>
+		<?= $encabezado; ?>
 	</header>
 
     <main id='main'>

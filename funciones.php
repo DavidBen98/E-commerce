@@ -103,8 +103,8 @@
     function crearImagenes ($consulta){
 		$i=0;	
 
-		echo "<form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>";
-			echo "<h1 class='h1' style='display:none; width:100%; text-align:center; margin:0; padding-left: 100px;'> Muebles Giannis - Catálogo </h1>";
+		echo "<form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
+			    <h1 class='h1' style='display:none; width:100%; text-align:center; margin:0; padding-left: 100px;'> Muebles Giannis - Catálogo </h1>";
         
             if (!$consulta){
                 $i++;
@@ -123,18 +123,23 @@
             else{
                 foreach ($consulta as $row) {
                     $i++; 
-                    echo "<div class='producto' style='height:auto;'>
+                    echo "<div class='producto'>
                             <img src='images/{$row['id']}/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
-                            <div class='caracteristicas' style='height:auto;'>
-                                <h2 class='descripcion' style='margin:0;font-weight:normal; font-size:1.1rem;min-height:65px;align-items:center;'>". ucfirst($row['descripcion'])." </h2>
+                            <div class='caracteristicas'>
+                                <h2 class='descripcion'>". ucfirst($row['descripcion'])." </h2>
                                 <div style='display:block; justify-content:center; align-items:center;'>";
                                     if ($row['descuento'] != 0){
                                         $precio_descuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
-                                        echo "<h3 class='precio' style='text-align:center;font-weight:normal; font-size:1.2rem; margin-top:15px; margin-bottom:0;'> $". $precio_descuento ." </h3>";
-                                        echo "<h3 class='precio' style='text-align:center;font-weight:normal; font-size:0.8rem;margin:0; text-decoration: line-through;'> $". ucfirst($row['precio'])." </h3>";
+                                        echo "<h3 class='precio'>
+                                                 $". $precio_descuento ." 
+                                              </h3>
+                                              <h3 class='precio' style='font-size:0.8rem; text-decoration: line-through; margin:0;'>
+                                                 $". ucfirst($row['precio']).
+                                            " </h3>
+                                        ";
                                     }
                                     else{
-                                        echo "<h3 class='precio' style='text-align:center;font-weight:normal; font-size:1.2rem; margin-top: 15px;'> $". ucfirst($row['precio'])." </h3>";
+                                        echo "<h3 class='precio'> $". ucfirst($row['precio'])." </h3>";
                                     }
                     echo"       </div>
                             </div>
@@ -404,7 +409,7 @@
 			$producto = $_GET['articulos'];
 			$categoria = $_GET['cate'];
 			$subcategoria = $_GET['sub']; 
-			$form = "<form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
+			$formulario = "<form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
 						<div class='btn-select'>
 							<label for='orden' class='label'> Ordenar por </label>
 							<select class='form-select' id='orden' name='orden' title='Ordenar elementos'> 
@@ -436,7 +441,7 @@
 			}
 
 			ksort($arrCategorias);
-			$form = " 
+			$formulario = " 
 				<form action='productos.php?productos=filtrado' method='post' id='datos'> 
 					<div class='btn-select'>
 						<label for='orden' class='label'> Ordenar por </label>
@@ -452,10 +457,10 @@
             ";
 
 			foreach($arrCategorias as $indice => $valor){
-				$form .=" <option value='$valor'> $indice </option>";
+				$formulario .=" <option value='$valor'> $indice </option>";
 			}
 
-			$form .= "</select>
+			$formulario .= "</select>
 					</div>
 					<div id='subc' class='btn-select'>
 				</div>
@@ -463,7 +468,7 @@
 
 		}
 
-		echo $form;
+		echo $formulario;
 
 		$arrColores = [];
 		$arrMarcas = [];

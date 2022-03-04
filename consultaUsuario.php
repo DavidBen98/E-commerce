@@ -13,18 +13,18 @@
                  
     global $db;
     
-    $mail = "";
+    $id = "";
 
-    if (isset($_SESSION['user_email_address'])){
-        $mail =$_SESSION['user_email_address'];
+    if (isset($_SESSION['idUsuario'])){
+        $id =$_SESSION['idUsuario'];
     }
     else if (isset($_SESSION['email'])){
         $mail =$_SESSION['email'];
     }
 
     $sql= "SELECT c.texto, c.respondido
-            FROM `consulta` as c INNER JOIN `usuario` as u ON (c.email = u.email)
-            WHERE c.email='$mail'
+            FROM `consulta` as c INNER JOIN `usuario` as u ON (c.usuario_id = u.id)
+            WHERE c.usuario_id='$id'
     "; 
 
     $rs = $db->query($sql);
@@ -68,7 +68,8 @@
             $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
                             <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
                             <p>$respuesta</p>
-                        </div>";
+                        </div>
+            ";
         }
     }
 
@@ -76,6 +77,8 @@
                 <button class='btn' id='nuevaConsulta' style='margin:15px;'>Nueva consulta </button>
             </div>
     </div>";
+
+    var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -154,7 +157,7 @@
 </head>
 <body id="body">
     <header>
-        <?php echo $encab; ?> 
+        <?= $encabezado; ?> 
     </header>
 
     <main>

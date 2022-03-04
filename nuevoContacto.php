@@ -20,48 +20,42 @@
     else if ($apellido == ""){
         $msjError .= "Debe ingresar apellido";
     }
-    else if ($email == ""){
+    else if ($email == "" && !isset($_SESSION['servicio']) && $user == ""){
         $msjError .= "Debe ingresar su email"; 
     }
     else if ($txtIngresado == ""){
         $msjError .= "Debe ingresar su consulta";
     }
-    else{  
+    else if(isset($_SESSION['servicio']) || ($user != "")){  
         global $db;
 
-        $sql = "SELECT id 
-                FROM `usuario` as u
-                WHERE u.email='$email'
-        ";
-        
+        if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
+            $id_usuario = $_SESSION['idUsuario'];
+        }
+        else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
+            $id_usuario = $_SESSION['id'];
+        }
+        else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
+            $id_usuario = $_SESSION["user_id"];
+        }
+
+        $sql = "INSERT INTO `consulta` (`nombre`, `apellido`, `texto`,`usuario_id`) 
+                VALUES ('$nombre','$apellido','$txtIngresado','$id_usuario')
+        "; 
+
         $rs = $db->query($sql);
 
-        $i=0; 
-
-        foreach ($rs as $row) { 
-            $i++; 
-            $id = $row['id'];       
-        }; 
-
-        if ($i > 0){
-            $sql2 = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`,`usuario_id`) 
-                      VALUES ('$email','$nombre','$apellido','$txtIngresado','false','$id')
-            "; 
-        }
-        else{
-            $sql2 = " INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`, `respondido`,`usuario_id`) 
-                        VALUES ('$email','$nombre','$apellido','$txtIngresado','false',null)
-                        ";
-        }
-
-        $rs2 = $db->query($sql2);
-
-        if ((isset($_SESSION['user_email_address']) && $email == $_SESSION['user_email_address'])
-                    || ((isset($_SESSION['email'])) && $email == $_SESSION['email'])){//usuario registrado
-            header("location:consultaUsuario.php");                       
-        }   
-        else{
-            header("location:contacto.php?consulta=exito");
-        }
+        header("location:consultaUsuario.php");                       
     }  
+    else{
+        global $db;
+
+        $sql = "INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`) 
+                VALUES ('$email','$nombre','$apellido','$txtIngresado')
+        "; 
+
+        $rs = $db->query($sql);
+
+        header("location:contacto.php?consulta=exito");
+    }
 ?>

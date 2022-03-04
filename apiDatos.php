@@ -22,7 +22,8 @@
     sort ($a);
 
     $select = "<select id='provincia' name='provincia' title='Provincia'>
-                <option value='-1'>Seleccione una opción</option>";
+                <option value='-1'>Seleccione una opción</option>
+    ";
 
     foreach ($a as $provincia){
         if (isset($_SESSION ['provincia'])){

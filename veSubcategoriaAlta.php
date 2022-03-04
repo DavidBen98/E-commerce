@@ -8,7 +8,7 @@
 
     $lista = obtenerCategorias();
 
-    $form = "<form class='cont' action='veFuncSubcategoriaAlta.php' enctype='multipart/form-data'>     
+    $formulario = "<form class='cont' action='veFuncSubcategoriaAlta.php' enctype='multipart/form-data'>     
                 <label for='nombre'class='col-sm-2 form-label'>Nombre de subcategoría</label>
                 <input type='text' name='tNombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
                 
@@ -23,19 +23,19 @@
             ";
             
             if (isset($_GET['alta'])){
-                $form .= "<div class='contenedor' id='error'>
+                $formulario .= "<div class='contenedor' id='error'>
                              <p> ¡Se ha añadido la subcategoría con éxito! </p>
                           </div>
                 ";
             }
             else if (isset($_GET['error'])){
-                $form .="<div class='contenedor' id='error'>
+                $formulario .="<div class='contenedor' id='error'>
                             <p> Error: los datos ingresados no son correctos, reintente por favor </p>
                         </div>
                 ";
             }
 
-    $form .= "</form>
+    $formulario .= "</form>
     ";
 ?>
 <!DOCTYPE html>
@@ -78,11 +78,11 @@
 <body>
 
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>
-        <?= $form; ?>
+        <?= $formulario; ?>
     </main> 
 
 </body>

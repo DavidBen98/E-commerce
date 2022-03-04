@@ -124,7 +124,7 @@
                 </div>";
 
         if (isset($_GET['modif'])){
-            $form .= "
+            $formulario .= "
             <div class='contenedor' id='elim'>
                 <p>¡Se ha modificado el producto de manera exitosa!</p>
             </div>";
@@ -390,7 +390,7 @@
 <body>
 
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>

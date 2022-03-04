@@ -13,8 +13,9 @@
 	}
 	else{
 		$sql = "SELECT contrasena, perfil, nombre, apellido, email,id
-		FROM usuario 
-		WHERE usuario.nombreUsuario =?";
+				FROM usuario 
+				WHERE usuario.nombreUsuario =?
+		";
 
 		$stmt = $db->prepare($sql);
 		$sqlvalue=[$nombreUser];

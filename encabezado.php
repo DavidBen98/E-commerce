@@ -6,7 +6,7 @@
         // <li><a href='consultas.php'>Consultas</a></li>
         // <li><a href='ventas.php'>Ventas</a></li>
         // <li><a href='usuarios.php'>Usuarios</a></li>
-        $encab =  " <div id='logo'>
+        $encabezado =  " <div id='logo'>
                             <a href='index.php' id='link-logo'> 
                                 <h1><i id='titulo-principal' title='Logo del comercio'>Muebles Giannis</i></h1>
                             </a>
@@ -27,10 +27,10 @@
                                 <li><a href='veABMSubcategoria.php'>Subcategorías</a></li>
                             </ul>
                         </nav> 
-                    ";
+        ";
     }
     else {
-        $encab = "
+        $encabezado = "
                         <div id='html-slot'>
                             <span>¡Envíos a todo el país!</span>
                         </div>  
@@ -65,6 +65,6 @@
                                 <li><a href='contacto.php'>Contacto</a></li>
                             </ul>
                         </nav>
-                ";
+        ";
     }
 ?>

@@ -26,7 +26,8 @@
                             <th>Cantidad</th>
                             <th>Subtotal</th>                
                         </tr>
-                    </thead> ";         
+                    </thead> 
+        ";         
  
         global $db; 
 
@@ -39,7 +40,9 @@
                 $sql = $db->prepare("SELECT precio, descripcion,nombre_subcategoria, descuento, $cantidad AS cantidad
                                     FROM producto as p
                                     INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-                                    WHERE id=?");
+                                    WHERE id=?
+                ");
+
                 $sql -> execute ([$key]);
                 $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
             }
@@ -83,7 +86,8 @@
                         <td>
                             $subtotal
                         </td>                           
-                    </tr>";
+                    </tr>
+            ";
 
             $totPrecioUnid += $precio;
             $totPrecioDesc += $precio_desc;

@@ -9,7 +9,7 @@
 
     $lista = obtenerCategorias();
 
-    $form = "<form class='cont' action='veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
+    $formulario = "<form class='cont' action='veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
                 <h1 style='width:100%;text-align:center;'>Baja producto</h1>
 
                 <div class='contenedor'>
@@ -26,19 +26,19 @@
     ";
     
     if (isset($_GET['elim'])){
-        $form .= "
+        $formulario .= "
         <div class='contenedor' id='elim'>
             <p>¡Se ha eliminado el producto de manera exitosa!</p>
         </div>";
     }
     else if (isset($_GET['error'])){
-        $form .="<div class='contenedor' id='error'>
+        $formulario .="<div class='contenedor' id='error'>
                     <p>Error: los datos ingresados no son correctos, reintente por favor</p>
                 </div>
         ";
     }
 
-    $form .= "</form>";
+    $formulario .= "</form>";
 ?>
 <html lang="es">
 <head>
@@ -168,11 +168,11 @@
 </head>
 <body>
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>
-        <?= $form; ?>
+        <?= $formulario; ?>
     </main>
 
 </body>

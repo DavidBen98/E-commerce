@@ -16,7 +16,8 @@
 
     $sql = "SELECT nombreUsuario, email
 		    FROM usuario 
-		    WHERE usuario.nombreUsuario = '$nombreUsuario' OR usuario.email = '$email' OR usuario.nroDni = '$dni'";
+		    WHERE usuario.nombreUsuario = '$nombreUsuario' OR usuario.email = '$email' OR usuario.nroDni = '$dni'
+    ";
 
     $rs = $db->query($sql);
 
@@ -126,7 +127,8 @@
         $dire = trim($dire);
 
         $insertar = "INSERT INTO `usuario`(`nombreUsuario`, `contrasena`, `perfil`, `nroDni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`,`suscripcion`) 
-                     VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')";
+                     VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')
+        ";
 
         $rs = $db->query($insertar);
 

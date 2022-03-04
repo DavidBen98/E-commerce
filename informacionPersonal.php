@@ -307,7 +307,7 @@
 </head>
 <body id="body">
     <header> 
-        <?php echo $encab; ?> 
+        <?= $encabezado; ?> 
     </header>
 
     <main>

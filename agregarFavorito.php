@@ -51,7 +51,8 @@
     
         $sql = "SELECT id_producto
                 FROM favorito
-                WHERE id_usuario = '$id_usuario'";
+                WHERE id_usuario = '$id_usuario'
+        ";
     
         $rs = $db->query ($sql);
     

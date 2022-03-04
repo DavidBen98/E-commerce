@@ -18,7 +18,6 @@
 	global $db;  
 
 	$imagenes = $_GET['categoria'];
-	//$imagenes = substr($imagenes,0,2);
 
 	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio, p.id
 	 		FROM subcategoria as s
@@ -57,12 +56,18 @@
 
 		.producto{
 			height:300px;
+			min-height: auto;
+		}
+
+		.tituloSubcat{
+			min-height: auto;
+			height: auto;
 		}
 	</style>
 </head>
 <body id="body"> 
 	<header>
-		<?= $encab; ?> 
+		<?= $encabezado; ?> 
 	</header>
 
 	<main id="main">

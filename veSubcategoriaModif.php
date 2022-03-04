@@ -11,7 +11,7 @@
 
     $subcategorias = obtenerSubcategorias();
     
-    $form = "<h1 style='width:100%;text-align:center;'>Modificar subcategoría</h1>
+    $formulario = "<h1 style='width:100%;text-align:center;'>Modificar subcategoría</h1>
              <div style='width:100%; display:flex; justify-content:center; margin-bottom: 20px;'>                
                 <form action='veFuncSubcategoriaUbicacion.php' id='formUbicacion' method='post' class='cont'>
                     <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
@@ -29,7 +29,7 @@
                     </div>";
 
                     if (isset($_GET['modifU'])){
-                        $form .= "
+                        $formulario .= "
                         <div class='contenedor' id='elim'>
                             <p>¡Se ha modificado el producto de manera exitosa!</p>
                         </div>";
@@ -41,7 +41,7 @@
                         </div>";
                     }
 
-        $form .="</form>
+        $formulario .="</form>
 
                 <form action='veFuncSubcategoriaCarac.php' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
                     <h2 style='text-align:center; margin: auto;'>Características</h2>
@@ -63,7 +63,7 @@
                     </div>";
 
                     if (isset($_GET['modifC'])){
-                        $form .= "
+                        $formulario .= "
                         <div class='contenedor' id='elim'>
                             <p>¡Se ha modificado el producto de manera exitosa!</p>
                         </div>";
@@ -75,7 +75,7 @@
                         </div>";
                     }
                     
-            $form .="</form>
+            $formulario .="</form>
             </div>
     ";
 ?>
@@ -126,11 +126,11 @@
 </head>
 <body>
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>
-        <?= $form; ?>
+        <?= $formulario; ?>
     </main> 
 
 </body>

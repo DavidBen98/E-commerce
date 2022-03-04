@@ -1,5 +1,8 @@
 <?php
     session_start();
+    require_once 'vendor/autoload.php';
+    require_once 'vendor\jublonet\codebird-php\src\codebird.php';
+    require_once 'app/TwitterAuth.php';
     //define ('TOKENTWITTER', 'VZtL1D6kiULEhnWS0tRtKXHDp');
     //define ('SECRETOCLAVETWITTER', 'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');
     //define ('IDCLIENTEGOOGLE', '594064547014-qtsmu9tgks9lsgucsl81mu850aadfi4a.apps.googleusercontent.com');
@@ -7,10 +10,6 @@
 
     $user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
     $perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
-
-    require_once 'vendor/autoload.php';
-    require_once 'vendor\jublonet\codebird-php\src\codebird.php';
-    require_once 'app/TwitterAuth.php';
 
     \Codebird\Codebird::setConsumerKey('VZtL1D6kiULEhnWS0tRtKXHDp',
     'k7HZWpbc3oYh3N8Vjx2w0HRE1zgIX1yLfzN7hIOLsGjHxeTFuE');

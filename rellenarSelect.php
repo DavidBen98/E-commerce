@@ -9,12 +9,14 @@
 
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM subcategoria
-                WHERE id_categoria = '$cate'";
+                WHERE id_categoria = '$cate'
+        ";
 
         $rs = $db->query($sql); 
 
         echo "  <label for='subcategoria' class='label'> Subcategorías </label>
-                <select id='subcategoria' name='subcategoria' class='form-select'>";
+                <select id='subcategoria' name='subcategoria' class='form-select'>
+        ";
 
         foreach ($rs as $row) {
             echo "<option value=".$row['id_subcategoria'].">". $row['nombre_subcategoria'] . "</option>";
@@ -50,7 +52,8 @@
             sort($municipio);
 
             echo "<label for='ciudad' class='form-label'>Ciudad</label>
-                  <select id='ciu' name='ciudad' class='form-select'>";  
+                  <select id='ciu' name='ciudad' class='form-select'>
+            ";  
             foreach ($municipio as $nombre){ 
                 echo "<option value='$nombre'>". $nombre . "</option>";
             }   

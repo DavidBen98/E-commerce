@@ -55,7 +55,8 @@
                         RESUMEN
                     </p>
                 </div>
-            </div>";
+            </div>
+    ";
 
     $total = 0;
     $i = 1;

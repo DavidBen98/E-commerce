@@ -18,7 +18,8 @@
 				isset($_POST['marca'])? $_POST['marca']:null,
 				isset($_POST['valorMin'])? $_POST['valorMin']:null,
 				isset($_POST['valorMax'])? $_POST['valorMax']:null,
-				isset($_POST['orden'])? $_POST['orden']:null];
+				isset($_POST['orden'])? $_POST['orden']:null]
+	;
 
 	if ($filtros[2] != null && $filtros[3] != null && $filtros[2]>$filtros[3]){
 		$maximo = $filtros[2];
@@ -212,12 +213,6 @@
 			width:100%;
 		}
 
-		.caracteristicas{
-			flex-wrap:wrap;
-			width:230px;
-			height:130px;
-		}
-
 		.img-cat{
 			object-fit: contain;
 		}
@@ -267,7 +262,7 @@
 </head>
 <body id="body">   
     <header>
-		<?php echo $encab;?>
+		<?= $encabezado;?>
 	</header>
 	
 	<main id="main">

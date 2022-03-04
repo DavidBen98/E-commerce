@@ -7,7 +7,7 @@
 
     $lista = obtenerCategorias();
     
-    $form = "  <form action='veFuncCategoriaModif.php' method='post' enctype='multipart/form-data' class='cont'>
+    $formulario = "  <form action='veFuncCategoriaModif.php' method='post' enctype='multipart/form-data' class='cont'>
                     <h1 style='width:100%;text-align:center;'>Modificar categoría</h1>
                                     
                     <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
@@ -29,19 +29,19 @@
             ";
 
             if (isset($_GET['modif'])){
-                $form .= "<div class='contenedor' id='error'>
+                $formulario .= "<div class='contenedor' id='error'>
                              <p> ¡Se ha modificado la categoría con éxito! </p>
                           </div>
                 ";
             }
             else if (isset($_GET['error'])){
-                $form .="<div class='contenedor' id='error'>
+                $formulario .="<div class='contenedor' id='error'>
                             <p> Error: los datos ingresados no son correctos, reintente por favor </p>
                         </div>
                 ";
             }
 
-    $form .= "</form>
+    $formulario .= "</form>
     ";
 ?>
 <!DOCTYPE html>
@@ -87,11 +87,11 @@
 <body>
     
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>
-        <?= $form; ?>
+        <?= $formulario; ?>
     </main> 
 
 </body>

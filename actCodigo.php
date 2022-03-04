@@ -13,12 +13,12 @@
 
     $rs = $db -> query($sql);
 
-    $i = 0;
+    $nuevoProducto = 0;
     foreach ($rs as $row){
-        $i++;
+        $nuevoProducto++;
     }
 
-    $i = $i + 1; //posicion del nuevo producto
+    $nuevoProducto = $nuevoProducto + 1; //posicion del nuevo producto
 
-    echo $i;
+    echo $nuevoProducto;
 ?>

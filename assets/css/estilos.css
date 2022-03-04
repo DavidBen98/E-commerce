@@ -279,7 +279,7 @@ button a{
 }
 
 .producto{
-    height:360px;
+    min-height:400px;
     margin-right:10px;
     margin-bottom:10px;
     cursor: pointer;
@@ -295,6 +295,9 @@ button a{
 
 .caracteristicas{
     background-color: white;
+    height:auto;
+    flex-wrap:wrap;
+	width:230px;
 }
 
 .descripcion, .tituloSubcat{
@@ -305,6 +308,10 @@ button a{
     background-color: white;
     margin: 0;
     padding: 10px 5px;
+    font-weight:normal; 
+    font-size:1.1rem;
+    min-height:65px;
+    align-items:center;
 } 
 
 .tituloSubcat{
@@ -404,7 +411,11 @@ aside select{
 }
 
 .precio{
-    font-size: 1.2em;
+    text-align:center;
+    font-weight:normal; 
+    font-size:1.2rem; 
+    margin:0; 
+    margin-top: 15px;
 }
 
 

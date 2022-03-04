@@ -18,8 +18,8 @@
 	$twitter = $auth->getAuthUrl();
 
 	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>
-					 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>";
-
+					 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>
+	";
 
 	if (isset($_GET['reg'])){
 		$ruta = "<ol class='ruta'>
@@ -28,7 +28,7 @@
 				</ol>
 		";
 
-		$form = "<form action='registro.php' method='post' class='' id='form-registro'>
+		$formulario = "<form action='registro.php' method='post' class='' id='form-registro'>
 					<div class='form'>
 						<div class='cont-reg'>
 							<label for='nombre' class='form-label'>Nombre</label>
@@ -104,27 +104,27 @@
 		if (isset($_GET['error'])){
 			$error = isset($_GET['error']);
 
-			$form .= "<div id='error-reg'> <p>";
+			$formulario .= "<div id='error-reg'> <p>";
 			
 			if ($error == "4"){
-				$form .= "El usuario, email y/o DNI ingresado ya existen";
+				$formulario .= "El usuario, email y/o DNI ingresado ya existen";
 			}
 			else if ($error == "1"){
-				$form .= "Las contraseñas no coindiden, reintente por favor";
+				$formulario .= "Las contraseñas no coindiden, reintente por favor";
 			}
 			else if ($error == "2"){
-				$form .= "El dni ingresado no es válido";
+				$formulario .= "El dni ingresado no es válido";
 			}
 			else if ($error == "3"){
-				$form .= "Falta ingresar al menos un campo";
+				$formulario .= "Falta ingresar al menos un campo";
 			}
-			$form .= "</p></div>";
+			$formulario .= "</p></div>";
 		}
 		else if (isset($_GET['registro'])){
-			$form .= "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
+			$formulario .= "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
 		}
 		
-		$form .= "</div>
+		$formulario .= "</div>
 				<div class='redes'>
 					$login_button
 				</div>
@@ -138,7 +138,7 @@
 				</ol>
 		";
 
-		$form = "<form action='inicioSesion.php' method='post' class='formulario' novalidate>
+		$formulario = "<form action='inicioSesion.php' method='post' class='formulario' novalidate>
 					<div id='sesion'>
 						<h1 id='titulo-is'>Iniciar Sesión</h1>	
 						<div class='cont-campo'>
@@ -156,19 +156,19 @@
 							if(isset($_GET['error'])){
 								$error = $_GET['error'];
 								if ($error == '0'){
-									$form .= "<p class='e_error'>Complete los campos por favor</p>";
+									$formulario .= "<p class='e_error'>Complete los campos por favor</p>";
 								}
 								else if($error == '1'){
-									$form .= "<p class='e_error'>El usuario ingresado no existe</p>";
+									$formulario .= "<p class='e_error'>El usuario ingresado no existe</p>";
 								}
 								else if($error == '2'){
-									$form .= "<p class='e_error'>La contraseña ingresada es inválida</p>";
+									$formulario .= "<p class='e_error'>La contraseña ingresada es inválida</p>";
 								}
 								else if ($error == '401'){
-									$form .= "<p class='e_error'>Ha ocurrido un error inesperado, reintente nuevamente por favor</p>";
+									$formulario .= "<p class='e_error'>Ha ocurrido un error inesperado, reintente nuevamente por favor</p>";
 								}
 							}						
-				$form .= "</p>	
+				$formulario .= "</p>	
 						<div class='cont-campo' id='btn-iniciar'>
 							<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validarLogin()'>
 						</div>
@@ -176,7 +176,7 @@
 
 					<div class='redes'> $login_button </div>
 				</form>	
-				";
+		";
 	}	
 ?>
 <html lang="es"> 
@@ -461,14 +461,12 @@
 	</style>
 </head>
 <body>
-	<?php 
-		echo $encab;
-	?>
+	<?= $encabezado; ?>
 
 	<main id='main'>
 		<?= $ruta; ?>
 
-		<?= $form; ?>
+		<?= $formulario; ?>
 	</main>
             
     <footer id='pie'>

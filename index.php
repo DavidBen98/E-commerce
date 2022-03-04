@@ -11,6 +11,7 @@
     //Si se valida el token al iniciar sesion con Google
     if (isset($_GET["code"])) {
 		$token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
+
 		if (!isset($token['error'])) {
 			$google_client->setAccessToken($token['access_token']);
 	
@@ -74,7 +75,8 @@
             $_SESSION['idUsuario'] = $usuario_id;
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-            ('$usuario_id', '$id', 'Google')";
+                    ('$usuario_id', '$id', 'Google')
+            ";
 
             $db->query($sql);
         }
@@ -82,7 +84,8 @@
             $sql = "SELECT id_social, id_usuario
                     FROM `usuario_rs` as rs
                     INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                    WHERE (u.email = '$email')";
+                    WHERE (u.email = '$email')
+            ";
 
             $resultado = $db->query($sql);
 
@@ -108,14 +111,16 @@
             //Si no existe una persona con ese nombre de usuario
             if (!$existe){
                 $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
-                ('$nombreUsuario', 'U')";
+                        ('$nombreUsuario', 'U')
+                ";
             }
             else{
                 $nombreUsuario = $_SESSION['arroba_tw'];
 
                 $sql = "SELECT nombreUsuario
                         FROM usuario
-                        WHERE nombreUsuario = '$nombreUsuario'";
+                        WHERE nombreUsuario = '$nombreUsuario'
+                ";
 
                 $result = $db->query($sql);
                 $i=0;
@@ -126,7 +131,8 @@
                 //Si no existe una persona con el nombre de usuario = arroba de twitter
                 if ($i == 0){
                     $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
-                            ('$nombreUsuario', 'U')";
+                            ('$nombreUsuario', 'U')
+                    ";
                 }
                 //TODO: Sino unir el nombre y el arroba y ver si existe algun usuario con ese nombre de usuario
                 //En el caso de que exista un usuario con nombre+arroba probar con arroba+nombre
@@ -138,7 +144,8 @@
             $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                    ('$usuario_id', '$id', 'Twitter')";
+                                ('$usuario_id', '$id', 'Twitter')
+            ";
 
             $db->query($sql);  
             
@@ -148,7 +155,8 @@
             $sql = "SELECT u.id
                     FROM usuario as u 
                     INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
-                    WHERE rs.id_social = '$id'";
+                    WHERE rs.id_social = '$id'
+            ";
             
             $rs = $db->query($sql);
 
@@ -254,7 +262,7 @@
 </head>
 <body id="body">
     <header> 
-        <?= $encab; ?>
+        <?= $encabezado; ?>
     </header>
 
     <main id='main' class='main'>

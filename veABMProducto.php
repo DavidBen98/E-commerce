@@ -38,7 +38,7 @@
 
 <body id='body'>
     <header id='header'>
-		<?= $encab; ?>
+		<?= $encabezado; ?>
 	</header>
 
     <main id='main'>

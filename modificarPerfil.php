@@ -41,7 +41,8 @@
 
     $sql = "SELECT usuario.id
             FROM usuario
-            WHERE nombreUsuario = '$nombreUsuario' AND id != '$idUsuario'";
+            WHERE nombreUsuario = '$nombreUsuario' AND id != '$idUsuario'
+    ";
 
     $rs = $db->query ($sql);
  
@@ -149,7 +150,8 @@
 
         $sql = "UPDATE `usuario` SET 
                 `nombreUsuario`='$nombreUsuario',`nroDni`='$dni',`nombre`='$nombre',`apellido`='$apellido', `provincia` = '$provincia', `ciudad` = '$ciudad', `direccion` = '$dire'
-                WHERE `id`=$idUsuario";
+                WHERE `id`='$idUsuario'
+        ";
 
         $rs = $db->query ($sql);
 

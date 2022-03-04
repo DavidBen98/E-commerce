@@ -5,6 +5,7 @@
     include ('config.php');
     require_once 'vendor/autoload.php';
     include("encabezado.php"); 
+
     define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
   
@@ -31,7 +32,9 @@
         foreach ($productos as $key => $cantidad){
             $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
                                  FROM producto
-                                 WHERE id=?");
+                                 WHERE id=?
+            ");
+
             $sql -> execute ([$key]);
             $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
@@ -200,12 +203,14 @@
             if ($fav == 'ok'){
                 $carrito .= "<div class='mensaje' id='mensaje' style='background-color: #099;'>
                                 ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
-                            </div>";
+                            </div>
+                ";
             }
             else{
                 $carrito .= "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
                                 ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
-                            </div>";
+                            </div>
+                ";
             }
         }
         $carrito .= "
@@ -275,6 +280,7 @@
             flex-wrap:wrap;
             justify-content:space-between;
             border-left: 1px solid #D3D3D3;
+            text-align:start;
         }
 
         .precio p{
@@ -546,7 +552,7 @@
 <body id="body">
 
     <header>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
     </header>
     
     <main>      

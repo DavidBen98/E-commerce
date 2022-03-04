@@ -64,13 +64,14 @@
 
     $selectNumero = 1; 
     if ($i == 0){
-                $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay compras realizadas</div>";
+        $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay compras realizadas</div>";
 
         $div .= "<div class='continuar' style='width: 100%; display: flex;'>
                         <button type='button' class='btn-final' id='continuar' style='margin:auto;'>
                             Continúa navegando
                         </button>
-                </div>";
+                </div>
+        ";
 
         if (isset($_GET['elim'])){
             $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
@@ -503,7 +504,7 @@
 </head>
 <body id="body">
     <header>
-        <?= $encab; ?> 
+        <?= $encabezado; ?> 
     </header>
 
     <main>
@@ -511,6 +512,7 @@
             <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
             <li style='border:none;text-decoration: none;'>Mis compras</li>
         </ol>
+        
         <aside class='contenedor-botones'>
             <?=CONT_USUARIOS; ?>
         </aside>

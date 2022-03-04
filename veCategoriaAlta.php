@@ -4,7 +4,7 @@
         header("location:index.php");
     }
 
-    $form= "<form action='veFuncCategoriaAlta.php' enctype='multipart/form-data' class='cont' method='post'>            
+    $formulario ="<form action='veFuncCategoriaAlta.php' enctype='multipart/form-data' class='cont' method='post'>            
                 <h1 style='width:100%;text-align:center;'>Alta categoría</h1>
 
                 <div class='contenedor'>
@@ -20,18 +20,18 @@
             ";
             
             if (isset($_GET['alta'])){
-                $form .= "<div class='contenedor' id='error'>
+                $formulario .= "<div class='contenedor' id='error'>
                              <p> ¡Se ha añadido la categoría con éxito! </p>
                           </div>";
             }
             else if (isset($_GET['error'])){
-                $form .="
+                $formulario .="
                 <div class='contenedor' id='error'>
                     <p> Error: los datos ingresados no son correctos, reintente por favor </p>
                 </div>";
             }
 
-    $form .= "</form>         
+    $formulario .= "</form>         
     ";
 ?>
 <!DOCTYPE html>
@@ -68,11 +68,11 @@
 <body>
 
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>  
-        <?= $form; ?> 
+        <?= $formulario; ?> 
     </main>
 
 </body>

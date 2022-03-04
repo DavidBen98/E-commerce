@@ -12,7 +12,7 @@
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
-    $form = "<form class='cont' action='veFuncProductoAlta.php' method='post' enctype='multipart/form-data'>
+    $formulario = "<form class='cont' action='veFuncProductoAlta.php' method='post' enctype='multipart/form-data'>
                 <h1 style='width:100%;text-align:center;'>Alta producto</h1>
                 
                 <div class='contenedor'>
@@ -102,18 +102,18 @@
                 </div>";
 
                 if (isset($_GET['alta'])){
-                    $form .= "<div class='contenedor' id='error'>
+                    $formulario .= "<div class='contenedor' id='error'>
                                 <p> ¡Se ha añadido el producto con éxito! </p>
                             </div>
                     ";
                 }
                 else if (isset($_GET['error'])){
-                    $form .="<div class='contenedor' id='error'>
+                    $formulario .="<div class='contenedor' id='error'>
                                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
                             </div>
                     ";
                 }
-    $form .= "</form>";
+    $formulario .= "</form>";
 ?>
 <html lang="es">
 <head>
@@ -295,11 +295,11 @@
 <body>
 
     <header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>
-        <?= $form; ?>
+        <?= $formulario; ?>
     </main>
     
 </body>

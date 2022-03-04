@@ -11,7 +11,7 @@
 <?php  
     $listas = obtenerCategorias();
 
-	$form=" <form action='veFuncCategoriaBaja.php' method='post' class='cont'>
+	$formulario=" <form action='veFuncCategoriaBaja.php' method='post' class='cont'>
                 <h1 style='width:100%;text-align:center;'>Baja categoría</h1>
 
                 <label for='categoria'>CATEGORÍA</label>
@@ -20,19 +20,19 @@
             ";
 
             if (isset($_GET['elim'])){
-                $form .= "<div class='contenedor' id='error'>
+                $formulario .= "<div class='contenedor' id='error'>
                              <p> ¡Se ha eliminado la categoría con éxito! </p>
                           </div>
                 ";
             }
             else if (isset($_GET['error'])){
-                $form .="<div class='contenedor' id='error'>
+                $formulario .="<div class='contenedor' id='error'>
                             <p> Error: los datos ingresados no son correctos, reintente por favor </p>
                         </div>
                 ";
             }
 
-    $form .="</form>		   
+    $formulario .="</form>		   
 	";
 ?>
 <html lang="es">
@@ -65,11 +65,11 @@
 <body>
 
 	<header id='header'>
-        <?= $encab; ?>
+        <?= $encabezado; ?>
 	</header>
 
     <main id='main'>
-		<?= $form; ?>
+		<?= $formulario; ?>
 	</main>
 
 </body>

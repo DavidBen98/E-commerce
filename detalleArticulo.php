@@ -11,11 +11,13 @@
 	global $db;
 
 	$ruta = "<ol class='ruta'>
-				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>";
+				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+	";
 
 	$cat = isset($_GET['categoria'])? $_GET['categoria'] : null;
 	$sub = isset($_GET['subcategoria'])? $_GET['subcategoria']: null;
 	$art = isset($_GET['articulos'])? $_GET['articulos']: null;
+
 	if ($cat != null){
 		$ruta .= "<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$cat'>Subcategorías</a></li>
 			  	  <li style='margin-left:5px;'><a href='productos.php?articulos=$art&cate=$cat&sub=$sub'>Productos</a></li>
@@ -65,7 +67,8 @@
 		}
 		else{
 			$botones = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
-						<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>";						
+						<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>
+			";						
 		}
 
 		if (isset($_GET['fav'])){
@@ -84,7 +87,7 @@
 			}
 		}
 
-		$contenedor = "<div class='contenedor'> 
+		$contArticulo = "<div class='contenedor'> 
 							<div id='cont-images'>
 								<img src='images/{$row['id']}/$variable.png' class='img-cat' title='Producto en detalle' alt='{$row['descripcion']}'>                                   
 							</div>
@@ -93,10 +96,23 @@
 								<div class='cont-fund'>
 									<input type='hidden' name='codImg' value='$variable' />
 									
-									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>
+									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>";
 									
-									<span id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</span>
-									<input type='hidden' name='precio' value='{$row['precio']}' />
+                                    if ($row['descuento'] != 0){
+                                        $precio_descuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
+                                        $contArticulo .=  "<h3 class='precio' style='display:flex; text-decoration:line-through; margin: 10px 0;'>
+															$". $precio_descuento ." 
+														</h3>
+											  			<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
+        								";
+                                    }
+                                    else{
+										$contArticulo .= "<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
+														<input type='hidden' name='precio' value='{$row['precio']}' />
+										";
+                                    }
+
+                    $contArticulo .="
 								</div>
 
 								<div class='carac-prod'>
@@ -107,20 +123,20 @@
 										$parrafoCarasteristica
 									</div>
 								</div>
-		";
+					";
 								
 								if($row['stock'] == 0){
-									$contenedor .= $sinStock; 
+									$contArticulo .= $sinStock; 
 								}
 								else{
-									$contenedor .= $botones;						
+									$contArticulo .= $botones;						
 								}
 
 								if (isset($fav)){
-									$contenedor .= $mensaje;
+									$contArticulo .= $mensaje;
 								}
 
-		$contenedor .=	"</div>
+		$contArticulo .=	"</div>
 			</div>
 			
 			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
@@ -217,6 +233,10 @@
 			font-family: "Proxima Nova";
 		}
 
+		h2{
+			margin:0;
+		}
+
 		.cont-fund{
 			margin-bottom:15px;
 		}
@@ -281,7 +301,7 @@
 </head>
 <body>
 	<header>
-    	<?= $encab; ?>
+    	<?= $encabezado; ?>
 	</header>
 	
     <main id='main'>
@@ -289,7 +309,7 @@
 
 		<?= $ruta ?>
 
-		<?= $contenedor ?>
+		<?= $contArticulo ?>
 	</main>
 	
 	<footer id='pie'>
