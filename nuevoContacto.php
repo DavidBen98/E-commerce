@@ -35,8 +35,8 @@
         else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
             $id_usuario = $_SESSION['id'];
         }
-        else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-            $id_usuario = $_SESSION["user_id"];
+        else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
+            $id_usuario = $_SESSION["id_tw"];
         }
 
         $sql = "INSERT INTO `consulta` (`nombre`, `apellido`, `texto`,`usuario_id`) 
