@@ -13,12 +13,14 @@
 
     $rs = $db -> query($sql);
 
-    $nuevoProducto = 0;
+    $ultimoProducto = 0;
     foreach ($rs as $row){
-        $nuevoProducto++;
+        $ultimoProducto = $row['codigo'];
     }
 
-    $nuevoProducto = $nuevoProducto + 1; //posicion del nuevo producto
+    $ultimoProducto = intval(substr($ultimoProducto,3));
 
-    echo $nuevoProducto;
+    $ultimoProducto = $ultimoProducto + 1; //posicion del nuevo producto
+
+    echo $ultimoProducto;
 ?>

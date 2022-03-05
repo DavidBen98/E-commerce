@@ -153,7 +153,6 @@
 
                         //No escalable al agregar mas categorias/subcategorias
                         verCaract();
-
                     }
                 });
             }
@@ -184,35 +183,35 @@
             });
 
             function verCaract (){
-                            if (codigo == "ofsi"){
-                                caracUno.innerHTML = "Altura del respaldo";
-                                caracDos.innerHTML = "Altura del piso al asiento";
-                            }
-                            else if (codigo == "doco"){
-                                caracUno.innerHTML = "Largo";
-                                caracDos.innerHTML = "Ancho";
-                                caracTres.innerHTML = "Alto";
-                            }
-                            else if (codigo == "doca"){
-                                caracUno.innerHTML = 'Plazas';
-                                caracDos.innerHTML = 'Largo';
-                                caracTres.innerHTML = "Ancho";
-                            }
-                            else{
-                                caracUno.innerHTML = "Alto";
-                                caracDos.innerHTML = "Ancho";
-                                caracTres.innerHTML = "Profundidad";
-                            }
-    
-                            if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
-                                caracTres.style.display = 'block';
-                                inputProfundidad.style.display = 'block';
-                            }
-                            else{
-                                caracTres.style.display = 'none';
-                                inputProfundidad.style.display = 'none';
-                            }
-                        }
+                if (codigo == "ofsi"){
+                    caracUno.innerHTML = "Altura del respaldo";
+                    caracDos.innerHTML = "Altura del piso al asiento";
+                }
+                else if (codigo == "doco"){
+                    caracUno.innerHTML = "Largo";
+                    caracDos.innerHTML = "Ancho";
+                    caracTres.innerHTML = "Alto";
+                }
+                else if (codigo == "doca"){
+                    caracUno.innerHTML = 'Plazas';
+                    caracDos.innerHTML = 'Largo';
+                    caracTres.innerHTML = "Ancho";
+                }
+                else{
+                    caracUno.innerHTML = "Alto";
+                    caracDos.innerHTML = "Ancho";
+                    caracTres.innerHTML = "Profundidad";
+                }
+
+                if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
+                    caracTres.style.display = 'block';
+                    inputProfundidad.style.display = 'block';
+                }
+                else{
+                    caracTres.style.display = 'none';
+                    inputProfundidad.style.display = 'none';
+                }
+            }
         });
 	</script>
     <style>
