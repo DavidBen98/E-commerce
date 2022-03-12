@@ -6,7 +6,7 @@ es decir un perfil privado en donde a través de una interfáz gráfica amigable
 agregar productos, subcategorías y categorías.
 
 Está compuesta por las partes fundamentales de los e-commerce, como lo son el carrito de compras, la seccion de productos, la posibilidad de iniciar sesión con diferentes métodos
-y posee algunas otras características.
+y posee algunas otras características como exportar a excel o imprimir, por ejemplo.
 
 Aclaración: el producto aún no está terminado, por lo que podrían surgir bugs o errores al probarlo. Sin embargo sigue en proceso de prueba para corregir todo lo necesario.
 
