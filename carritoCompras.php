@@ -2,7 +2,7 @@
 <?php 
     include ("pie.php"); 
     include ("inc/conn.php");
-    include ('config.php');
+    require_once 'config.php';
     require_once 'vendor/autoload.php';
     include("encabezado.php"); 
 

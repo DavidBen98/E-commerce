@@ -2,7 +2,7 @@
 <?php
     include("pie.php");
 	require 'inc/conn.php';
-    include('config.php');
+    require_once 'config.php';
 	include ("encabezado.php");
     //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 

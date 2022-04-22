@@ -1,5 +1,5 @@
 <?php   
-	include('config.php');
+	require_once 'config.php';
     include("pie.php");
     include ("inc/conn.php");
 	require_once('vendor/autoload.php');

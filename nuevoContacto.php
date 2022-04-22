@@ -1,5 +1,5 @@
 <?php 
-	include('config.php');
+	require_once 'config.php';
     require 'funciones.php';  
     require 'inc/conn.php';
 

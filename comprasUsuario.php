@@ -1,5 +1,5 @@
 <?php 
-    include ('config.php');
+    require_once 'config.php';
     include("encabezado.php"); 
     include("pie.php");
     include ("inc/conn.php");
