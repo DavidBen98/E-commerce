@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php  
 	require_once 'config.php';
 	include ("encabezado.php");
@@ -28,6 +27,7 @@
 	
 	$rs = $db->query($sql);
 ?>
+<!DOCTYPE html>
 <html lang="es"> 
 <head> 
     <meta charset="UTF-8">
@@ -57,11 +57,20 @@
 		.producto{
 			height:300px;
 			min-height: auto;
+			margin: 0 1% 1% 1%;
+			width: 20%;
 		}
 
 		.tituloSubcat{
 			min-height: auto;
 			height: auto;
+		}
+		
+		@media screen and (max-width:1024px){
+		    .producto{
+		        width:40%;
+		        margin: 1%;
+		    }
 		}
 	</style>
 </head>

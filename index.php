@@ -175,26 +175,25 @@
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title>
     <style>
-        .categorias {
-            display: flex;
-            flex-wrap: wrap;
-            padding-left:15%;
-            padding-right:15%;
+    
+        #main{
+            padding: 1.5% 0;
         }
-
-        .categoria{
-            display:flex;
-            justify-content:center;
-            width:50%;
-            height:400px;
-            align-items:center;
+        .categorias {
+            display: grid;
+            margin: 0 auto;
+            justify-content: center;
+            grid-template-columns: repeat(4, 1fr);
+            flex-wrap: wrap;
+            width: 65%;
         }
 
         .cont-images img{
-            border-radius: 5px;
             transition: all 0.5s linear;
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 500px;
+            opacity: 0.7;
+            object-fit:cover;
         }    
 
         .cont-images{
@@ -220,16 +219,40 @@
             font-size: 1.5rem;
             font-weight: normal;
             background-color: rgba(0,0,0,0.8);
-            border-radius:5px;
             width:180px;
             height:40px;
         }
 
         .img-texto{
             background-color: rgba(0,0,0,0.8);
-            border-radius:5px;
             width:160px;
             margin:auto;
+        }
+
+        @media screen and (max-width: 1120px) {
+            .categorias{
+                grid-template-columns: repeat(4, 1fr);
+            }            
+        }
+
+        @media screen and (max-width: 860px) {
+            .categorias{
+                grid-template-columns: repeat(3, 1fr);
+            }            
+            
+            .img-cat{
+                height:400px;
+            }
+        }
+
+        @media screen and (max-width: 620px) {
+            .categorias{
+                grid-template-columns: repeat(2, 1fr);
+            }            
+            
+            .img-cat{
+                height:300px;
+            }
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -245,8 +268,9 @@
 
                 img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
                 img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
-                                                    txt.style.opacity = "0";}
-                                    ); 
+                                    img.style.opacity="0.6";
+                                    txt.style.opacity = "0";}
+                ); 
                 txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
             };
 

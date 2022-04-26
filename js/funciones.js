@@ -161,7 +161,7 @@ const ponerMouse = (texto,imagen) => {
     texto.style.transition = "opacity 0.4s linear";
     texto.style.opacity = "1";
     imagen.style.transform="scale(0.9)";
-    imagen.style.borderRadius= "10px";
+    imagen.style.opacity="1";
 }
 
 //CARRITO COMPRAS

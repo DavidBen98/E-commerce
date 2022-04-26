@@ -3,7 +3,7 @@
     include ("inc/conn.php");
     include ('config.php');
     include("encabezado.php"); 
-    include('apiDatos.php');
+    include_once('apiDatos.php');
 
     if (perfil_valido(3)) {
        header("location:login.php");

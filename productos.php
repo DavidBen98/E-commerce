@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <?php
+    require_once 'config.php';
     include("pie.php");
 	require 'inc/conn.php';
-    require_once 'config.php';
 	include ("encabezado.php");
     //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
@@ -136,6 +135,7 @@
 		";
 	}
 ?>
+<!DOCTYPE html>
 <html lang="es">
 <head> 
     <meta charset="UTF-8">
@@ -163,13 +163,14 @@
 			padding: 10px 5px;
 			order: 0;
 			border-radius: 5px;
+			margin-left:2%;
 		}
 
 		#min-max{
 			display:flex;
 			flex-wrap:wrap;
 			justify-content:center;
-			margin-top: 20px;
+			margin-top: 2%;
 			border: none;
 		}
 
@@ -188,7 +189,7 @@
 			max-height: 150px;
 			overflow-x: hidden;
 			overflow-y: auto;
-			margin-top: 20px;
+			margin-top: 2%;
 			border: none;
 		}
 
@@ -215,6 +216,45 @@
 
 		.img-cat{
 			object-fit: contain;
+		}
+		
+		.ltitulo{
+		    padding: 0;
+		}
+		
+		.contenedor-productos{
+		    display:flex; 
+		    width:70%; 
+		    margin-left:2%;
+		}
+		
+		@media screen and (max-width: 1150px) {
+		    .producto{
+		        width: 45%;
+		    }
+		    
+		    .contenedor-productos{
+		        width: 65%;
+                justify-content: end;
+                margin-left: 2%;
+		    }
+		    
+		    #form-filtrado{
+		        justify-content:center;
+		    }
+		    
+		    .barra-lateral{
+		        width: 30%;
+		    }
+		}
+		
+		@media screen and (max-width: 1024px) {
+		    .barra-lateral{
+		        width: 90%;
+		        margin: 0 auto 4% auto;
+		        position: relative;
+		    }
+		    
 		}
     </style>
     <script> 
@@ -274,7 +314,7 @@
 			<?= crearBarraLateral(); ?>
 		</aside>
 
-		<section style='display:flex; width:70%;'>
+		<section class='contenedor-productos'>
 			<?= crearImagenes ($rs); ?>
 			
 			<div class='btn-doc'>

@@ -57,7 +57,7 @@ header a {
 }
 
 #header-buscar {
-    width: 490px;
+    width: 100%;
     height: 28px;
     border-radius: 10px;
     padding-left: 5px;
@@ -90,6 +90,7 @@ header a {
 
 #header-img{
     padding-top: 10px;
+    position:relative;
 }
 
 #btn-lupa{
@@ -100,6 +101,7 @@ header a {
 #buscar{
     display:flex;
     align-items:center;
+    width: 40%;
 }
 
 #lupa{
@@ -137,6 +139,10 @@ header a {
     border-radius: 5px;
     width: 25px;
     height:25px;
+}
+
+#usu-car{
+    position:relative;
 }
 
 #cerrar:hover{
@@ -279,9 +285,9 @@ button a{
 }
 
 .producto{
+    width: 30%;
     min-height:400px;
-    margin-right:10px;
-    margin-bottom:10px;
+    margin: 0 2% 2% 0;
     cursor: pointer;
     border-radius:5px;
     overflow:hidden;
@@ -289,15 +295,15 @@ button a{
 }
 
 .producto img{
-    width:230px;
-    height:230px;
+    width:100%;
+    max-height:230px;
 }
 
 .caracteristicas{
     background-color: white;
     height:auto;
     flex-wrap:wrap;
-	width:230px;
+	width:100%;
 }
 
 .descripcion, .tituloSubcat{
@@ -382,7 +388,6 @@ aside select{
 
 .btn-doc{
     order:2;
-    width:80px;
 }
 
 #form-filtrado{
@@ -393,7 +398,7 @@ aside select{
     flex-flow: row wrap;
     align-content: flex-start;
     padding-left: 30px;
-    width:100%;
+    width:90%;
 }
 
 #catalogo{
@@ -408,6 +413,8 @@ aside select{
 
 .label{
     font-weight: bolder;
+    width: 100%;
+    text-align: center;
 }
 
 .precio{
@@ -474,14 +481,14 @@ option{
 
 #num-car{
     position: absolute;
-    top: 60px;
+    bottom: 17px;
     background: #000;
     width: 18px;
     height: 18px;
     text-align: center;
     line-height: 18px;
     font-size: 14px;
-    right: 20px;
+    left: 17px;
     border: solid 2px #000;
     border-radius: 50%;
     color: white;
@@ -508,4 +515,8 @@ option{
 
 .ruta li a{
     color: white;
+}
+
+@media screen and (max-width: 860px){
+    
 }

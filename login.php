@@ -4,7 +4,7 @@
 	require_once('config.php');
     include("pie.php");
 	include("encabezado.php");
-	include('apiDatos.php');
+	include_once('apiDatos.php');
 
 	if (perfil_valido(2)) {
 		header("location:informacionPersonal.php");

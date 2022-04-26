@@ -369,12 +369,18 @@
             $nomCat = $row['nombre_categoria'];
 
             //agrega la imagen categoria y le pone el titulo 
-            echo " <div class='categoria'>
-                        <div class='cont-images'> 
-                            <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
-                            <div class='texto'>
-                                <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
-            ";
+            // echo " <div class='categoria'>
+            //             <div class='cont-images'> 
+            //                 <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
+            //                 <div class='texto'>
+            //                     <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
+            // ";
+
+            echo " <div class='cont-images'> 
+                <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
+                <div class='texto'>
+                    <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
+";
 
             $sql1 ="SELECT nombre_subcategoria
                     FROM `subcategoria`
@@ -391,10 +397,16 @@
             }
 
             //agrega las diferentes subcategorias que pertenecen a esa categoria
+            // echo "" .  ucwords($subcatNombre) . "          
+            //                 </p>     
+            //             </div>
+            //         </div>
+            //     </div>
+            // ";
+
             echo "" .  ucwords($subcatNombre) . "          
                             </p>     
                         </div>
-                    </div>
                 </div>
             ";
         }

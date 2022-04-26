@@ -1,6 +1,6 @@
 <?php 
     require 'inc/conn.php';
-    include 'apiDatos.php';
+    include_once 'apiDatos.php';
 
     global $db;
 
