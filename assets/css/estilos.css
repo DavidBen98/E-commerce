@@ -517,6 +517,31 @@ option{
     color: white;
 }
 
+.header-menu{
+    display:none;
+}
+
 @media screen and (max-width: 860px){
-    
+    #logo, #buscar, #perfilUsuario, #usu-fav, #usu-car, #navigation, #html-slot{
+        display:none;
+    }
+
+    #container-header{
+        height:auto;
+        background-color: #000;
+    }
+
+    .header-menu{
+        display:block;
+        height: 40px;
+    }
+
+    .header-menu:hover{
+        cursor: pointer;
+    }
+
+    #container-header{
+        justify-content: end;
+        padding: 1%;
+    }
 }

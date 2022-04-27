@@ -16,7 +16,11 @@
                                 <button id='lupa' title='lupa-buscar'>
                                     <img src='images/lupa.png' title='lupa-buscar' alt='Lupa de buscar'  style='width:20px;' height='20' id='perfil'>
                                 </button>
-                        </div>"
+                        </div>
+                        <div>
+                            <img src='images/menu.png' alt='Lupa de buscar' class='header-menu'>
+                        </div>
+                        "
                         .
                             crear_barra() . "
                     
@@ -56,6 +60,9 @@
                                     <img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'>
                                     <span id='num-car'>$cantCarrito</span>
                                 </a>
+                                <div>
+                                    <img src='images/menu.png' alt='Lupa de buscar' class='header-menu'>
+                                </div>
                             </div>
                         </div>     
                         <nav id='navigation'>
