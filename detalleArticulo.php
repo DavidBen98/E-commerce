@@ -175,7 +175,7 @@
 			margin-bottom: 30px;
 			padding: 10px;
 			background-color: white;
-			width: 90%;
+			width: 80%;
 			border-radius:5px;
 		}
 
@@ -184,7 +184,7 @@
 		}
 
 		#cont-images{
-			height:600px;
+			width: 56%;
 			display:flex;
 			justify-content:center;
 			background-color:white;
@@ -193,14 +193,14 @@
 
 		#cont-descripcion{
 			background-color:white;
-			padding-left:15px;
 			width: 40%;
+			margin: 0 auto;
 		}
 
 		.img-cat{
 			object-fit: contain;
-			height:600px;
-			width: 600px;
+			height: 100%;
+    		width: 100%;
 			border-bottom: none;
 		}
 
@@ -297,6 +297,33 @@
 				display:block;
 			}
 		}
+
+		@media screen and (max-width: 860px) {
+			#cont-images, #cont-descripcion{
+				width: 100%;
+				border:none;
+				text-align:center;
+			}
+
+			#btn-imp{
+				display:none;
+			}
+
+			.ruta{
+				min-height: 5%;
+				margin: 0;
+			}
+
+			.contenedor{
+				margin: 5% 0;
+			}
+		}
+
+		/* @media screen and (max-width: 280px) {
+			body{
+				width:100%;
+			}
+		} */
 	</style>
 </head>
 <body>

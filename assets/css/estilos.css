@@ -544,4 +544,17 @@ option{
         justify-content: end;
         padding: 1%;
     }
+
+    #pie{
+        height: auto;
+    }
+
+    #pie p{
+        margin: auto;
+        padding: 4%;
+    }
+
+    #inicio, #pie a{
+        display: none;
+    }
 }

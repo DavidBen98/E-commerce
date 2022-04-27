@@ -254,7 +254,30 @@
 		        margin: 0 auto 4% auto;
 		        position: relative;
 		    }
-		    
+		}
+
+		@media screen and (max-width: 860px) {
+			.contenedor-productos{
+				margin-left:0;
+				width: 100%;
+
+			}
+
+			#form-filtrado{
+				margin: 0 4% 4%;
+				padding-left:0;
+				width: 100%;
+    			justify-content: space-between;
+			}
+
+			.producto{
+				width: 49%;
+				margin: 0 0 2% 0;
+			}
+
+			.btn-doc{
+				display:none;
+			}
 		}
     </style>
     <script> 
