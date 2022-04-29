@@ -185,12 +185,6 @@
             margin: 0 10px;
         }
 
-        .contenedor-btn div:hover{
-            cursor: pointer;
-            background-color: rgba(147, 81, 22,0.2);
-            transition: all 0.3s linear;
-        }
-
         .consulta{
             width:70%;
             background-color:white;

@@ -550,10 +550,17 @@ option{
     padding: 10px 0;
 }
 
+.contenedor-btn div:hover{
+    cursor: pointer;
+    background-color: rgba(147, 81, 22,0.2);
+    transition: all 0.3s linear;
+}
+
 @media screen and (max-width: 860px){
     .ruta{
         height:40px;
     }
+    
     #logo, #buscar, #perfilUsuario, #usu-fav, #usu-car, #navigation, #html-slot{
         display:none;
     }

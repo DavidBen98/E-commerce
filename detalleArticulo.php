@@ -312,6 +312,7 @@
 			.ruta{
 				min-height: 5%;
 				margin: 0;
+				height: auto;
 			}
 
 			.contenedor{

@@ -374,6 +374,20 @@
         .mercadopago-button{
             width: 220px;
         }
+
+        .contenedor-botones{
+            width:95%;
+            margin:auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media screen and (max-width: 1024px){
+            .carrito{
+                width:95%;
+                margin:auto;
+            }
+        }
     </style>
 </head>
 <body id="body">

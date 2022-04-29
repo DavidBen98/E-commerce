@@ -152,24 +152,6 @@
                                                                 $carrito .= "<option value='$j'>$j</option>";
                                                             }
                                                         }
-
-                                        //         <p class='definir'> 
-                                        //         <b>Color:</b>
-                                        //     </p> 
-                                        // <p class='caract'> $color </p>
-                                        // </div>
-                                        // <div>
-                                        //     <p class='definir'> 
-                                        //         <b>Material:</b>
-                                        //     </p> 
-                                        //     <p class='caract'>$material</p>
-                                        // </div>
-                                        // <div>
-                                        //     <p class='definir'>
-                                        //         <label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label>
-                                        //     </p> 
-                                        //     <p class='caract'>
-                                        //     <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
                 $carrito .="                    </select>
                                             </td>
                                         </tr>

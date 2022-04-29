@@ -59,12 +59,15 @@ window.onload = function (){
     });
 
     document.addEventListener('change', ev => {
-        for (let i=0; i<modificarCarrito.length;i++){
-            let labelSelect = document.getElementsByClassName('labelSelect');
-            let id = labelSelect[i].id;
+        // ev.target.id
+        let id = ev.target.id;
+        // console.log(ev.target.id);
+        // for (let i=0; i<modificarCarrito.length;i++){
+        //     let labelSelect = document.getElementsByClassName('labelSelect');
+        //     let id = labelSelect[i].id;
 
-            modificarProducto(id,i+1);
-        }
+        // }
+        modificarProducto(id);
     });
         
     let url = window.location.pathname;
@@ -218,36 +221,38 @@ const eliminarProducto = (id) => {
         }
     });			
 }
-
-const modificarProducto = (id,producto) => {
-    let valorSeleccionado = document.getElementsByName('cant-'+producto);
-    let productos = document.getElementsByClassName('contenedor');
+/*
+* 
+*/
+//Recibe el id de la cantidad cambiada
+const modificarProducto = (id) => {
+    let cantElemento = document.getElementById(id).value;
+    let prodCambiado = id.slice(5);
     let subtotal = document.getElementById('subtotal');
     let total = document.getElementById('total');
-    let sumaTotal = 0;
 
-    for (let i=1; i <= productos.length; i++){
-        let precioProducto = document.getElementById('precioS-'+i).textContent;
-        sumaTotal += parseInt(precioProducto.slice(1)); //Obtengo el total sin actualizar
-    }
+    let precioProdAnterior = document.getElementById('precioS-'+prodCambiado).textContent;
+     //precio anterior del articulo cambiado
+    // precioProdAnterior = precioProdAnterior.slice(2);
+    precioProdAnterior = precioProdAnterior.trim().slice(1); //le saco $
+    let precioUnitario = document.getElementById('precioU-'+prodCambiado).textContent; 
+    precioUnitario = precioUnitario.trim().slice(1); //obtengo precio unitario de ese producto
 
-    let cantidad = valorSeleccionado[0].value;
-    let precioProd = document.getElementById('precioS-'+producto).textContent;
-    precioProd = precioProd.slice(1);
-    let precioUnitario = document.getElementById('precioU-'+producto).textContent;
-    precioUnitario = precioUnitario.slice(1);
-    let sumaSubtotal = parseInt(cantidad) * parseInt(precioUnitario);
-    
-    let precioSubtotal = document.getElementById('precioS-'+producto);
-    precioSubtotal.innerHTML= "<b>$" + sumaSubtotal + "</b>";
+    let nuevoPrecioProducto = parseInt(cantElemento) * parseInt(precioUnitario); 
+    let precioSubtotal = document.getElementById('precioS-'+prodCambiado); //obtengo el lugar donde tengo que poner el precio actualizado
+    precioSubtotal.innerHTML= "<b>$" + nuevoPrecioProducto + "</b>";
 
-    sumaTotal = sumaTotal + sumaSubtotal - precioProd;
+    let totalAnterior = document.getElementById('total');
+    let sumaTotal = parseInt(totalAnterior.textContent.trim().slice(1));
+
+    sumaTotal = sumaTotal + nuevoPrecioProducto - precioProdAnterior;
+
     subtotal.innerHTML = "$ " + sumaTotal;
-    total.innerHTML = "<b>$ " + sumaTotal + "</b>";
+    totalAnterior.innerHTML = "<b>$ " + sumaTotal + "</b>";
 
     let param = {
         id: id,
-        cantidad: valorSeleccionado[0].value,
+        cantidad: cantElemento,
     };
 
     $.ajax({
