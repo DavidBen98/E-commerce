@@ -1,7 +1,7 @@
 <?php 
     include("pie.php");  
     include ("inc/conn.php");
-    include ('config.php');
+    require_once 'config.php';
     include("encabezado.php"); 
     include_once('apiDatos.php');
 
@@ -92,7 +92,7 @@
                                 <div class='renglon'>
                                     <label class='descripciones' for='direccion'>Dirección</label>
                                     <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row['direccion']}' readonly>
-								    <div class='direccion' style='width:47%; align-items:center; justify-content:end; display:none'>
+								    <div class='direccion'>
                                         <label for='inputCalle' class='form-label'>Calle</label>
                                         <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
                                         <label for='inputNumero' class='form-label'>Número</label>
@@ -208,38 +208,6 @@
             margin:10px;
         }
 
-        .contenedor-botones{
-            width:20%;
-            display:block;
-            margin: 0 80px 0 20px;
-            border-radius: 5px;
-            padding:0;
-            background-color: rgba(0, 0, 0,0);
-        }
-
-        .contenedor-btn{
-            width:100%;
-            background-color: white;
-            border-radius: 5px;
-            text-align:center;
-            border: 1px solid #000;
-            transition: all 0.3s linear;
-        }
-
-        .contenedor-btn div{
-            width:100%;
-            text-align:center;
-            border-bottom: 1px solid #d3d3d3;
-            transition: all 0.3s linear;
-            padding: 10px 0;
-        }
-
-        .contenedor-btn div:hover{
-            cursor: pointer;
-            background-color:  rgba(147, 81, 22,0.2);
-            transition: all 0.3s linear;
-        }
-
         .ruta{
             width: 100%;
 			display: flex;
@@ -303,6 +271,52 @@
         #inputNumero, #inputPiso{
             width:8%;
         }
+        
+        main > section {
+            display: flex;
+            width: 65%;
+            height: auto;
+            margin: 0 0 4% 10%;
+        }
+        
+        .direccion{
+            width:47%; 
+            align-items:center; 
+            justify-content:end; 
+            display:none;
+        }
+        
+        @media screen and (max-width:860px){
+            main > section {
+                margin: auto;
+                width: 95%;
+                padding-bottom: 0;
+                margin-bottom: 2%;
+            }
+            
+            .cont-perfil{
+                width: 100%;
+            }
+            
+            .descripciones, .dato{
+                width: 90%;
+                border:none;
+            }
+            
+            .renglon{
+                flex-wrap:wrap;
+            }
+            
+            .direccion{
+                flex-wrap:wrap;
+                justify-content:center;
+            }
+            
+            .direccion > .form-label{
+                width:100%;
+                text-align:center;
+            }
+        }
     </style>
 </head>
 <body id="body">
@@ -313,14 +327,14 @@
     <main>
         <?= $ruta; ?>
 
-        <div style='display:flex; justify-content:start;'>
-            <aside class='contenedor-botones'>
-                <?= CONT_USUARIOS; ?>
-            </aside>
+        <aside class='contenedor-botones'>
+            <?= CONT_USUARIOS; ?>
+        </aside>
 
+        <section>
             <?= $infoPersonal; ?>
+        </section>
 
-        </div>
     </main>
 
     <footer id='pie'>

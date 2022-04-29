@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 <?php
     include ("pie.php"); 
     include ("inc/conn.php");
-    include ('config.php');
+    require_once 'config.php';
     require_once 'vendor/autoload.php';
     define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
 
-    MercadoPago\SDK::setAccessToken(TOKENMERCADOPAGO);
+    MercadoPago\SDK::setAccessToken('TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
 
     $preference = new MercadoPago\Preference();
 
@@ -129,6 +128,7 @@
 
         $carrito .= "</div>";
 ?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">

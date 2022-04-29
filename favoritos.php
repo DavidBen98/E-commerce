@@ -1,5 +1,5 @@
 <?php 
-    include ('config.php');
+    require_once 'config.php';
     include("encabezado.php"); 
     include("pie.php");
     include ("inc/conn.php");
@@ -96,11 +96,11 @@
                                             <p class='enlace' style='font-size:16px; color: #858585;'> $marca</p>
                                         </div> 
                                         <div class='contenedor-eventos'>
-                                            <div class='evento-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
+                                            <div class='evento-producto' style='padding-right: 3%; border-right: 1px solid #D3D3D3; justify-content:end' >
                                                 <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
                                                 <button class='elim-fav' value='$id'> Eliminar producto</button>
                                             </div>
-                                            <div class='evento-producto' style='text-align:end;'>
+                                            <div class='evento-producto' style='text-align:end; justify-content:start; padding-left: 3%'>
                                                 <img src='images/carrito.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar al carrito'>
                                                 <a id='agregar-fav-$selectNumero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
                                             </div>
@@ -160,23 +160,6 @@
             margin: 0 10px;
         }
 
-        .contenedor-btn{
-            width:100%;
-            background-color: white;
-            border-radius: 5px;
-            text-align:center;
-            border: 1px solid #000;
-            transition: all 0.3s linear;
-        }
-
-        .contenedor-btn div{
-            width:100%;
-            text-align:center;
-            border-bottom: 1px solid #d3d3d3;
-            transition: all 0.3s linear;
-            padding: 10px 0;
-        }
-
         .contenedor-btn div:hover{
             cursor: pointer;
             background-color: rgba(147, 81, 22,0.2);
@@ -190,9 +173,8 @@
             justify-content: center;
             border-radius:5px;
             border: 1px solid black;
-            margin-bottom: 30px;
-            margin-left:2%;
             padding: 0 10px;
+            width: 100%;
         }
 
         .renglon{
@@ -289,18 +271,6 @@
             height: auto;
         }
 
-        .contenedor-botones{
-            justify-content: end;
-            flex-wrap: wrap;
-            padding-bottom: 10px;
-            width:20%;
-            display:block;
-            margin: 0 0 20px 1%;
-            border-radius: 5px;
-            padding-top:0;
-            background-color: rgba(0, 0, 0,0);
-        }
-
         .botones{
             height:100%;
             width:250px;
@@ -372,12 +342,13 @@
             justify-content:space-between;
             width:100%;
             text-align:start;
-            margin-top:20px;
+            margin-top:4%;
             font-size: 0.8rem;
             align-items:center;
         }
 
         .evento-producto{
+            width:45%; 
             color: #858585;
             display: flex;
             align-items: center;
@@ -465,6 +436,77 @@
             transition: all 0.4s ease-in;;
             cursor: pointer;
         }
+        
+        main > section{
+            display:flex; 
+            width:75%; 
+            height:auto;
+            margin: 0 0 4% 2%;
+        }
+        
+        @media screen and (max-width:860px){
+            main > section{
+                display: flex;
+                width: 95%;
+                margin: 0 auto 5%;
+                height: auto;
+            }
+            
+            #consulta{
+                padding: 0 1%;
+                margin: auto;
+            }
+            
+            .contenedor {
+                width: 100%;
+                min-height: 130px;
+                padding: 1% 0;
+                margin: 0 1%;
+            }
+            
+            .descrip {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            
+            .principal {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                height: 100%;
+            }
+            
+            .titulo{
+                width: 65%;
+                height: auto;
+            }
+            
+            .principal p {
+                margin-top: 1%;
+                width: auto;
+                margin: 0;
+                text-align: start;
+                height: auto;
+                font-size: 1rem;
+            }
+            
+            .contenedor-eventos {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                text-align: start;
+                margin-top: 5%;
+                font-size: 0.8rem;
+                align-items: center;
+            }
+            
+            .secundario{
+                display:none;
+            }
+        }
     </style>
 </head>
 <body id="body">
@@ -483,7 +525,7 @@
             <?= CONT_USUARIOS; ?>
         </aside>
 
-        <section style='display:flex; width:78%; height:auto;'>
+        <section>
             <?= $div; ?>
         </section>
         

@@ -287,7 +287,7 @@ button a{
 .producto{
     width: 30%;
     min-height:400px;
-    margin: 0 2% 2% 0;
+    margin: 0 0 3% 0;
     cursor: pointer;
     border-radius:5px;
     overflow:hidden;
@@ -394,10 +394,9 @@ aside select{
     display:flex;
     order: 1;
     margin: 0;
-    justify-content: flex-start;
+    justify-content: space-around;
     flex-flow: row wrap;
     align-content: flex-start;
-    padding-left: 30px;
     width:90%;
 }
 
@@ -521,7 +520,40 @@ option{
     display:none;
 }
 
+.contenedor-botones{
+    justify-content: end;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    width:20%;
+    display:block;
+    margin: 0 0 3% 1%; 
+    /* margin: en vez de 3 20px*/
+    border-radius: 5px;
+    padding-top:0;
+    background-color: rgba(0, 0, 0,0);
+}
+
+.contenedor-btn{
+    width:100%;
+    background-color: white;
+    border-radius: 5px;
+    text-align:center;
+    border: 1px solid #000;
+    transition: all 0.3s linear;
+}
+
+.contenedor-btn div{
+    width:100%;
+    text-align:center;
+    border-bottom: 1px solid #d3d3d3;
+    transition: all 0.3s linear;
+    padding: 10px 0;
+}
+
 @media screen and (max-width: 860px){
+    .ruta{
+        height:40px;
+    }
     #logo, #buscar, #perfilUsuario, #usu-fav, #usu-car, #navigation, #html-slot{
         display:none;
     }
@@ -556,5 +588,39 @@ option{
 
     #inicio, #pie a{
         display: none;
+    }
+    
+    .contenedor-botones{
+        margin: auto;
+        width: 95%;
+        padding-bottom: 0;
+        margin-bottom: 2%;
+        margin-top:0;
+    }
+    
+    .contenedor-btn{
+        display:flex;
+    }
+    
+    .contenedor-btn div {
+        border:none;
+        height: 100%;
+        padding:0;
+        margin:auto;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    .contenedor-btn div:hover{
+        background: transparent;
+    }
+    
+    main{
+        min-height: 70vh;
+    }
+    
+    .continuar{
+        margin: 4%;
     }
 }

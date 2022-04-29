@@ -97,32 +97,6 @@
             justify-content:start;
         }
         
-        .contenedor-botones{
-            width:20%;
-            display:block;
-            margin: 0 80px 30px 20px;
-            border-radius: 5px;
-            padding:0;
-            background-color: rgba(0, 0, 0,0);
-        }
-
-        .contenedor-btn{
-            width:100%;
-            background-color: white;
-            border-radius: 5px;
-            text-align:center;
-            border: 1px solid #000;
-            transition: all 0.3s linear;
-        }
-
-        .contenedor-btn div{
-            width:100%;
-            text-align:center;
-            border-bottom: 1px solid #d3d3d3;
-            transition: all 0.3s linear;
-            padding: 10px 0;
-        }
-
         .contenedor-btn div:hover{
             cursor: pointer;
             background-color: rgba(147, 81, 22,0.2);
@@ -137,7 +111,8 @@
             justify-content: center;
             border-radius:5px;
             border: 1px solid black;
-            margin-bottom: 30px;
+            margin-bottom: 10%;
+            margin-left: 5%;
             padding: 0 10px;
         }
 
@@ -153,6 +128,13 @@
             display:flex;
             justify-content:center;
             margin:0;
+        }
+        
+        @media screen and (max-width: 860px){
+            .consulta{
+                width: 90%;
+                margin: 0 auto 2%;
+            }
         }
     </style>
 </head>

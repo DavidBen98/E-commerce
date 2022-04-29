@@ -1,7 +1,7 @@
 <?php 
 	require 'inc/conn.php';
 	require 'funciones.php'; 
-	require 'config.php'; 
+	require_once 'config.php'; 
  
 	$login=0;	
 	

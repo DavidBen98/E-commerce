@@ -235,13 +235,10 @@
 		    
 		    .contenedor-productos{
 		        width: 65%;
-                justify-content: end;
                 margin-left: 2%;
 		    }
 		    
-		    #form-filtrado{
-		        justify-content:center;
-		    }
+
 		    
 		    .barra-lateral{
 		        width: 30%;
@@ -251,8 +248,31 @@
 		@media screen and (max-width: 1024px) {
 		    .barra-lateral{
 		        width: 90%;
-		        margin: 0 auto 4% auto;
+		        /*margin: 0 auto 4% auto;*/
 		        position: relative;
+		        margin: 0;
+		    }
+		    
+		    .contenedor-productos{
+		        width: 91%;
+		        margin: 0;
+		        margin-top: 2%;
+		    }
+		    
+		    .btn-doc{
+		        display:none;
+		    }
+		    
+		    #form-filtrado{
+		        width:100%;
+		        padding: 0;
+		        justify-content: space-between;
+		    }
+		    
+		    .producto{
+		        width:30%;
+		        margin-right: 0;
+		        margin-bottom: 5%;
 		    }
 		}
 

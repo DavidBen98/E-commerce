@@ -1,5 +1,3 @@
-<!DOCTYPE html> 
-<html lang="es">
 <?php 
 	header("Pragma: no-cache");
 	header("Expires: 0");
@@ -74,6 +72,8 @@
 		} 
 	}
 ?>
+<!DOCTYPE html> 
+<html lang="es">
 <head>
 	<meta charset="utf-8">
 	<title>Muebles Giannis</title>

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
 <?php  
 	require_once('vendor/autoload.php');
 	require_once('config.php');
     include("pie.php");
 	include("encabezado.php");
-	include_once('apiDatos.php');
 
 	if (perfil_valido(2)) {
 		header("location:informacionPersonal.php");
@@ -13,15 +11,17 @@
 		header("veABMProducto.php");
 	}
 
-	$auth = new TwitterAuth($cliente);
-	$google= $google_client->createAuthUrl();
-	$twitter = $auth->getAuthUrl();
+// 	$auth = new TwitterAuth($cliente);
+// 	$google= $google_client->createAuthUrl();
+// 	$twitter = $auth->getAuthUrl();
 
-	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>
-					 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>
-	";
+// 	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>
+// 					 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>
+// 	";
 
 	if (isset($_GET['reg'])){
+	    include_once('apiDatos.php');
+	    
 		$ruta = "<ol class='ruta'>
 					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
 					<li style='border:none;text-decoration: none;'>Registro</li>
@@ -90,8 +90,8 @@
 						<div class='cont-reg'>
 						</div>
 
-						<div class='cont-reg' style='width:100%; justify-content:start; margin-left:20px; margin-top:10px;'>
-							<label style='margin-top:10px; text-align:start;'>
+						<div class='cont-reg l-novedades'>
+							<label>
 								<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value='1'>Suscripción a las novedades
 							</label>			
 						</div>
@@ -126,10 +126,12 @@
 		
 		$formulario .= "</div>
 				<div class='redes'>
-					$login_button
+					
 				</div>
 			</form>
 		";
+		
+		//$login_button
 	}
 	else if (!isset($_GET['login'])){
 		$ruta = "<ol class='ruta'>
@@ -174,11 +176,14 @@
 						</div>
 					</div>
 
-					<div class='redes'> $login_button </div>
+					
 				</form>	
 		";
+		
+// 		<div class='redes'> $login_button </div>
 	}	
 ?>
+<!DOCTYPE html>
 <html lang="es"> 
 <head>
     <meta charset="utf-8">
@@ -186,7 +191,7 @@
     <title>Muebles Giannis</title>
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
-	<script src="JS/jquery-3.3.1.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/funciones.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -287,19 +292,18 @@
 
 		#registrarse{
 			width:100%;
-			height:55%;
-			margin-bottom: 2px;
 			border: 2px solid black;
 			font-size:1.1em;
 			background-color: white;
 		    border-radius: .1875rem;
+		    padding: 2%;
 		}
 
 		.registro{
-			width:100%;
-			height:66px;
+			width:90%;
 			display:flex;
 			align-items:end;
+			margin: 2%;
 		}
 
 		#registrarse:hover, #iniciar:hover{
@@ -410,17 +414,16 @@
 			display:flex;
 			justify-content:center;
 			flex-wrap:wrap;
-			width:50%;
 			padding: 0 20px;
-			border-right: 1px solid #D3D3D3;
+			/*border-right: 1px solid #D3D3D3;*/
 		}
 
 		.form{
-			width:60%;
+			width:100%;
 			height:100%;
 			border: none;
 			border-radius: 0px;
-			border-right: 1px solid #D3D3D3;
+			/*border-right: 1px solid #D3D3D3;*/
 			padding:5px;
 		}
 
@@ -457,6 +460,34 @@
 
 		main ::placeholder{
 			text-align:center;
+		}
+		
+		.l-novedades{
+		    width:100%; 
+		    justify-content:start; 
+		    margin-left:4%; 
+		    margin-top:2%;
+		}
+		
+		.l-novedades label{
+		    text-align:start;
+		}
+		
+		@media screen and (max-width:860px){
+		    .formulario{
+		        width: 90%;
+		        margin: auto;
+		    }
+		    
+		    .cont-reg{
+		        width: 90%;
+		        margin: auto;
+		    }
+		    
+		    .l-novedades{
+		        justify-content:center;
+		        margin-top: 2%;
+		    }
 		}
 	</style>
 </head>

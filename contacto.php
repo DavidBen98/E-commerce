@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php  
 	require_once 'config.php';
     include("encabezado.php");
@@ -8,9 +7,11 @@
         header("location:veABMProducto.php");
     }  
 ?>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muebles Giannis</title>
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
@@ -157,6 +158,31 @@
 			text-align:center;
 			margin:10px;
 		}
+		
+		.contacto-texto{
+		    margin-bottom:10px; 
+		    width:100%;
+		}
+		
+		@media screen and (max-width:1000px) {
+		    .contacto-texto{
+		        width: 90%;
+		    }
+		    
+		    div > p{
+		        margin: 0;
+		    }
+		    
+		    .cont-con{
+		        width: 95%;
+		    }
+		    .ruta{
+		        height: 40px;
+		    }
+		    #main{
+		        min-height: 90vh;
+		    }
+		}
     </style>
 </head>
 <body>
@@ -174,7 +200,7 @@
 			<h1 style='font-family: museosans500,arial,sans-serif;'>Contacto</h1>
 		</div>
 
-		<div style='margin-bottom:10px; width:100%;'>
+		<div class="contacto-texto">
 			<p> A continuación ingresá tus datos para realizar una consulta o solicitar información. </p>
 
 			<p>	Te responderemos a la mayor brevedad posible. </p>

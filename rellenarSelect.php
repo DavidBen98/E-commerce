@@ -1,6 +1,5 @@
 <?php 
     require 'inc/conn.php';
-    include_once 'apiDatos.php';
 
     global $db;
 
@@ -23,6 +22,9 @@
         }
         
         echo "</select>";
+    }
+    else{
+        include_once 'apiDatos.php';
     }
 
     if (!empty($_POST['provincia'])){ //desde login(registrarse)

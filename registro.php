@@ -1,5 +1,5 @@
 <?php
-    include ('config.php');
+    require_once 'config.php';
 	require 'funciones.php';  
 
     $nombre = isset($_POST['nombre'])? trim($_POST['nombre']) : "";

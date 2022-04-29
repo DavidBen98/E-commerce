@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php 
     include ("pie.php"); 
     include ("inc/conn.php");
@@ -120,11 +119,11 @@
                                                 <p class='enlace' style='font-size:16px; color: #858585;'> $marca</p>
                                             </div> 
                                             <div class='contenedor-eventos'>
-                                                <div class='evento-producto' style='width: 45%;padding-right: 8px; border-right: 1px solid #D3D3D3;'>
+                                                <div class='evento-producto' style='padding-right: 3%; text-aling: end; border-right: 1px solid #D3D3D3;'>
                                                     <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
                                                     <button class='elim-prod' value='$id'> Eliminar producto</button>
                                                 </div>
-                                                <div class='evento-producto' style='text-align:end;'>
+                                                <div class='evento-producto' style='text-align:start; padding-left: 3%'>
                                                     <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
                                                     <button class='fav-prod' value='$id'> Agregar a favoritos</button>
                                                 </div>
@@ -132,42 +131,64 @@
                                         </div>
                                 </div>
                                 <div class='secundario'>
-                                        <p class='definir'> 
-                                            <b>Color:</b>
-                                        </p> 
-                                        <p class='caract'> $color </p>
-                                        <p class='definir'> 
-                                            <b>Material:</b>
-                                        </p> 
-                                        <p class='caract'>$material</p>
-                                        <p class='definir'>
-                                            <label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label>
-                                        </p> 
-                                        <p class='caract'>
-                                            <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
-                                                for ($j=1; $j<=$stock; $j++){
-                                                    if ($j == $cantidad){
-                                                        $carrito .= "<option value='$j' selected>$j</option>";
-                                                    }
-                                                    else{
-                                                        $carrito .= "<option value='$j'>$j</option>";
-                                                    }
-                                                }
-                $carrito .="               </select>
-                                </p>
+                                        <table id='vertical-1'>
+                                            <tr>
+                                                <th class='definir'><b>Color:</b></th>
+                                                <td class='caract'> $color </td>
+                                            </tr>
+                                            <tr>
+                                                <th class='definir'><b>Material:</b></th>
+                                                <td class='caract'>$material</td>
+                                            </tr>
+                                            <tr>
+                                                <th class='definir'><label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label></th>
+                                                <td class='caract'>
+                                                    <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
+                                                        for ($j=1; $j<=$stock; $j++){
+                                                            if ($j == $cantidad){
+                                                                $carrito .= "<option value='$j' selected>$j</option>";
+                                                            }
+                                                            else{
+                                                                $carrito .= "<option value='$j'>$j</option>";
+                                                            }
+                                                        }
+
+                                        //         <p class='definir'> 
+                                        //         <b>Color:</b>
+                                        //     </p> 
+                                        // <p class='caract'> $color </p>
+                                        // </div>
+                                        // <div>
+                                        //     <p class='definir'> 
+                                        //         <b>Material:</b>
+                                        //     </p> 
+                                        //     <p class='caract'>$material</p>
+                                        // </div>
+                                        // <div>
+                                        //     <p class='definir'>
+                                        //         <label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label>
+                                        //     </p> 
+                                        //     <p class='caract'>
+                                        //     <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
+                $carrito .="                    </select>
+                                            </td>
+                                        </tr>
+                                        </table>
                         </div>                                            
                     </div>
 
                     <div class='precio'>
-                        <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; margin-left:15px;'>Precio unitario </p> 
-                        <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 5px 5px; font-family: Arial,Helvetica,sans-serif;'>";
+                        <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 1% 1%; margin-left:4%;'>Precio unitario </p> 
+                        <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 1% 1%; font-family: Arial,Helvetica,sans-serif;'>";
                             if($precio != $precio_desc){
-                        $carrito .= "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
+                                $carrito .= "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
                             }
-                        $carrito .=    "<p style=''>$$precio_desc</p>
+                                $carrito .= "<p>$$precio_desc</p>
                         </div>
-                        <p style='padding: 5px 0 0 5px; margin-left:15px'>Precio </p> 
-                        <p id='precioS-$selectNumero' style='padding: 5px 0 0 5px; font-family: Arial,Helvetica,sans-serif;'><b>$".$subtotal."</b></p>
+                        <p style='padding: 1% 0 0 1%; margin-left:4%'>Precio </p> 
+                        <p id='precioS-$selectNumero' style='padding: 1% 0 0 1%; font-family: Arial,Helvetica,sans-serif;'>
+                            <b>$".$subtotal."</b>
+                        </p>
                     </div>
                 </div>
             ";
@@ -179,11 +200,15 @@
                         <div class= 'botones'>
                             <div class='totales' style='height:40px;'>
                                 <p class='subtotal txt-totales'>Subtotal:</p> 
-                                <p class='subtotal txt-totales' id='subtotal' style='padding-right:10px; justify-content:end;'> $$total </p>
+                                <p class='subtotal txt-totales' id='subtotal' style='justify-content:end;'> $$total </p>
                             </div>
                             <div class='totales' style='height:50px;'>
-                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'><b style='font-size: 1.1rem;'>Total</b> </p> 
-                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:end;'><b>$$total</b></p>
+                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'>
+                                    <b style='font-size: 1.1rem;'>Total</b> 
+                                </p> 
+                                <p class='total txt-totales' id='total'>
+                                    <b>$$total</b>
+                                </p>
                             </div>
                             <div class='btnRedirigir'>
                                 <button type='button' class='btn-final' id='procederCompra'>Proceder a la compra</button>
@@ -219,7 +244,8 @@
             <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
         </a>"; 
     }  
-?>  
+?> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -241,7 +267,7 @@
         .carrito{
             width:80%;
             background-color: white;
-            padding:10px;
+            padding:2%;
             font-size: 1rem;
             border-radius:5px;
         }
@@ -252,14 +278,14 @@
             flex-wrap:wrap;
             align-items:center;
             border-bottom: 1px solid #D3D3D3;
-            height:180px;
-            padding:10px 0;
-            margin: 0 10px;
+            min-height:180px;
+            padding:1% 0;
+            margin: 0 1%;
         }
 
         .productos{
             width: 30%;
-            height: 160px;
+            max-height: 120px;
             padding-right: 2%;
             object-fit: contain;
         }
@@ -274,7 +300,7 @@
 
         .precio{
             width:250px;
-            height: 100%;
+            min-height: 180px;
             display: flex;
             align-content: center;
             flex-wrap:wrap;
@@ -300,10 +326,8 @@
         .cont-btn{
             display:flex;
             justify-content:space-between;
-            margin: 0 10px;
-            height: 60px;
+            margin: 0;
             border-bottom: 1px solid #D3D3D3;
-            padding-top: 10px;
         }
 
         .checkout{
@@ -311,11 +335,11 @@
         }
 
         .principal{
-            width:65%;
+            width:50%;
             display:flex;
-            justify-content:start;
+            justify-content: space-between;
             flex-wrap:wrap;
-            height: 160px;
+            height: 100%;
         }
 
         .principal p{
@@ -326,15 +350,21 @@
         }
 
         .secundario{
-            width:35%;
             display:flex;
-            justify-content: end;
             flex-wrap:wrap;
             align-content:start;
         }
 
+        th{
+            padding: 3%;
+        }
+        .secundario > div{
+            width: 95%;
+            display: flex;
+            margin-left: 5%;
+        }
+
         .secundario p{
-            margin: 10px 0;
             color: #000;
             font-size: 14px;
             text-align:start;
@@ -342,11 +372,11 @@
 
         .definir{
             width:30%;
+            min-width: 100px;
         }
 
         .caract{
-            width:50%;
-            padding-left:10px;
+            padding-left:2%;
         }
 
         .mercadopago-button{
@@ -365,19 +395,10 @@
             height: auto;
         }
 
-        .contenedor-botones{
-            display:flex;
-            justify-content: end;
-            flex-wrap: wrap;
-            padding-bottom: 10px;
-            border-radius: 5px;
-            padding:0;
-        }
-
         .botones{
             height:100%;
-            width:250px;
-            margin: 0 10px;
+            width:30%;
+            margin: auto;
 
         }
 
@@ -403,6 +424,16 @@
         .subtotal{
             background-color: #E9E9E9;
             font-size: 0.7rem;
+        }
+
+        #subtotal{
+            padding-right: 4%;
+        }
+
+        #total{
+            border-bottom-right-radius: 5px;
+            padding-right:4%; 
+            justify-content:end;
         }
 
         .total{
@@ -439,14 +470,13 @@
 
         #continuar{
             width:250px;
-            height: 40px;
+            padding: 5%;
             background: rgba(147, 81, 22,0.5);
             color: #000;
             border-radius: 5px;
             font-weight: 700;
             cursor: pointer;
             border: none;
-            margin-bottom: 10px;
         }
 
         #continuar:hover{
@@ -457,7 +487,7 @@
         }
 
         .cant-compra{
-            padding: 5px 10px;
+            padding: 0.5em 0.5em;
             border-color: #D3D3D3;
             border-radius: 2px;
             color: #4a4a4a;
@@ -465,11 +495,11 @@
 
         .contenedor-eventos{
             display:flex;
-            justify-content:space-between;
-            width: 90%;
+            justify-content:center;
+            width:100%;
             text-align:start;
             margin-top:20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             align-items:center;
         }
 
@@ -546,6 +576,149 @@
             font-size:1.15rem;
             transition: all 0.5s linear;
             cursor: pointer;
+        }
+        
+        .contenedor-botones{
+            width: 99%;
+            margin: 0;
+            margin-right: 2%;
+            display:flex;
+            justify-content:end;
+        }
+        
+        .botones{
+            margin: 0;
+            width: auto;
+        }
+        
+        .precio{
+            margin:0;
+        }
+        
+        .btnRedirigir{
+            height: auto;
+        }
+        
+        .btnRedirigir button{
+            height: auto;
+            padding: 5%;
+            margin-top: 10%;
+        }
+
+        th{
+            text-align: start;
+        }
+        
+        @media screen and (max-width: 1100px){
+                .descrip{
+                    width: 100%;
+                }
+                
+                .precio{
+                    margin: 5% auto;
+                    border: none;
+                    min-height: auto;
+                }
+                
+                .secundario{
+                    width: 50%;
+                    justify-content:center;
+                }
+                
+                .secundario > div{
+                    justify-content:center;
+                }
+                
+                .contenedor-eventos{
+                    justify-content:start;
+                }
+
+                .contenedor-botones{
+                    justify-content:center;
+                }
+                
+                /*.contenedor-botones{*/
+                /*    width: 55%;*/
+                /*}*/
+            }
+    
+        
+        @media screen and (max-width: 860px){
+            .carrito{
+                width: 95%;
+                margin: auto;
+            }
+
+            .descrip{
+                width:100%;
+                height:100%;
+                display:flex;
+                justify-content: space-between;
+                flex-wrap:wrap;
+            }
+            
+            .principal, .secundario{
+                width: 100%;
+            }
+            
+            main > a{
+                display:none;
+            }
+            
+            .precio{
+                width:100%;
+                margin:auto;
+                border:none;
+                min-height: auto;
+            }
+            
+            .secundario{
+                justify-content: center;
+                background: #d3d3d3;
+                margin: 2% 0;
+                border-radius: 5px;
+            }
+            
+            .secundario > div{
+                margin: 0;
+                justify-content:center;
+            }
+            
+            .contenedor{
+                padding: 4% 0;
+            } 
+            
+            .continuar{
+                margin: 0;
+            }
+            
+            #continuar{
+                width: 100%;
+            }
+
+            table{
+                width: 40%;
+                margin: 2% auto;
+            }
+
+            td, th{
+                width: 50%;
+            }
+
+            .definir{
+                width:45%;
+                padding: 0 0 1% 1%;
+                /* border-bottom: 1px solid #d3d3d3; */
+            }
+
+            .caract{
+                /* border-bottom: 1px solid #d3d3d3; */
+                margin: 0;
+            }
+
+            .precio{
+                justify-content:start;
+            }
         }
     </style>
 </head>

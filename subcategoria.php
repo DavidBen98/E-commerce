@@ -31,6 +31,7 @@
 <html lang="es"> 
 <head> 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muebles Giannis</title>
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
@@ -39,7 +40,7 @@
 	<style>
 		#main{
 			display:flex;
-			padding-bottom:10px;
+			padding-bottom:2%;
 			justify-content:center;
 			flex-wrap:wrap;
 		}
@@ -65,7 +66,7 @@
 			min-height: auto;
 			height: auto;
 		}
-		
+        
 		@media screen and (max-width:1024px){
 		    .producto{
 		        width:40%;
