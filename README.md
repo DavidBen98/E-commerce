@@ -9,7 +9,9 @@ Está compuesta por las partes fundamentales de los e-commerce, como lo son el c
 y posee algunas otras características como exportar a excel o imprimir, por ejemplo.
 
 Aclaraciones: 
+
 *El producto aún no está terminado, por lo que podrían surgir bugs o errores al probarlo. Sin embargo sigue en proceso de prueba para corregir todo lo necesario.
+
 *El repo permite iniciar sesión con redes sociales, en cambio la web deployada no. En el caso de que no funcione el inicio de sesión en el repo es porque se usan variables locales de autenticación. Por lo que debería consultar las APIS de Google y Twitter para autenticar con sus propias cuentas.
 
 Comenzando 🚀
