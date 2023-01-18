@@ -4,7 +4,9 @@
     require_once 'config.php';
     require_once 'vendor/autoload.php';
     include("encabezado.php"); 
-
+    
+    var_dump($_SESSION);
+    
     define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
   
@@ -98,6 +100,17 @@
             $material = ucfirst($producto['material']);
             $stock = intval($producto['stock']);
             $cantidad = intval($producto['cantidad']);
+
+            $sql = "SELECT * FROM imagen 
+                WHERE id_producto = $id AND portada=1
+            ";
+
+            $result = $db -> query($sql);
+            $path = '';
+
+            foreach ($result as $r){
+                $path = $r['destination'];
+            }
             
             if ($stock < $cantidad){
                 $cantidad = $stock;
@@ -112,7 +125,7 @@
             $carrito .= "<div class='contenedor'>
                             <div class='descrip'> 
                                 <div class='principal'>                                                                                          
-                                    <img src='images/$id/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                    <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
                                         <div class='titulo'>
                                             <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
                                                 <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
@@ -708,6 +721,7 @@
 
     <header>
         <?= $encabezado; ?>
+        <?= $encabezado_mobile; ?>
     </header>
     
     <main>      

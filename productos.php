@@ -346,6 +346,7 @@
 <body id="body">   
     <header>
 		<?= $encabezado;?>
+        <?= $encabezado_mobile; ?>
 	</header>
 	
 	<main id="main">

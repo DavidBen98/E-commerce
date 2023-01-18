@@ -93,9 +93,20 @@
 
         $i++;
 
+        $sql = "SELECT * FROM imagen 
+            WHERE id_producto = $id AND portada=1
+        ";
+
+        $result = $db -> query($sql);
+        $path = '';
+
+        foreach ($result as $r){
+            $path = $r['destination'];
+        }
+
         $carrito .= "<div class='contenedor'>
                             <div class='principal'>                                                                                          
-                                <img src='images/$id/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
                                     <div class='titulo'>
                                         <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
                                             <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>

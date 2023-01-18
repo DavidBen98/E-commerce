@@ -13,15 +13,23 @@
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
 
-    $codigo = $_GET['codigo'];
+    //Establecer si la foto es de portada
+    //<div style='width:100%; display: flex; justify-content: center; align-items: center;'>
+    //  <input type='checkbox' class='form-control' name='portada' id='portada' title='Portada' value='Imagen de portada'>  
+    //  <label for='portada' id='lPortada'>Imagen de portada</label>
+    //</div>
+
+    $id = $_GET['id'];
 
     $prod = "<form class='cont' action='veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
                 <h2 style='text-align:center; margin: auto;'>Ubicación</h2>";
             
                 if (isset($_GET['modUbi'])){
-                    $prod .= "<div class='mensaje'>
-                            <p> ¡El producto '$codigo' se ha cambiado de ubicación exitosamente!</p>     
-                         </div>";
+                    $prod .= "
+                        <div class='mensaje'>
+                            <p> ¡El producto con id '$id' se ha cambiado de ubicación exitosamente!</p>     
+                         </div>
+                    ";
                 }
 
     $prod .= "  <div class='contenedor' id='catActual'>
@@ -29,7 +37,7 @@
                 </div>
 
                 <div class='contenedor' style='display:none;'>
-                    <input type='hidden' name='codigo' class='btn btn-enviar' title='' value='$codigo'>     
+                    <input type='hidden' name='id' class='btn btn-enviar' title='' value='$id'>     
                 </div>
 
                 <div class='contenedor'>
@@ -50,15 +58,15 @@
 
             if (isset($_GET['modif'])){
                 $prod .= "<div class='mensaje'>
-                            <p> ¡El producto '$codigo' se ha modificado exitosamente!</p>     
+                            <p> ¡El producto '$id' se ha modificado exitosamente!</p>     
                          </div>";
             }
 
     $prod .= "
                 <h2 style='text-align:center; margin: auto;'>Características</h2>
                 <div class='contenedor'>
-                    <label for='codigo'>Código</label>
-                    <input type='text' name='codigo' readonly class='form-control-plaintext' id='codigo' title='Código' value='$codigo' readonly> 
+                    <label for='id'>Id</label>
+                    <input type='text' name='id' readonly class='form-control-plaintext' id='id' title='Código' value='$id' readonly> 
                 </div>
 
                 <div class='contenedor'>
@@ -125,15 +133,17 @@
 
         if (isset($_GET['modif'])){
             $formulario .= "
-            <div class='contenedor' id='elim'>
-                <p>¡Se ha modificado el producto de manera exitosa!</p>
-            </div>";
+                <div class='contenedor' id='elim'>
+                    <p>¡Se ha modificado el producto de manera exitosa!</p>
+                </div>
+            ";
         }
         else if (isset($_GET['error'])){
             $prod .="
-            <div class='contenedor' id='error'>
-                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
-            </div>";
+                <div class='contenedor' id='error'>
+                    <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                </div>
+            ";
         }
             
     $prod .= "</form>";
@@ -149,9 +159,9 @@
 	<script src="js/funciones.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let codigo = getQueryVariable("codigo");
+            let id = getQueryVariable("id");
 
-            function parsearCaracteristicas(cadena){
+            function parsearCaracteristicas(codigo, cadena){
                 let numero = "";
                 for (let i=0;i<cadena.length;i++){
                     if (cadena[i] >= 48 || cadena[i] <= 57) {
@@ -226,7 +236,7 @@
                 $.ajax ({
                     type: "POST",
                     url: "veFuncObtenerDatos.php",
-                    data: "codigo=" + codigo,
+                    data: "id=" + id,
                     success: function (datos){
                         let data = JSON.parse(datos);
 
@@ -236,7 +246,7 @@
                                         "</p><p><b>Subcategoría actual:</b> "+data.subcategoria+"</p>";
 
                         contenedor[0].innerHTML = categoria;
-                        document.getElementById('codigo').value = codigo;
+                        document.getElementById('id').value = id;
                         document.getElementById('descripcion').value = data.descripcion;
                         document.getElementById('material').value = data.material;
                         document.getElementById(data.color.toLowerCase()).checked = true;
@@ -245,37 +255,57 @@
                         document.getElementById('cant').value = Number(data.stock);
                         document.getElementById('precio').value = data.precio;
                         document.getElementById('descuento').value = data.descuento;
-                        parsearCaracteristicas (data.caracteristicas);
+
+                        parsearCaracteristicas (data.codigo,data.caracteristicas);
                     }
                 });
             }
 
-            async function actualizar() {  
-                let actualizar = await $.ajax ({
-                                            type: "POST",
-                                            url: "rellenarSelect.php",
-                                            data: "categoria= " + $('#categoria').val (),
-                                            success: function (r){
-                                                $('#subc').html (r);
+            function actualizar() {  
+                $.ajax ({
+                    type: "POST",
+                    url: "rellenarSelect.php",
+                    data: "categoria= " + $('#categoria').val () + "&subcategoria=nueva",
+                    success: function (r){
+                        $('#subc').html (r);
 
-                                                let sub = document.getElementById ('subcategoria');
-                                            }
-                                        });
+                        let selectSubcategoria = document.getElementById('subcategoria');
+
+                        let button = document.getElementById('bUbicacion');
+
+                        if (selectSubcategoria.selectedIndex == -1){
+                            button.style.display = 'none';
+
+                            let contenedor = document.getElementById('ubicacion');
+
+                            let linkNuevaSubcategoria = document.createElement("a");
+                            linkNuevaSubcategoria.setAttribute('id', 'linkNuevaSubcategoria');
+                            let parrafo = document.createElement("p");
+                            let text = document.createTextNode('Ir a crear nueva subcategoría');
+                            parrafo.appendChild(text);
+                            parrafo.setAttribute('style', 'text-decoration: underline;');
+                            linkNuevaSubcategoria.setAttribute('href','veSubcategoriaAlta.php');
+                            linkNuevaSubcategoria.appendChild(parrafo);
+                            contenedor.appendChild(linkNuevaSubcategoria);
+
+                        } else {
+                            button.style.display = 'block';
+                            var element = document.getElementById("linkNuevaSubcategoria");
+
+                            if (element != null){
+                                element.remove();
+                            }
+                        }
+                    }
+                });
             }    
-            
-            async function init (){
-                let act = await actualizar ();
-                completarDatos ();
-
-                let label = document.getElementsByClassName('label');
-                label[0].innerText = 'Subcategoría nueva';
-            }
 
             $('#categoria').change (function (){
                 actualizar ();
             });
 
-            init ();
+            completarDatos ();
+            actualizar ();
         });
 	</script>
     <style>

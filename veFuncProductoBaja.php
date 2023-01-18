@@ -4,9 +4,17 @@
     global $db;
     
     if (isset($_GET['eliminar'])){
-        $codigo = $_GET['eliminar'];
+        $id = $_GET['eliminar'];
+
+        //Elimina todas las imagenes de ese producto, ya sean portadas o no
+        $sql = "DELETE FROM imagen
+                WHERE id_producto = '$id'
+        ";
+
+        $rs = $db -> query ($sql);
+
         $sql = "DELETE FROM producto
-                WHERE codigo = '$codigo'
+                WHERE id = '$id'
         ";
 
         $rs = $db -> query ($sql);
@@ -24,9 +32,23 @@
         $rs = $db -> query($sql);
 
         $imagenes = "";
+
         foreach ($rs as $row){
+            $id = $row['id'];
+
+            $sql = "SELECT * FROM imagen 
+                WHERE id_producto = $id AND portada=1
+            ";
+
+            $result = $db -> query($sql);
+            $path = '';
+
+            foreach ($result as $r){
+                $path = $r['destination'];
+            }
+
             $imagenes .= "<div class='producto'>
-                            <img src='images/{$row['codigo']}.png' class='imagen' alt='{$row['codigo']}' title='{$row['descripcion']}'>
+                            <img src='$path' class='imagen' alt='$id' title='{$row['descripcion']}'>
                             <p>{$row['descripcion']}</p>
                             <p><b>Código:</b> {$row['codigo']}</p>
                         </div>";

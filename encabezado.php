@@ -44,6 +44,9 @@
                                     <h1><i id='titulo-principal' title='Logo del comercio'>Muebles Giannis</i></h1>
                                 </a>
                             </div>
+                            <div>
+                                <img src='images/menu.png' alt='' id='header-menu' class='header-menu'>
+                            </div>
                             <div id='buscar'>
                                 <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                                 <button id='lupa' title='Buscar'>
@@ -60,9 +63,6 @@
                                     <img src='images/carrito.png' alt='Carrito de compras' style='width:30px;' height='30'>
                                     <span id='num-car'>$cantCarrito</span>
                                 </a>
-                                <div>
-                                    <img src='images/menu.png' alt='Lupa de buscar' class='header-menu'>
-                                </div>
                             </div>
                         </div>     
                         <nav id='navigation'>
@@ -73,5 +73,18 @@
                             </ul>
                         </nav>
         ";
+
+        $encabezado_mobile = "<div id='cont-mobile-menu'>
+                                <img src='images/menu.png' alt='Lupa de buscar' id='mobile-menu' class='header-menu'>
+                             " . crear_barra_mobile() . "
+                             </div>
+                            <div id='mobile-header'> 
+                                <a href='index.php'>Inicio</a>
+                                <a href='productos.php?productos=todos'>Productos</a> 
+                                <a href='contacto.php'>Contacto</a>
+                                <a href='favoritos.php' title='Favoritos' class='header-img' id='mobile-fav'>
+                                    Favoritos
+                                </a>
+                            </div>";
     }
 ?>

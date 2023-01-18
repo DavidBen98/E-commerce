@@ -247,7 +247,7 @@
 
         @media screen and (max-width: 620px) {
             .categorias{
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }            
             
             .img-cat{
@@ -287,6 +287,7 @@
 <body id="body">
     <header> 
         <?= $encabezado; ?>
+        <?= $encabezado_mobile; ?>
     </header>
 
     <main id='main' class='main'>

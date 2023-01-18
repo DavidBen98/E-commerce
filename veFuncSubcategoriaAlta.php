@@ -5,7 +5,6 @@
     
     $nombre = isset($_POST['tNombre'])? $_POST['tNombre']: null;
     $id_categoria = isset($_POST['categoria'])? $_POST['categoria']: null;
-
   
     $imagen = $_FILES["imagen"]["tmp_name"];
     $portada = isset($_POST['portada'])? 1: 0;

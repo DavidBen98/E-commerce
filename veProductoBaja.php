@@ -9,32 +9,42 @@
 
     $lista = obtenerCategorias();
 
-    $formulario = "<form class='cont' action='veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
-                <h1 style='width:100%;text-align:center;'>Baja producto</h1>
+    $formulario = "
+        <form class='cont' action='veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
+    ";
 
-                <div class='contenedor'>
-                    <label for='categoria'>Categoría</label>
-                    $lista
-                </div>
+    if (isset($_GET['modif'])) {
+        $formulario .= "<h1 style='width:100%;text-align:center;' id='h1'>Modificar producto</h1>";
+    } else {
+        $formulario .= "<h1 style='width:100%;text-align:center;' id='h1'>Baja producto</h1>";
+    }
 
-                <div class='contenedor' id='subc'>
-                    
-                </div>
+    $formulario .= "
+            <div class='contenedor'>
+                <label for='categoria'>Categoría</label>
+                $lista
+            </div>
 
-                <div class='contenedor' id='imagen'>
-                </div>
+            <div class='contenedor' id='subc'>
+                
+            </div>
+
+            <div class='contenedor' id='imagen'>
+            </div>
     ";
     
     if (isset($_GET['elim'])){
         $formulario .= "
-        <div class='contenedor' id='elim'>
-            <p>¡Se ha eliminado el producto de manera exitosa!</p>
-        </div>";
+            <div class='contenedor' id='elim'>
+                <p>¡Se ha eliminado el producto de manera exitosa!</p>
+            </div>
+        ";
     }
     else if (isset($_GET['error'])){
-        $formulario .="<div class='contenedor' id='error'>
-                    <p>Error: los datos ingresados no son correctos, reintente por favor</p>
-                </div>
+        $formulario .="
+            <div class='contenedor' id='error'>
+                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+            </div>
         ";
     }
 
@@ -56,29 +66,37 @@
                     url: "veFuncProductoBaja.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (datos){
+
                         let input = document.getElementById('imagen');
-                        
-                        input.innerHTML = datos;
 
-                        let imagen = document.getElementsByClassName('imagen');
-
-
-                        for (let i = 0; i < imagen.length; i++){
-                            imagen[i].addEventListener ('click', () => {
-
-                                if (window.location.search === '?modif=true'){
-                                    window.location.href = 'veProductoModif.php?codigo='+imagen[i].alt;
-                                }
-                                else{
-                                    let confirmar = confirm ("¿Desea eliminar el producto con código " + imagen[i].alt + "?");
+                        if (datos == '') {
+                            input.innerHTML = datos;
+                            let vacio = document.createElement('p');
+                            let texto = document.createTextNode('No existen resultados que coincidan con la búsqueda');
+                            vacio.appendChild(texto);
+                            input.appendChild(vacio);
+                        } else {
+                            input.innerHTML = datos;
     
-                                    if (confirmar){
-                                        let codigo = imagen[i].alt;
+                            let imagen = document.getElementsByClassName('imagen');
     
-                                        window.location.href = 'veFuncProductoBaja.php?eliminar='+codigo;
+                            for (let i = 0; i < imagen.length; i++){
+                                imagen[i].addEventListener ('click', () => {
+    
+                                    if (window.location.search === '?modif=true'){
+                                        window.location.href = 'veProductoModif.php?id='+imagen[i].alt;
                                     }
-                                }
-                            });
+                                    else{
+                                        let confirmar = confirm ("¿Desea eliminar el producto con código " + imagen[i].alt + "?");
+        
+                                        if (confirmar){
+                                            let codigo = imagen[i].alt;
+        
+                                            window.location.href = 'veFuncProductoBaja.php?eliminar='+codigo;
+                                        }
+                                    }
+                                });
+                            }
                         }
                     }
                 });

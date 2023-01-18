@@ -493,6 +493,8 @@
 </head>
 <body>
 	<?= $encabezado; ?>
+	<?= $encabezado_mobile; ?>
+
 
 	<main id='main'>
 		<?= $ruta; ?>

@@ -48,6 +48,18 @@ window.onload = function (){
         else if (ev.target.matches('#procederCompra')){
             window.location.href='pago.php';
         }
+        else if (ev.target.matches('#header-menu')){
+            document.getElementById('mobile-header').style.display = 'flex';
+            document.getElementById('cont-mobile-menu').style.display = 'flex';
+            document.getElementById('container-header').style.display = 'none';
+            document.getElementById('mobile-perfilUsuario').style.display = 'flex';
+
+        }else if (ev.target.matches('#mobile-menu')){
+            document.getElementById('mobile-header').style.display = 'none';
+            document.getElementById('container-header').style.display = 'flex';
+            document.getElementById('mobile-perfilUsuario').style.display = 'none';
+            document.getElementById('cont-mobile-menu').style.display = 'none';
+        }
 	});
 
     document.addEventListener('keydown', ev => {
@@ -58,17 +70,11 @@ window.onload = function (){
         }
     });
 
-    document.addEventListener('change', ev => {
-        // ev.target.id
-        let id = ev.target.id;
-        // console.log(ev.target.id);
-        // for (let i=0; i<modificarCarrito.length;i++){
-        //     let labelSelect = document.getElementsByClassName('labelSelect');
-        //     let id = labelSelect[i].id;
+    // document.addEventListener('change', ev => {
+    //     let id = ev.target.id;
 
-        // }
-        modificarProducto(id);
-    });
+    //     modificarProducto(id);
+    // });
         
     let url = window.location.pathname;
     let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
@@ -229,11 +235,10 @@ const modificarProducto = (id) => {
     let cantElemento = document.getElementById(id).value;
     let prodCambiado = id.slice(5);
     let subtotal = document.getElementById('subtotal');
-    let total = document.getElementById('total');
+
+    let producto = document.getElementsByClassName('elim-prod')[prodCambiado-1].value;
 
     let precioProdAnterior = document.getElementById('precioS-'+prodCambiado).textContent;
-     //precio anterior del articulo cambiado
-    // precioProdAnterior = precioProdAnterior.slice(2);
     precioProdAnterior = precioProdAnterior.trim().slice(1); //le saco $
     let precioUnitario = document.getElementById('precioU-'+prodCambiado).textContent; 
     precioUnitario = precioUnitario.trim().slice(1); //obtengo precio unitario de ese producto
@@ -251,7 +256,7 @@ const modificarProducto = (id) => {
     totalAnterior.innerHTML = "<b>$ " + sumaTotal + "</b>";
 
     let param = {
-        id: id,
+        id: producto,
         cantidad: cantElemento,
     };
 
@@ -268,8 +273,6 @@ const modificarProducto = (id) => {
             }
         }
     });	
-    
-    
 }
 
 //UTILIZADAS EN DETALLE ARTICULO
@@ -675,5 +678,6 @@ const getQueryVariable = (variable) => {
             return pair[1];
         }
     }
+    
     return false;
 }

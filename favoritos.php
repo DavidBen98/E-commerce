@@ -85,11 +85,22 @@
             $precio = $row['precio'];
             $codigo = $row['codigo'];
             $id = $row['id'];
+
+            $sql = "SELECT * FROM imagen 
+                WHERE id_producto = $id AND portada=1
+            ";
+
+            $result = $db -> query($sql);
+            $path = '';
+
+            foreach ($result as $r){
+                $path = $r['destination'];
+            }
     
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='images/$id/$codigo.png' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
                                     <div class='titulo' style='text-align:left;'>
                                         <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
                                             <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
@@ -512,6 +523,7 @@
 <body id="body">
     <header>
         <?= $encabezado; ?> 
+        <?= $encabezado_mobile; ?>
     </header>
 
     <main>

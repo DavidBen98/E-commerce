@@ -27,12 +27,8 @@
                     $_POST['descuento']: null;
     
     $imagen = $_FILES["imagen"]["tmp_name"];
-    $portada = isset($_POST['portada'])? 1: 0;
 
     $check = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : false;
-    if($check !== false){
-        $imagen = addslashes(file_get_contents($imagen));
-    }
 
     if ($categoria !== null && $subcategoria !== null && $codigo !== null && $descripcion !== null && $material !== null &&
     $color !== null && $caracteristicas !== null && $marca !== null && $cant !== null && $precio !== null && $descuento !== null &&
@@ -61,17 +57,51 @@
 
         $rs = $db->query($sql);
 
-        $idProducto = $db->lastInsertId();
+        $id_producto = $db->lastInsertId();
 
-        $sql = "INSERT INTO imagen (id_producto, imagen, portada) VALUES
-       ('$idProducto', '$imagen', '$portada')
-        ";
-        
-        $rs = $db -> query($sql);
+        $imagen = $_FILES['imagen'];
+        $imagen_name = $imagen['name'];
+        $imagen_tmp = $imagen["tmp_name"];
+        $imagen_error = $imagen['error'];
+        $imagen_ext = explode('.',$imagen_name);
+        $imagen_ext = strtolower(end($imagen_ext));
+        $allowed = array('jpg', 'jpeg', 'png');
 
-        header ("location: veProductoAlta.php?alta=true");
+        if(in_array($imagen_ext, $allowed)){
+            if($imagen_error === 0){
+                $imagen_destination = 'images/'. $categoria . '/'. $subcategoria . '/' . $id_producto . '/';
+                $imagen_name_new =  'portada.' . $imagen_ext;
+
+                //Para agregar una imagen al producto
+                //$imagen_name_new = $id_producto . '.' . $imagen_ext;
+                
+                mkdir($imagen_destination, 0777, true);
+                
+                $imagen_destination .= $imagen_name_new;
+
+                if(move_uploaded_file($imagen_tmp, $imagen_destination)){
+                    $sql = "INSERT INTO imagen (id_producto, destination, portada) VALUES
+                    ('$id_producto', '$imagen_destination', 1)
+                    ";
+
+                    $rs = $db -> query($sql);
+
+                    header ("location: veCategoriaAlta.php?alta=exito");
+                }else{
+                    $sql = "DELETE FROM producto WHERE id = $id_producto";
+                    $rs = $db->query($sql);
+
+                    //No se pudo subir la imagen
+                    header ("location: veCategoriaAlta.php?error=1");
+                }
+            }   
+        } else {
+            //La extensión del archivo es incorrecta
+            header ("location: veCategoriaAlta.php?error=2");
+        }
     }
     else{
-        header ("location: veProductoAlta.php?error=data");
+        //Los datos ingresados no son correctos
+        header ("location: veProductoAlta.php?error=3");
     }
 ?>

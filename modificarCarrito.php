@@ -3,9 +3,8 @@
     include_once ("inc/conn.php");
     require_once 'vendor/autoload.php';
 
-
     if ((isset($_POST['id'])) && (isset($_POST['cantidad']))){
-        $id = $_POST['id'];
+        $id = strval($_POST['id']);
         $cantidad = $_POST['cantidad'];
 
         if (isset($_SESSION['carrito']['productos'][$id])){

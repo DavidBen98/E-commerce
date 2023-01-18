@@ -13,6 +13,41 @@
                             </div> "
     );
 
+    function crear_barra_mobile() {
+        global $user;
+        global $perfil;
+        $links=''; 
+
+        if (isset($_GET['code']) || isset($_SESSION['user_first_name'])){
+            $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
+                            . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
+                        " </span> &nbsp;</a>
+                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+        }
+        else if (isset($_SESSION['nombre_tw'])){
+            $links = "  <a href='informacionPersonal.php' title='Perfil'> 
+                            <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
+                        </a>
+                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+        }
+        else if ($user=='') {
+            $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
+                        <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
+        } else if($perfil=='E'){
+            $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
+                        <a href='cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+        } else if($perfil=='U'){
+            $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
+                        <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+        }
+    
+        $barra_sup ="<div id='mobile-perfilUsuario'>
+                        $links
+                    </div> ";
+                    
+        return  $barra_sup;
+    }
+
     function crear_barra() {
         global $user;
         global $perfil;
@@ -98,7 +133,24 @@
                             </div>
             ";
         }
-    }    
+    }  
+    
+    function obtenerRutaPortada($id){
+        global $db;
+
+        $sql = "SELECT * FROM imagen 
+        WHERE id_producto = $id AND portada=1";
+
+        $result = $db -> query($sql);
+
+        $path = '';
+
+        foreach ($result as $r){
+            $path = $r['destination'];
+        }
+
+        return $path;
+    }
 
     function crearImagenes ($consulta){
 		$i=0;	
@@ -112,9 +164,13 @@
             }
             else if (isset($_GET['categoria'])){
                 foreach ($consulta as $row) {
+                    $id = "'".$row['id'] . "'";
+
+                    $path = obtenerRutaPortada($id);
+
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='images/{$row['id']}/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <img src='$path' class='img-cat' id='$i' alt='{$row['codigo']}' title='".ucfirst($row['nombre_subcategoria'])."'> 
                             <h2 class='tituloSubcat'>". ucfirst($row['nombre_subcategoria'])." </h2>
                         </div>
                     ";           
@@ -122,9 +178,12 @@
             }
             else{
                 foreach ($consulta as $row) {
+                    $id = "'".$row['id'] . "'";
+                    $path = obtenerRutaPortada($id);
+
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='images/{$row['id']}/{$row['codigo']}.png' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+                            <img src='$path' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
                             <div class='caracteristicas'>
                                 <h2 class='descripcion'>". ucfirst($row['descripcion'])." </h2>
                                 <div style='display:block; justify-content:center; align-items:center;'>";
@@ -149,7 +208,13 @@
             }
 
             if ($i == 0){
-                echo "<p> No existe ningún resultado que coincida con la búsqueda ingresada </p>";
+                echo "
+                    <div style='display:flex; flex-wrap: wrap; justify-content: center; align-content:center; min-height: 250px'>
+                        <p style='width: 100%; text-align:center; max-height: 40px'> No existe ningún resultado que coincida con la búsqueda ingresada </p>
+                        <a href='index.php' style='text-decoration: underline;'>Regresar al inicio </a>
+                    </div>
+                "; 
+                
             }
                     
         echo "	</div>
@@ -376,11 +441,21 @@
             //                     <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
             // ";
 
+            $image_path = 'images/categorias/'.$idCat;
+            $extensions = array('.jpg', '.jpeg', '.png');
+            $src = '';
+            foreach ($extensions as $ext) {
+                if (file_exists($image_path . $ext)) {
+                    $src = $image_path . $ext;
+                    break;
+                }
+            }
+
             echo " <div class='cont-images'> 
-                <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
-                <div class='texto'>
-                    <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
-";
+                        <img src= '$src' alt='$nomCat' class='img-cat'>
+                        <div class='texto'>
+                            <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
+            ";
 
             $sql1 ="SELECT nombre_subcategoria
                     FROM `subcategoria`

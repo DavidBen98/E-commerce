@@ -12,21 +12,22 @@
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
-    $formulario = "<form class='cont' action='veFuncProductoAlta.php' method='post' enctype='multipart/form-data'>
+    $formulario = "
+        <form class='cont' action='veFuncProductoAlta.php' method='post' enctype='multipart/form-data'>
                 <h1 style='width:100%;text-align:center;'>Alta producto</h1>
                 
                 <div class='contenedor'>
                     <label for='categoria'>Categoría</label>
                     $lista
                 </div>
-
+    
                 <div class='contenedor' id='subc'>
                     
                 </div>
                 
                 <div class='contenedor'>
                     <label for='codigo'>Código</label>
-                    <input type='text' name='codigo' readonly class='form-control-plaintext' id='codigo' title='Código' value='' readonly> 
+                    <input type='text' name='codigo' class='form-control-plaintext' id='codigo' title='Código' value='' readonly> 
                 </div>
 
                 <div class='contenedor'>
@@ -37,10 +38,6 @@
                 <div class='contenedor'>
                     <label for='imagen'>Imagen</label>
                     <input type='file' class='form-control' name='imagen' id='imagen' title='Seleccionar imagen' value=''>
-                    <div style='width:100%; display: flex; justify-content: center; align-items: center;'>
-                        <input type='checkbox' class='form-control' name='portada' id='portada' title='Portada' value='Imagen de portada'>  
-                        <label for='portada' id='lPortada'>Imagen de portada</label>
-                    </div>
                 </div>
                         
                 <div class='contenedor'>
@@ -93,7 +90,7 @@
                 </div>
 
                 <div class='contenedor'>
-                    <label for='descuento'>Descuento (Solo número)</label>
+                    <label for='descuento'>Porcentaje de descuento (Solo número)</label>
                     <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
                 </div>
                 
@@ -102,16 +99,48 @@
                 </div>";
 
                 if (isset($_GET['alta'])){
-                    $formulario .= "<div class='contenedor' id='error'>
-                                <p> ¡Se ha añadido el producto con éxito! </p>
-                            </div>
+                    $formulario .= "
+                        <div class='contenedor' id='error'>
+                            <p> ¡Se ha añadido el producto con éxito! </p>
+                        </div>
                     ";
                 }
                 else if (isset($_GET['error'])){
-                    $formulario .="<div class='contenedor' id='error'>
-                                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+                    $error = $_GET['error'];
+
+                    if ($error == '1'){
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p>Error: la imagen no ha sido procesada con éxito, reintente nuevamente.</p>
                             </div>
-                    ";
+                        ";
+                    } else if ($error == '2') {
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p>
+                                    Error: La extensión del archivo es incorrecta, reintente con las siguientes extensiones
+                                    png, jpeg, jpg.
+                                </p>
+                            </div>
+                        ";
+                    } else if ($error == '3'){
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p>
+                                    Error: Los datos ingresados no son correctos, verifique que todos los campos están completados
+                                    y cumplen con los requisitos de la aplicacion.
+                                </p>
+                            </div>
+                        ";    
+                    } else {
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p>
+                                    Ha ocurrido un error inesperado, reintente nuevamente en otro momento.
+                                </p>
+                            </div>
+                        ";
+                    }
                 }
     $formulario .= "</form>";
 ?>
@@ -138,18 +167,32 @@
                         categoria = categoria.substring(0,2);
 
                         let subcategoria = document.getElementById('subcategoria');
-                        subcategoria = subcategoria.options[subcategoria.selectedIndex].text;
-                        subcategoria = subcategoria.substring(0,2);
 
-                        let codigo = (categoria + subcategoria + nroProducto).toLowerCase();
-                        input.setAttribute('value',codigo);
+                        if (subcategoria.selectedIndex != -1){
+                            subcategoria = subcategoria.options[subcategoria.selectedIndex].text;
+                            subcategoria = subcategoria.substring(0,2);
+    
+                            let codigo = (categoria + subcategoria + nroProducto).toLowerCase();
+                            input.setAttribute('value',codigo);
+    
+                            let caracUno = document.getElementById ('caracUno');
+                            let caracDos = document.getElementById ('caracDos');
+                            let caracTres = document.getElementById ('caracTres');
+    
+                            codigo = (categoria + subcategoria).toLowerCase();
+                        } else {
+                            divSubcategoria = document.getElementById ('subc');
+                            let linkNuevaSubcategoria = document.createElement("a");
+                            let parrafo = document.createElement("p");
+                            let text = document.createTextNode('Ir a crear nueva subcategoría');
+                            parrafo.appendChild(text);
+                            parrafo.setAttribute('style', 'text-decoration: underline;');
+                            linkNuevaSubcategoria.setAttribute('href','veSubcategoriaAlta.php');
+                            linkNuevaSubcategoria.appendChild(parrafo);
+                            divSubcategoria.appendChild(linkNuevaSubcategoria);
 
-                        let caracUno = document.getElementById ('caracUno');
-                        let caracDos = document.getElementById ('caracDos');
-                        let caracTres = document.getElementById ('caracTres');
-                        let inputProfundidad = document.getElementById ('profundidad');
-
-                        codigo = (categoria + subcategoria).toLowerCase();
+                            input.setAttribute('value', 'Error, no existe subcategoria seleccionada');
+                        }
 
                         //No escalable al agregar mas categorias/subcategorias
                         verCaract();
@@ -183,6 +226,7 @@
             });
 
             function verCaract (){
+                //Según la subcategoría se establecen el nombre de las características
                 if (codigo == "ofsi"){
                     caracUno.innerHTML = "Altura del respaldo";
                     caracDos.innerHTML = "Altura del piso al asiento";
@@ -203,8 +247,13 @@
                     caracTres.innerHTML = "Profundidad";
                 }
 
+                //Mostrar o no mostrar elementos HTML segun la cantidad de caracteristicas 
+                //que tiene la subcategoría
+                let inputProfundidad = document.getElementById ('profundidad');
+
                 if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
                     caracTres.style.display = 'block';
+
                     inputProfundidad.style.display = 'block';
                 }
                 else{
@@ -245,15 +294,6 @@
         #imagen{
             padding:20px 0 0 10px;
             border:none;
-        }
-
-        #portada{
-            width:5%;
-            height:auto;
-        }
-
-        #lPortada{
-            width:auto;
         }
 
         #color{

@@ -3,11 +3,11 @@
 
     global $db;
 
-    $codigo = $_POST['codigo'];
+    $id = $_POST['id'];
 
     $sql = "SELECT *
             FROM producto
-            WHERE codigo = '$codigo'
+            WHERE id = '$id'
     ";
 
     $rs = $db -> query ($sql);
@@ -15,6 +15,7 @@
     foreach ($rs as $row){
         $categoria = $row['id_categoria'];
         $subcategoria = $row['id_subcategoria'];
+        $datos['codigo'] = $row['codigo'];
         $datos['descripcion'] = $row['descripcion'];
         $datos['color'] = $row['color'];
         $datos['marca'] =  $row['marca'] ;

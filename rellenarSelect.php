@@ -13,9 +13,16 @@
 
         $rs = $db->query($sql); 
 
-        echo "  <label for='subcategoria' class='label'> Subcategorías </label>
+        if (!empty($_POST['subcategoria']) && $_POST['subcategoria'] == 'nueva'){
+            echo "  
+                <label for='subcategoria' class='label'> Subcategoría nueva </label>
                 <select id='subcategoria' name='subcategoria' class='form-select'>
-        ";
+            ";
+        } else {
+            echo "  <label for='subcategoria' class='label'> Subcategorías </label>
+                    <select id='subcategoria' name='subcategoria' class='form-select'>
+            ";
+        }
 
         foreach ($rs as $row) {
             echo "<option value=".$row['id_subcategoria'].">". $row['nombre_subcategoria'] . "</option>";

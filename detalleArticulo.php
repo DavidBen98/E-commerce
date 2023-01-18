@@ -87,9 +87,21 @@
 			}
 		}
 
+		$sql = "SELECT * FROM imagen 
+                WHERE id_producto = $id AND portada=1
+		";
+
+		$result = $db -> query($sql);
+
+		$path = '';
+
+		foreach ($result as $r){
+			$path = $r['destination'];
+		}
+
 		$contArticulo = "<div class='contenedor'> 
 							<div id='cont-images'>
-								<img src='images/{$row['id']}/$variable.png' class='img-cat' title='Producto en detalle' alt='{$row['descripcion']}'>                                   
+								<img src='$path' class='img-cat' title='Producto en detalle' alt='{$row['descripcion']}'>                                   
 							</div>
 
 							<div id='cont-descripcion'>
@@ -318,6 +330,10 @@
 			.contenedor{
 				margin: 5% 0;
 			}
+
+			.precio{
+				justify-content:center;
+			}
 		}
 
 		/* @media screen and (max-width: 280px) {
@@ -330,6 +346,7 @@
 <body>
 	<header>
     	<?= $encabezado; ?>
+        <?= $encabezado_mobile; ?>
 	</header>
 	
     <main id='main'>
