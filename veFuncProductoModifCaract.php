@@ -26,6 +26,18 @@
     if ($id !== null && $descripcion !== null && $material !== null && $color !== null && 
         $caracteristicas !== null && $marca !== null && $cant !== null && $precio !== null && $descuento !== null){
 
+        $sql = "SELECT codigo
+                FROM producto
+                WHERE id = '$id'
+        ";
+
+        $rs = $db->query($sql);
+        $codigo = '';
+
+        foreach ($rs as $row){
+            $codigo = $row['codigo'];
+        }
+
         if (strpos($codigo,"ofsi") !== false){
             $caract = "Altura del respaldo: ".$caracteristicas[0]."cm,altura del piso al asiento: ". $caracteristicas[1]."cm";
         }

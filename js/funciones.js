@@ -681,8 +681,10 @@ const validarAlta = () => {
 
     if (categoria || subcategoria || codigo === '' || descripcion === '' || imagen === 0 || 
     (material === '' && selectedMaterial === null) || caracUno === undefined || caracDos === undefined 
-    || caracTres === undefined || selectedColor === null || (selectedMarca === null && marca === '') 
-    || cant === '' || precio === '' || descuento === ''){
+    || caracTres === undefined || selectedColor === null || (selectedMarca === null && marca === '')
+    || parseInt(caracUno) < 0 || parseInt(caracDos) < 0 || (caracTres !== null && parseInt(caracTres) < 0) 
+    || cant === '' || parseInt(cant) < 0 || precio === '' || parseInt(precio) <= 0 || descuento === '' 
+    || parseInt(descuento) < 0 || parseInt(descuento) > 100){
         validate = false;
         let p = document.getElementById("p_error");
         
@@ -726,11 +728,15 @@ const validarModif = () => {
     let cant = document.getElementById("cant").value.trim().replace(/^0+/, '');
     let precio = document.getElementById("precio").value.trim().replace(/^0+/, '');
     let descuento = document.getElementById("descuento").value.trim().replace(/^0+/, '');
+    descuento = descuento === "" && 0;
     let validate = true;
 
-    if (id === '' || descripcion === '' || material === '' || caracUno === undefined || 
-    caracDos === undefined || caracTres === undefined || selectedColor === null || marca === '' 
-    || cant === '' || precio === '' || descuento === ''){
+    if (id === '' || descripcion === '' || material === '' || caracUno === undefined 
+    || caracDos === undefined || caracTres === undefined 
+    || parseInt(caracUno) < 0 || parseInt(caracDos) < 0 || (caracTres != null && parseInt(caracTres) < 0) 
+    || selectedColor === null || marca === '' || cant === '' 
+    || parseInt(cant) < 0 || precio === '' || parseInt(precio) <= 0 
+    || descuento === '' || parseInt(descuento) < 0 || parseInt(descuento) > 100){
         validate = false;
         let p = document.getElementById("p_error");
         
@@ -758,7 +764,7 @@ const validarModif = () => {
         }
     }
     
-    return false;
+    return validate;
 }
 
 //PRODUCTOS
