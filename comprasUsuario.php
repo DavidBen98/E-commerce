@@ -516,7 +516,7 @@
         </ol>
         
         <aside class='contenedor-botones'>
-            <?=CONT_USUARIOS; ?>
+            <?= CONT_USUARIOS; ?>
         </aside>
 
         <?= $div; ?>  

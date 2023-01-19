@@ -219,10 +219,11 @@
 					}
 				?>
 				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" required></textarea>
-				<p id="e_error">
+				<p id="e_error" style="width:auto; border-radius: 5px">
 
                 </p>
 				<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar">
+				
 				<?php
 					if (isset($_GET['consulta'])){
 						echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";

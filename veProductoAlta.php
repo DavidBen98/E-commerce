@@ -13,10 +13,58 @@
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
     $formulario = "
-        <form class='cont' action='veFuncProductoAlta.php' method='post' enctype='multipart/form-data'>
-                <h1 style='width:100%;text-align:center;'>Alta producto</h1>
+        <form class='cont' action='veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
+                <h1 style='width:100%;text-align:center;'>Alta producto</h1> ";
+
+                if (isset($_GET['alta'])){
+                    $formulario .= "
+                        <div class='contenedor' id='error'>
+                            <p> ¡Se ha añadido el producto con éxito! </p>
+                        </div>
+                    ";
+                }
+                else if (isset($_GET['error'])){
+                    $error = $_GET['error'];
+
+                    if ($error == '1'){
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p style='text-align:center;'>
+                                    Error: la imagen no ha sido procesada con éxito, reintente nuevamente.
+                                </p>
+                            </div>
+                        ";
+                    } else if ($error == '2') {
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p style='text-align:center;'>
+                                    Error: La extensión del archivo es incorrecta, reintente con las siguientes extensiones
+                                    png, jpeg, jpg.
+                                </p>
+                            </div>
+                        ";
+                    } else if ($error == '3'){
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p style='text-align:center;'>
+                                    Error: Los datos ingresados no son correctos, verifique que todos los campos están completados
+                                    y cumplen con los requisitos de la aplicacion.
+                                </p>
+                            </div>
+                        ";    
+                    } else {
+                        $formulario .="
+                            <div class='contenedor' id='error'>
+                                <p style='text-align:center;'>
+                                    Ha ocurrido un error inesperado, reintente nuevamente en otro momento.
+                                </p>
+                            </div>
+                        ";
+                    }
+                }
                 
-                <div class='contenedor'>
+        $formulario .= 
+                "<div class='contenedor'>
                     <label for='categoria'>Categoría</label>
                     $lista
                 </div>
@@ -95,53 +143,9 @@
                 </div>
                 
                 <div class='contenedor' id='agregar'>
-                    <input type='submit' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
+                    <input type='submit' id='btnEnviar' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
                 </div>";
 
-                if (isset($_GET['alta'])){
-                    $formulario .= "
-                        <div class='contenedor' id='error'>
-                            <p> ¡Se ha añadido el producto con éxito! </p>
-                        </div>
-                    ";
-                }
-                else if (isset($_GET['error'])){
-                    $error = $_GET['error'];
-
-                    if ($error == '1'){
-                        $formulario .="
-                            <div class='contenedor' id='error'>
-                                <p>Error: la imagen no ha sido procesada con éxito, reintente nuevamente.</p>
-                            </div>
-                        ";
-                    } else if ($error == '2') {
-                        $formulario .="
-                            <div class='contenedor' id='error'>
-                                <p>
-                                    Error: La extensión del archivo es incorrecta, reintente con las siguientes extensiones
-                                    png, jpeg, jpg.
-                                </p>
-                            </div>
-                        ";
-                    } else if ($error == '3'){
-                        $formulario .="
-                            <div class='contenedor' id='error'>
-                                <p>
-                                    Error: Los datos ingresados no son correctos, verifique que todos los campos están completados
-                                    y cumplen con los requisitos de la aplicacion.
-                                </p>
-                            </div>
-                        ";    
-                    } else {
-                        $formulario .="
-                            <div class='contenedor' id='error'>
-                                <p>
-                                    Ha ocurrido un error inesperado, reintente nuevamente en otro momento.
-                                </p>
-                            </div>
-                        ";
-                    }
-                }
     $formulario .= "</form>";
 ?>
 <html lang="es">
@@ -152,7 +156,7 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link type="text/css"  href="assets/css/ve_estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<!--<script src="js/funciones.js"></script> -->
+	<script src="js/funciones.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const actualizarCodigo = () => {
@@ -174,10 +178,6 @@
     
                             let codigo = (categoria + subcategoria + nroProducto).toLowerCase();
                             input.setAttribute('value',codigo);
-    
-                            let caracUno = document.getElementById ('caracUno');
-                            let caracDos = document.getElementById ('caracDos');
-                            let caracTres = document.getElementById ('caracTres');
     
                             codigo = (categoria + subcategoria).toLowerCase();
                         } else {
@@ -226,6 +226,10 @@
             });
 
             function verCaract (){
+                let caracUno = document.getElementById ('caracUno');
+                let caracDos = document.getElementById ('caracDos');
+                let caracTres = document.getElementById ('caracTres');
+
                 //Según la subcategoría se establecen el nombre de las características
                 if (codigo == "ofsi"){
                     caracUno.innerHTML = "Altura del respaldo";
@@ -327,6 +331,10 @@
             color: white;
             border-radius: 5px;
             padding: 0;
+        }
+
+        #btnEnviar:hover{
+            cursor: pointer;
         }
 
     </style>

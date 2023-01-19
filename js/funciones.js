@@ -657,6 +657,45 @@ const validarContacto = () => {
     return devolucion;
 }  
 
+//ALTA PRODUCTO
+const validarAlta = () => {
+    let categoria = document.getElementById("categoria").selectedIndex === -1;
+    let subcategoria = document.getElementById("subcategoria").selectedIndex === -1;
+    let codigo = document.getElementById("codigo").value.trim();
+    let descripcion = document.getElementById("descripcion").value.trim();
+    let imagen = document.getElementById("imagen").files.length;
+    let material = document.getElementById("material").value.trim();
+    let caracUno = document.getElementById("caracUno").value;
+    let caracDos = document.getElementById("caracDos").value;
+    let caracTres = document.getElementById("caracTres");
+    caracTres = caracTres.style.display === 'block'? caracTres.value : null;
+    let selectedRadio = document.querySelector('input[name="color"]:checked');
+    let marca = document.getElementById("marca").value.trim();
+    let cant = document.getElementById("cant").value.trim();
+    let precio = document.getElementById("precio").value.trim();
+    let descuento = document.getElementById("descuento").value.trim();
+
+    let validate = false;
+
+    if (categoria || subcategoria || codigo === '' || descripcion === '' || imagen === 0 || 
+    material === '' || caracUno === undefined || caracDos === undefined || caracTres === undefined 
+    || selectedRadio === null || marca === '' || cant === '' || precio === '' || descuento === ''){
+        validate = false;
+        let error = document.createElement("div");
+        error.style.backgroundColor = 'black';
+        error.style.color = 'white';
+        error.style.margin = '10px';
+        error.style.padding = '5px';
+        error.style.borderRadius = '.5rem';
+        let contenedorBoton = document.getElementById("agregar");
+
+        error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completados y cumplen con los requisitos de la aplicacion.";
+        contenedorBoton.appendChild(error);
+    } 
+
+    return validate;
+}
+
 //PRODUCTOS
 const actualizarSubcategoria = () => {
     $.ajax ({
