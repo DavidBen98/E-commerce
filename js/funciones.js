@@ -664,23 +664,27 @@ const validarAlta = () => {
     let codigo = document.getElementById("codigo").value.trim();
     let descripcion = document.getElementById("descripcion").value.trim();
     let imagen = document.getElementById("imagen").files.length;
-    let material = document.getElementById("material").value.trim();
-    let caracUno = document.getElementById("caracUno").value;
-    let caracDos = document.getElementById("caracDos").value;
-    let caracTres = document.getElementById("caracTres");
+    let material = document.getElementsByName("input-material")[0].value.trim();
+    let selectedMaterial = document.querySelector('input[name="material"]:checked');
+    let caracUno = document.getElementsByName("caracUno")[0];
+    let caracDos = document.getElementsByName("caracDos")[1];
+    let caracTres = document.getElementsByName("caracTres")[2];
     caracTres = caracTres.style.display === 'block'? caracTres.value : null;
-    let selectedRadio = document.querySelector('input[name="color"]:checked');
-    let marca = document.getElementById("marca").value.trim();
+    let selectedColor = document.querySelector('input[name="color"]:checked');
+    let selectedMarca = document.querySelector('input[name="marca"]:checked');
+    let marca = document.getElementsByName("input-marca")[0].value.trim();
     let cant = document.getElementById("cant").value.trim();
     let precio = document.getElementById("precio").value.trim();
     let descuento = document.getElementById("descuento").value.trim();
 
-    let validate = false;
+    let validate;
 
     if (categoria || subcategoria || codigo === '' || descripcion === '' || imagen === 0 || 
-    material === '' || caracUno === undefined || caracDos === undefined || caracTres === undefined 
-    || selectedRadio === null || marca === '' || cant === '' || precio === '' || descuento === ''){
+    (material === '' && selectedMaterial === null) || caracUno === undefined || caracDos === undefined 
+    || caracTres === undefined || selectedColor === null || (selectedMarca === null && marca === '') 
+    || cant === '' || precio === '' || descuento === ''){
         validate = false;
+        console.log("no pasa la prueba");
         let error = document.createElement("div");
         error.style.backgroundColor = 'black';
         error.style.color = 'white';
@@ -691,7 +695,9 @@ const validarAlta = () => {
 
         error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completados y cumplen con los requisitos de la aplicacion.";
         contenedorBoton.appendChild(error);
-    } 
+    } else {
+        validate = true;
+    }
 
     return validate;
 }

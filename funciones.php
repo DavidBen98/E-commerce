@@ -752,6 +752,119 @@
         return $existe;
     }
 
+    function obtenerMarcas() {
+        global $db;
+
+		$arrMarcas = [];
+
+        $sql  = "SELECT marca
+				FROM `producto` as p
+        ";
+
+		$rs = $db->query($sql); 
+
+		foreach ($rs as $row) {										
+			if(empty($arrMarcas[$row['marca']])){
+				$arrMarcas[$row['marca']] = 0;
+			}					
+		}
+
+		ksort($arrMarcas);
+
+        // $marcas = "
+		// 		<legend class='ltitulo'><b>Marcas</b></legend>
+		// 		<div id='marcas' class='input'>
+		// ";	
+
+        $marcas = '';
+
+		foreach($arrMarcas as $indice => $valor){
+			$id = str_replace(" ","",$indice);
+			$marcas .= "				
+					<div class='marca'>		
+						<input type='radio' class='input' name='marca' id='$id' title='Marca $indice' value='$indice'>													  																															
+						<label for='$id'> ".ucfirst($indice)."</label>	
+					</div>				
+			";
+		}
+
+        return $marcas;
+    }
+
+    function obtenerMateriales() {
+        global $db;
+
+		$arrMateriales = [];
+
+        $sql  = "SELECT material
+				FROM `producto` as p
+        ";
+
+		$rs = $db->query($sql); 
+
+		foreach ($rs as $row) {										
+			if(empty($arrMateriales[$row['material']])){
+				$arrMateriales[$row['material']] = 0;
+			}					
+		}
+
+		ksort($arrMateriales);
+
+        $materiales = '';
+
+		foreach($arrMateriales as $indice => $valor){
+			$id = str_replace(" ","",$indice);
+			$materiales .= "				
+					<div class='material'>		
+						<input type='radio' class='input' name='material' id='$id' title='Material $indice' value='$indice'>													  																															
+						<label for='$id'> ".ucfirst($indice)."</label>	
+					</div>				
+			";
+		}
+
+        return $materiales;
+    }
+
+    function obtenerColores() {
+        global $db;
+
+        $arrColores = [];
+
+        $sql  = "SELECT color
+				FROM `producto` as p
+        ";
+
+		$rs = $db->query($sql); 
+
+		foreach ($rs as $row) {
+			if(empty($arrColores[$row['color']])){
+				$arrColores[$row['color']] = 0;						
+			}													
+		}
+
+        ksort($arrColores);
+		
+		$colores = " 
+            <fieldset class='colores contenedor'>
+                <legend class='ltitulo' for='colores'><b>Colores</b></legend>
+                <div id='colores' class='input'>
+		";
+		
+		foreach($arrColores as $indice => $valor){
+			$id = str_replace(" ","",$indice);
+			$colores .=" 
+				<div class='color'>	
+					<input type='checkbox' class='input' name='color[]' id='$id' title='Color $indice' value='$indice'>													  																															
+					<label for='$id' > ".ucfirst($indice)."</label>			
+				</div>			
+			";
+		}
+        $colores .= "</div> 
+        </fieldset>";
+
+        return $colores;
+    }
+
     function obtenerCategorias(){
         global $db; 
 

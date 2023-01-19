@@ -7,23 +7,23 @@
   
     $subcategoria = (isset($_POST['subcategoria']) && $_POST['subcategoria'] !== -1)? $_POST['subcategoria']: null;
     
-    $codigo = (isset($_POST['codigo']) && $_POST['codigo'] !== "")? $_POST['codigo']: null;
+    $codigo = (isset($_POST['codigo']) && $_POST['codigo'].trim() !== "")? $_POST['codigo'].trim(): null;
     
-    $descripcion = (isset($_POST['descripcion']) && $_POST['descripcion'] !== "")? ucfirst($_POST['descripcion']): null;
+    $descripcion = (isset($_POST['descripcion']) && $_POST['descripcion'].trim() !== "")? ucfirst($_POST['descripcion']).trim(): null;
     
-    $material = (isset($_POST['material']) && $_POST['material'] !== "")? ucfirst($_POST['material']): null;
+    $material = (isset($_POST['material']) && $_POST['material'].trim() !== "")? ucfirst($_POST['material']).trim(): ($_POST['input-material'].trim() !== ""? ucfirst($_POST['input-material']).trim() : null);
     
-    $color = (isset($_POST['color']))? ucfirst($_POST['color']): null;
+    $color = (isset($_POST['color']))? ucfirst($_POST['color']).trim(): null;
     
     $caracteristicas = (isset($_POST['caracteristicas']))? $_POST['caracteristicas']: null;
     
-    $marca = (isset($_POST['marca']) && $_POST['marca'] !== "")? $_POST['marca']: null;
+    $marca = (isset($_POST['marca']) && $_POST['marca'].trim() !== "")? $_POST['marca'].trim(): ($_POST['input-marca'].trim() !== ""? ucfirst($_POST['input-marca']).trim() : null);
     
     $cant = (isset($_POST['cant']) && $_POST['cant'] !== "" && $_POST['cant'] >= 0)? $_POST['cant']: null;
     
     $precio = (isset($_POST['precio']) && $_POST['precio'] > 0)? $_POST['precio']: null;
     
-    $descuento = (isset($_POST['descuento']) && $_POST['descuento'] != "" && $_POST['descuento'] >= 0)? 
+    $descuento = (isset($_POST['descuento']) && $_POST['descuento'].trim() != "" && $_POST['descuento'] >= 0 && $_POST['descuento'] > 100)? 
                     $_POST['descuento']: null;
     
     $imagen = $_FILES["imagen"]["tmp_name"];
@@ -86,18 +86,18 @@
 
                     $rs = $db -> query($sql);
 
-                    header ("location: veCategoriaAlta.php?alta=exito");
+                    header ("location: veProductoAlta.php?alta=exito");
                 }else{
-                    $sql = "DELETE FROM producto WHERE id = $id_producto";
+                    $sql = "DELETE FROM producto WHERE id = '$id_producto'";
                     $rs = $db->query($sql);
 
                     //No se pudo subir la imagen
-                    header ("location: veCategoriaAlta.php?error=1");
+                    header ("location: veProductoAlta.php?error=1");
                 }
             }   
         } else {
             //La extensión del archivo es incorrecta
-            header ("location: veCategoriaAlta.php?error=2");
+            header ("location: veProductoAlta.php?error=2");
         }
     }
     else{

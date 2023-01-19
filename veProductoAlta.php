@@ -8,6 +8,10 @@
     }
 
     $lista = obtenerCategorias();
+
+    $marcas = obtenerMarcas();
+
+    $materiales = obtenerMateriales();
     //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
@@ -90,7 +94,9 @@
                         
                 <div class='contenedor'>
                     <label for='material'>Material</label>
-                    <input type='text' class='form-control' name='material' id='material' title='Material' value=''>
+                    $materiales
+                    <p> Nuevo material: *Solo en el caso de que todavia no exista</p>
+                    <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
                 </div>
 
                 <div class='contenedor' id='color'>
@@ -124,7 +130,9 @@
 
                 <div class='contenedor'>
                     <label for='marca'>Marca</label>
-                    <input type='text' class='form-control' name='marca' id='marca' title='Marca' value=''> 
+                    $marcas
+                    <p> Nueva marca: *Solo en el caso de que todavia no exista</p>
+                    <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''> 
                 </div>
 
                 <div class='contenedor'>
@@ -180,6 +188,8 @@
                             input.setAttribute('value',codigo);
     
                             codigo = (categoria + subcategoria).toLowerCase();
+
+                            verCaract(codigo);
                         } else {
                             divSubcategoria = document.getElementById ('subc');
                             let linkNuevaSubcategoria = document.createElement("a");
@@ -195,7 +205,6 @@
                         }
 
                         //No escalable al agregar mas categorias/subcategorias
-                        verCaract();
                     }
                 });
             }
@@ -225,7 +234,7 @@
                 actualizar ();
             });
 
-            function verCaract (){
+            function verCaract (codigo){
                 let caracUno = document.getElementById ('caracUno');
                 let caracDos = document.getElementById ('caracDos');
                 let caracTres = document.getElementById ('caracTres');
@@ -257,7 +266,6 @@
 
                 if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
                     caracTres.style.display = 'block';
-
                     inputProfundidad.style.display = 'block';
                 }
                 else{
@@ -271,6 +279,7 @@
         #main{
             height: auto;
         }
+
         .cont{
             height:auto;
             width:40%;
@@ -290,6 +299,10 @@
         .label{
             font-weight: normal;
         }
+        
+        .contenedor label {
+            padding: 10px 0;
+        }
 
         #codigo{
             background-color: #ccc;
@@ -307,7 +320,6 @@
 
         #color div label{
             width:40%;
-            text-align:start;
         }
 
         #color div input{
@@ -337,6 +349,17 @@
             cursor: pointer;
         }
 
+		.marca, .material{
+			display:flex;
+			justify-content:start;
+			align-items: center;
+			width:40%;
+		}
+
+        .marca input, .material input{
+            min-height: 15px;
+            width: 8%;
+        }
     </style>
 </head>
 <body>
