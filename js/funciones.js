@@ -666,39 +666,49 @@ const validarAlta = () => {
     let imagen = document.getElementById("imagen").files.length;
     let material = document.getElementsByName("input-material")[0].value.trim();
     let selectedMaterial = document.querySelector('input[name="material"]:checked');
-    let caracUno = document.getElementsByName("caracUno")[0];
-    let caracDos = document.getElementsByName("caracDos")[1];
-    let caracTres = document.getElementsByName("caracTres")[2];
-    caracTres = caracTres.style.display === 'block'? caracTres.value : null;
+    let caracteristicas = document.querySelectorAll('input[name="caracteristicas[]"]');
+    let caracUno = caracteristicas[0].value.replace(/^0+/, '');
+    let caracDos = caracteristicas[1].value.replace(/^0+/, '');
+    let caracTres = caracteristicas[2];
+    caracTres = caracTres.style.display !== 'none'? caracTres.value : null;
     let selectedColor = document.querySelector('input[name="color"]:checked');
     let selectedMarca = document.querySelector('input[name="marca"]:checked');
     let marca = document.getElementsByName("input-marca")[0].value.trim();
-    let cant = document.getElementById("cant").value.trim();
-    let precio = document.getElementById("precio").value.trim();
-    let descuento = document.getElementById("descuento").value.trim();
-
-    let validate;
+    let cant = document.getElementById("cant").value.trim().replace(/^0+/, '');
+    let precio = document.getElementById("precio").value.trim().replace(/^0+/, '');
+    let descuento = document.getElementById("descuento").value.trim().replace(/^0+/, '');
+    let validate = true;
 
     if (categoria || subcategoria || codigo === '' || descripcion === '' || imagen === 0 || 
     (material === '' && selectedMaterial === null) || caracUno === undefined || caracDos === undefined 
     || caracTres === undefined || selectedColor === null || (selectedMarca === null && marca === '') 
     || cant === '' || precio === '' || descuento === ''){
         validate = false;
-        console.log("no pasa la prueba");
-        let error = document.createElement("div");
-        error.style.backgroundColor = 'black';
-        error.style.color = 'white';
-        error.style.margin = '10px';
-        error.style.padding = '5px';
-        error.style.borderRadius = '.5rem';
-        let contenedorBoton = document.getElementById("agregar");
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            error.style.backgroundColor = 'black';
+            error.style.color = 'white';
+            error.style.margin = '10px';
+            error.style.padding = '5px';
+            error.style.borderRadius = '.5rem';
+            let contenedorBoton = document.getElementById("agregar");
+    
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completados y cumplen con los requisitos de la aplicacion.";
+            contenedorBoton.appendChild(error);
+        }
+    } else{
+        let error = document.getElementById("p_error");
 
-        error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completados y cumplen con los requisitos de la aplicacion.";
-        contenedorBoton.appendChild(error);
-    } else {
-        validate = true;
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
+        }
     }
-
+    
     return validate;
 }
 

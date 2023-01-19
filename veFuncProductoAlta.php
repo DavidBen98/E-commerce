@@ -7,23 +7,23 @@
   
     $subcategoria = (isset($_POST['subcategoria']) && $_POST['subcategoria'] !== -1)? $_POST['subcategoria']: null;
     
-    $codigo = (isset($_POST['codigo']) && $_POST['codigo'].trim() !== "")? $_POST['codigo'].trim(): null;
+    $codigo = (isset($_POST['codigo']) && trim($_POST['codigo']) !== "")? trim($_POST['codigo']): null;
     
-    $descripcion = (isset($_POST['descripcion']) && $_POST['descripcion'].trim() !== "")? ucfirst($_POST['descripcion']).trim(): null;
+    $descripcion = (isset($_POST['descripcion']) && trim($_POST['descripcion']) !== "")? ucfirst(trim($_POST['descripcion'])): null;
     
-    $material = (isset($_POST['material']) && $_POST['material'].trim() !== "")? ucfirst($_POST['material']).trim(): ($_POST['input-material'].trim() !== ""? ucfirst($_POST['input-material']).trim() : null);
+    $material = (isset($_POST['material']) && trim($_POST['material']) !== "")? ucfirst(trim($_POST['material'])): (trim($_POST['input-material']) !== ""? ucfirst(trim($_POST['input-material'])) : null);
     
-    $color = (isset($_POST['color']))? ucfirst($_POST['color']).trim(): null;
+    $color = (isset($_POST['color']))? ucfirst(trim($_POST['color'])): null;
     
     $caracteristicas = (isset($_POST['caracteristicas']))? $_POST['caracteristicas']: null;
     
-    $marca = (isset($_POST['marca']) && $_POST['marca'].trim() !== "")? $_POST['marca'].trim(): ($_POST['input-marca'].trim() !== ""? ucfirst($_POST['input-marca']).trim() : null);
+    $marca = (isset($_POST['marca']) && trim($_POST['marca']) !== "")? trim($_POST['marca']): (trim($_POST['input-marca']) !== ""? ucfirst(trim($_POST['input-marca'])) : null);
     
-    $cant = (isset($_POST['cant']) && $_POST['cant'] !== "" && $_POST['cant'] >= 0)? $_POST['cant']: null;
+    $cant = (isset($_POST['cant']) && $_POST['cant'] !== "" && intval($_POST['cant']) >= 0)? $_POST['cant']: null;
     
-    $precio = (isset($_POST['precio']) && $_POST['precio'] > 0)? $_POST['precio']: null;
+    $precio = (isset($_POST['precio']) && floatval($_POST['precio']) > 0)? $_POST['precio']: null;
     
-    $descuento = (isset($_POST['descuento']) && $_POST['descuento'].trim() != "" && $_POST['descuento'] >= 0 && $_POST['descuento'] > 100)? 
+    $descuento = (isset($_POST['descuento']) && trim($_POST['descuento']) != "" && floatval($_POST['descuento']) >= 0 && floatval($_POST['descuento']) < 100)? 
                     $_POST['descuento']: null;
     
     $imagen = $_FILES["imagen"]["tmp_name"];
@@ -33,6 +33,10 @@
     if ($categoria !== null && $subcategoria !== null && $codigo !== null && $descripcion !== null && $material !== null &&
     $color !== null && $caracteristicas !== null && $marca !== null && $cant !== null && $precio !== null && $descuento !== null &&
     $check !== false){
+        // foreach ($caracteristicas as $caract){
+        //     $caract = ltrim($caract, "0");
+        // }
+
         if (strpos($codigo,"ofsi") !== false){
             $caract = "Altura del respaldo: ".$caracteristicas[0]."cm,altura del piso al asiento: ". $caracteristicas[1]."cm";
         }
@@ -48,6 +52,8 @@
         else{
             $caract = "Alto: ".strval($caracteristicas[0]). "cm,ancho: ".strval($caracteristicas[1]) ."cm";
         }
+
+
 
         $sql = "INSERT INTO producto (`codigo`, `descripcion`, `material`, `color`,`caracteristicas`,
                             `marca`, `stock`, `precio`, `id_categoria`, `id_subcategoria`, `descuento`) 

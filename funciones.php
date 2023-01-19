@@ -924,4 +924,24 @@
 
         return $listas;
     }
+
+    function deleteDir($dir) {
+        if (!file_exists($dir)) {
+            return false;
+        }
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            if (!deleteDir($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+        
+        return rmdir($dir);
+    }
 ?>

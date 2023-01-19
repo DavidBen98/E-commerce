@@ -1,11 +1,28 @@
 <?php 
     require 'inc/conn.php';
+    require 'funciones.php';
 
     global $db;
     
     if (isset($_GET['eliminar'])){
         $id = $_GET['eliminar'];
 
+        $sql = "SELECT destination 
+                FROM imagen
+                WHERE id_producto = '$id' AND portada = 1
+        ";
+
+        $rs = $db->query($sql);
+
+        $path = '';
+
+        foreach ($rs as $row){
+            $path = $row['destination'];
+        }
+
+        $path = substr($path,0, strrpos($path,'/'));
+
+        deleteDir($path);
         //Elimina todas las imagenes de ese producto, ya sean portadas o no
         $sql = "DELETE FROM imagen
                 WHERE id_producto = '$id'

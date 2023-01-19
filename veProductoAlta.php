@@ -309,8 +309,9 @@
         }
 
         #imagen{
-            padding:20px 0 0 10px;
-            border:none;
+            padding: 20px 0 0 10px;
+            border: none;
+            width: auto;
         }
 
         #color{

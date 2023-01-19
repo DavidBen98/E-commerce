@@ -30,6 +30,7 @@
             </div>
 
             <div class='contenedor' id='imagen'>
+            
             </div>
     ";
     
