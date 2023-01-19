@@ -697,7 +697,7 @@ const validarAlta = () => {
             error.style.borderRadius = '.5rem';
             let contenedorBoton = document.getElementById("agregar");
     
-            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completados y cumplen con los requisitos de la aplicacion.";
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else{
@@ -710,6 +710,55 @@ const validarAlta = () => {
     }
     
     return validate;
+}
+
+const validarModif = () => {
+    let id = document.getElementById("id").value.trim();
+    let descripcion = document.getElementById("descripcion").value.trim();
+    let material = document.getElementById("material").value.trim();
+    let selectedColor = document.querySelector('input[name="color"]:checked');
+    let caracteristicas = document.querySelectorAll('input[name="caracteristicas[]"]');
+    let caracUno = caracteristicas[0].value.replace(/^0+/, '');
+    let caracDos = caracteristicas[1].value.replace(/^0+/, '');
+    let caracTres = caracteristicas[2];
+    caracTres = caracTres.style.display !== 'none'? caracTres.value : null;
+    let marca = document.getElementById("marca").value.trim();
+    let cant = document.getElementById("cant").value.trim().replace(/^0+/, '');
+    let precio = document.getElementById("precio").value.trim().replace(/^0+/, '');
+    let descuento = document.getElementById("descuento").value.trim().replace(/^0+/, '');
+    let validate = true;
+
+    if (id === '' || descripcion === '' || material === '' || caracUno === undefined || 
+    caracDos === undefined || caracTres === undefined || selectedColor === null || marca === '' 
+    || cant === '' || precio === '' || descuento === ''){
+        validate = false;
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            error.style.backgroundColor = 'black';
+            error.style.color = 'white';
+            error.style.width = '80%';
+            error.style.margin = '20px';
+            error.style.padding = '10px';
+            error.style.borderRadius = '.5rem';
+            let contenedorBoton = document.getElementById("cont-ModificarCaract");
+    
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
+            contenedorBoton.appendChild(error);
+        }
+    } else{
+        let error = document.getElementById("p_error");
+
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
+        }
+    }
+    
+    return false;
 }
 
 //PRODUCTOS

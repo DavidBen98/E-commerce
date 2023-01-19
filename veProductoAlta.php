@@ -51,7 +51,7 @@
                         $formulario .="
                             <div class='contenedor' id='error'>
                                 <p style='text-align:center;'>
-                                    Error: Los datos ingresados no son correctos, verifique que todos los campos están completados
+                                    Error: Los datos ingresados no son correctos, verifique que todos los campos están completos
                                     y cumplen con los requisitos de la aplicacion.
                                 </p>
                             </div>

@@ -4,17 +4,17 @@
 
     global $db;
 
-    $codigo = $_POST['codigo'];
+    $id = $_POST['id'];
 
     $descripcion = (isset($_POST['descripcion']) && $_POST['descripcion'] !== "")? ucfirst($_POST['descripcion']): null;
     
-    $material = (isset($_POST['material']) && $_POST['material'] !== "")? ucfirst($_POST['material']): null;
+    $material = (isset($_POST['input-material']) && $_POST['input-material'] !== "")? ucfirst($_POST['input-material']): null;
     
     $color = (isset($_POST['color']))? ucfirst($_POST['color']): null;
     
     $caracteristicas = (isset($_POST['caracteristicas']))? $_POST['caracteristicas']: null;
     
-    $marca = (isset($_POST['marca']) && $_POST['marca'] !== "")? $_POST['marca']: null;
+    $marca = (isset($_POST['input-marca']) && $_POST['input-marca'] !== "")? $_POST['input-marca']: null;
     
     $cant = (isset($_POST['cant']) && $_POST['cant'] !== "" && $_POST['cant'] >= 0)? $_POST['cant']: null;
     
@@ -23,7 +23,7 @@
     $descuento = (isset($_POST['descuento']) && $_POST['descuento'] != "" && $_POST['descuento'] >= 0)? 
                     $_POST['descuento']: null;
 
-    if ($codigo !== null && $descripcion !== null && $material !== null && $color !== null && 
+    if ($id !== null && $descripcion !== null && $material !== null && $color !== null && 
         $caracteristicas !== null && $marca !== null && $cant !== null && $precio !== null && $descuento !== null){
 
         if (strpos($codigo,"ofsi") !== false){
@@ -45,14 +45,14 @@
         $sql = "UPDATE producto SET descripcion = '$descripcion', material = '$material', color = '$color',
                 caracteristicas = '$caract', marca = '$marca', stock = '$cant', precio = '$precio', 
                 descuento= '$descuento'
-                WHERE codigo = '$codigo'
+                WHERE id = '$id'
         ";
 
         $rs = $db->query($sql);
 
-        header ("location: veProductoModif.php?modif=exito&codigo=$codigo");
+        header ("location: veProductoModif.php?modif=exito&id=$id");
     }
     else{
-        header ("location: veProductoModif.php?error=data&codigo=$codigo");
+        header ("location: veProductoModif.php?error=data&id=$id");
     }
 ?>

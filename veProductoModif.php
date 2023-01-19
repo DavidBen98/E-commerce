@@ -8,6 +8,8 @@
     }
 
     $lista = obtenerCategorias();
+    $materiales = obtenerMateriales();
+    $marcas = obtenerMarcas();
     //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
@@ -54,7 +56,7 @@
                 </div>
             </form>
 
-            <form class='cont' action='veFuncProductoModifCaract.php' method='post' id='contCaracterísticas'>";
+            <form class='cont' action='veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>";
 
             if (isset($_GET['modif'])){
                 $prod .= "<div class='mensaje'>
@@ -76,7 +78,8 @@
                         
                 <div class='contenedor'>
                     <label for='material'>Material</label>
-                    <input type='text' class='form-control' name='material' id='material' title='Material' value=''>
+                    <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
+                    $materiales
                 </div>
 
                 <div class='contenedor' id='color'>
@@ -110,7 +113,8 @@
 
                 <div class='contenedor'>
                     <label for='marca'>Marca</label>
-                    <input type='text' class='form-control' name='marca' id='marca' title='Marca' value=''> 
+                    <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''>
+                    $marcas 
                 </div>
 
                 <div class='contenedor'>
@@ -127,8 +131,8 @@
                     <label for='descuento'>Porcentaje de descuento (Solo número)</label>
                     <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
                 </div>
-                <div class='contenedor' id='caracteristicas'>
-                        <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
+                <div class='contenedor' id='cont-ModificarCaract'>
+                    <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
                 </div>";
 
         if (isset($_GET['modif'])){
@@ -304,6 +308,26 @@
                 actualizar ();
             });
 
+            const materiales = document.querySelectorAll('input[name="material"]');
+
+            materiales.forEach(material => {
+                material.addEventListener('change', () => {
+                    const materialChequeado = document.querySelector('input[name="material"]:checked').value;
+                    let inputMaterial = document.getElementById('material');
+                    inputMaterial.value = materialChequeado;
+                });
+            });
+
+            const marcas = document.querySelectorAll('input[name="marca"]');
+
+            marcas.forEach(material => {
+                material.addEventListener('change', () => {
+                    const marcaChequeada = document.querySelector('input[name="marca"]:checked').value;
+                    let inputMarca = document.getElementById('marca');
+                    inputMarca.value = marcaChequeada;
+                });
+            });
+
             completarDatos ();
             actualizar ();
         });
@@ -414,6 +438,15 @@
             font-size: 1.1rem;
             width:100%;
             margin: 10px 0;
+        }
+
+        .material, .marca {
+            padding: 10px 0;
+        }
+
+        .material input, .marca input{
+            width: auto;
+            height: auto;
         }
     </style>
 </head>
