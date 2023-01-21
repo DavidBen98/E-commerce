@@ -30,9 +30,31 @@
                 ";
             }
             else if (isset($_GET['error'])){
+                $error = $_GET['error'];
+
                 $formulario .= "
                     <div class='contenedor' id='error'>
-                        <p> Error: los datos ingresados no son correctos, reintente por favor </p>
+                ";
+
+                if ($error === '1'){
+                    $formulario .= "
+                        <p> Error: ha ocurrido un inconveniente al subir la imagen, reintente en un momento por favor. </p>
+                    ";
+                } else if ($error === '2'){
+                    $formulario .= "
+                        <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
+                    ";
+                }else if ($error === '3'){
+                    $formulario .= "
+                        <p> Error: el nombre ingresado no cumple con los requisitos. </p>
+                    ";
+                } else if ($error === '4'){
+                    $formulario .= "
+                        <p> Error: seleccione una imagen por favor. </p>
+                    ";
+                }
+
+                $formulario .= "
                     </div>
                 ";
             }

@@ -5,8 +5,6 @@
     
     $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
   
-    $portada = isset($_POST['portada'])? 1: 0;
-
     $existImg = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
     
     if($existImg !== null){
