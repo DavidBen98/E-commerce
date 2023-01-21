@@ -841,6 +841,61 @@ const validarBajaCategoria = () => {
     return validate;
 }
 
+//Categoria modificacion
+const validarModificacionCategoria = () => {
+    let categoria = document.getElementById("categoria").selectedIndex === -1;
+    let checkNombre = document.getElementById("modNombre").checked;
+    let checkImagen = document.getElementById("modImagen").checked;
+    let validate = true;
+
+    if (categoria) {
+        validate = false;
+    } 
+    
+    if (checkNombre){
+        let nombre = document.getElementById("nombre").value;
+
+        if (nombre.trim() === ''){
+            validate = false;
+        }
+    }
+    
+    if (checkImagen){
+        let imagen = document.getElementById("imagen").files.length;
+
+        if (imagen === 0 ){
+            validate = false;
+        } 
+    }
+
+    if (!checkNombre && !checkImagen){
+        validate = false;
+    }
+
+    if (!validate){
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            error.style.backgroundColor = 'black';
+            error.style.color = 'white';
+            error.style.marginTop = '20px';
+            error.style.marginBottom = '20px';
+            error.style.padding = '10px';
+            error.style.borderRadius = '.5rem';
+            error.style.textAlign = 'center';
+            let contenedorBoton = document.getElementsByClassName("contenedor")[1];
+    
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que haya checkeado los campos a modificar y que cumplen con los requisitos de la aplicacion.";
+            contenedorBoton.appendChild(error);
+        }
+    }
+
+    return validate;
+}
+
 //PRODUCTOS
 const actualizarSubcategoria = () => {
     $.ajax ({

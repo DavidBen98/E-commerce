@@ -66,7 +66,4 @@
             }
         }
     }
-    //Si no se modifico la imagen y se modificó solo el nombre
-    //Se hace un if porque por alguna razón si se deja por fuera no ingresa
-    //a la validacion del principio:
 ?>
