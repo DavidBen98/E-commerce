@@ -955,20 +955,18 @@
 
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
-                mkdir($destination, 0777, true);
-
+                
                 if ($url === 'veCategoriaModif.php'){
-                    $destination .= $imagen_ext;
-                    echo $destination;
+                    $destination .= '.'.$imagen_ext;
                 } else if ($url === 'veProductoAlta.php'){
 
                 }
 
-                // if(move_uploaded_file($imagen_tmp, $destination)){
-                //     return false;
-                // }else{
-                //     return true;
-                // }
+                if(move_uploaded_file($imagen_tmp, $destination)){
+                    return false;
+                }else{
+                    return true;
+                }
             }   
         } else {
             return true;

@@ -92,7 +92,7 @@
 
                     $rs = $db -> query($sql);
 
-                    header ("location: veProductoAlta.php?alta=exito");
+                    header ("location: veProductoAlta.php?alta=".$imagen_destination);
                 }else{
                     $sql = "DELETE FROM producto WHERE id = '$id_producto'";
                     $rs = $db->query($sql);

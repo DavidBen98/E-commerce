@@ -15,6 +15,7 @@
                 Categoría
             </label>
             $lista
+            
             <div class='contenedor'>
                 <div class='cont-check'>
                         <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
@@ -45,15 +46,45 @@
     ";
 
     if (isset($_GET['modif'])){
-        $formulario .= "<div class='contenedor' id='error'>
-                        <p> ¡Se ha modificado la categoría con éxito! </p>
-                    </div>
+        $formulario .= "
+            <div class='contenedor' id='mensaje'>
+                <p> ¡Se ha modificado la categoría con éxito! </p>
+            </div>
         ";
-    }
-    else if (isset($_GET['error'])){
-        $formulario .="<div class='contenedor' id='error'>
-                    <p> Error: los datos ingresados no son correctos, reintente por favor </p>
-                </div>
+    } else if (isset($_GET['error'])){
+        $error = $_GET['error'];
+        $formulario .="
+            <div class='contenedor' id='mensaje'>
+        ";
+        if ($error === '1'){
+            $formulario .="
+                <p> Error: debe modificar al menos un campo </p>
+            ";
+        } else if ($error === '2'){
+            $formulario .="
+                <p> Error: rellene correctamente el campo nombre por favor. </p>
+            ";
+        } else if ($error === '3'){
+            $nombre = isset($_GET['nombre']);
+
+            if ($nombre){
+                $formulario .="
+                    <p> Se modificó correctamente el nombre </p>
+                ";
+            }
+
+            $formulario .="
+                <p> Error: seleccione una imagen por favor </p>
+            ";
+        } else if ($error === '4'){
+            //No hace falta en este momento preguntar por el error 4 en particular,
+            //pero se hace por si se necesita agregar errores en el futuro
+            $formulario .="
+                <p> Error: ha ocurrido un error al subir la imagen </p>
+            ";
+        }     
+        $formulario .="
+            </div>
         ";
     }
 
@@ -107,7 +138,6 @@
             });
 
             function actualizarImagen (){
-                let categoria = document.getElementById('categoria');
                 let cat = categoria.options[categoria.selectedIndex].value;
                 let img = document.getElementById('img-cat');
 
@@ -120,6 +150,18 @@
                     }
                 });
             }	
+
+            let idCategoria = getQueryVariable('categoria');
+            if (idCategoria != false){
+                for (let i = 0; i < categoria.options.length; i++) {
+                    if (categoria.options[i].value == idCategoria) {
+                        categoria.options[i].selected = true;
+                        break;
+                    }
+                }
+
+                actualizarImagen();
+            }
         });
 	</script>
     <style>
@@ -131,6 +173,7 @@
             width:40%;
             justify-content:center;
             height: auto;
+            margin-bottom: 20px;
         }
 
         #categoria{
@@ -174,6 +217,21 @@
 
         #nombre, #imagen{
             display: none;
+        }
+
+        #mensaje{
+            color: white;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        #mensaje p{
+            background: #000;
+            width: 100%;
+            padding: 20px 0;
+            text-align:center;
+            border-radius: 5px;
+            margin: 10px 0 0 0;
         }
     </style>
 </head>

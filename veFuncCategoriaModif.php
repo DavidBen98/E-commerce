@@ -7,19 +7,23 @@
     $modNombre = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
     $modImagen = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
 
-    if ($modNombre === null && $modImagen === null){
+    if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
-        header ("location: veCategoriaModif.php?error=1");
+        header ("location: veCategoriaModif.php?categoria=$id_categoria&error=1#mensaje");
     }
     
-    if ($modNombre !== null){
-        $nombre = isset($_POST['nombre']) && $_POST['nombre'] !== ""? $_POST['nombre']: null;
+    if ($modNombre != null){
+        $nombre = (isset($_POST['nombre']) && trim($_POST['nombre']) != "")? ucfirst(trim($_POST['nombre'])): null;
 
-        if ($nombre === null){
+        if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: veCategoriaModif.php?error=2");
+            header ("location: veCategoriaModif.php?categoria=$id_categoria&error=2#mensaje");
         } else {
             $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $id_categoria");
+            
+            if ($modImagen == null){
+                header ("location: veCategoriaModif.php?categoria=$id_categoria&modif=exito#mensaje");
+            }
         }
     }
 
@@ -29,32 +33,40 @@
 
         if ($check == false){
             //Error: falta rellenar el campo imagen
-            header ("location: veCategoriaModif.php?error=3");
-        }
-
-        $path = 'images/categorias/';
-        $files = scandir($path);
+            if($modNombre != null){
+                header ("location: veCategoriaModif.php?categoria=$id_categoria&nombre=exito&error=3#mensaje");
+            } else {
+                header ("location: veCategoriaModif.php?categoria=$id_categoria&error=3#mensaje");
+            }
+        } else {
+            $path = 'images/categorias/';
+            $files = scandir($path);
+        
+            foreach($files as $file){
+                if ($file == $id_categoria.".png" || $file == $id_categoria.".jpg" || $file == $id_categoria.".jpeg"){
+                    $path .= $file;
+                }
+            }
     
-        foreach($files as $file){
-            if ($file == $categoria.".png" || $file == $categoria.".jpg" || $file == $categoria.".jpeg"){
-                $path .= $file;
+            //Si existe una imagen para esa categoria
+            //Siempre debería entrar aca, ya que al crear una nueva categoria es obligatorio que tenga una imagen
+            //Sin embargo para hacer mas robusta la aplicación se hace la validación
+            if ($path != 'images/categorias/'){
+                deleteDir($path);
+            }
+    
+            $url = 'veCategoriaModif.php';
+            $path = 'images/categorias/'.$id_categoria;
+            $error = uploadImage($imagen, $url, $path);
+    
+            if ($error){
+                header ("location: veCategoriaModif.php?categoria=$id_categoria&error=4#mensaje");
+            } else {
+                header ("location: veCategoriaModif.php?categoria=$id_categoria&modif=exito#mensaje");
             }
         }
-
-        if ($path !== 'images/categorias/'){
-            echo $path;
-            // deleteDir($path);
-            // $url = 'veCategoriaModif.php';
-            // $path = 'images/categorias/'.$id_categoria;
-            // $error = uploadImage($imagen, $url, $path);
-
-            // if ($error){
-            //     header ("location: veCategoriaModif.php?error=4");
-            // }
-
-        } else { 
-            //Error imagen no encontrada
-            header ("location: veCategoriaModif.php?error=5");
-        }
     }
+    //Si no se modifico la imagen y se modificó solo el nombre
+    //Se hace un if porque por alguna razón si se deja por fuera no ingresa
+    //a la validacion del principio:
 ?>
