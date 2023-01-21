@@ -893,6 +893,39 @@ const validarModificacionCategoria = () => {
     return validate;
 }
 
+//Categoria alta
+const validarAltaSubcategoria = () => {
+    let subcategoria = document.getElementById("nombre").value;
+    let categoria = document.getElementById("categoria").selectedIndex === -1;
+    let imagen = document.getElementById("imagen").files.length;
+
+    let validate = true;
+
+    if (subcategoria.trim() === '' || categoria || imagen === 0 ){
+        validate = false;
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            let contenedorBoton = document.getElementsByClassName("agregar")[0];
+    
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
+            contenedorBoton.appendChild(error);
+        }
+    } else{
+        let error = document.getElementById("p_error");
+
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
+        }
+    }
+    
+    return validate;
+}
+
 //PRODUCTOS
 const actualizarSubcategoria = () => {
     $.ajax ({

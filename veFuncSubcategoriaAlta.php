@@ -3,28 +3,72 @@
 
     global $db;
     
-    $nombre = isset($_POST['tNombre'])? $_POST['tNombre']: null;
-    $id_categoria = isset($_POST['categoria'])? $_POST['categoria']: null;
-  
-    $imagen = $_FILES["imagen"]["tmp_name"];
-    $portada = isset($_POST['portada'])? 1: 0;
+    $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
+    $categoria = (isset($_POST['categoria']) && $_POST['categoria'] !== -1)? $_POST['categoria']: null;
+    $existImg = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
+    
+    if($existImg !== null){
+        //Comprobar que nombre es diferente de vacío
+        if ($nombre !== null){
+            //Comprobar que se seleccionó una categoría
+            if ($categoria !== null){
+                $categoria = $_POST['categoria'];
 
-    $check = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : false;
-    if($check !== false){
-        $imagen = addslashes(file_get_contents($imagen));
-    }
+                $sql = "SELECT id_categoria FROM `categoria` WHERE id_categoria = $categoria";
+                $rs = $db->query($sql);
 
-    if ($nombre !== null && $id_categoria !== false){
-        $sql = "INSERT INTO subcategoria (`nombre_subcategoria`,`id_categoria`) 
-                VALUES ('$nombre','$id_categoria')
-        ";
-
-        $rs = $db->query($sql);
-
-        header ("location: veSubcategoriaAlta.php?alta=exito");
-
-    }
-    else{
-        header ("location: veSubcategoriaAlta.php?error=data");
+                //Comprobar que se seleccionó una categoría que existe en nuestra BD
+                //porque se podría pasar como valor un id que no exista
+                if ($rs->fetchColumn()> 0) {
+                    $nombre = ucfirst($nombre);
+                    
+                    $sql = "SELECT COUNT(*)
+                        FROM subcategoria
+                        WHERE nombre_subcategoria = '$nombre'
+                    ";
+        
+                    $rs = $db->query($sql);
+        
+                    if ($rs->fetchColumn() == 0){
+                        $sql = "INSERT INTO subcategoria (`nombre_subcategoria`, `id_categoria`) 
+                                VALUES ('$nombre',$categoria)
+                        ";
+        
+                        $rs = $db->query($sql);
+        
+                        $id_subcategoria = $db->lastInsertId();
+        
+                        $imagen = $_FILES['imagen'];
+                        $imagen_destination = 'images/' . $categoria . '/'. $id_subcategoria . '/portada';
+                        $error = uploadImage($imagen, 'veSubcategoriaAlta.php', $imagen_destination);
+        
+                        if($error){
+                            //inconveniente al subir imagen
+                            $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$id_subcategoria'";
+                            $rs = $db->query($sql);
+                            header ("location: veSubcategoriaAlta.php?error=1");
+                        }else{
+                            //exitoso
+                            header ("location: veSubcategoriaAlta.php?alta=exito");
+                        }  
+                    } else {
+                        //El nombre ya existe
+                        header ("location: veSubcategoriaAlta.php?error=2");
+                    }
+                } else {
+                    //categoria no existente en bd
+                    header ("location: veSubcategoriaAlta.php?error=5");
+                }
+            } else {
+                //categoria vacia
+                header ("location: veSubcategoriaAlta.php?error=6");
+            }
+        } else {
+            //nombre vacio
+            header ("location: veSubategoriaAlta.php?error=3");     
+        } 
+    } else {
+        //imagen vacia
+        header ("location: veSubcategoriaAlta.php?error=4");
     }
 ?>

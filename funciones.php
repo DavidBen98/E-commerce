@@ -957,7 +957,7 @@
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
                 
-                if ($url === 'veCategoriaModif.php' || $url === 'veCategoriaAlta.php'){
+                if ($url === 'veCategoriaModif.php' || $url === 'veCategoriaAlta.php' || $url === 'veSubcategoriaAlta.php'){
                     $destination .= '.'.$imagen_ext;
                 } else if ($url === 'veProductoAlta.php'){
 

@@ -35,6 +35,9 @@
 
                 if($error){
                     //inconveniente al subir imagen
+                    $sql = "DELETE FROM categoria WHERE id_categoria = '$id_categoria'";
+                    $rs = $db->query($sql);
+
                     header ("location: veCategoriaAlta.php?error=1");
                 }else{
                     //exitoso

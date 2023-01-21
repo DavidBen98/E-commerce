@@ -20,50 +20,49 @@
                 <div class= 'agregar'>
                     <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>
                 </div>
-            ";
-            
-            if (isset($_GET['alta'])){
-                $formulario .= "
-                    <div class='contenedor' id='error'>
-                        <p> ¡Se ha añadido la categoría con éxito! </p>
-                    </div>
-                ";
-            }
-            else if (isset($_GET['error'])){
-                $error = $_GET['error'];
-
-                $formulario .= "
-                    <div class='contenedor' id='error'>
-                ";
-
-                if ($error === '1'){
-                    $formulario .= "
-                        <p> Error: ha ocurrido un inconveniente al subir la imagen, 
-                            verifique que la extensión es .png, .jpg o .jpeg y 
-                            reintente en un momento por favor. 
-                        </p>
-                    ";
-                } else if ($error === '2'){
-                    $formulario .= "
-                        <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
-                    ";
-                }else if ($error === '3'){
-                    $formulario .= "
-                        <p> Error: el nombre ingresado no cumple con los requisitos. </p>
-                    ";
-                } else if ($error === '4'){
-                    $formulario .= "
-                        <p> Error: seleccione una imagen por favor. </p>
-                    ";
-                }
-
-                $formulario .= "
-                    </div>
-                ";
-            }
-
-    $formulario .= "</form>         
     ";
+            
+    if (isset($_GET['alta'])){
+        $formulario .= "
+            <div class='contenedor' id='error'>
+                <p> ¡Se ha añadido la categoría con éxito! </p>
+            </div>
+        ";
+    }
+    else if (isset($_GET['error'])){
+        $error = $_GET['error'];
+
+        $formulario .= "
+            <div class='contenedor' id='error'>
+        ";
+
+        if ($error === '1'){
+            $formulario .= "
+                <p> Error: ha ocurrido un inconveniente al subir la imagen, 
+                    verifique que la extensión es .png, .jpg o .jpeg y 
+                    reintente en un momento por favor. 
+                </p>
+            ";
+        } else if ($error === '2'){
+            $formulario .= "
+                <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
+            ";
+        }else if ($error === '3'){
+            $formulario .= "
+                <p> Error: el nombre ingresado no cumple con los requisitos. </p>
+            ";
+        } else if ($error === '4'){
+            $formulario .= "
+                <p> Error: seleccione una imagen por favor. </p>
+            ";
+        }
+
+        $formulario .= "
+            </div>
+        ";
+    }
+
+    $formulario .= "</form>";
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -21,7 +21,7 @@
                         <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
                     <label for='nombre' class=''> Modificar nombre </label>
                 </div>
-                <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''>
+                <input type='text' class='form-control' name='nombre' id='nombre' placeholder='Ejemplo: Jardin' title='Nombre' value=''>
             </div>
 
             
