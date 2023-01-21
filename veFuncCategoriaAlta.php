@@ -30,33 +30,27 @@
                 $id_categoria = $db->lastInsertId();
 
                 $imagen = $_FILES['imagen'];
-                $imagen_name = $imagen['name'];
-                $imagen_tmp = $imagen["tmp_name"];
-                $imagen_error = $imagen['error'];
-                $imagen_ext = explode('.',$imagen_name);
-                $imagen_ext = strtolower(end($imagen_ext));
-                $allowed = array('jpg', 'jpeg', 'png');
+                $imagen_destination = 'images/categorias/' . $id_categoria . '.';
+                $error = uploadImage($imagen, 'veCategoriaAlta.php', $imagen_destination);
 
-                if(in_array($imagen_ext, $allowed)){
-                    if($imagen_error === 0){
-                        $imagen_name_new = $id_categoria . '.' . $imagen_ext;
-                        $imagen_destination = 'images/categorias/' . $imagen_name_new;
-
-                        if(move_uploaded_file($imagen_tmp, $imagen_destination)){
-                            header ("location: veCategoriaAlta.php?alta=exito");
-                        }else{
-                            header ("location: veCategoriaAlta.php?error=1");
-                        }
-                    }   
-                }
+                if($error){
+                    //inconveniente al subir imagen
+                    header ("location: veCategoriaAlta.php?error=1");
+                }else{
+                    //exitoso
+                    header ("location: veCategoriaAlta.php?alta=exito");
+                }  
             } else {
+                //El nombre ya existe
                 header ("location: veCategoriaAlta.php?error=2");
             }
+
         } else {
-            header ("location: veCategoriaAlta.php?error=3");
-        }
-        
+            //nombre vacio
+            header ("location: veCategoriaAlta.php?error=3");     
+        } 
     } else {
+        //imagen vacia
         header ("location: veCategoriaAlta.php?error=4");
     }
 ?>

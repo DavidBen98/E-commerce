@@ -38,7 +38,10 @@
 
                 if ($error === '1'){
                     $formulario .= "
-                        <p> Error: ha ocurrido un inconveniente al subir la imagen, reintente en un momento por favor. </p>
+                        <p> Error: ha ocurrido un inconveniente al subir la imagen, 
+                            verifique que la extensión es .png, .jpg o .jpeg y 
+                            reintente en un momento por favor. 
+                        </p>
                     ";
                 } else if ($error === '2'){
                     $formulario .= "
@@ -68,9 +71,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
 	<script src="js/funciones.js"></script>
     <title>Muebles Giannis - Las mejores marcas</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
     <style>
         .cont{
             width:40%;

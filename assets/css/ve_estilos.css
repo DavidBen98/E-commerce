@@ -120,3 +120,13 @@
 .contenedor input, .contenedor select, .cont select, .cont input{
     height:40px;
 }
+
+#p_error{
+    background-color: black;
+    color : white;
+    margin-top : 20px;
+    margin-bottom : 20px;
+    padding : 10px;
+    border-radius : .5rem;
+    text-align : center;
+}

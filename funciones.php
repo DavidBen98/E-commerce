@@ -953,10 +953,11 @@
         $imagen_ext = strtolower(end($imagen_ext));
         $allowed = array('jpg', 'jpeg', 'png');
 
+        //Se podrian dividir los errores segun extensión o si falló el upload de la imagen
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
                 
-                if ($url === 'veCategoriaModif.php'){
+                if ($url === 'veCategoriaModif.php' || $url === 'veCategoriaAlta.php'){
                     $destination .= '.'.$imagen_ext;
                 } else if ($url === 'veProductoAlta.php'){
 

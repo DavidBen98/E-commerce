@@ -783,11 +783,6 @@ const validarAltaCategoria = () => {
         if (p == null) {
             let error = document.createElement("div");
             error.setAttribute('id', 'p_error');
-            error.style.backgroundColor = 'black';
-            error.style.color = 'white';
-            error.style.margin = '20px';
-            error.style.padding = '5px';
-            error.style.borderRadius = '.5rem';
             let contenedorBoton = document.getElementsByClassName("agregar")[0];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
@@ -819,11 +814,6 @@ const validarBajaCategoria = () => {
         if (p == null) {
             let error = document.createElement("div");
             error.setAttribute('id', 'p_error');
-            error.style.backgroundColor = 'black';
-            error.style.color = 'white';
-            error.style.margin = '20px';
-            error.style.padding = '5px';
-            error.style.borderRadius = '.5rem';
             let contenedorBoton = document.getElementsByClassName("agregar")[0];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
@@ -890,6 +880,13 @@ const validarModificacionCategoria = () => {
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que haya checkeado los campos a modificar y que cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
+        }
+    } else {
+        let error = document.getElementById("p_error");
+
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
         }
     }
 
