@@ -944,4 +944,34 @@
         
         return rmdir($dir);
     }
+
+    function uploadImage($imagen, $url, $destination){
+        $imagen_name = $imagen['name'];
+        $imagen_tmp = $imagen["tmp_name"];
+        $imagen_error = $imagen['error'];
+        $imagen_ext = explode('.',$imagen_name);
+        $imagen_ext = strtolower(end($imagen_ext));
+        $allowed = array('jpg', 'jpeg', 'png');
+
+        if(in_array($imagen_ext, $allowed)){
+            if($imagen_error === 0){
+                mkdir($destination, 0777, true);
+
+                if ($url === 'veCategoriaModif.php'){
+                    $destination .= $imagen_ext;
+                    echo $destination;
+                } else if ($url === 'veProductoAlta.php'){
+
+                }
+
+                // if(move_uploaded_file($imagen_tmp, $destination)){
+                //     return false;
+                // }else{
+                //     return true;
+                // }
+            }   
+        } else {
+            return true;
+        }
+    }
 ?>

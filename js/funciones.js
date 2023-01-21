@@ -714,6 +714,7 @@ const validarAlta = () => {
     return validate;
 }
 
+//Modificar producto
 const validarModif = () => {
     let id = document.getElementById("id").value.trim();
     let descripcion = document.getElementById("descripcion").value.trim();
@@ -751,6 +752,79 @@ const validarModif = () => {
             error.style.padding = '10px';
             error.style.borderRadius = '.5rem';
             let contenedorBoton = document.getElementById("cont-ModificarCaract");
+    
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
+            contenedorBoton.appendChild(error);
+        }
+    } else{
+        let error = document.getElementById("p_error");
+
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
+        }
+    }
+    
+    return validate;
+}
+
+//Categoria alta
+const validarAltaCategoria = () => {
+    let categoria = document.getElementById("nombre").value;
+    let imagen = document.getElementById("imagen").files.length;
+
+    let validate = true;
+
+    if (categoria.trim() === '' || imagen === 0 ){
+        validate = false;
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            error.style.backgroundColor = 'black';
+            error.style.color = 'white';
+            error.style.margin = '20px';
+            error.style.padding = '5px';
+            error.style.borderRadius = '.5rem';
+            let contenedorBoton = document.getElementsByClassName("agregar")[0];
+    
+            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
+            contenedorBoton.appendChild(error);
+        }
+    } else{
+        let error = document.getElementById("p_error");
+
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
+        }
+    }
+    
+    return validate;
+}
+
+//Categoria baja
+const validarBajaCategoria = () => {
+    let categoria = document.getElementById("categoria").selectedIndex === -1;
+
+    let validate = true;
+
+    if (categoria){
+        validate = false;
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            error.style.backgroundColor = 'black';
+            error.style.color = 'white';
+            error.style.margin = '20px';
+            error.style.padding = '5px';
+            error.style.borderRadius = '.5rem';
+            let contenedorBoton = document.getElementsByClassName("agregar")[0];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
