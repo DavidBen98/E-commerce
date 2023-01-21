@@ -1,5 +1,6 @@
 <?php 
     require 'inc/conn.php';
+    include_once ("funciones.php");
 
     global $db;
     
@@ -53,8 +54,6 @@
             $caract = "Alto: ".strval($caracteristicas[0]). "cm,ancho: ".strval($caracteristicas[1]) ."cm";
         }
 
-
-
         $sql = "INSERT INTO producto (`codigo`, `descripcion`, `material`, `color`,`caracteristicas`,
                             `marca`, `stock`, `precio`, `id_categoria`, `id_subcategoria`, `descuento`) 
                 VALUES ('$codigo', '$descripcion', '$material', '$color','$caract','$marca','$cant',
@@ -65,6 +64,7 @@
 
         $id_producto = $db->lastInsertId();
 
+        //Usar la funcion de subir imagen
         $imagen = $_FILES['imagen'];
         $imagen_name = $imagen['name'];
         $imagen_tmp = $imagen["tmp_name"];
