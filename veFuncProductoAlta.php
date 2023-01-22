@@ -86,7 +86,7 @@
                 $imagen_destination .= $imagen_name_new;
 
                 if(move_uploaded_file($imagen_tmp, $imagen_destination)){
-                    $sql = "INSERT INTO imagen (id_producto, destination, portada) VALUES
+                    $sql = "INSERT INTO imagen_productos (id_producto, destination, portada) VALUES
                     ('$id_producto', '$imagen_destination', 1)
                     ";
 

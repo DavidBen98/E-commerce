@@ -20,18 +20,18 @@
     }
 
     $formulario .= "
-            <div class='contenedor'>
-                <label for='categoria'>Categoría</label>
-                $lista
-            </div>
+        <div class='contenedor'>
+            <label for='categoria'>Categoría</label>
+            $lista
+        </div>
 
-            <div class='contenedor' id='subc'>
-                
-            </div>
-
-            <div class='contenedor' id='imagen'>
+        <div class='contenedor' id='subc'>
             
-            </div>
+        </div>
+
+        <div class='contenedor' id='imagen'>
+        
+        </div>
     ";
     
     if (isset($_GET['elim'])){

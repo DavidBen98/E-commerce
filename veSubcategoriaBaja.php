@@ -8,28 +8,30 @@
 
     $lista = obtenerSubcategorias();
 
-    $formulario = " <form class='cont' action='veFuncSubcategoriaBaja' enctype='multipart/form-data'>     
-                <label for='subcategoria' class=''>Subcategoría</label>
-                $lista
-                
-                <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
-            ";
-
-            if (isset($_GET['elim'])){
-                $formulario .= "<div class='contenedor' id='error'>
-                             <p> ¡Se ha eliminado la subcategoría con éxito! </p>
-                          </div>
-                ";
-            }
-            else if (isset($_GET['error'])){
-                $formulario .="<div class='contenedor' id='error'>
-                            <p> Error: los datos ingresados no son correctos, reintente por favor </p>
-                        </div>
-                ";
-            }
-
-    $formulario .= "</form>
+    $formulario = " 
+        <form class='cont' action='veFuncSubcategoriaBaja' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
+            <label for='subcategoria' class=''>Subcategoría</label>
+            $lista
+            
+            <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
     ";
+
+    if (isset($_GET['elim'])){
+        $formulario .= "
+            <div class='contenedor' id='error'>
+                <p> ¡Se ha eliminado la subcategoría con éxito! </p>
+            </div>
+        ";
+    }
+    else if (isset($_GET['error'])){
+        $formulario .="
+            <div class='contenedor' id='error'>
+                <p> Error: los datos ingresados no son correctos, reintente por favor </p>
+            </div>
+        ";
+    }
+
+    $formulario .= "</form>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,8 +42,6 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
-    <script>
-    </script>
     <style>
         .cont{
             width:40%;

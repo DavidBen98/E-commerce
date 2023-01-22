@@ -87,7 +87,7 @@
 			}
 		}
 
-		$sql = "SELECT * FROM imagen 
+		$sql = "SELECT * FROM imagen_productos 
                 WHERE id_producto = $id AND portada=1
 		";
 

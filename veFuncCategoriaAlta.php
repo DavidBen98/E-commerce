@@ -1,5 +1,6 @@
 <?php 
     require 'inc/conn.php';
+    include_once('funciones.php');
 
     global $db;
     
@@ -30,16 +31,20 @@
                 $id_categoria = $db->lastInsertId();
 
                 $imagen = $_FILES['imagen'];
-                $imagen_destination = 'images/categorias/' . $id_categoria . '.';
-                $error = uploadImage($imagen, 'veCategoriaAlta.php', $imagen_destination);
+                $imagen_destination = 'images/categorias/' . $id_categoria;
+                $result = uploadImage($imagen, 'veCategoriaAlta.php', $imagen_destination);
 
-                if($error){
+                if(!$result){
                     //inconveniente al subir imagen
                     $sql = "DELETE FROM categoria WHERE id_categoria = '$id_categoria'";
                     $rs = $db->query($sql);
 
                     header ("location: veCategoriaAlta.php?error=1");
-                }else{
+                } else {
+                    $sql = "INSERT INTO `imagen_categorias`(`id_categoria`, `destination`) 
+                            VALUES ('$id_categoria','$result')
+                    ";
+                    $rs = $db->query($sql);
                     //exitoso
                     header ("location: veCategoriaAlta.php?alta=exito");
                 }  

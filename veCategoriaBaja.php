@@ -37,8 +37,7 @@
         ";
     }
 
-    $formulario .="</form>		   
-	";
+    $formulario .="</form>";
 ?>
 <html lang="es">
 <head>

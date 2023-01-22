@@ -5,9 +5,8 @@
     
     $id = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
 
-    if ($nombre !== null && $check !== false){
-        $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$id'
-        ";
+    if ($nombre !== null){
+        $sql = "UPDATE subcategoria SET `activo`='0' WHERE id_subcategoria = '$id'";
 
         $rs = $db->query($sql);
 

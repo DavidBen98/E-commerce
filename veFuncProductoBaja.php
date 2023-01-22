@@ -8,7 +8,7 @@
         $id = $_GET['eliminar'];
 
         $sql = "SELECT destination 
-                FROM imagen
+                FROM imagen_productos
                 WHERE id_producto = '$id' AND portada = 1
         ";
 
@@ -24,7 +24,7 @@
 
         deleteDir($path);
         //Elimina todas las imagenes de ese producto, ya sean portadas o no
-        $sql = "DELETE FROM imagen
+        $sql = "DELETE FROM imagen_productos
                 WHERE id_producto = '$id'
         ";
 
@@ -53,7 +53,7 @@
         foreach ($rs as $row){
             $id = $row['id'];
 
-            $sql = "SELECT * FROM imagen 
+            $sql = "SELECT * FROM imagen_productos
                 WHERE id_producto = $id AND portada=1
             ";
 

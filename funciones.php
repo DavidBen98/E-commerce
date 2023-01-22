@@ -138,7 +138,7 @@
     function obtenerRutaPortada($id){
         global $db;
 
-        $sql = "SELECT * FROM imagen 
+        $sql = "SELECT * FROM imagen_productos 
         WHERE id_producto = $id AND portada=1";
 
         $result = $db -> query($sql);
@@ -771,11 +771,6 @@
 
 		ksort($arrMarcas);
 
-        // $marcas = "
-		// 		<legend class='ltitulo'><b>Marcas</b></legend>
-		// 		<div id='marcas' class='input'>
-		// ";	
-
         $marcas = '';
 
 		foreach($arrMarcas as $indice => $valor){
@@ -925,6 +920,10 @@
         return $listas;
     }
 
+    function obtenerImagenes($tabla){
+
+    }
+
     function deleteDir($dir) {
         if (!file_exists($dir)) {
             return false;
@@ -964,13 +963,13 @@
                 }
 
                 if(move_uploaded_file($imagen_tmp, $destination)){
-                    return false;
+                    return $destination;
                 }else{
-                    return true;
+                    return false;
                 }
             }   
         } else {
-            return true;
+            return false;
         }
     }
 ?>

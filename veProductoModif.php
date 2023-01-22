@@ -10,10 +10,6 @@
     $lista = obtenerCategorias();
     $materiales = obtenerMateriales();
     $marcas = obtenerMarcas();
-    //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
-    //Está conformado así para simplificar 
-    //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
-    //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
 
     //Establecer si la foto es de portada
     //<div style='width:100%; display: flex; justify-content: center; align-items: center;'>
@@ -23,18 +19,20 @@
 
     $id = $_GET['id'];
 
-    $prod = "<form class='cont' action='veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
-                <h2 style='text-align:center; margin: auto;'>Ubicación</h2>";
+    $formulario = "
+        <form class='cont' action='veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
+            <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
+    ";
             
-                if (isset($_GET['modUbi'])){
-                    $prod .= "
-                        <div class='mensaje'>
-                            <p> ¡El producto con id '$id' se ha cambiado de ubicación exitosamente!</p>     
-                         </div>
-                    ";
-                }
+    if (isset($_GET['modUbi'])){
+        $formulario .= "
+            <div class='mensaje'>
+                <p> ¡El producto con id '$id' se ha cambiado de ubicación exitosamente!</p>     
+            </div>
+        ";
+    }
 
-    $prod .= "  <div class='contenedor' id='catActual'>
+    $formulario .= "  <div class='contenedor' id='catActual'>
                     
                 </div>
 
@@ -56,15 +54,18 @@
                 </div>
             </form>
 
-            <form class='cont' action='veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>";
+            <form class='cont' action='veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
+    ";
 
-            if (isset($_GET['modif'])){
-                $prod .= "<div class='mensaje'>
-                            <p> ¡El producto '$id' se ha modificado exitosamente!</p>     
-                         </div>";
-            }
+    if (isset($_GET['modif'])){
+        $formulario .= "
+            <div class='mensaje'>
+                <p> ¡El producto '$id' se ha modificado exitosamente!</p>     
+            </div>
+        ";
+    }
 
-    $prod .= "
+    $formulario .= "
                 <h2 style='text-align:center; margin: auto;'>Características</h2>
                 <div class='contenedor'>
                     <label for='id'>Id</label>
@@ -133,24 +134,25 @@
                 </div>
                 <div class='contenedor' id='cont-ModificarCaract'>
                     <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
-                </div>";
+                </div>
+    ";
 
-        if (isset($_GET['modif'])){
-            $formulario .= "
-                <div class='contenedor' id='elim'>
-                    <p>¡Se ha modificado el producto de manera exitosa!</p>
-                </div>
-            ";
-        }
-        else if (isset($_GET['error'])){
-            $prod .="
-                <div class='contenedor' id='error'>
-                    <p>Error: los datos ingresados no son correctos, reintente por favor</p>
-                </div>
-            ";
-        }
+    if (isset($_GET['modif'])){
+        $formulario .= "
+            <div class='contenedor' id='elim'>
+                <p>¡Se ha modificado el producto de manera exitosa!</p>
+            </div>
+        ";
+    }
+    else if (isset($_GET['error'])){
+        $formulario .="
+            <div class='contenedor' id='error'>
+                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+            </div>
+        ";
+    }
             
-    $prod .= "</form>";
+    $formulario .= "</form>";
 ?>
 <html lang="es">
 <head>
@@ -459,7 +461,7 @@
     <main id='main'>
         <h1 style='width:100%;text-align:center;'>Modificar producto</h1>
 
-        <?= $prod; ?>
+        <?= $formulario; ?>
     </main>
 
 </body>

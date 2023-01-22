@@ -15,7 +15,7 @@
     $rs = $db->query($sql);
 
     $sql = "SELECT destination
-            FROM imagen
+            FROM imagen_productos
             WHERE id_producto = '$id' AND portada='1'
     ";
 
@@ -37,7 +37,7 @@
             rename($ruta_origen, $ruta_destino);
         }
 
-        $sql = "UPDATE imagen SET destination = '$ruta_destino'
+        $sql = "UPDATE imagen_productos SET destination = '$ruta_destino'
             WHERE id_producto = '$id'
         ";
 

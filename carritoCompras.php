@@ -101,7 +101,7 @@
             $stock = intval($producto['stock']);
             $cantidad = intval($producto['cantidad']);
 
-            $sql = "SELECT * FROM imagen 
+            $sql = "SELECT * FROM imagen_productos 
                 WHERE id_producto = $id AND portada=1
             ";
 
