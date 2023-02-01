@@ -1015,6 +1015,38 @@ const validarModCarSubcategoria = () => {
     return validate;
 }
 
+const validarModal = () => {
+    let email = document.getElementById("email").value;
+    let validate = true;
+
+    if( email == null || email.trim() == ""){
+        validate = false;
+    }
+
+    if (!validate){
+        let p = document.getElementById("p_error");
+        
+        //Si no está creado el párrafo de error
+        if (p == null) {
+            let error = document.createElement("div");
+            error.setAttribute('id', 'p_error');
+            let contenedorBoton = document.getElementsByClassName("contenedor")[0];
+    
+            error.innerHTML = "Error: el email ingresado no es correcto, reintente nuevamente con un email válido";
+            contenedorBoton.appendChild(error);
+        }
+    } else {
+        let error = document.getElementById("p_error");
+
+        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+        if (error != null){
+            error.remove();
+        }
+    }
+
+    return validate;
+}
+
 //PRODUCTOS
 const actualizarSubcategoria = () => {
     $.ajax ({

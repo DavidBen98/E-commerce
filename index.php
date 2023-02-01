@@ -269,6 +269,16 @@
             margin:auto;
         }
 
+        .contenedor{
+            width:100%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .btn{
+            margin: auto;
+        }
+
         @media screen and (max-width: 1120px) {
             .categorias{
                 grid-template-columns: repeat(4, 1fr);

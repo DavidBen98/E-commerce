@@ -581,7 +581,7 @@ option{
 #modal_novedades form, #cont-sus{
     width: 90%;
     max-width: 600px;
-    height: 200px;
+    min-height: 200px;
     border-radius: 6px;
     padding: 2em 1.5em;
     display: grid;
@@ -626,6 +626,16 @@ option{
     height: 30px;
     text-align: center;
     cursor: pointer;
+}
+
+#p_error{
+    background-color: black;
+    color : white;
+    margin-top : 20px;
+    margin-bottom : 20px;
+    padding : 10px;
+    border-radius : .5rem;
+    text-align : center;
 }
 
 @media screen and (max-width: 860px){
