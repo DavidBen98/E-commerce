@@ -331,8 +331,6 @@
                     window.location = 'subcategoria.php?categoria='+imagen;
                 });
             }
-
-
         });
     </script>
 </head>

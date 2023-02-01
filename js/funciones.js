@@ -63,9 +63,24 @@ window.onload = function (){
             document.getElementById('modal_novedades').style.display = 'flex';
         } else if (ev.target.matches('.cerrar_novedades')){
             document.getElementById('modal_novedades').style.display = 'none';
-            document.getElementById('suscripcion').style.display = 'none';
+
+            let error = document.getElementById('p_error');
+            if (error !== null){
+                error.remove();
+            }
+
+            let suscripcion = document.getElementById('suscripcion');
+            if (suscripcion !== null){
+                suscripcion.style.display = 'none';
+            }
+
         } else if (ev.target.matches('#modal_novedades')){
             document.getElementById('modal_novedades').style.display = 'none';
+
+            let error = document.getElementById('p_error');
+            if (error !== null){
+                error.remove();
+            }
         } else if (ev.target.matches('#suscripcion')){
             document.getElementById('suscripcion').style.display = 'none';
         }
