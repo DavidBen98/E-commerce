@@ -166,6 +166,45 @@
             }
         }
     }
+
+    $suscripcion="";
+
+    if (isset($_GET['sus'])){
+        $suscripcion = "
+            <div id='suscripcion'>
+                <div id='cont-sus'>
+                    <h1> Suscripción realizada con éxito </h1>
+                    <p> Ahora el email ingresado estará al tanto de todas nuestras novedades! </p>
+                    <button class='cerrar_novedades btn' value='Aceptar'> Aceptar </button>
+                    <button class='cerrar_novedades' id='cerrar_novedades' value='Cerrar'> X </button>
+                </div>
+            </div>
+        ";
+    } else if (isset($_GET['error'])){
+        if ($_GET['error'] === "1"){
+            $suscripcion = "
+                <div id='suscripcion'>
+                    <div id='cont-sus'>
+                        <h1> Error en la suscripción: el email ingresado no es correcto </h1>
+                        <p> El email ingresado no es correcto, asegúrese de que completó el campo correctamente </p>
+                        <button class='cerrar_novedades btn' value='Aceptar'> Aceptar </button> 
+                        <button class='cerrar_novedades' id='cerrar_novedades' value='Cerrar'> X </button>
+                    </div>
+                </div>
+            ";
+        } else {
+            $suscripcion = "
+                <div id='suscripcion'>
+                    <div id='cont-sus'>
+                        <h1> Error en la suscripción </h1>
+                        <p> El email ingresado no se encuentra registrado en nuestro sitio</p>
+                        <button class='cerrar_novedades btn' value='Aceptar'> Aceptar </button>
+                        <button class='cerrar_novedades' id='cerrar_novedades' value='Cerrar'> X </button>
+                    </div>
+                </div>
+            ";
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -282,6 +321,8 @@
                     window.location = 'subcategoria.php?categoria='+imagen;
                 });
             }
+
+
         });
     </script>
 </head>
@@ -298,6 +339,7 @@
         </form>
 
         <?= $modalNovedades; ?>
+        <?= $suscripcion; ?>
     </main>
 
     <footer id='pie'>

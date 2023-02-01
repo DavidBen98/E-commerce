@@ -61,10 +61,13 @@ window.onload = function (){
             document.getElementById('cont-mobile-menu').style.display = 'none';
         } else if (ev.target.matches('#sus_nov')){
             document.getElementById('modal_novedades').style.display = 'flex';
-        } else if (ev.target.matches('#cerrar_novedades')){
+        } else if (ev.target.matches('.cerrar_novedades')){
             document.getElementById('modal_novedades').style.display = 'none';
+            document.getElementById('suscripcion').style.display = 'none';
         } else if (ev.target.matches('#modal_novedades')){
             document.getElementById('modal_novedades').style.display = 'none';
+        } else if (ev.target.matches('#suscripcion')){
+            document.getElementById('suscripcion').style.display = 'none';
         }
 	});
 

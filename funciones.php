@@ -446,6 +446,7 @@
                 FROM imagen_categorias
                 WHERE id_categoria = '$idCat'
             ";
+            
             $result = $db->query($sql);
 
             foreach ($result as $r){
