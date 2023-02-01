@@ -59,6 +59,8 @@ window.onload = function (){
             document.getElementById('container-header').style.display = 'flex';
             document.getElementById('mobile-perfilUsuario').style.display = 'none';
             document.getElementById('cont-mobile-menu').style.display = 'none';
+        } else if (ev.target.matches('#sus_nov')){
+            document.getElementById('modal_novedades').style.display = 'block';
         }
 	});
 

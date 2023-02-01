@@ -1,5 +1,6 @@
 <?php 
     include ("pie.php"); 
+    include ("modalNovedades.php"); 
     include ("inc/conn.php");
     require_once 'config.php';
     require_once 'vendor/autoload.php';
@@ -727,6 +728,7 @@
     <main>      
         <?= $ruta; ?>
         <?= $carrito; ?>
+        <?= $modal; ?>
     </main> 
     
     <footer id='pie'>

@@ -2,6 +2,7 @@
     require_once 'config.php';
     include("encabezado.php"); 
     include("pie.php");
+    include("modalNovedades.php");
     include ("inc/conn.php");
 
     if (perfil_valido(3)) {
@@ -155,6 +156,7 @@
         </aside>
 
         <?= $div; ?>  
+        <?= $modalNovedades; ?>
     </main>
 
     <footer id='pie'>

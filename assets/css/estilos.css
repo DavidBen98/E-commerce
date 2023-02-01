@@ -564,6 +564,61 @@ option{
     display:none;
 }
 
+#modal_novedades {
+    display:none;
+    background-color: #111111bd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+#modal_novedades form{
+    width: 90%;
+    max-width: 600px;
+    max-height: 70%;
+    border-radius: 6px;
+    padding: 2em 1.5em;
+    display: grid;
+    gap: 1em;
+    place-items: center;
+    grid-auto-columns: 100%;
+    background-color: #fff;
+    margin: auto;
+    position: relative;
+}
+
+.modal_titulo{
+    font-size: 2.5rem;
+}
+
+.modal_input{
+    margin-bottom: 10px;
+    width: 50%;
+    height: 30px;
+    font-size: 20px;
+}
+
+.modal_submit {
+    width: 50%;
+}
+
+.cerrar_novedades{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: .5em;
+    padding: .5em;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+}
+
 @media screen and (max-width: 860px){
     .ruta{
         height:40px;

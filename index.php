@@ -1,6 +1,7 @@
 <?php   
 	require_once 'config.php';
     include("pie.php");
+    include("modalNovedades.php");
     include ("inc/conn.php");
 	require_once('vendor/autoload.php');
 
@@ -296,6 +297,7 @@
             <?= agregarImgCategorias(); ?>
         </form>
 
+        <?= $modalNovedades; ?>
     </main>
 
     <footer id='pie'>

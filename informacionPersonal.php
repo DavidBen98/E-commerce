@@ -1,5 +1,6 @@
 <?php 
     include("pie.php");  
+    include("modalNovedades.php");
     include ("inc/conn.php");
     require_once 'config.php';
     include("encabezado.php"); 
@@ -335,6 +336,8 @@
         <section>
             <?= $infoPersonal; ?>
         </section>
+
+        <?= $modalNovedades; ?>
 
     </main>
 

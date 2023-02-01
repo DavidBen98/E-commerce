@@ -1,6 +1,7 @@
 <?php
     require_once 'config.php';
     include("pie.php");
+    include("modalNovedades.php");
 	require 'inc/conn.php';
 	include ("encabezado.php");
     //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
@@ -365,6 +366,8 @@
 				<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' title='Exportar a Excel' alt='Exportar a Excel'>
 			</div>
 		</section>
+
+		<?= $modalNovedades; ?>
     </main>   
    
 	<footer id='pie'>

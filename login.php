@@ -2,6 +2,7 @@
 	require_once('vendor/autoload.php');
 	require_once('config.php');
     include("pie.php");
+    include("modalNovedades.php");
 	include("encabezado.php");
 
 	if (perfil_valido(2)) {
@@ -501,6 +502,8 @@
 
 		<?= $formulario; ?>
 	</main>
+
+	<?= $modalNovedades; ?>
             
     <footer id='pie'>
 		<?= $pie; ?> 

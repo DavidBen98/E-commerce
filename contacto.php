@@ -2,6 +2,7 @@
 	require_once 'config.php';
     include("encabezado.php");
     include("pie.php");
+    include("modalNovedades.php");
 
 	if (perfil_valido(1)) {
         header("location:veABMProducto.php");
@@ -229,7 +230,9 @@
 						echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";
 					}
 				?>
-		</form>		 	 
+		</form>	
+		
+		<?= $modalNovedades; ?>
 	</main>
 	
 	<footer id='pie'>
