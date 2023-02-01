@@ -572,13 +572,12 @@ option{
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
 }
 
 #modal_novedades form{
     width: 90%;
     max-width: 600px;
-    max-height: 70%;
+    height: 200px;
     border-radius: 6px;
     padding: 2em 1.5em;
     display: grid;

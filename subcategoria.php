@@ -2,6 +2,7 @@
 	require_once 'config.php';
 	include ("encabezado.php");
 	include ("pie.php");
+    include("modalNovedades.php");
 	include ("inc/conn.php"); 
 	
 	if ($perfil == "E"){ 
@@ -18,11 +19,11 @@
 
 	$imagenes = $_GET['categoria'];
 
-	$sql = "SELECT s.nombre_subcategoria, p.codigo, p.precio, p.id
-	 		FROM subcategoria as s
-	 		INNER JOIN producto as p on s.id_subcategoria = p.id_subcategoria
-			INNER JOIN categoria as c on c.id_categoria = s.id_categoria
-	 		WHERE c.nombre_categoria = '$imagenes' AND `codigo` LIKE '%1'
+	$sql = "SELECT destination, nombre_subcategoria 
+	 		FROM imagen_subcategorias as s
+			INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
+			INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
+	 		WHERE c.nombre_categoria = '$imagenes'
 	";
 	
 	$rs = $db->query($sql);
@@ -85,6 +86,9 @@
 		<?= $ruta; ?>
 
 		<?= crearImagenes($rs); ?>
+
+        <?= $modalNovedades; ?>
+
 	</main>
 		
 	<footer id='pie'>
