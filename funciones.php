@@ -441,18 +441,19 @@
             //                     <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
             // ";
 
-            $image_path = 'images/categorias/'.$idCat;
-            $extensions = array('.jpg', '.jpeg', '.png');
-            $src = '';
-            foreach ($extensions as $ext) {
-                if (file_exists($image_path . $ext)) {
-                    $src = $image_path . $ext;
-                    break;
-                }
+            $sql = "
+                SELECT * 
+                FROM imagen_categorias
+                WHERE id_categoria = '$idCat'
+            ";
+            $result = $db->query($sql);
+
+            foreach ($result as $r){
+                $img_cat = $r['destination'];
             }
 
             echo " <div class='cont-images'> 
-                        <img src= '$src' alt='$nomCat' class='img-cat'>
+                        <img src= '$img_cat' alt='$nomCat' class='img-cat'>
                         <div class='texto'>
                             <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
             ";
@@ -466,7 +467,7 @@
             $rs1 = $db->query($sql1);
 
             echo "<p class='img-texto'>";
-            $subcatNombre = " ";
+            $subcatNombre = "";
             foreach ($rs1 as $row1){ //subcategorias
                 $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
             }
