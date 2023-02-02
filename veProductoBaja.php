@@ -117,6 +117,12 @@
 
                         sub.addEventListener ('change', function (){
                             actualizarCodigo ();
+
+                            let mensajeElim = document.getElementById ('elim');
+
+                            if (mensajeElim != null) {
+                                mensajeElim.remove();
+                            }
                         });
                     }
                 });
@@ -126,6 +132,12 @@
 
             $('#categoria').change (function (){
                 actualizar ();
+
+                let mensajeElim = document.getElementById ('elim');
+
+                if (mensajeElim != null) {
+                    mensajeElim.remove();
+                }
             });
         });
 	</script>

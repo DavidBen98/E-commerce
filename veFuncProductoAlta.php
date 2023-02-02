@@ -87,12 +87,12 @@
 
                 if(move_uploaded_file($imagen_tmp, $imagenDestino)){
                     $sql = "INSERT INTO imagen_productos (id_producto, destination, portada) VALUES
-                    ('$id_producto', '$imagenDestino', 1)
+                            ('$id_producto', '$imagenDestino', 1)
                     ";
 
                     $rs = $db -> query($sql);
 
-                    header ("location: veProductoAlta.php?alta=".$imagenDestino);
+                    header ("location: veProductoAlta.php?alta=exito");
                 }else{
                     $sql = "DELETE FROM producto WHERE id = '$id_producto'";
                     $rs = $db->query($sql);

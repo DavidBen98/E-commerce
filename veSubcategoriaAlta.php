@@ -9,9 +9,9 @@
     $lista = obtenerCategorias();
 
     $formulario = "
-        <form class='cont' action='veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
             <label for='nombre'class='col-sm-2 form-label'>Nombre de subcategoría</label>
-            <input type='text' name='tNombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
+            <input type='text' name='nombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
             
             <label for='categoria'class='col-sm-2 form-label'>Categoría</label>
             $lista

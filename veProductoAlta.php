@@ -170,7 +170,7 @@
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "actCodigo.php",
+                    url: "server/actualizarCodigo.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (nroProducto){
                         let input = document.getElementById('codigo');

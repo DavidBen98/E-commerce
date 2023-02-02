@@ -1,19 +1,18 @@
 <?php 
     require 'inc/conn.php';
+    include ('funciones.php');
 
     global $db;
     
     $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
     $categoria = (isset($_POST['categoria']) && $_POST['categoria'] !== -1)? $_POST['categoria']: null;
     $existImg = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
-    
+
     if($existImg !== null){
         //Comprobar que nombre es diferente de vacío
         if ($nombre !== null){
             //Comprobar que se seleccionó una categoría
             if ($categoria !== null){
-                $categoria = $_POST['categoria'];
-
                 $sql = "SELECT id_categoria FROM `categoria` WHERE id_categoria = $categoria";
                 $rs = $db->query($sql);
 
@@ -23,8 +22,8 @@
                     $nombre = ucfirst($nombre);
                     
                     $sql = "SELECT COUNT(*)
-                        FROM subcategoria
-                        WHERE nombre_subcategoria = '$nombre'
+                            FROM subcategoria
+                            WHERE nombre_subcategoria = '$nombre'
                     ";
         
                     $rs = $db->query($sql);

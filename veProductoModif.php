@@ -60,7 +60,13 @@
     if (isset($_GET['modif'])){
         $formulario .= "
             <div class='mensaje'>
-                <p> ¡El producto '$id' se ha modificado exitosamente!</p>     
+                <p> ¡El producto con id:'$id' se ha modificado exitosamente!</p>     
+            </div>
+        ";
+    } else if (isset($_GET['error'])){
+        $formulario .="
+            <div class='contenedor' id='error'>
+                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
             </div>
         ";
     }
@@ -135,22 +141,7 @@
                 <div class='contenedor' id='cont-ModificarCaract'>
                     <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
                 </div>
-    ";
-
-    if (isset($_GET['modif'])){
-        $formulario .= "
-            <div class='contenedor' id='elim'>
-                <p>¡Se ha modificado el producto de manera exitosa!</p>
-            </div>
-        ";
-    }
-    else if (isset($_GET['error'])){
-        $formulario .="
-            <div class='contenedor' id='error'>
-                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
-            </div>
-        ";
-    }
+    ";   
             
     $formulario .= "</form>";
 ?>
