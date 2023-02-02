@@ -607,7 +607,7 @@ const actualizarCiudad = (ciudad) => {
 
 //LOGIN
 const validarLogin = () => {
-    document.getElementById('e_error').innerHTML="";
+    document.getElementById('p_error').innerHTML="";
 
     nombreUser = document.getElementById('nombreUsuario').value;
     psw = document.getElementById('psw').value;
@@ -615,10 +615,10 @@ const validarLogin = () => {
     txtErrores = "";
 
     if(nombreUser == null || nombreUser.trim() == ""){
-        txtErrores += "Debe ingresar el nombre de usuario";
+        txtErrores += "Error: debe ingresar el nombre de usuario";
     }     
     else if(psw == null || psw.trim() == ""){
-        txtErrores += "Debe ingresar la contraseña";
+        txtErrores += "Error: debe ingresar la contraseña";
     }          
     
     let devolucion = false;
@@ -628,7 +628,7 @@ const validarLogin = () => {
     }
 
     if (!devolucion){
-        let error = document.getElementById('e_error');
+        let error = document.getElementById('p_error');
         error.style.display = 'block';
         let hijo = document.createTextNode(txtErrores);
         error.appendChild(hijo);
@@ -1060,6 +1060,10 @@ const validarModal = () => {
     }
 
     return validate;
+}
+
+const validarRegistro = () => {
+
 }
 
 //PRODUCTOS
