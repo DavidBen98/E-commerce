@@ -6,8 +6,6 @@
     require_once 'vendor/autoload.php';
     include("encabezado.php"); 
     
-    var_dump($_SESSION);
-    
     define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
     define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
   
@@ -252,6 +250,12 @@
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="js/funciones.js"></script>
+    <script>
+        document.addEventListener('change', ev => {
+            let id = ev.target.id;
+            modificarProducto(id);
+        });
+    </script>
     <style>
         main{
             display:flex;
@@ -728,7 +732,7 @@
     <main>      
         <?= $ruta; ?>
         <?= $carrito; ?>
-        <?= $modal; ?>
+        <?= $modalNovedades; ?>
     </main> 
     
     <footer id='pie'>

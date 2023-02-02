@@ -521,7 +521,7 @@
         </aside>
 
         <?= $div; ?>  
-        <?= $modal; ?>
+        <?= $modalNovedades; ?>
     </main>
 
     <footer id='pie'>

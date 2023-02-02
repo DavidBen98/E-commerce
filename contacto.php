@@ -18,13 +18,13 @@
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="js/funciones.js"></script>
 	<script>
-		document.addEventListener ('DOMContentLoaded', () => {
-			let btnEnviar = document.getElementById('enviar');
+		// document.addEventListener ('DOMContentLoaded', () => {
+		// 	let btnEnviar = document.getElementById('enviar');
 
-			btnEnviar.addEventListener ("click", () => {
-				return validarContacto();
-			})
-		});
+		// 	btnEnviar.addEventListener ("click", () => {
+		// 		return validarContacto();
+		// 	})
+		// });
 	</script>
     <style>
 		body{
@@ -210,17 +210,17 @@
 			<p>No dudes en comunicarte también por nuestra vía telefónica al 0800 - 0303 - 456 de lunes a viernes de 9 a 18 hs.</p>
 		</div>
 
-		<form action="nuevoContacto.php" method="post" class="cont-con"> 
-				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" required>
-				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" required>
+		<form action="nuevoContacto.php" method="post" onsubmit="return validarContacto()" class="cont-con"> 
+				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" >
+				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" >
 				
 				<?php
 					if (!(isset($_SESSION['servicio']) || $perfil == "U")){
-						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: jhonDoe@gmail.com' required>";
+						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: jhonDoe@gmail.com' >";
 					}
 				?>
-				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" required></textarea>
-				<p id="e_error" style="width:auto; border-radius: 5px">
+				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" ></textarea>
+				<p id="p_error" style="width:auto; border-radius: 5px; display:none;">
 
                 </p>
 				<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar">

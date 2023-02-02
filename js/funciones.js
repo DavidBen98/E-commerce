@@ -93,12 +93,6 @@ window.onload = function (){
             }
         }
     });
-
-    // document.addEventListener('change', ev => {
-    //     let id = ev.target.id;
-
-    //     modificarProducto(id);
-    // });
         
     let url = window.location.pathname;
     let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
@@ -251,9 +245,7 @@ const eliminarProducto = (id) => {
         }
     });			
 }
-/*
-* 
-*/
+
 //Recibe el id de la cantidad cambiada
 const modificarProducto = (id) => {
     let cantElemento = document.getElementById(id).value;
@@ -672,19 +664,20 @@ const validarRegistro = () => {
 
 //CONTACTO
 const validarContacto = () => {
-    document.getElementById("e_error").innerHTML="";
+    document.getElementById("p_error").innerHTML="";
 
     let exito = document.getElementsByClassName('parrafo-exito');
     if (exito[0] != null){
         exito[0].style.display = 'none';
     }
 
-    nombre = document.getElementById("nombre").value;
-    apellido = document.getElementById("apellido").value;
-    email = document.getElementById("email").value;
-    txtIngresado = document.getElementById("txtIngresado").value;
+    let nombre = document.getElementById("nombre").value;
+    let apellido = document.getElementById("apellido").value;
+    let email = document.getElementById("email").value;
+    var validarEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    let txtIngresado = document.getElementById("txtIngresado").value;
 
-    txtErrores = "";
+    let txtErrores = "";
 
     if( nombre == null || nombre.trim() == ""){
         txtErrores = "Debe ingresar su nombre";
@@ -694,6 +687,8 @@ const validarContacto = () => {
     }
     else if( email == null || email.trim() == ""){
         txtErrores = "Debe ingresar su email";
+    } else if (!validarEmail.test(email)){
+        txtErrores = "El email ingresado no es correcto";
     }
     else if( txtIngresado == null || txtIngresado.trim() == ""){
         txtErrores = "Debe ingresar una consulta";
@@ -706,7 +701,8 @@ const validarContacto = () => {
     }
 
     if (!devolucion){
-        let error = document.getElementById("e_error");
+        let error = document.getElementById("p_error");
+        error.style.display = 'block';
         let hijo = document.createTextNode(txtErrores);
         error.appendChild(hijo);
     }
