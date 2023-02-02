@@ -9,7 +9,7 @@
     $lista = obtenerCategorias();
 
     $formulario = "
-        <form class='cont' method='POST' action='veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='server/veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
             <label for='nombre'class='col-sm-2 form-label'>Nombre de subcategoría</label>
             <input type='text' name='nombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
             

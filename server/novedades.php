@@ -1,5 +1,5 @@
 <?php
-    include "inc/conn.php";
+    include "../inc/conn.php";
     require_once 'config.php';
 
     global $db;
@@ -25,11 +25,11 @@
         }
 
         if (!$exist){
-            header ('location: index.php?error=2');
+            header ('location: ../index.php?error=2');
         } else {
-            header ('location: index.php?sus=true');
+            header ('location: ../index.php?sus=true');
         }
     } else {
-        header ('location: index.php?error=1');
+        header ('location: ../index.php?error=1');
     }
 ?>

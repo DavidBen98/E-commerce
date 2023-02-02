@@ -1,5 +1,5 @@
 <?php  
-	require_once 'config.php';
+	require_once 'server/config.php';
     include("encabezado.php");
     include("pie.php");
     include("modalNovedades.php");
@@ -210,7 +210,7 @@
 			<p>No dudes en comunicarte también por nuestra vía telefónica al 0800 - 0303 - 456 de lunes a viernes de 9 a 18 hs.</p>
 		</div>
 
-		<form action="nuevoContacto.php" method="post" onsubmit="return validarContacto()" class="cont-con"> 
+		<form action="server/nuevoContacto.php" method="post" onsubmit="return validarContacto()" class="cont-con"> 
 				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" >
 				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" >
 				

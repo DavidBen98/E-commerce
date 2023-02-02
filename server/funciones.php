@@ -1,5 +1,9 @@
 <?php
-    require_once 'inc/conn.php';
+    if (str_contains($_SERVER["REQUEST_URI"],"server")){
+        require_once '../inc/conn.php';
+    } else{
+        require_once 'inc/conn.php';
+    }
     require_once 'config.php';
 
     define('PSW_SEMILLA','34a@$#aA9823$');
@@ -22,23 +26,23 @@
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barraSuperior ="<div id='mobile-perfilUsuario'>
@@ -57,23 +61,23 @@
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='server/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barraSuperior ="<div id='perfilUsuario'>

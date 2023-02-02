@@ -1,6 +1,6 @@
 <?php  
     require_once 'config.php';
-    include_once ("inc/conn.php");
+    include_once ("../inc/conn.php");
     require_once('funciones.php');
     
     if (perfil_valido(3)) {

@@ -10,7 +10,7 @@
     $lista = obtenerCategorias();
 
     $formulario = "
-        <form class='cont' action='veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='server/veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
     ";
 
     if (isset($_GET['modif'])) {
@@ -64,7 +64,7 @@
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "veFuncProductoBaja.php",
+                    url: "server/veFuncProductoBaja.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (datos){
 
@@ -93,7 +93,7 @@
                                         if (confirmar){
                                             let codigo = imagen[i].alt;
         
-                                            window.location.href = 'veFuncProductoBaja.php?eliminar='+codigo;
+                                            window.location.href = 'server/veFuncProductoBaja.php?eliminar='+codigo;
                                         }
                                     }
                                 });

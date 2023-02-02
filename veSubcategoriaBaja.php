@@ -9,7 +9,7 @@
     $lista = obtenerSubcategorias();
 
     $formulario = " 
-        <form class='cont' action='veFuncSubcategoriaBaja' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
+        <form class='cont' action='server/veFuncSubcategoriaBaja' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
             <label for='subcategoria' class=''>Subcategoría</label>
             $lista
             

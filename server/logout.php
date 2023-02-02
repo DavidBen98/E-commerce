@@ -12,5 +12,5 @@
     $auth->signOut();
 
     //redirect page to index.php
-    header('location:index.php');
+    header('location:../index.php');
 ?>

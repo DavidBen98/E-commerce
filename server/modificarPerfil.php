@@ -1,5 +1,5 @@
 <?php  
-    include "inc/conn.php";
+    include "../inc/conn.php";
     require_once 'config.php';
     
     global $db;
@@ -52,7 +52,7 @@
     }
 
     if ($i > 0){
-        header ('location: informacionPersonal.php?error=1#mensaje');
+        header ('location: ../informacionPersonal.php?error=1#mensaje');
     }
     else{
         switch ($provincia) {
@@ -155,6 +155,6 @@
 
         $rs = $db->query ($sql);
 
-        header ('location: informacionPersonal.php?modif=exito#mensaje');
+        header ('location: ../informacionPersonal.php?modif=exito#mensaje');
     }
 ?>

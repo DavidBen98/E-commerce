@@ -1,10 +1,10 @@
 <?php 
 	require_once 'config.php';
     require 'funciones.php';  
-    require 'inc/conn.php';
+    require '../inc/conn.php';
 
     if (perfil_valido(1)) {
-		header("location:veABMProducto.php");
+		header("location:../veABMProducto.php");
 	}
 
     $nombre =(isset($_POST['nombre']) && !empty($_POST['nombre']))? trim($_POST['nombre']):"";
@@ -45,7 +45,7 @@
 
         $rs = $db->query($sql);
 
-        header("location:consultaUsuario.php");                       
+        header("location:../consultaUsuario.php");                       
     }  
     else{
         global $db;
@@ -56,6 +56,6 @@
 
         $rs = $db->query($sql);
 
-        header("location:contacto.php?consulta=exito");
+        header("location:../contacto.php?consulta=exito");
     }
 ?>

@@ -1,5 +1,5 @@
 <?php 
-    require 'inc/conn.php';
+    require '../inc/conn.php';
 
     global $db;
     
@@ -10,9 +10,9 @@
 
         $rs = $db->query($sql);
 
-        header ("location: veSubcategoriaBaja.php?elim=exito");
+        header ("location: ../veSubcategoriaBaja.php?elim=exito");
     }
     else{
-        header ("location: veSubcategoriaBaja.php?error=data");
+        header ("location: ../veSubcategoriaBaja.php?error=data");
     }
 ?>

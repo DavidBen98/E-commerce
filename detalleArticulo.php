@@ -1,5 +1,5 @@
 <?php
-	include_once('config.php');
+	include_once('server/config.php');
     include_once ("encabezado.php");
     include("modalNovedades.php");
 	require_once 'inc/conn.php';

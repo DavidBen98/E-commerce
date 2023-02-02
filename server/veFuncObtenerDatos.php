@@ -1,5 +1,5 @@
 <?php 
-    require 'inc/conn.php';
+    require '../inc/conn.php';
 
     global $db;
 

@@ -1,5 +1,5 @@
 <?php 
-    require 'inc/conn.php';
+    require '../inc/conn.php';
     require 'funciones.php';
 
     global $db;
@@ -35,7 +35,7 @@
         ";
 
         $rs = $db -> query ($sql);
-        header ("location: veProductoBaja.php?elim=exito");
+        header ("location: ../veProductoBaja.php?elim=exito");
     }
     else{
         $categoria = $_POST['categoria'];

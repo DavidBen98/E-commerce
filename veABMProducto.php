@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php  
-    include ('config.php');
+    include ('server/config.php');
     include ("encabezado.php"); 
 
     if (!perfil_valido(1)) {

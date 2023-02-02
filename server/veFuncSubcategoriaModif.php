@@ -1,5 +1,5 @@
 <?php 
-    require 'inc/conn.php';
+    require '../inc/conn.php';
     include_once ("funciones.php");
 
     global $db;
@@ -9,7 +9,7 @@
 
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
-        header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=1#mensaje");
+        header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=1#mensaje");
     }
     
     if ($modNombre != null){
@@ -17,12 +17,12 @@
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
+            header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
         } else {
             $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $idSubcategoria");
             
             if ($modImagen == null){
-                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }
@@ -34,9 +34,9 @@
         if ($check == false){
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
-                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
+                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
             } else {
-                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
+                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
             }
         } else {
             $path = 'images/subcategorias/';
@@ -60,9 +60,9 @@
             $error = subirImagen($imagen, $url, $path);
     
             if ($error){
-                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
+                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
             } else {
-                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }

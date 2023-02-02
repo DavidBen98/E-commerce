@@ -20,7 +20,7 @@
     $id = $_GET['id'];
 
     $formulario = "
-        <form class='cont' action='veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
+        <form class='cont' action='server/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
             <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
     ";
             
@@ -54,7 +54,7 @@
                 </div>
             </form>
 
-            <form class='cont' action='veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
+            <form class='cont' action='server/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
     ";
 
     if (isset($_GET['modif'])){
@@ -232,7 +232,7 @@
             const completarDatos = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "veFuncObtenerDatos.php",
+                    url: "server/veFuncObtenerDatos.php",
                     data: "id=" + id,
                     success: function (datos){
                         let data = JSON.parse(datos);

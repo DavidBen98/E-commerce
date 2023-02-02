@@ -17,7 +17,7 @@
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
     $formulario = "
-        <form class='cont' action='veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='server/veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
                 <h1 style='width:100%;text-align:center;'>Alta producto</h1> ";
 
                 if (isset($_GET['alta'])){

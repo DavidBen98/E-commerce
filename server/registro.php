@@ -27,16 +27,16 @@
     }
 
     if ($i > 0){
-        header("location:login.php?reg=true&error=4");
+        header("location:../login.php?reg=true&error=4");
     }
     else if ($psw != $psw2){
-        header("location:login.php?reg=true&error=1");
+        header("location:../login.php?reg=true&error=1");
     }
     else if (strlen($dni) < 7 || strlen($dni) > 8){
-        header("location:login.php?reg=true&error=2");
+        header("location:../login.php?reg=true&error=2");
     }
     else if ($nombre == "" || $apellido == "" || $dni == "" || $email == "" || $provincia == "" || ($ciudad == "" && $provincia !="02") || $direccion == "" || $nombreUsuario == "" || $psw == ""){
-        header("location:login.php?reg=true&error=3");
+        header("location:../login.php?reg=true&error=3");
     }
     else{
         $psw = generar_clave_encriptada($psw);
@@ -132,6 +132,6 @@
 
         $rs = $db->query($insertar);
 
-        header("location:login.php?reg=true&registro=exitoso");
+        header("location:../login.php?reg=true&registro=exitoso");
     }
 ?>

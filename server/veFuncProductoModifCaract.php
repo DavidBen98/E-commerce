@@ -1,5 +1,5 @@
 <?php 
-    include ('inc/conn.php');
+    include ('../inc/conn.php');
 
     global $db;
 
@@ -61,9 +61,9 @@
 
         $rs = $db->query($sql);
 
-        header ("location: veProductoModif.php?id=$id&modif=exito");
+        header ("location: ../veProductoModif.php?id=$id&modif=exito");
     }
     else{
-        header ("location: veProductoModif.php?id=$id&error=data");
+        header ("location: ../veProductoModif.php?id=$id&error=data");
     }
 ?>

@@ -1,5 +1,5 @@
 <?php 
-    require 'inc/conn.php';
+    require '../inc/conn.php';
     include ('funciones.php');
 
     global $db;
@@ -45,7 +45,7 @@
                             //inconveniente al subir imagen
                             $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$idSubcategoria'";
                             $rs = $db->query($sql);
-                            header ("location: veSubcategoriaAlta.php?error=1");
+                            header ("location: ../veSubcategoriaAlta.php?error=1");
                         }else{
                             $sql = "INSERT INTO `imagen_subcategorias`(`id_subcategoria`, `destination`) 
                                     VALUES ('$idSubcategoria','$result')
@@ -53,26 +53,26 @@
                             $rs=$db->query($sql);
 
                             //exitoso
-                            header ("location: veSubcategoriaAlta.php?alta=exito");
+                            header ("location: ../veSubcategoriaAlta.php?alta=exito");
                         }  
                     } else {
                         //El nombre ya existe
-                        header ("location: veSubcategoriaAlta.php?error=2");
+                        header ("location: ../veSubcategoriaAlta.php?error=2");
                     }
                 } else {
                     //categoria no existente en bd
-                    header ("location: veSubcategoriaAlta.php?error=5");
+                    header ("location: ../veSubcategoriaAlta.php?error=5");
                 }
             } else {
                 //categoria vacia
-                header ("location: veSubcategoriaAlta.php?error=6");
+                header ("location: ../veSubcategoriaAlta.php?error=6");
             }
         } else {
             //nombre vacio
-            header ("location: veSubategoriaAlta.php?error=3");     
+            header ("location: ../veSubategoriaAlta.php?error=3");     
         } 
     } else {
         //imagen vacia
-        header ("location: veSubcategoriaAlta.php?error=4");
+        header ("location: ../veSubcategoriaAlta.php?error=4");
     }
 ?>

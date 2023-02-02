@@ -1,5 +1,5 @@
 <?php 
-    include ('inc/conn.php');
+    include ('../inc/conn.php');
 
     global $db;
 
@@ -64,9 +64,9 @@
         //Mover todos los archivos de subcategoria a otra carpeta de categorias
         rename($rutaAntigua, "images/".$idCategoria.'/'.$idSubcategoria);
 
-        header ("location: veSubcategoriaModif.php?modifU=exito");
+        header ("location: ../veSubcategoriaModif.php?modifU=exito");
     }
     else{
-        header ("location: veSubcategoriaModif.php?errorU=data");
+        header ("location: ../veSubcategoriaModif.php?errorU=data");
     }
 ?>

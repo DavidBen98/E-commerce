@@ -1,5 +1,5 @@
 <?php 
-    require 'inc/conn.php';
+    require '../inc/conn.php';
     include_once ("funciones.php");
 
     global $db;
@@ -11,9 +11,9 @@
 
         $rs = $db->query($sql);
 
-        header ("location: veCategoriaBaja.php?elim=exito");
+        header ("location: ../veCategoriaBaja.php?elim=exito");
     }
     else{
-        header ("location: veCategoriaBaja.php?error=data");
+        header ("location: ../veCategoriaBaja.php?error=data");
     }
 ?>

@@ -12,7 +12,7 @@
     $listas = obtenerCategorias();
 
 	$formulario =" 
-        <form action='veFuncCategoriaBaja.php' onsubmit='return validarBajaCategoria()' method='post' class='cont'>
+        <form action='server/veFuncCategoriaBaja.php' onsubmit='return validarBajaCategoria()' method='post' class='cont'>
             <h1 style='width:100%;text-align:center;'>Baja categoría</h1>
 
             <label for='categoria'>CATEGORÍA</label>

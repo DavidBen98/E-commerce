@@ -1,5 +1,5 @@
 <?php   
-    include_once ("funciones.php");
+    include_once ("server/funciones.php");
     $cantCarrito = cantidadCarrito();
 
     if (perfil_valido(1)){

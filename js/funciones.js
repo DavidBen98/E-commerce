@@ -43,7 +43,7 @@ window.onload = function (){
             window.location.href='consultaUsuario.php';
         }
         else if (ev.target.matches('#btnCerrarSesion')){
-            window.location.href='cerrarSesion.php';
+            window.location.href='server/cerrarSesion.php';
         }
         else if (ev.target.matches('#procederCompra')){
             window.location.href='pago.php';
@@ -206,7 +206,7 @@ const agregarFav = (id) => {
 
         $.ajax({
             data: param,
-            url: "agregarFavorito.php?id="+id,
+            url: "server/agregarFavorito.php?id="+id,
             method: "post",
             success: function(data) {
                 if (data == 'ok'){
@@ -278,7 +278,7 @@ const modificarProducto = (id) => {
 
     $.ajax({
         data: param,
-        url: "modificarCarrito.php",
+        url: "server/modificarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -306,7 +306,7 @@ const agregarFavorito = (id) => {
 
     $.ajax({
         data: param,
-        url: "agregarFavorito.php?id="+id,
+        url: "server/agregarFavorito.php?id="+id,
         method: "post",
         success: function(data) {
             let url = window.location.href.split('?')[0];
@@ -358,7 +358,7 @@ const agregarProducto = (id) => {
 
     $.ajax({
         data: param,
-        url: "agregarCarrito.php",
+        url: "server/agregarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -414,7 +414,7 @@ const agregarProductoCompra = (id) => {
 
     $.ajax({
         data: param,
-        url: "agregarCarrito.php",
+        url: "server/agregarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);

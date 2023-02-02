@@ -14,7 +14,7 @@
     $formulario = "
         <h1 style='width:100%;text-align:center;'>Modificar subcategoría</h1>
         <div style='width:100%; display:flex; justify-content:center; margin-bottom: 20px;'>                
-            <form action='veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='formUbicacion' method='post' class='cont'>
+            <form action='server/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='formUbicacion' method='post' class='cont'>
                 <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
 
                 <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem; padding-top: 10px;'>Subcategoría a modificar</label>
@@ -48,7 +48,7 @@
     $formulario .="
         </form>
 
-        <form action='veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
+        <form action='server/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
             <h2 style='text-align:center; margin: auto;'>Características</h2>
         
             <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem; padding-top: 10px;'>Subcategoría a modificar</label>
@@ -256,7 +256,7 @@
 
                 $.ajax ({
                     type: "POST",
-                    url: "veObtenerImagen.php",
+                    url: "server/veObtenerImagen.php",
                     data: "subcategoria=" + subcat ,
                     success: function (r){
                         img.setAttribute('src', r);
