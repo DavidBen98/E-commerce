@@ -27,8 +27,8 @@
 
     global $db; 
     $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
-    $lista_carrito = array();
-    $productos_agregados = 0;
+    $listaCarrito = array();
+    $productosAgregados = 0;
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
@@ -38,14 +38,14 @@
             ");
 
             $sql -> execute ([$key]);
-            $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
-        $productos_agregados = count($lista_carrito);
+        $productosAgregados = count($listaCarrito);
     }
 
     $carrito = "<div class='carrito'>";
         
-    if ($lista_carrito != null){
+    if ($listaCarrito != null){
         $carrito .= "<div class='checkout-btn cont-btn'>";
     }
     else{
@@ -57,9 +57,9 @@
                     CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS
                     </h1>
                     <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
-                        $productos_agregados PRODUCTO";
+                        $productosAgregados PRODUCTO";
                     
-    if ($productos_agregados != 1){
+    if ($productosAgregados != 1){
         $carrito .= "S"; //PRODUCTOS
     }
 
@@ -68,7 +68,7 @@
         </div>
     ";
 
-    if ($lista_carrito == null){
+    if ($listaCarrito == null){
         $carrito .= "<div style='margin:10px;'> Aún no hay productos agregados</div>";
 
         $carrito .= "<div class='contenedor-botones'>
@@ -91,7 +91,7 @@
         $selectNumero = 1; 
         $total = 0;
 
-        foreach($lista_carrito as $producto){
+        foreach($listaCarrito as $producto){
             $subtotal = 0;
             $id = $producto['id'];
             $codigo = $producto['codigo'];
@@ -103,7 +103,7 @@
             $cantidad = intval($producto['cantidad']);
 
             $sql = "SELECT * FROM imagen_productos 
-                WHERE id_producto = $id AND portada=1
+                    WHERE id_producto = $id AND portada=1
             ";
 
             $result = $db -> query($sql);
@@ -119,8 +119,8 @@
 
             $precio = intval($producto['precio']);
             $descuento = intval($producto['descuento']);
-            $precio_desc = $precio - (($precio * $descuento) /100);
-            $subtotal += $cantidad * $precio_desc; 
+            $precioDescuento = $precio - (($precio * $descuento) /100);
+            $subtotal += $cantidad * $precioDescuento; 
             $total += $subtotal; 
 
             $carrito .= "<div class='contenedor'>
@@ -176,10 +176,10 @@
                     <div class='precio'>
                         <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 1% 1%; margin-left:4%;'>Precio unitario </p> 
                         <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 1% 1%; font-family: Arial,Helvetica,sans-serif;'>";
-                            if($precio != $precio_desc){
+                            if($precio != $precioDescuento){
                                 $carrito .= "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
                             }
-                                $carrito .= "<p>$$precio_desc</p>
+                                $carrito .= "<p>$$precioDescuento</p>
                         </div>
                         <p style='padding: 1% 0 0 1%; margin-left:4%'>Precio </p> 
                         <p id='precioS-$selectNumero' style='padding: 1% 0 0 1%; font-family: Arial,Helvetica,sans-serif;'>

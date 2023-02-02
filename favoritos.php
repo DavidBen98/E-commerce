@@ -15,33 +15,33 @@
     global $db;
     
     if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-        $id_usuario = $_SESSION['idUsuario'];
+        $idUsuario = $_SESSION['idUsuario'];
     }
     else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-        $id_usuario = $_SESSION['id'];
+        $idUsuario = $_SESSION['id'];
     }
     else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-        $id_usuario = $_SESSION["user_id"];
+        $idUsuario = $_SESSION["user_id"];
     }
 
     if (!isset($_SESSION['idUsuario'])){
         $sql = "SELECT u.id
                 FROM usuario as u
                 INNER JOIN usuario_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = '$id_usuario'
+                WHERE rs.id_social = '$idUsuario'
         ";
 
         $rs = $db->query($sql);
 
         foreach ($rs as $row){
-            $id_usuario = $row['id'];
+            $idUsuario = $row['id'];
         }
     }
 
     $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
             FROM `producto` as p 
             INNER JOIN `favorito` as f on p.id = f.id_producto 
-            WHERE f.id_usuario = '$id_usuario'
+            WHERE f.id_usuario = '$idUsuario'
     "; 
 
     $rs = $db->query($sql);

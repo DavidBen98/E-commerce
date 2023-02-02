@@ -41,11 +41,11 @@
                         <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
-        $barra_sup ="<div id='mobile-perfilUsuario'>
+        $barraSuperior ="<div id='mobile-perfilUsuario'>
                         $links
                     </div> ";
                     
-        return  $barra_sup;
+        return  $barraSuperior;
     }
 
     function crear_barra() {
@@ -76,11 +76,11 @@
                         <a href='cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
-        $barra_sup ="<div id='perfilUsuario'>
+        $barraSuperior ="<div id='perfilUsuario'>
                         $links
                     </div> ";
                     
-        return  $barra_sup;
+        return  $barraSuperior;
     }
 
     function perfil_valido($opcion) {
@@ -105,8 +105,8 @@
 	
 	function generar_clave_encriptada($password) {			
 		$salt = PSW_SEMILLA;		 
-		$psw_encript = hash('sha512', $salt.$password);				
-		return $psw_encript; 
+		$pswEncript = hash('sha512', $salt.$password);				
+		return $pswEncript; 
 	}
     
     function mostrarInfoPersonal(){
@@ -188,9 +188,9 @@
                                 <h2 class='descripcion'>". ucfirst($row['descripcion'])." </h2>
                                 <div style='display:block; justify-content:center; align-items:center;'>";
                                     if ($row['descuento'] != 0){
-                                        $precio_descuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
+                                        $precioDescuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
                                         echo "<h3 class='precio'>
-                                                 $". $precio_descuento ." 
+                                                 $". $precioDescuento ." 
                                               </h3>
                                               <h3 class='precio' style='font-size:0.8rem; text-decoration: line-through; margin:0;'>
                                                  $". ucfirst($row['precio']).
@@ -225,46 +225,46 @@
     function completarWhere ($select,$from,$innerJoin,$where,$filtros){
         global $db;
         $rs = "";	
-        $where_color = "";
-        $where_sql = "";
+        $whereColor = "";
+        $whereSql = "";
 
         if (isset($filtros[0])){
             if (count($filtros[0]) == 1){
-                $where_color .= " AND color = '" . $filtros[0][0]. "' ";
+                $whereColor .= " AND color = '" . $filtros[0][0]. "' ";
             }
             else{
-				$where_color .= " AND ( ";
+				$whereColor .= " AND ( ";
                 for ($i=0;$i<count($filtros[0])-1;$i++){ 
-                    $where_color .= " color = '". $filtros[0][$i] . "' OR " ;
+                    $whereColor .= " color = '". $filtros[0][$i] . "' OR " ;
                 }
                 $i = count($filtros[0])-1;
-                $where_color .= " color = '". $filtros[0][$i] . "') ";
+                $whereColor .= " color = '". $filtros[0][$i] . "') ";
             }
         }
 
-        $where_marca = "";
+        $whereMarca = "";
         if (isset($filtros[1])){
             if (count($filtros[1]) == 1){
-                $where_marca .= " AND marca = '" . $filtros[1][0]. "' ";
+                $whereMarca .= " AND marca = '" . $filtros[1][0]. "' ";
             }
             else{
-				$where_marca .= " AND ( ";
+				$whereMarca .= " AND ( ";
                 for ($i=0;$i<count($filtros[1])-1;$i++){
-                    $where_marca .= "  marca = '" . $filtros[1][$i]. "' OR ";
+                    $whereMarca .= "  marca = '" . $filtros[1][$i]. "' OR ";
                 }
                 $i = count($filtros[1])-1;
-                $where_marca .= " marca = '". $filtros[1][$i] . "') ";
+                $whereMarca .= " marca = '". $filtros[1][$i] . "') ";
             }
         }
 
-		$where_precio=""; 
+		$wherePrecio=""; 
 
 		if ($filtros[2] != null){
-			$where_sql .= "AND precio >=". $filtros[2];
+			$whereSql .= "AND precio >=". $filtros[2];
 		}
 
         if ($filtros[3] != null){
-            $where_sql .= " AND precio <= ". $filtros[3];
+            $whereSql .= " AND precio <= ". $filtros[3];
         }
 
         $orderBy = "";
@@ -282,14 +282,14 @@
             }
         }
 		
-        if($where_color != "" && $where_marca != ""){
-            $where_sql .=  $where_color . $where_marca;
+        if($whereColor != "" && $whereMarca != ""){
+            $whereSql .=  $whereColor . $whereMarca;
         }
-        else if ($where_color != ""){
-            $where_sql .=  $where_color;
+        else if ($whereColor != ""){
+            $whereSql .=  $whereColor;
         }
         else{
-            $where_sql .=  $where_marca;
+            $whereSql .=  $whereMarca;
         } 
 
 		if($orderMasVen != 0){
@@ -298,7 +298,7 @@
                    $innerJoin . " " . 
 				   "LEFT JOIN `detalle_compra` as `dc` ON `dc`.id_producto = `p`.codigo" . 
                    $where .
-				   $where_sql .
+				   $whereSql .
                    "GROUP  BY p.`codigo`
 					ORDER  BY SUM(dc.`cantidad`) DESC;
             ";
@@ -308,7 +308,7 @@
                     $from
                     $innerJoin
                     $where
-                    $where_sql
+                    $whereSql
                  	$orderBy
             ";  
 		}
@@ -335,7 +335,8 @@
         if (is_int($categoria)){
             $sql  = "SELECT c.nombre_categoria
                     FROM `categoria` as c
-                    WHERE c.id_categoria = '$categoria'";
+                    WHERE c.id_categoria = '$categoria'
+            ";
             $resultado = $db->query($sql);
             
             foreach($resultado as $row){
@@ -350,7 +351,8 @@
         if (is_int($subcategoria)){
             $sql  = "SELECT s.nombre_subcategoria
                     FROM `subcategoria` as s
-                    WHERE s.id_subcategoria = '$subcategoria'";
+                    WHERE s.id_subcategoria = '$subcategoria'
+            ";
             
             $resultado = $db->query($sql);
 
@@ -450,11 +452,11 @@
             $result = $db->query($sql);
 
             foreach ($result as $r){
-                $img_cat = $r['destination'];
+                $imgCat = $r['destination'];
             }
 
             echo " <div class='cont-images'> 
-                        <img src= '$img_cat' alt='$nomCat' class='img-cat'>
+                        <img src= '$imgCat' alt='$nomCat' class='img-cat'>
                         <div class='texto'>
                             <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
             ";
@@ -563,17 +565,17 @@
 		$arrMarcas = [];
 		//$variable = substr($producto,0,4);
 		
-		//$where_sql = " WHERE codigo like '$variable%'";
+		//$whereSql = " WHERE codigo like '$variable%'";
         $innerJoin = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
         ";
 
-		$where_sql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
+		$whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
 
 		$sql  = "SELECT p.id_categoria, p.id_subcategoria,descripcion, material,color,caracteristicas,marca,stock, precio
 				FROM `producto` as p
                 $innerJoin
-				$where_sql
+				$whereSql
         ";
 
 		$rs = $db->query($sql); 
@@ -590,7 +592,7 @@
 		$sql1 = "SELECT min(precio) 
                  FROM `producto` as p
                  $innerJoin
-                 $where_sql
+                 $whereSql
 		";
 
 		$rs1 = $db->query($sql1);
@@ -602,7 +604,7 @@
 		$sql2 = "SELECT max(precio) 
                 FROM `producto` as p
                 $innerJoin
-                $where_sql
+                $whereSql
 		";
 
 		$rs2 = $db->query($sql2);
@@ -682,7 +684,8 @@
         $sql = "SELECT id_social, id_usuario
                 FROM `usuario_rs` as rs
                 INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                $where";
+                $where
+        ";
 
         $resultado = $db->query($sql);
 
@@ -710,7 +713,8 @@
         $sql = "SELECT id_social, id_usuario
                 FROM `usuario_rs` as rs
                 INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                WHERE id_social = '$id' AND servicio = '$redSocial'";
+                WHERE id_social = '$id' AND servicio = '$redSocial'
+        ";
 
         $resultado = $db->query($sql);
 
@@ -741,7 +745,8 @@
 
         $sql = "SELECT nombreUsuario
                 FROM usuario
-                $where";
+                $where
+        ";
         
         $result = $db->query($sql);
 
@@ -946,7 +951,7 @@
         return rmdir($dir);
     }
 
-    function uploadImage($imagen, $url, $destination){
+    function subirImagen($imagen, $url, $destination){
         $imagen_name = $imagen['name'];
         $imagen_tmp = $imagen["tmp_name"];
         $imagen_error = $imagen['error'];

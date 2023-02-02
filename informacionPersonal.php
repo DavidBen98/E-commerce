@@ -39,8 +39,8 @@
 
     $infoPersonal = "";
     foreach ($rs as $row) {
-        $prov = isset($row['provincia'])? $row['provincia'] : null;
-        $prov = json_encode($prov);
+        $provincia = isset($row['provincia'])? $row['provincia'] : null;
+        $provincia = json_encode($provincia);
 
         $ciudad =  isset($row['ciudad'])? $row['ciudad'] : null;
         $ciudad = json_encode ($ciudad);
@@ -105,7 +105,7 @@
     }
 
     $infoPersonal .=            "<div class='renglon' style='border:none;'>
-                                    <input type='button' id='modificarDatos' onclick='modDatos($prov)' class='btn' value='Modificar datos'>
+                                    <input type='button' id='modificarDatos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
                                     <input type='button' id='cancelar' class='btn' value='Cancelar' style='display:none;'>  
                                     <input type='submit' id='confirmar' class='btn' value='Confirmar' style='display:none;'>
                                 </div>";

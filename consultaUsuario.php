@@ -14,21 +14,19 @@
                  
     global $db;
     
-    $id = "";
-
     if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-        $id_usuario = $_SESSION['idUsuario'];
+        $idUsuario = $_SESSION['idUsuario'];
     }
     else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-        $id_usuario = $_SESSION['id'];
+        $idUsuario = $_SESSION['id'];
     }
     else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
-        $id_usuario = $_SESSION["id_tw"];
+        $idUsuario = $_SESSION["id_tw"];
     }
 
     $sql= "SELECT c.texto, c.respondido
             FROM `consulta` as c INNER JOIN `usuario` as u ON (c.usuario_id = u.id)
-            WHERE c.usuario_id='$id_usuario'
+            WHERE c.usuario_id='$idUsuario'
     "; 
 
     $rs = $db->query($sql);

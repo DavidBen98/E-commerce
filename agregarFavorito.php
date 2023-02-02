@@ -9,37 +9,37 @@
 	else{
         global $db;
     
-        $id_prod = $_GET['id'];
+        $idProducto = $_GET['id'];
     
         if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-            $id_usuario = $_SESSION['idUsuario'];
+            $idUsuario = $_SESSION['idUsuario'];
         }
         else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-            $id_usuario = $_SESSION['id'];
+            $idUsuario = $_SESSION['id'];
         }
         else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-            $id_usuario = $_SESSION["user_id"];
+            $idUsuario = $_SESSION["user_id"];
         }
     
         if (!isset($_SESSION['idUsuario'])){
             $sql = "SELECT u.id
                     FROM usuario as u
                     INNER JOIN usuario_rs as rs ON rs.id = u.id
-                    WHERE rs.id_social = $id_usuario
+                    WHERE rs.id_social = $idUsuario
             ";
     
             $rs = $db->query($sql);
     
             foreach ($rs as $row){
-                $id_usuario = $row['id'];
+                $idUsuario = $row['id'];
             }
         }
     
         $sql = "SELECT id_producto
                 FROM favorito
-                WHERE '$id_prod' NOT IN(SELECT id_producto
+                WHERE '$idProducto' NOT IN(SELECT id_producto
                                         FROM favorito
-                                        WHERE id_usuario = '$id_usuario')
+                                        WHERE id_usuario = '$idUsuario')
         ";
     
         $rs = $db->query($sql);
@@ -51,7 +51,7 @@
     
         $sql = "SELECT id_producto
                 FROM favorito
-                WHERE id_usuario = '$id_usuario'
+                WHERE id_usuario = '$idUsuario'
         ";
     
         $rs = $db->query ($sql);
@@ -62,7 +62,7 @@
         }
     
         if ($i > 0 || $j == 0){ //Si no está cargado ese producto o todavia no hay ningun producto con ese usuario
-            $sql = "INSERT INTO `favorito`(`id_producto`, `id_usuario`) VALUES ('$id_prod','$id_usuario')";
+            $sql = "INSERT INTO `favorito`(`id_producto`, `id_usuario`) VALUES ('$idProducto','$idUsuario')";
     
             $rs = $db->query ($sql);
             $datos = 'ok';

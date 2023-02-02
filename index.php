@@ -63,20 +63,22 @@
             //Si no existe una persona con ese nombre de usuario
             if (!$existe){
                 $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil) VALUES
-                ('$nombre$apellido','$nombre', '$apellido', '$email', 'U')";
+                        ('$nombre$apellido','$nombre', '$apellido', '$email', 'U')
+                ";
             }
             else{
                 $sql = "INSERT INTO usuario (nombre, apellido, email, perfil) VALUES
-                ('$nombre', '$apellido', '$email', 'U')";
+                        ('$nombre', '$apellido', '$email', 'U')
+                ";
             }
             
             $db->query($sql);
 
-            $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
-            $_SESSION['idUsuario'] = $usuario_id;
+            $idUsuario = $db->lastInsertId(); //ID de la tabla usuario
+            $_SESSION['idUsuario'] = $idUsuario;
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                    ('$usuario_id', '$id', 'Google')
+                    ('$idUsuario', '$id', 'Google')
             ";
 
             $db->query($sql);
@@ -142,15 +144,15 @@
             
             $db->query($sql);
 
-            $usuario_id = $db->lastInsertId(); //ID de la tabla usuario
+            $idUsuario = $db->lastInsertId(); //ID de la tabla usuario
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                                ('$usuario_id', '$id', 'Twitter')
+                                ('$idUsuario', '$id', 'Twitter')
             ";
 
             $db->query($sql);  
             
-            $_SESSION['id_tw'] = $usuario_id;
+            $_SESSION['id_tw'] = $idUsuario;
         }
         else{
             $sql = "SELECT u.id

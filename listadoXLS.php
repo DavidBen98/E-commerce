@@ -29,24 +29,24 @@
 					</tr>
 		";
 
-		$where_sql = " WHERE ";
+		$whereSql = " WHERE ";
 
 		//trae el codigo de las imagenes que muestra actualmente
 		if (count($imagenes) == 1){ 
-			$where_sql .= " codigo = '$imagenes[0]' ";
+			$whereSql .= " codigo = '$imagenes[0]' ";
 		}
 		else{
 			for ($i=0;$i<count($imagenes)-1;$i++){
-				$where_sql .= " codigo = '$imagenes[$i]' OR  ";
+				$whereSql .= " codigo = '$imagenes[$i]' OR  ";
 			}
 			$i = count($imagenes)-1;
-			$where_sql .= " codigo = '$imagenes[$i]' ";
+			$whereSql .= " codigo = '$imagenes[$i]' ";
 		}
 
 
 		$sql = "SELECT codigo, descripcion, material, color, marca, caracteristicas, precio
 				FROM producto
-				$where_sql
+				$whereSql
 		";
 		
 		$rs = $db->query($sql);

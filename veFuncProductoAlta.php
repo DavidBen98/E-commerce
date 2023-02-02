@@ -75,24 +75,24 @@
 
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
-                $imagen_destination = 'images/'. $categoria . '/'. $subcategoria . '/' . $id_producto . '/';
+                $imagenDestino = 'images/'. $categoria . '/'. $subcategoria . '/' . $id_producto . '/';
                 $imagen_name_new =  'portada.' . $imagen_ext;
 
                 //Para agregar una imagen al producto
                 //$imagen_name_new = $id_producto . '.' . $imagen_ext;
                 
-                mkdir($imagen_destination, 0777, true);
+                mkdir($imagenDestino, 0777, true);
                 
-                $imagen_destination .= $imagen_name_new;
+                $imagenDestino .= $imagen_name_new;
 
-                if(move_uploaded_file($imagen_tmp, $imagen_destination)){
+                if(move_uploaded_file($imagen_tmp, $imagenDestino)){
                     $sql = "INSERT INTO imagen_productos (id_producto, destination, portada) VALUES
-                    ('$id_producto', '$imagen_destination', 1)
+                    ('$id_producto', '$imagenDestino', 1)
                     ";
 
                     $rs = $db -> query($sql);
 
-                    header ("location: veProductoAlta.php?alta=".$imagen_destination);
+                    header ("location: veProductoAlta.php?alta=".$imagenDestino);
                 }else{
                     $sql = "DELETE FROM producto WHERE id = '$id_producto'";
                     $rs = $db->query($sql);

@@ -36,20 +36,20 @@
         
                         $rs = $db->query($sql);
         
-                        $id_subcategoria = $db->lastInsertId();
+                        $idSubcategoria = $db->lastInsertId();
         
                         $imagen = $_FILES['imagen'];
-                        $imagen_destination = 'images/subcategorias/' . $id_subcategoria;
-                        $result = uploadImage($imagen, 'veSubcategoriaAlta.php', $imagen_destination);
+                        $imagenDestino = 'images/subcategorias/' . $idSubcategoria;
+                        $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
         
                         if(!$result){
                             //inconveniente al subir imagen
-                            $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$id_subcategoria'";
+                            $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$idSubcategoria'";
                             $rs = $db->query($sql);
                             header ("location: veSubcategoriaAlta.php?error=1");
                         }else{
                             $sql = "INSERT INTO `imagen_subcategorias`(`id_subcategoria`, `destination`) 
-                                    VALUES ('$id_subcategoria','$result')
+                                    VALUES ('$idSubcategoria','$result')
                             ";
                             $rs=$db->query($sql);
 

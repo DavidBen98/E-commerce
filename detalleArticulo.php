@@ -1,6 +1,7 @@
 <?php
 	include_once('config.php');
     include_once ("encabezado.php");
+    include("modalNovedades.php");
 	require_once 'inc/conn.php';
     include_once("pie.php");
 	 
@@ -28,11 +29,11 @@
 	}
 
 	$variable = $_GET['art'] ;
-	$where_sql = "WHERE codigo = '$variable'";
+	$whereSql = "WHERE codigo = '$variable'";
 
 	$sql = "SELECT *
 			FROM `producto`
-			$where_sql 
+			$whereSql 
 	";
 
 	$rs = $db->query($sql);
@@ -111,9 +112,9 @@
 									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>";
 									
                                     if ($row['descuento'] != 0){
-                                        $precio_descuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
+                                        $precioDescuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
                                         $contArticulo .=  "<h3 class='precio' style='display:flex; text-decoration:line-through; margin: 10px 0;'>
-															$". $precio_descuento ." 
+															$". $precioDescuento ." 
 														</h3>
 											  			<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
         								";
@@ -355,6 +356,7 @@
 		<?= $ruta ?>
 
 		<?= $contArticulo ?>
+		<?= $modalNovedades ?>
 	</main>
 	
 	<footer id='pie'>

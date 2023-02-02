@@ -31,8 +31,8 @@
                 $id_categoria = $db->lastInsertId();
 
                 $imagen = $_FILES['imagen'];
-                $imagen_destination = 'images/categorias/' . $id_categoria;
-                $result = uploadImage($imagen, 'veCategoriaAlta.php', $imagen_destination);
+                $imagenDestino = 'images/categorias/' . $id_categoria;
+                $result = subirImagen($imagen, 'veCategoriaAlta.php', $imagenDestino);
 
                 if(!$result){
                     //inconveniente al subir imagen

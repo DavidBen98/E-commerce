@@ -3,13 +3,13 @@
     include_once ("funciones.php");
 
     global $db;
-    $id_subcategoria = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
+    $idSubcategoria = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
     $modNombre = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
     $modImagen = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
 
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
-        header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&error=1#mensaje");
+        header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=1#mensaje");
     }
     
     if ($modNombre != null){
@@ -17,12 +17,12 @@
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&error=2#mensaje");
+            header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
         } else {
-            $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $id_subcategoria");
+            $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $idSubcategoria");
             
             if ($modImagen == null){
-                header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&modif=exito#mensaje");
+                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }
@@ -34,16 +34,16 @@
         if ($check == false){
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
-                header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&nombre=exito&error=3#mensaje");
+                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
             } else {
-                header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&error=3#mensaje");
+                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
             }
         } else {
             $path = 'images/subcategorias/';
             $files = scandir($path);
         
             foreach($files as $file){
-                if ($file == $id_subcategoria.".png" || $file == $id_subcategoria.".jpg" || $file == $id_subcategoria.".jpeg"){
+                if ($file == $idSubcategoria.".png" || $file == $idSubcategoria.".jpg" || $file == $idSubcategoria.".jpeg"){
                     $path .= $file;
                 }
             }
@@ -56,13 +56,13 @@
             }
     
             $url = 'vesubcategoriaModif.php';
-            $path = 'images/subcategorias/'.$id_subcategoria;
-            $error = uploadImage($imagen, $url, $path);
+            $path = 'images/subcategorias/'.$idSubcategoria;
+            $error = subirImagen($imagen, $url, $path);
     
             if ($error){
-                header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&error=4#mensaje");
+                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
             } else {
-                header ("location: vesubcategoriaModif.php?subcategoria=$id_subcategoria&modif=exito#mensaje");
+                header ("location: vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }

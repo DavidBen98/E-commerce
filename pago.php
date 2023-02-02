@@ -10,7 +10,7 @@
 
     $preference = new MercadoPago\Preference();
 
-    $productos_mp = array();
+    $productosMP = array();
 
     global $db; 
 
@@ -22,8 +22,8 @@
     ";
         
     $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
-    $lista_carrito = array();
-    $productos_agregados = 0;
+    $listaCarrito = array();
+    // $productos_agregados = 0;
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
@@ -31,7 +31,7 @@
                                  FROM producto
                                  WHERE id=?");
             $sql -> execute ([$key]);
-            $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
     }
     else{
@@ -41,7 +41,7 @@
 
     $carrito = "<div class='carrito'>";
         
-    if ($lista_carrito != null){
+    if ($listaCarrito != null){
         $carrito .= "<div class='checkout-btn cont-btn'>";
     }
     else{
@@ -60,7 +60,7 @@
     $total = 0;
     $i = 1;
 
-    foreach($lista_carrito as $producto){
+    foreach($listaCarrito as $producto){
         $subtotal = 0;
         $id = $producto['id'];
         $codigo = $producto['codigo'];
@@ -77,24 +77,24 @@
 
         $precio = intval($producto['precio']);
         $descuento = intval($producto['descuento']);
-        $precio_desc = $precio - (($precio * $descuento) /100);
-        $subtotal += $cantidad * $precio_desc; 
+        $precioDescuento = $precio - (($precio * $descuento) /100);
+        $subtotal += $cantidad * $precioDescuento; 
         $total += $subtotal; 
 
         $item = new MercadoPago\Item();
         $item->id = $i;
         $item->title = $descripcion;
         $item->quantity = $cantidad;
-        $item->unit_price = $precio_desc;
+        $item->unit_price = $precioDescuento;
         $item->currency_id = "ARS";
 
-        array_push($productos_mp, $item);
+        array_push($productosMP, $item);
         unset ($item);
 
         $i++;
 
         $sql = "SELECT * FROM imagen_productos 
-            WHERE id_producto = $id AND portada=1
+                WHERE id_producto = $id AND portada=1
         ";
 
         $result = $db -> query($sql);
@@ -417,7 +417,7 @@
     
     <!--MERCADO PAGO-->
     <?php
-        $preference->items = $productos_mp;
+        $preference->items = $productosMP;
 
         $preference->back_urls = array (
             "success" => "localhost/E-commerceMuebleria/callback.php",

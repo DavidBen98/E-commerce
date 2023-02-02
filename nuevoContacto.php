@@ -30,17 +30,17 @@
         global $db;
 
         if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-            $id_usuario = $_SESSION['idUsuario'];
+            $idUsuario = $_SESSION['idUsuario'];
         }
         else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-            $id_usuario = $_SESSION['id'];
+            $idUsuario = $_SESSION['id'];
         }
         else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
-            $id_usuario = $_SESSION["id_tw"];
+            $idUsuario = $_SESSION["id_tw"];
         }
 
         $sql = "INSERT INTO `consulta` (`nombre`, `apellido`, `texto`,`usuario_id`) 
-                VALUES ('$nombre','$apellido','$txtIngresado','$id_usuario')
+                VALUES ('$nombre','$apellido','$txtIngresado','$idUsuario')
         "; 
 
         $rs = $db->query($sql);

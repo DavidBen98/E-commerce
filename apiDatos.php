@@ -8,24 +8,24 @@
     $cant = count ($datos);
     $i = 0;
     for ($i; $i < $cant; $i++){
-        $nombre_prov = $datos[$i]->nombre;
-        $id_prov = $datos[$i] ->id;
+        $nombreProvincia = $datos[$i]->nombre;
+        $idProvincia = $datos[$i] ->id;
 
         if ($i == 0){
-            $a[0] = array('id' => $id_prov, 'nombre' => $nombre_prov);
+            $provincias[0] = array('id' => $idProvincia, 'nombre' => $nombreProvincia);
         }
         else{
-            $a[$i]= ['id' => $id_prov, 'nombre' => $nombre_prov]; 
+            $provincias[$i]= ['id' => $idProvincia, 'nombre' => $nombreProvincia]; 
         }
     }
 
-    sort ($a);
+    sort ($provincias);
 
     $select = "<select id='provincia' name='provincia' title='Provincia'>
                 <option value='-1'>Seleccione una opción</option>
     ";
 
-    foreach ($a as $provincia){
+    foreach ($provincias as $provincia){
         if (isset($_SESSION ['provincia'])){
             if ($_SESSION ['provincia'] == $provincia){
                 $select.= "<option value=".$provincia['id']."selected>". $provincia['nombre']. "</option>";

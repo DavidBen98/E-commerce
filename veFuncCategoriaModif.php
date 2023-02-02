@@ -3,13 +3,13 @@
     include_once ("funciones.php");
 
     global $db;
-    $id_categoria = isset($_POST['categoria'])? $_POST['categoria']: null;
+    $idCategoria = isset($_POST['categoria'])? $_POST['categoria']: null;
     $modNombre = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
     $modImagen = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
 
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
-        header ("location: veCategoriaModif.php?categoria=$id_categoria&error=1#mensaje");
+        header ("location: veCategoriaModif.php?categoria=$idCategoria&error=1#mensaje");
     }
     
     if ($modNombre != null){
@@ -17,12 +17,12 @@
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: veCategoriaModif.php?categoria=$id_categoria&error=2#mensaje");
+            header ("location: veCategoriaModif.php?categoria=$idCategoria&error=2#mensaje");
         } else {
-            $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $id_categoria");
+            $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $idCategoria");
             
             if ($modImagen == null){
-                header ("location: veCategoriaModif.php?categoria=$id_categoria&modif=exito#mensaje");
+                header ("location: veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
             }
         }
     }
@@ -34,16 +34,16 @@
         if ($check == false){
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
-                header ("location: veCategoriaModif.php?categoria=$id_categoria&nombre=exito&error=3#mensaje");
+                header ("location: veCategoriaModif.php?categoria=$idCategoria&nombre=exito&error=3#mensaje");
             } else {
-                header ("location: veCategoriaModif.php?categoria=$id_categoria&error=3#mensaje");
+                header ("location: veCategoriaModif.php?categoria=$idCategoria&error=3#mensaje");
             }
         } else {
             $path = 'images/categorias/';
             $files = scandir($path);
         
             foreach($files as $file){
-                if ($file == $id_categoria.".png" || $file == $id_categoria.".jpg" || $file == $id_categoria.".jpeg"){
+                if ($file == $idCategoria.".png" || $file == $idCategoria.".jpg" || $file == $idCategoria.".jpeg"){
                     $path .= $file;
                 }
             }
@@ -56,13 +56,13 @@
             }
     
             $url = 'veCategoriaModif.php';
-            $path = 'images/categorias/'.$id_categoria;
-            $error = uploadImage($imagen, $url, $path);
+            $path = 'images/categorias/'.$idCategoria;
+            $error = subirImagen($imagen, $url, $path);
     
             if ($error){
-                header ("location: veCategoriaModif.php?categoria=$id_categoria&error=4#mensaje");
+                header ("location: veCategoriaModif.php?categoria=$idCategoria&error=4#mensaje");
             } else {
-                header ("location: veCategoriaModif.php?categoria=$id_categoria&modif=exito#mensaje");
+                header ("location: veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
             }
         }
     }

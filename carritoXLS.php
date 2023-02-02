@@ -32,8 +32,8 @@
         global $db; 
 
         $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
-        $lista_carrito = array();
-        $productos_agregados = 0;
+        $listaCarrito = array();
+        $productosAgregados = 0;
 
         if ($productos != null){
             foreach ($productos as $key => $cantidad){
@@ -44,9 +44,9 @@
                 ");
 
                 $sql -> execute ([$key]);
-                $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+                $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
             }
-            $productos_agregados = count($lista_carrito);
+            $productosAgregados = count($listaCarrito);
         }
 
         $totPrecioUnid = 0; 
@@ -55,15 +55,15 @@
         $totSubTotal = 0;
         $total = 0;
 
-        foreach($lista_carrito as $producto){
+        foreach($listaCarrito as $producto){
             $subtotal = 0;
             $subcategoria = $producto['nombre_subcategoria'];
             $descripcion = ucfirst($producto['descripcion']);
             $cantidad = intval($producto['cantidad']);
             $precio = intval($producto['precio']);
             $descuento = intval($producto['descuento']);
-            $precio_desc = $precio - (($precio * $descuento) /100);
-            $subtotal += $cantidad * $precio_desc; 
+            $precioDescuento = $precio - (($precio * $descuento) /100);
+            $subtotal += $cantidad * $precioDescuento; 
             $total += $subtotal;             
                             
             echo "<tbody>                                        
@@ -78,7 +78,7 @@
                             $precio     
                         </td>
                         <td>
-                            $precio_desc
+                            $precioDescuento
                         </td>
                         <td>
                             $cantidad
@@ -90,7 +90,7 @@
             ";
 
             $totPrecioUnid += $precio;
-            $totPrecioDesc += $precio_desc;
+            $totPrecioDesc += $precioDescuento;
             $totCantidad += $cantidad;
             $totSubTotal += $subtotal;
         }      

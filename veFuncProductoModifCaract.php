@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php 
     include ('inc/conn.php');
 
