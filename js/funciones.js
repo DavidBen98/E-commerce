@@ -613,24 +613,57 @@ const validarLogin = () => {
     psw = document.getElementById('psw').value;
     
     txtErrores = "";
+    let devolucion = true;
 
     if(nombreUser == null || nombreUser.trim() == ""){
         txtErrores += "Error: debe ingresar el nombre de usuario";
+        devolucion = false;
     }     
     else if(psw == null || psw.trim() == ""){
         txtErrores += "Error: debe ingresar la contraseña";
+        devolucion = false;
     }          
-    
-    let devolucion = false;
-    
-    if(txtErrores == ""){
-        devolucion = true;
-    }
 
     if (!devolucion){
         let error = document.getElementById('p_error');
         error.style.display = 'block';
         let hijo = document.createTextNode(txtErrores);
+        error.appendChild(hijo);
+    }
+
+    return devolucion;
+}
+
+const validarRegistro = () => {
+    document.getElementById('p_error').innerHTML="";
+
+    let nombre = document.getElementById('nombre').value;
+    let apellido = document.getElementById('apellido').value;
+    let dni = document.getElementById('dni').value;
+    let email = document.getElementById('email').value;
+    let provincia = document.getElementById("provincia").selectedIndex;
+    let ciudad = document.getElementById("ciu") !== null? document.getElementById("ciu").selectedIndex : -1;
+    let calle = document.getElementById('calle').value;
+    let numero = document.getElementById('numero').value;
+    let nombreUsuario = document.getElementById('nombreUsuario').value;
+    let psw = document.getElementById('psw').value;
+    let psw2 = document.getElementById('psw2').value;
+
+    txtErrores = "";
+    let devolucion = true;
+
+    if(nombre === null || nombre.trim() === "" || apellido === null || apellido.trim() === "" ||
+    dni === null || dni.trim() === "" || dni.trim().length < 7 || email === null || email.trim() === "" ||
+    provincia === -1 || (provincia !== 02 && ciudad === -1) || calle === null || calle === "" ||
+    numero === null || numero.trim() === "" || nombreUsuario === null || nombreUsuario.trim() === "" ||
+    psw === null || psw.trim() === "" || psw !== pws2){
+        devolucion = false;
+    }            
+
+    if (!devolucion){
+        let error = document.getElementById('p_error');
+        error.style.display = 'block';
+        let hijo = document.createTextNode("Los datos ingresados no son correctos, verifique que los campos estan completos y cumplen con los requisitos del sitio.");
         error.appendChild(hijo);
     }
 
@@ -1060,10 +1093,6 @@ const validarModal = () => {
     }
 
     return validate;
-}
-
-const validarRegistro = () => {
-
 }
 
 //PRODUCTOS

@@ -33,22 +33,22 @@
 							<div class='form'>
 								<div class='cont-reg'>
 									<label for='nombre' class='form-label'>Nombre</label>
-									<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' required>	
+									<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' >	
 								</div>  
 
 								<div class='cont-reg'>
 									<label for='apellido' class='form-label'>Apellido</label>				
-									<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' required>
+									<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' >
 								</div>
 
 								<div class='cont-reg'>
 									<label for='dni' class='form-label'>Número de DNI </label>
-									<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' required>	
+									<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' >	
 								</div>
 								
 								<div class='cont-reg'>
 									<label for='email' class='form-label'>Email</label>
-									<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' required>	
+									<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' >	
 								</div> 
 								
 								<div class='cont-reg'>
@@ -63,9 +63,9 @@
 								<div class='cont-reg'>
 									<label class='form-label'>Dirección </label>
 									<label class='form-label' for='calle' style='display:none;'>Calle </label>
-									<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' required>	
+									<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
 									<label class='form-label' for='numero' style='display:none;'>Numero</label>
-									<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' required>	
+									<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
 									<label class='form-label' for='piso' style='display:none;'>Piso</label>
 									<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
 								</div> 
@@ -75,17 +75,17 @@
 								
 								<div class='cont-reg'>
 									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
 								</div> 
 								
 								<div class='cont-reg'>
 									<label for='psw' class='form-label'>Contraseña</label>				
-									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' required>
+									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' >
 								</div>
 									
 								<div class='cont-reg'>
 									<label for='psw2' class='form-label'>Repetir contraseña</label>				
-									<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' required>
+									<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' >
 								</div>
 
 								<div class='cont-reg'>
@@ -93,11 +93,12 @@
 
 								<div class='cont-reg l-novedades'>
 									<label>
-										<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value='1'>Suscripción a las novedades
+										<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value=''>Suscripción a las novedades
 									</label>			
 								</div>
 								
 								<div class='registro'>
+									<p class='p_error' id='p_error' style='display:none;'></p>
 									<button id='registrarse'>Registrarse</button>
 								</div>
 		";
@@ -146,12 +147,12 @@
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
 								<div class='cont-campo'>
 									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' required>	
+									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
 								</div>  
 
 								<div class='cont-campo'>
 									<label for='psw' class='form-label'>Contraseña</label>				
-									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' required>
+									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' >
 								</div>
 
 								<p class='p_error' id='p_error' style='display:none;'></p>
@@ -304,6 +305,7 @@
 		.registro{
 			width:90%;
 			display:flex;
+			flex-wrap: wrap;
 			align-items:end;
 			margin: 2%;
 		}
