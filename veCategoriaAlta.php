@@ -63,6 +63,29 @@
     }
 
     $formulario .= "</form>";
+
+    $categoriasInactivas = obtenerCategoriasInactivas();
+
+    $inactivas = "
+        <form class='cont' method='POST' action='controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
+            <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
+            $categoriasInactivas
+            <div class= 'agregar'>
+                <input type='submit' class='btn' name='bAgregarCat' title='Reactivar categoria' value='Reactivar categoria'>    
+            </div>
+    ";
+
+    if (isset($_GET['reactivacion'])){
+        $inactivas .= "
+            <div class='contenedor mensaje' id='reactivacion'>
+                <p> Exito <p/>
+            </div>
+        ";
+    }
+
+    $inactivas .= "
+        </form>
+    ";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -76,7 +99,16 @@
     <style>
         .cont{
             width:40%;
+            margin: 1px;
             height: auto;
+            justify-content:center;
+        }
+
+        .cont input, .cont label, .cont select{
+            width:100%;
+            height:40px;
+            text-align:center;
+            margin-bottom: 10px;
         }
 
         .btn{
@@ -101,6 +133,16 @@
             justify-content:center;
             flex-wrap: wrap;
         }
+
+        #mensaje, .mensaje{
+            background-color: black;
+            color : white;
+            margin-top : 20px;
+            margin-bottom : 20px;
+            padding : 10px;
+            border-radius : .5rem;
+            text-align : center;
+        }
     </style>
 </head>
 <body>
@@ -111,6 +153,7 @@
 
     <main id='main'>  
         <?= $formulario; ?> 
+        <?= $inactivas; ?>
     </main>
 
 </body>

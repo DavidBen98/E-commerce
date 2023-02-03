@@ -194,6 +194,15 @@
             padding: 0;
         }
 
+        #mensaje, .mensaje{
+            background-color: black;
+            color : white;
+            margin-top : 20px;
+            margin-bottom : 20px;
+            padding : 10px;
+            border-radius : .5rem;
+            text-align : center;
+        }
     </style>
 </head>
 <body>

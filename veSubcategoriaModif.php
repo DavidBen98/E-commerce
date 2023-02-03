@@ -141,6 +141,7 @@
 
         #formUbicacion{
             margin-right:20px;
+            height: 330px;
         }
 
         #main{
@@ -212,6 +213,15 @@
             margin: 10px 0 0 0;
         }
 
+        #mensaje, .mensaje{
+            background-color: black;
+            color : white;
+            margin-top : 20px;
+            margin-bottom : 20px;
+            padding : 10px;
+            border-radius : .5rem;
+            text-align : center;
+        }
     </style>
       <script>
 		document.addEventListener('DOMContentLoaded', () => {
