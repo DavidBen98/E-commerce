@@ -75,7 +75,7 @@
 
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
-                $imagenDestino = 'images/'. $categoria . '/'. $subcategoria . '/' . $id_producto . '/';
+                $imagenDestino = '../images/'. $categoria . '/'. $subcategoria . '/' . $id_producto . '/';
                 $imagen_name_new =  'portada.' . $imagen_ext;
 
                 //Para agregar una imagen al producto

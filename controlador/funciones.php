@@ -1,5 +1,5 @@
 <?php
-    if (str_contains($_SERVER["REQUEST_URI"],"server")){
+    if (str_contains($_SERVER["REQUEST_URI"],"controlador")){
         require_once '../inc/conn.php';
     } else{
         require_once 'inc/conn.php';
@@ -26,23 +26,23 @@
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='server/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='server/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barraSuperior ="<div id='mobile-perfilUsuario'>
@@ -61,23 +61,23 @@
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='server/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='server/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='server/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barraSuperior ="<div id='perfilUsuario'>
@@ -431,7 +431,9 @@
     function agregarImgCategorias (){
         global $db;
         $sql = "SELECT nombre_categoria, id_categoria
-        FROM `categoria`"; 
+                FROM `categoria`
+                WHERE activo = '1'
+        "; 
         
         $rs = $db->query($sql);
       
@@ -877,6 +879,7 @@
         //trae los nombres de las categorias
         $sql = "SELECT nombre_categoria, id_categoria
                 FROM `categoria` 
+                WHERE activo = '1'
                 GROUP BY nombre_categoria 
         "; 
     
@@ -901,12 +904,44 @@
         return $listas;
     }
 
+    function obtenerCategoriasInactivas(){
+        global $db; 
+
+        //trae los nombres de las categorias
+        $sql = "SELECT nombre_categoria, id_categoria
+                FROM `categoria` 
+                WHERE activo = '0'
+                GROUP BY nombre_categoria 
+        "; 
+    
+        $rs = $db->query($sql); 
+    
+        //lista de categorias
+        $listas = " 
+                <select id='categoria' class='hover' name='catInactivas'> 
+        ";
+    
+        $nomCat = "";
+        
+        foreach ($rs as $row) {
+            $listas .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
+            $nomCat .= $row['nombre_categoria'] . ",";	
+        }
+    
+        $arrNomCat = explode(",",$nomCat); 
+    
+        $listas .= " </select> "; 
+
+        return $listas;
+    }
+
     function obtenerSubcategorias(){
         global $db; 
 
         //trae los nombres de las categorias
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM `subcategoria` 
+                WHERE activo = '1'
                 GROUP BY nombre_subcategoria 
         "; 
     
@@ -915,6 +950,37 @@
         //lista de categorias
         $listas = " 
                 <select id='subcategoria' class='hover' name='subcategoria'> 
+        ";
+    
+        $nomCat = "";
+        
+        foreach ($rs as $row) {
+            $listas .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
+            $nomCat .= $row['nombre_subcategoria'] . ",";	
+        }
+    
+        $arrNomCat = explode(",",$nomCat); 
+    
+        $listas .= " </select> "; 
+
+        return $listas;
+    }
+
+    function obtenerSubcategoriasInactivas(){
+        global $db; 
+
+        //trae los nombres de las categorias
+        $sql = "SELECT nombre_subcategoria, id_subcategoria
+                FROM `subcategoria` 
+                WHERE activo = '0'
+                GROUP BY nombre_subcategoria 
+        "; 
+    
+        $rs = $db->query($sql); 
+    
+        //lista de categorias
+        $listas = " 
+                <select id='subcategoria' class='hover' name='subInactivas'> 
         ";
     
         $nomCat = "";
@@ -974,6 +1040,7 @@
                 }
 
                 if(move_uploaded_file($imagen_tmp, $destination)){
+                    $destination = str_replace("../","",$destination);
                     return $destination;
                 }else{
                     return false;

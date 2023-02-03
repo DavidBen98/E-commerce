@@ -1,6 +1,6 @@
 <?php  
 	require_once('vendor/autoload.php');
-	require_once('server/config.php');
+	require_once('controlador/config.php');
     include("pie.php");
     include("modalNovedades.php");
 	include("encabezado.php");
@@ -21,7 +21,7 @@
 // 	";
 
 	if (isset($_GET['reg'])){
-	    include_once('server/apiDatos.php');
+	    include_once('controlador/apiDatos.php');
 	    
 		$ruta = "<ol class='ruta'>
 					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
@@ -29,7 +29,7 @@
 				</ol>
 		";
 
-		$formulario = "<form action='server/registro.php' onsubmit='return validarRegistro()' method='post' class='' id='form-registro'>
+		$formulario = "<form action='controlador/registro.php' onsubmit='return validarRegistro()' method='post' class='' id='form-registro'>
 							<div class='form'>
 								<div class='cont-reg'>
 									<label for='nombre' class='form-label'>Nombre</label>
@@ -142,7 +142,7 @@
 				</ol>
 		";
 
-		$formulario = "<form action='server/inicioSesion.php' onsubmit='return validarLogin()' method='post' class='formulario' novalidate>
+		$formulario = "<form action='controlador/inicioSesion.php' onsubmit='return validarLogin()' method='post' class='formulario' novalidate>
 							<div id='sesion'>
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
 								<div class='cont-campo'>

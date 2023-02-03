@@ -5,7 +5,7 @@
     
     $id = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
 
-    if ($nombre !== null){
+    if ($id !== null){
         $sql = "UPDATE subcategoria SET `activo`='0' WHERE id_subcategoria = '$id'";
 
         $rs = $db->query($sql);

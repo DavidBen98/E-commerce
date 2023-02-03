@@ -31,7 +31,7 @@
         echo "</select>";
     }
     else{
-        include_once 'server/apiDatos.php';
+        include_once 'controlador/apiDatos.php';
     }
 
     if (!empty($_POST['provincia'])){ //desde login(registrarse)

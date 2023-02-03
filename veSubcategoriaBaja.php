@@ -1,6 +1,5 @@
 <?php 
     include("encabezado.php");
-    include_once('funciones.php');
 
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -9,7 +8,7 @@
     $lista = obtenerSubcategorias();
 
     $formulario = " 
-        <form class='cont' action='server/veFuncSubcategoriaBaja' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='controlador/veFuncSubcategoriaBaja.php' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
             <label for='subcategoria' class=''>Subcategoría</label>
             $lista
             

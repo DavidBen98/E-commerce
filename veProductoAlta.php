@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
     include("encabezado.php");
-    include_once ("funciones.php");
 
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -17,7 +16,7 @@
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
     $formulario = "
-        <form class='cont' action='server/veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='controlador/veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
                 <h1 style='width:100%;text-align:center;'>Alta producto</h1> ";
 
                 if (isset($_GET['alta'])){
@@ -170,7 +169,7 @@
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "server/actualizarCodigo.php",
+                    url: "controlador/actualizarCodigo.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (nroProducto){
                         let input = document.getElementById('codigo');

@@ -1,6 +1,5 @@
 <?php 
     include("encabezado.php");
-    include_once('funciones.php');
 
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -9,7 +8,7 @@
     $lista = obtenerCategorias();
 
     $formulario = "
-        <form class='cont' method='POST' action='server/veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='controlador/veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
             <label for='nombre'class='col-sm-2 form-label'>Nombre de subcategoría</label>
             <input type='text' name='nombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
             
@@ -75,6 +74,26 @@
     }
 
     $formulario .= "</form>";
+
+    $subcategoriasInactivas = obtenerSubcategoriasInactivas();
+
+    $inactivas = "
+        <form class='cont' method='POST' action='controlador/veFuncSubcategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
+            <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
+            $subcategoriasInactivas
+            <div class= 'agregar'>
+                <input type='submit' class='btn' name='bAgregarSubCat' title='Reactivar subcategoria' value='Reactivar subcategoria'>    
+            </div>
+    ";
+
+    if (isset($_GET['reactivacion'])){
+        $inactivas .= '<p>Exito<p/>';
+    }
+
+    $inactivas .= "
+        </form>
+    ";
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -88,6 +107,7 @@
     <style>
         .cont{
             width:40%;
+            margin: 1px;
             height: auto;
             justify-content:center;
         }
@@ -130,6 +150,7 @@
 
     <main id='main'>
         <?= $formulario; ?>
+        <?= $inactivas; ?>
     </main> 
 
 </body>

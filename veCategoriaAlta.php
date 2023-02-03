@@ -5,7 +5,7 @@
     }
 
     $formulario ="
-            <form action='server/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
+            <form action='controlador/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
                 <h1 style='width:100%;text-align:center;'>Alta categoría</h1>
 
                 <div class='contenedor'>

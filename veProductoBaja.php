@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
     include("encabezado.php");
-    include_once ("funciones.php");
 
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -10,7 +9,7 @@
     $lista = obtenerCategorias();
 
     $formulario = "
-        <form class='cont' action='server/veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='controlador/veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
     ";
 
     if (isset($_GET['modif'])) {
@@ -64,7 +63,7 @@
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "server/veFuncProductoBaja.php",
+                    url: "controlador/veFuncProductoBaja.php",
                     data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
                     success: function (datos){
 
@@ -93,7 +92,7 @@
                                         if (confirmar){
                                             let codigo = imagen[i].alt;
         
-                                            window.location.href = 'server/veFuncProductoBaja.php?eliminar='+codigo;
+                                            window.location.href = 'controlador/veFuncProductoBaja.php?eliminar='+codigo;
                                         }
                                     }
                                 });

@@ -1,5 +1,5 @@
 <?php 
-    require_once 'server/config.php';
+    require_once 'controlador/config.php';
     include("encabezado.php"); 
     include("pie.php");
     include("modalNovedades.php");

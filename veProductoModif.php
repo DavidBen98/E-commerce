@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php 
     include("encabezado.php");
-    include_once ("funciones.php");
 
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -20,7 +19,7 @@
     $id = $_GET['id'];
 
     $formulario = "
-        <form class='cont' action='server/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
+        <form class='cont' action='controlador/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
             <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
     ";
             
@@ -54,7 +53,7 @@
                 </div>
             </form>
 
-            <form class='cont' action='server/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
+            <form class='cont' action='controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
     ";
 
     if (isset($_GET['modif'])){
@@ -232,7 +231,7 @@
             const completarDatos = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "server/veFuncObtenerDatos.php",
+                    url: "controlador/veFuncObtenerDatos.php",
                     data: "id=" + id,
                     success: function (datos){
                         let data = JSON.parse(datos);

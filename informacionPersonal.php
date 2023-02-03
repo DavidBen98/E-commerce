@@ -2,9 +2,9 @@
     include("pie.php");  
     include("modalNovedades.php");
     include ("inc/conn.php");
-    require_once 'server/config.php';
+    require_once 'controlador/config.php';
     include("encabezado.php"); 
-    include_once('server/apiDatos.php');
+    include_once('controlador/apiDatos.php');
 
     if (perfil_valido(3)) {
        header("location:login.php");
@@ -46,7 +46,7 @@
         $ciudad = json_encode ($ciudad);
         
 
-        $infoPersonal = "<form action='server/modificarPerfil.php' method='post' class='cont-perfil'> 
+        $infoPersonal = "<form action='controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
                                 <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
                                     <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
                                         Mis datos

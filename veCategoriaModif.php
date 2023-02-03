@@ -8,7 +8,7 @@
     $lista = obtenerCategorias();
 
     $formulario = "  
-        <form action='server/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>
+        <form action='controlador/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>
             <h1 style='width:100%;text-align:center;'>Modificar categoría</h1>
                             
             <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
@@ -143,7 +143,7 @@
 
                 $.ajax ({
                     type: "POST",
-                    url: "server/veObtenerImagen.php",
+                    url: "controlador/veObtenerImagen.php",
                     data: "categoria=" + cat ,
                     success: function (r){
                         img.setAttribute('src', r);
