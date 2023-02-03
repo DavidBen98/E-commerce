@@ -31,14 +31,14 @@
 
     if (isset($_GET['modifU'])){
         $formulario .= "
-            <div class='contenedor' id='elim'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha modificado el producto de manera exitosa!</p>
             </div>
         ";
     }
     else if (isset($_GET['errorU'])){
         $formulario .="
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
             </div>
         ";
@@ -83,7 +83,7 @@
 
     if (isset($_GET['modifC'])){
         $formulario .= "
-            <div class='contenedor' id='elim'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha modificado el producto de manera exitosa!</p>
             </div>
         ";

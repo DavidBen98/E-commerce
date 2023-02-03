@@ -27,7 +27,7 @@
             
     if (isset($_GET['alta'])){
         $formulario .= "
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha añadido la subcategoría con éxito! </p>
             </div>
         ";
@@ -36,7 +36,7 @@
         $error = $_GET['error'];
 
         $formulario .= "
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
         ";
 
         if ($error === '1'){
@@ -87,7 +87,11 @@
     ";
 
     if (isset($_GET['reactivacion'])){
-        $inactivas .= '<p>Exito<p/>';
+        $inactivas .= "
+            <div class='contenedor mensaje' id='reactivacion'>
+                <p> Exito <p/>
+            </div>
+        ";
     }
 
     $inactivas .= "

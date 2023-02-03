@@ -24,7 +24,7 @@
             
     if (isset($_GET['alta'])){
         $formulario .= "
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha añadido la categoría con éxito! </p>
             </div>
         ";
@@ -33,7 +33,7 @@
         $error = $_GET['error'];
 
         $formulario .= "
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
         ";
 
         if ($error === '1'){

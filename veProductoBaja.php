@@ -35,7 +35,7 @@
     
     if (isset($_GET['elim'])){
         $formulario .= "
-            <div class='contenedor' id='elim'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha eliminado el producto de manera exitosa!</p>
             </div>
         ";
@@ -117,7 +117,7 @@
                         sub.addEventListener ('change', function (){
                             actualizarCodigo ();
 
-                            let mensajeElim = document.getElementById ('elim');
+                            let mensajeElim = document.getElementById ('mensaje');
 
                             if (mensajeElim != null) {
                                 mensajeElim.remove();
@@ -132,7 +132,7 @@
             $('#categoria').change (function (){
                 actualizar ();
 
-                let mensajeElim = document.getElementById ('elim');
+                let mensajeElim = document.getElementById ('mensaje');
 
                 if (mensajeElim != null) {
                     mensajeElim.remove();

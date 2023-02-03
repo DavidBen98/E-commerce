@@ -64,7 +64,7 @@ window.onload = function (){
         } else if (ev.target.matches('.cerrar_novedades')){
             document.getElementById('modal_novedades').style.display = 'none';
 
-            let error = document.getElementById('p_error');
+            let error = document.getElementById('mensaje');
             if (error !== null){
                 error.remove();
             }
@@ -77,7 +77,7 @@ window.onload = function (){
         } else if (ev.target.matches('#modal_novedades')){
             document.getElementById('modal_novedades').style.display = 'none';
 
-            let error = document.getElementById('p_error');
+            let error = document.getElementById('mensaje');
             if (error !== null){
                 error.remove();
             }
@@ -599,7 +599,7 @@ const actualizarCiudad = (ciudad) => {
 
 //LOGIN
 const validarLogin = () => {
-    document.getElementById('p_error').innerHTML="";
+    document.getElementById('mensaje').innerHTML="";
 
     nombreUser = document.getElementById('nombreUsuario').value;
     psw = document.getElementById('psw').value;
@@ -617,7 +617,7 @@ const validarLogin = () => {
     }          
 
     if (!devolucion){
-        let error = document.getElementById('p_error');
+        let error = document.getElementById('mensaje');
         error.style.display = 'block';
         let hijo = document.createTextNode(txtErrores);
         error.appendChild(hijo);
@@ -627,7 +627,7 @@ const validarLogin = () => {
 }
 
 const validarRegistro = () => {
-    document.getElementById('p_error').innerHTML="";
+    document.getElementById('mensaje').innerHTML="";
 
     let nombre = document.getElementById('nombre').value;
     let apellido = document.getElementById('apellido').value;
@@ -653,7 +653,7 @@ const validarRegistro = () => {
     }            
 
     if (!devolucion){
-        let error = document.getElementById('p_error');
+        let error = document.getElementById('mensaje');
         error.style.display = 'block';
         let hijo = document.createTextNode("Los datos ingresados no son correctos, verifique que los campos estan completos y cumplen con los requisitos del sitio.");
         error.appendChild(hijo);
@@ -664,7 +664,7 @@ const validarRegistro = () => {
 
 //CONTACTO
 const validarContacto = () => {
-    document.getElementById("p_error").innerHTML="";
+    document.getElementById("mensaje").innerHTML="";
 
     let exito = document.getElementsByClassName('parrafo-exito');
     if (exito[0] != null){
@@ -701,7 +701,7 @@ const validarContacto = () => {
     }
 
     if (!devolucion){
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
         error.style.display = 'block';
         let hijo = document.createTextNode(txtErrores);
         error.appendChild(hijo);
@@ -739,19 +739,19 @@ const validarAlta = () => {
     || cant === '' || parseInt(cant) < 0 || precio === '' || parseInt(precio) <= 0 || descuento === '' 
     || parseInt(descuento) < 0 || parseInt(descuento) > 100){
         validate = false;
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementById("agregar");
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else{
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -787,12 +787,12 @@ const validarModif = () => {
     || parseInt(cant) < 0 || precio === '' || parseInt(precio) <= 0 
     || descuento === '' || parseInt(descuento) < 0 || parseInt(descuento) > 100){
         validate = false;
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             error.style.backgroundColor = 'black';
             let contenedorBoton = document.getElementById("cont-ModificarCaract");
     
@@ -800,7 +800,7 @@ const validarModif = () => {
             contenedorBoton.appendChild(error);
         }
     } else{
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -820,19 +820,19 @@ const validarAltaCategoria = () => {
 
     if (categoria.trim() === '' || imagen === 0 ){
         validate = false;
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementsByClassName("agregar")[0];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else{
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -853,19 +853,19 @@ const validarBajaCategoria = () => {
     if (confirmar){
         if (categoria){
             validate = false;
-            let p = document.getElementById("p_error");
+            let p = document.getElementById("mensaje");
             
             //Si no está creado el párrafo de error
             if (p == null) {
                 let error = document.createElement("div");
-                error.setAttribute('id', 'p_error');
+                error.setAttribute('id', 'mensaje');
                 let contenedorBoton = document.getElementsByClassName("agregar")[0];
         
                 error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
                 contenedorBoton.appendChild(error);
             }
         } else{
-            let error = document.getElementById("p_error");
+            let error = document.getElementById("mensaje");
     
             //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
             if (error != null){
@@ -912,19 +912,19 @@ const validarModificacionCategoria = () => {
     }
 
     if (!validate){
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementsByClassName("contenedor")[1];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que haya checkeado los campos a modificar y que cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else {
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -945,19 +945,19 @@ const validarAltaSubcategoria = () => {
 
     if (subcategoria.trim() === '' || categoria || imagen === 0 ){
         validate = false;
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementsByClassName("agregar")[0];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else{
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -976,19 +976,19 @@ const validarBajaSubategoria = () => {
 
     if (subcategoria){
         validate = false;
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementsByClassName("agregar")[0];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else{
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -1036,19 +1036,19 @@ const validarModCarSubcategoria = () => {
     }
 
     if (!validate){
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementsByClassName("contenedor")[2];
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que haya checkeado los campos a modificar y que cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else {
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
@@ -1068,19 +1068,19 @@ const validarModal = () => {
     }
 
     if (!validate){
-        let p = document.getElementById("p_error");
+        let p = document.getElementById("mensaje");
         
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
-            error.setAttribute('id', 'p_error');
+            error.setAttribute('id', 'mensaje');
             let contenedorBoton = document.getElementsByClassName("contenedor")[0];
     
             error.innerHTML = "Error: el email ingresado no es correcto, reintente nuevamente con un email válido";
             contenedorBoton.appendChild(error);
         }
     } else {
-        let error = document.getElementById("p_error");
+        let error = document.getElementById("mensaje");
 
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){

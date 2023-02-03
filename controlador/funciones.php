@@ -666,7 +666,7 @@
 						<input type='number' name='valorMax' id='valorMax' style='text-align:center; height: 20px;' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
 					</div>
 				</fieldset>	
-				<p id='e_error'>
+				<p class='mensaje' id='mensaje'>
 
 				</p> 
 				<div id='botones' class='botones'>

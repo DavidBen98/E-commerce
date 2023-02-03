@@ -17,14 +17,14 @@
 
     if (isset($_GET['elim'])){
         $formulario .= "
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha eliminado la subcategoría con éxito! </p>
             </div>
         ";
     }
     else if (isset($_GET['error'])){
         $formulario .="
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p> Error: los datos ingresados no son correctos, reintente por favor </p>
             </div>
         ";

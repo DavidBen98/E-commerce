@@ -121,7 +121,7 @@
     height:40px;
 }
 
-#p_error{
+#mensaje, .mensaje{
     background-color: black;
     color : white;
     margin-top : 20px;

@@ -21,7 +21,7 @@
 
                 if (isset($_GET['alta'])){
                     $formulario .= "
-                        <div class='contenedor' id='error'>
+                        <div class='contenedor mensaje' id='mensaje'>
                             <p> ¡Se ha añadido el producto con éxito! </p>
                         </div>
                     ";
@@ -31,7 +31,7 @@
 
                     if ($error == '1'){
                         $formulario .="
-                            <div class='contenedor' id='error'>
+                            <div class='contenedor mensaje' id='mensaje'>
                                 <p style='text-align:center;'>
                                     Error: la imagen no ha sido procesada con éxito, reintente nuevamente.
                                 </p>
@@ -39,7 +39,7 @@
                         ";
                     } else if ($error == '2') {
                         $formulario .="
-                            <div class='contenedor' id='error'>
+                            <div class='contenedor mensaje' id='mensaje'>
                                 <p style='text-align:center;'>
                                     Error: La extensión del archivo es incorrecta, reintente con las siguientes extensiones
                                     png, jpeg, jpg.
@@ -48,7 +48,7 @@
                         ";
                     } else if ($error == '3'){
                         $formulario .="
-                            <div class='contenedor' id='error'>
+                            <div class='contenedor mensaje' id='mensaje'>
                                 <p style='text-align:center;'>
                                     Error: Los datos ingresados no son correctos, verifique que todos los campos están completos
                                     y cumplen con los requisitos de la aplicacion.
@@ -57,7 +57,7 @@
                         ";    
                     } else {
                         $formulario .="
-                            <div class='contenedor' id='error'>
+                            <div class='contenedor mensaje' id='mensaje'>
                                 <p style='text-align:center;'>
                                     Ha ocurrido un error inesperado, reintente nuevamente en otro momento.
                                 </p>

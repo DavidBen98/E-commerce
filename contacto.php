@@ -112,13 +112,6 @@
 			color:white;
         }
 
-		#e_error{
-			background: red;
-			color: white;
-			font-size: 0.8em;
-			padding-left:10px;
-		}
-
 		.txt-area::-webkit-scrollbar {
     		-webkit-appearance: none;
 		}
@@ -220,7 +213,7 @@
 					}
 				?>
 				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" ></textarea>
-				<p id="p_error" style="width:auto; border-radius: 5px; display:none;">
+				<p id="mensaje" style="width:auto; border-radius: 5px; display:none;">
 
                 </p>
 				<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar">

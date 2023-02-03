@@ -98,7 +98,7 @@
 								</div>
 								
 								<div class='registro'>
-									<p class='p_error' id='p_error' style='display:none;'></p>
+									<p class='mensaje' id='mensaje' style='display:none;'></p>
 									<button id='registrarse'>Registrarse</button>
 								</div>
 		";
@@ -155,7 +155,7 @@
 									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' >
 								</div>
 
-								<p class='p_error' id='p_error' style='display:none;'></p>
+								<p class='mensaje' id='mensaje' style='display:none;'></p>
 		";
 		
 		$error ='';
@@ -163,16 +163,16 @@
 		if(isset($_GET['error'])){
 			$error = $_GET['error'];
 			if ($error == '0'){
-				$formulario .= "<p class='p_error'>Complete los campos por favor</p>";
+				$formulario .= "<p class='mensaje'>Complete los campos por favor</p>";
 			}
 			else if($error == '1'){
-				$formulario .= "<p class='p_error'>El usuario ingresado no existe</p>";
+				$formulario .= "<p class='mensaje'>El usuario ingresado no existe</p>";
 			}
 			else if($error == '2'){
-				$formulario .= "<p class='p_error'>La contraseña ingresada es inválida</p>";
+				$formulario .= "<p class='mensaje'>La contraseña ingresada es inválida</p>";
 			}
 			else if ($error == '401'){
-				$formulario .= "<p class='p_error'>Ha ocurrido un error inesperado, reintente nuevamente por favor</p>";
+				$formulario .= "<p class='mensaje'>Ha ocurrido un error inesperado, reintente nuevamente por favor</p>";
 			}
 		}						
 		
@@ -477,7 +477,7 @@
 		    text-align:start;
 		}
 
-		.p_error{
+		.mensaje{
 			width: 100%;
 		}
 		

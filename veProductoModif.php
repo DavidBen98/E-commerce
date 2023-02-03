@@ -64,82 +64,83 @@
         ";
     } else if (isset($_GET['error'])){
         $formulario .="
-            <div class='contenedor' id='error'>
+            <div class='contenedor mensaje' id='mensaje'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
             </div>
         ";
     }
 
     $formulario .= "
-                <h2 style='text-align:center; margin: auto;'>Características</h2>
-                <div class='contenedor'>
-                    <label for='id'>Id</label>
-                    <input type='text' name='id' readonly class='form-control-plaintext' id='id' title='Código' value='$id' readonly> 
-                </div>
+        <h2 style='text-align:center; margin: auto;'>Características</h2>
+        
+        <div class='contenedor'>
+            <label for='id'>Id</label>
+            <input type='text' name='id' readonly class='form-control-plaintext' id='id' title='Código' value='$id' readonly> 
+        </div>
 
-                <div class='contenedor'>
-                    <label for='descripcion'>Descripción</label>
-                    <input type='text' class='form-control' name='descripcion' id='descripcion' title='Descripción' value=''>
-                </div>
-                        
-                <div class='contenedor'>
-                    <label for='material'>Material</label>
-                    <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
-                    $materiales
-                </div>
+        <div class='contenedor'>
+            <label for='descripcion'>Descripción</label>
+            <input type='text' class='form-control' name='descripcion' id='descripcion' title='Descripción' value=''>
+        </div>
+                
+        <div class='contenedor'>
+            <label for='material'>Material</label>
+            <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
+            $materiales
+        </div>
 
-                <div class='contenedor' id='color'>
-                    <label style='width:100%; height:40px;'>Color</label>
-                    <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
-                    <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
-                    <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
-                    <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
-                    <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
-                    <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
-                    <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
-                    <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
-                    <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
-                    <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
-                    <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
-                    <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
-                    <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
-                    <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
-                    <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
-                </div>
+        <div class='contenedor' id='color'>
+            <label style='width:100%; height:40px;'>Color</label>
+            <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
+            <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
+            <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
+            <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
+            <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
+            <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
+            <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
+            <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
+            <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
+            <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
+            <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
+            <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
+            <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
+            <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
+            <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
+        </div>
 
-                <div class='contenedor' id='caracteristicas'>
-                    <label for='alto'>Características (Números redondos, en centímetros)</label>
-                    <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value=''>
-                    <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value=''>
-                    <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value=''>
-                </div>
+        <div class='contenedor' id='caracteristicas'>
+            <label for='alto'>Características (Números redondos, en centímetros)</label>
+            <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
+            <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value=''>
+            <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
+            <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value=''>
+            <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
+            <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value=''>
+        </div>
 
-                <div class='contenedor'>
-                    <label for='marca'>Marca</label>
-                    <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''>
-                    $marcas 
-                </div>
+        <div class='contenedor'>
+            <label for='marca'>Marca</label>
+            <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''>
+            $marcas 
+        </div>
 
-                <div class='contenedor'>
-                    <label for='cant'>Stock</label>
-                    <input type='number' class='form-control' name='cant' id='cant' title='Cantidad' minValue='1' value=''>  
-                </div>
+        <div class='contenedor'>
+            <label for='cant'>Stock</label>
+            <input type='number' class='form-control' name='cant' id='cant' title='Cantidad' minValue='1' value=''>  
+        </div>
 
-                <div class='contenedor'>
-                    <label for='precio'>Precio unitario (Solo número, sin puntos ni comas)</label>
-                    <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' minValue='1'>  
-                </div>
+        <div class='contenedor'>
+            <label for='precio'>Precio unitario (Solo número, sin puntos ni comas)</label>
+            <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' minValue='1'>  
+        </div>
 
-                <div class='contenedor'>
-                    <label for='descuento'>Porcentaje de descuento (Solo número)</label>
-                    <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
-                </div>
-                <div class='contenedor' id='cont-ModificarCaract'>
-                    <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
-                </div>
+        <div class='contenedor'>
+            <label for='descuento'>Porcentaje de descuento (Solo número)</label>
+            <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
+        </div>
+        <div class='contenedor' id='cont-ModificarCaract'>
+            <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
+        </div>
     ";   
             
     $formulario .= "</form>";
