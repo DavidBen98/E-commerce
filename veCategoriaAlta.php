@@ -14,6 +14,7 @@
                 </div>
 
                 <div class='archivo'>
+                    <label for='imagen'>Imagen de portada</label>
                     <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
                 </div>    
 
@@ -113,13 +114,19 @@
 
         .btn{
             margin:auto;
+            width: 100%;
         }
 
         .archivo{
             display:flex;
             justify-content:center;
+            flex-wrap:wrap;
             width:100%;
             margin:20px;
+        }
+
+        .archivo input{
+            width: auto;
         }
 
         .contenedor label{
@@ -132,6 +139,7 @@
             display: flex;
             justify-content:center;
             flex-wrap: wrap;
+            width: 100%;
         }
 
         #mensaje, .mensaje{

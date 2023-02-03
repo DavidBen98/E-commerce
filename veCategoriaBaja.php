@@ -78,6 +78,10 @@
             border-radius : .5rem;
             text-align : center;
         }
+
+        .agregar, .btn{
+            width: 100%;
+        }
     </style>
 </head>
 <body>

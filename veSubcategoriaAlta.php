@@ -153,6 +153,10 @@
             border-radius : .5rem;
             text-align : center;
         }
+
+        .agregar{
+            width: 100%;
+        }
     </style>
 </head>
 <body>
