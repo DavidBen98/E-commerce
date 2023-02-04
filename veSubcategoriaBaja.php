@@ -9,7 +9,7 @@
 
     $formulario = " 
         <form class='cont' method='POST' action='controlador/veFuncSubcategoriaBaja.php' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
-            <label for='subcategoria' class=''>Subcategoría</label>
+            <label for='subcategoria' >Subcategoría</label>
             $lista
             
             <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    

@@ -45,58 +45,39 @@
     include("encabezado.php"); 
 
     //Si se inicio sesion con Google
-    if (isset($_GET["code"])) {
-        $nombre = $_SESSION['user_first_name'];
-        $apellido = $_SESSION['user_last_name'];
-        $email = $_SESSION['user_email_address'];
+    //No se utiliza por simplicidad
+    // if (isset($_GET["code"])) {
+    //     $nombre = $_SESSION['user_first_name'];
+    //     $apellido = $_SESSION['user_last_name'];
+    //     $email = $_SESSION['user_email_address'];
 
-        $existe = existeIdUsuario();
+    //     $existe = existeIdUsuario();
 
-        if (!$existe){
-            $existe = existeEmail();
-        }
+    //     if (!$existe){
+    //         $existe = existeEmail();
+    //     }
 
-        //Si ese id que devuelve Google no existe y tampoco existe el email
-        if (!$existe){
-            $existe = existeNombreUsuario();
-            
-            //Si no existe una persona con ese nombre de usuario
-            if (!$existe){
-                $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil) VALUES
-                        ('$nombre$apellido','$nombre', '$apellido', '$email', 'U')
-                ";
-            }
-            else{
-                $sql = "INSERT INTO usuario (nombre, apellido, email, perfil) VALUES
-                        ('$nombre', '$apellido', '$email', 'U')
-                ";
-            }
-            
-            $db->query($sql);
+    //     //Si ese id que devuelve Google no existe y tampoco existe el email
+    //     if (!$existe){
+    //         $existe = existeNombreUsuario();
 
-            $idUsuario = $db->lastInsertId(); //ID de la tabla usuario
-            $_SESSION['idUsuario'] = $idUsuario;
+    //         $idUsuario = insertarUsuario($nombre, $apellido, $email, "U", $existe); //ID de la tabla usuario
+    //         $_SESSION['idUsuario'] = $idUsuario;
 
-            $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                    ('$idUsuario', '$id', 'Google')
-            ";
+    //         insertarUsuarioRS($idUsuario, $id);
+    //     }
+    //     else{
+    //         $resultado = seleccionarUsuarioConEmail($email);
 
-            $db->query($sql);
-        }
-        else{
-            $sql = "SELECT id_social, id_usuario
-                    FROM `usuario_rs` as rs
-                    INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                    WHERE (u.email = '$email')
-            ";
+    //         foreach($resultado as $row){
+    //             $_SESSION['idUsuario'] = $row['id_usuario'];
+    //         }
+    //     }
+    // }
 
-            $resultado = $db->query($sql);
-
-            foreach($resultado as $row){
-                $_SESSION['idUsuario'] = $row['id_usuario'];
-            }
-        }
-    }//Si se inicio sesion con Twitter
+    /*
+    Si se inicio sesion con Twitter
+    No se va a utilizar - API de pago
     else if (isset($_SESSION["user_id"])){
         $id = $_SESSION['user_id'];
         $_SESSION['servicio'] = 'Twitter';
@@ -120,12 +101,7 @@
             else{
                 $nombreUsuario = $_SESSION['arroba_tw'];
 
-                $sql = "SELECT nombreUsuario
-                        FROM usuario
-                        WHERE nombreUsuario = '$nombreUsuario'
-                ";
-
-                $result = $db->query($sql);
+                $result = seleccionarUsuarioConNombreUsuario($nombreUsuario);
                 $i=0;
 
                 foreach ($result as $r){
@@ -147,27 +123,21 @@
             $idUsuario = $db->lastInsertId(); //ID de la tabla usuario
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                                ('$idUsuario', '$id', 'Twitter')
+                    ('$idUsuario', '$id', 'Twitter')
             ";
 
             $db->query($sql);  
             
             $_SESSION['id_tw'] = $idUsuario;
         }
-        else{
-            $sql = "SELECT u.id
-                    FROM usuario as u 
-                    INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
-                    WHERE rs.id_social = '$id'
-            ";
-            
-            $rs = $db->query($sql);
+        else{         
+            $rs = seleccionarUsuarioConId($id);
 
             foreach ($rs as $row){
                 $_SESSION['id_tw'] = $row['id'];
             }
         }
-    }
+    } 
 
     $suscripcion="";
 
@@ -207,6 +177,7 @@
             ";
         }
     }
+    */
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -217,10 +188,10 @@
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title>
     <style>
-    
         #main{
             padding: 1.5% 0;
         }
+
         .categorias {
             display: grid;
             margin: 0 auto;
@@ -321,8 +292,8 @@
                 img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
                 img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
                                     img.style.opacity="0.6";
-                                    txt.style.opacity = "0";}
-                ); 
+                                    txt.style.opacity = "0";
+                }); 
                 txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
             };
 

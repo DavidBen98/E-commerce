@@ -6,23 +6,22 @@
         header("location:index.php");
     }
 
-    $lista = obtenerCategorias();
-
+    $categorias = obtenerCategorias();
     $subcategorias = obtenerSubcategorias();
     
     $formulario = "
-        <h1 style='width:100%;text-align:center;'>Modificar subcategoría</h1>
-        <div style='width:100%; display:flex; justify-content:center; margin-bottom: 20px;'>                
+        <h1 id='modSubcategoria'>Modificar subcategoría</h1>
+        <div class='div-cont'>                
             <form action='controlador/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='formUbicacion' method='post' class='cont'>
-                <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
+                <h2>Ubicación</h2>
 
-                <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem; padding-top: 10px;'>Subcategoría a modificar</label>
+                <label for='subcategoria' class='lSubcategoria'>Subcategoría a modificar</label>
                 $subcategorias
 
-                <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
+                <label for='categoria' class='lCategoria'>
                     Nueva ubicación
                 </label>
-                $lista
+                $categorias
 
                 <div class='contenedor' id='ubicacion'>
                     <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
@@ -48,30 +47,30 @@
         </form>
 
         <form action='controlador/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
-            <h2 style='text-align:center; margin: auto;'>Características</h2>
+            <h2>Características</h2>
         
-            <label for='subcategoria' class='' style='width:80%; text-align:center; font-size:1.3rem; padding-top: 10px;'>Subcategoría a modificar</label>
+            <label for='subcategoria' class='lSubcategoria'>Subcategoría a modificar</label>
             $subcategorias
         
             <div class='contenedor'>
                 <div class='cont-check'>
                     <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
-                    <label for='nombre' class=''> Modificar nombre </label>
+                    <label for='nombre'> Modificar nombre </label>
                 </div>
                 <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''>
             </div>
 
-            <div style='border:1px solid #000; padding: 5px; margin: 20px 0; width: 100%;'>
-                <p style='text-align:center; margin: 5px;'>Imagen actual </p>
-                <div style='display:flex; justify-content:center;'>
-                <img src='' class='img-cat' id='img-cat' alt='Imagen categoría'> 
+            <div class='img-actual'>
+                <p>Imagen actual </p>
+                <div>
+                    <img src='' class='img-cat' id='img-cat' alt='Imagen categoría'> 
                 </div>
             </div>
 
             <div class='archivo'>
                 <div class='cont-check'>
                     <input type='checkbox' id='modImagen' name='modImagen' value='Modificar imagen'>
-                    <label for='nombre' class=''> Modificar imagen </label>
+                    <label for='nombre'> Modificar imagen </label>
                 </div>
                 <input type='file' class='form-control' id='imagen' aria-label='Upload'>           
             </div> 
@@ -128,6 +127,13 @@
             margin:10px;
         }
 
+        .lSubcategoria, .lCategoria{
+            width:80%; 
+            text-align:center; 
+            font-size:1.3rem; 
+            padding-top: 10px;
+        }
+
         .archivo{
             display:flex;
             justify-content:center;
@@ -137,6 +143,23 @@
 
         .contenedor input{
             height:40px;
+        }
+
+        .img-actual{
+            border:1px solid #000; 
+            padding: 5px; 
+            margin: 20px 0; 
+            width: 100%;
+        }
+
+        .img-actual div{
+            display:flex; 
+            justify-content:center;
+        }
+
+        .img-actual p{
+            text-align:center; 
+            margin: 5px;
         }
 
         #formUbicacion{
@@ -221,6 +244,23 @@
             padding : 10px;
             border-radius : .5rem;
             text-align : center;
+        }
+
+        form h2{
+            text-align:center; 
+            margin: auto;
+        }
+
+        #modSubcategoria{
+            width:100%;
+            text-align:center;
+        }
+
+        .div-cont{
+            display:flex; 
+            justify-content:center; 
+            width:100%; 
+            margin-bottom: 20px;
         }
     </style>
       <script>

@@ -13,12 +13,11 @@
         header("location:veABMProducto.php");
     }  
 
-    global $db; 
-
     $ruta = "<ol class='ruta'>
-                <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                <li style='border:none;text-decoration: none;'>Datos personales</li>
-            </ol>";
+                <li><a href='index.php'>Inicio</a></li>
+                <li>Datos personales</li>
+            </ol>
+    ";
     
     if (isset($_SESSION['idUsuario'])){
         $idUsuario = $_SESSION['idUsuario'];
@@ -29,13 +28,8 @@
     else if ($_SESSION['id_tw']){
         $idUsuario = $_SESSION['id_tw'];
     }
-
-    $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion
-            FROM `usuario`
-            WHERE id='$idUsuario'
-    "; 
  
-    $rs = $db->query($sql);
+    $rs = obtenerUsuario($idUsuario);
 
     $infoPersonal = "";
     foreach ($rs as $row) {
@@ -46,85 +40,88 @@
         $ciudad = json_encode ($ciudad);
         
 
-        $infoPersonal = "<form action='controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
-                                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
-                                    <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
-                                        Mis datos
-                                    </h1>
-                                </div>    
-                                <div class='renglon'>
-                                    <label class='descripciones' for='nombreUsuario'>Nombre de usuario</label>
-                                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row['nombreusuario']}' readonly>
-                                </div>
+        $infoPersonal = "
+            <form action='controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
+                <div class='renglon' id='renglon-h1'>      
+                    <h1> Mis datos </h1>
+                </div> 
 
-                                <div class='renglon'>
-                                    <label class='descripciones' for='dni'>Número de DNI</label>
-                                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row['nrodni']}' readonly>
-                                </div>
+                <div class='renglon'>
+                    <label class='descripciones' for='nombreUsuario'>Nombre de usuario</label>
+                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row['nombreusuario']}' readonly>
+                </div>
 
-                                <div class='renglon'>
-                                    <label class='descripciones' for='nombre'>Nombre</label>
-                                    <input type='text' class='dato' id='nombre' name='nombre' title='nombre' value='{$row['nombre']}' readonly>
-                                </div>
+                <div class='renglon'>
+                    <label class='descripciones' for='dni'>Número de DNI</label>
+                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row['nrodni']}' readonly>
+                </div>
 
-                                <div class='renglon'>
-                                    <label class='descripciones' for='apellido'>Apellido</label>
-                                    <input type='text' class='dato' name='apellido' id='apellido' title='apellido' value='{$row['apellido']}' readonly>
-                                </div>
+                <div class='renglon'>
+                    <label class='descripciones' for='nombre'>Nombre</label>
+                    <input type='text' class='dato' id='nombre' name='nombre' title='nombre' value='{$row['nombre']}' readonly>
+                </div>
 
-                                <div class='renglon'>
-                                    <label class='descripciones' for='email'>Email</label>
-                                    <input type='email' class='dato' id='email' name='email' title='email' value='{$row['email']}' readonly>
-                                </div>
+                <div class='renglon'>
+                    <label class='descripciones' for='apellido'>Apellido</label>
+                    <input type='text' class='dato' name='apellido' id='apellido' title='apellido' value='{$row['apellido']}' readonly>
+                </div>
 
-                                <div class='renglon'>
-                                    <label class='descripciones' for='prov'>Provincia</label>
-                                    <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row['provincia']}' readonly> 
-                                    <label class='descripciones' for='provincia' style='display:none'>Provincia</label>
-                                    $select
-                                </div>
+                <div class='renglon'>
+                    <label class='descripciones' for='email'>Email</label>
+                    <input type='email' class='dato' id='email' name='email' title='email' value='{$row['email']}' readonly>
+                </div>
 
-                                <div class='renglon' id='renglonCiudad'>
-                                    <label class='descripciones' for='inputCiudad'>Ciudad</label>
-                                    <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row['ciudad']}' readonly>
-                                    <label class='descripciones' for='ciu' style='display:none;'>Ciudad</label>
-                                </div>
+                <div class='renglon'>
+                    <label class='descripciones' for='prov'>Provincia</label>
+                    <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row['provincia']}' readonly> 
+                    <label class='descripciones' for='provincia' style='display:none'>Provincia</label>
+                    $select
+                </div>
 
-                                <div class='renglon'>
-                                    <label class='descripciones' for='direccion'>Dirección</label>
-                                    <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row['direccion']}' readonly>
-								    <div class='direccion'>
-                                        <label for='inputCalle' class='form-label'>Calle</label>
-                                        <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
-                                        <label for='inputNumero' class='form-label'>Número</label>
-                                        <input type='text' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
-                                        <label for='inputPiso' class='form-label'>Depto</label>
-                                        <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
-                                    </div>
-                                </div>";
+                <div class='renglon' id='renglonCiudad'>
+                    <label class='descripciones' for='inputCiudad'>Ciudad</label>
+                    <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row['ciudad']}' readonly>
+                    <label class='descripciones' for='ciu' style='display:none;'>Ciudad</label>
+                </div>
+
+                <div class='renglon'>
+                    <label class='descripciones' for='direccion'>Dirección</label>
+                    <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row['direccion']}' readonly>
+                    <div class='direccion'>
+                        <label for='inputCalle' class='form-label'>Calle</label>
+                        <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
+                        <label for='inputNumero' class='form-label'>Número</label>
+                        <input type='text' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
+                        <label for='inputPiso' class='form-label'>Depto</label>
+                        <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
+                    </div>
+                </div>
+        ";
     }
 
-    $infoPersonal .=            "<div class='renglon' style='border:none;'>
-                                    <input type='button' id='modificarDatos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
-                                    <input type='button' id='cancelar' class='btn' value='Cancelar' style='display:none;'>  
-                                    <input type='submit' id='confirmar' class='btn' value='Confirmar' style='display:none;'>
-                                </div>";
+    $infoPersonal .= "
+        <div class='renglon renglon-mod'>
+            <input type='button' id='modificarDatos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
+            <input type='button' id='cancelar' class='btn' value='Cancelar' style='display:none;'>  
+            <input type='submit' id='confirmar' class='btn' value='Confirmar' style='display:none;'>
+        </div>
+    ";
 
-                                if (isset($_GET['error'])){
-                                    $error = $_GET['error'];
-                                    $infoPersonal .= "<div class='renglon' style='border:none;'>";
+    if (isset($_GET['error'])){
+        $error = $_GET['error'];
+        $infoPersonal .= "<div class='renglon renglon-mod'>";
 
-                                    if ($error == '1'){
-                                        $infoPersonal .= "<p class='mensaje' id='mensaje'>¡El nombre de usuario ingresado ya existe, reintente con otro por favor!</p>";
-                                    }
+        if ($error == '1'){
+            $infoPersonal .= "<p class='mensaje' id='mensaje'>¡El nombre de usuario ingresado ya existe, reintente con otro por favor!</p>";
+        }
 
-                                    $infoPersonal .= "</div>";
-                                }
-                                else if (isset($_GET['modif'])){
-                                    $infoPersonal .= "<p class='mensaje' id='mensaje' style='background:#099;'>¡Se ha realizado la modificación con éxito!</p>";
-                                }
+        $infoPersonal .= "</div>";
+    }
+    else if (isset($_GET['modif'])){
+        $infoPersonal .= "<p class='mensaje' id='mensaje-exito'>¡Se ha realizado la modificación con éxito!</p>";
+    }
+
     $infoPersonal .= "</form>";
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -199,6 +196,18 @@
             justify-content:center;
             margin:0;
             border-bottom: 1px solid #D3D3D3;
+        }
+
+        .renglon h1{
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            font-family: museosans500,arial,sans-serif; 
+            font-size:1.6rem;
+        }
+
+        .renglon-mod{
+            border:none;
         }
 
         #direccion{
@@ -285,6 +294,24 @@
             align-items:center; 
             justify-content:end; 
             display:none;
+        }
+
+        .ruta li{
+			margin-left:5px;
+		}
+
+		.ruta li:last-child{
+            border:none;
+            text-decoration: none;
+        }
+
+        #mensaje-exito{
+            background:#099;
+        }
+
+        #renglon-h1{
+            border-bottom:1px solid #858585; 
+            height:50px;
         }
         
         @media screen and (max-width:860px){

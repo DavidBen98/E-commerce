@@ -24,12 +24,12 @@
 	    include_once('controlador/apiDatos.php');
 	    
 		$ruta = "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='border:none;text-decoration: none;'>Registro</li>
+					<li><a href='index.php'>Inicio</a></li>
+					<li>Registro</li>
 				</ol>
 		";
 
-		$formulario = "<form action='controlador/registro.php' onsubmit='return validarRegistro()' method='post' class='' id='form-registro'>
+		$formulario = "<form action='controlador/registro.php' onsubmit='return validarRegistro()' method='post'  id='form-registro'>
 							<div class='form'>
 								<div class='cont-reg'>
 									<label for='nombre' class='form-label'>Nombre</label>
@@ -137,8 +137,8 @@
 	}
 	else if (!isset($_GET['login'])){
 		$ruta = "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='border:none;text-decoration: none;'>Inicio de sesión</li>
+					<li><a href='index.php'>Inicio</a></li>
+					<li>Inicio de sesión</li>
 				</ol>
 		";
 
@@ -480,6 +480,15 @@
 		.mensaje{
 			width: 100%;
 		}
+
+		.ruta li{
+			margin-left:5px;
+		}
+
+		.ruta li:last-child{
+            border:none;
+            text-decoration: none;
+        }
 		
 		@media screen and (max-width:860px){
 		    .formulario{

@@ -12,8 +12,6 @@
         header("location:veABMProducto.php");
     } 
                  
-    global $db;
-    
     if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
         $idUsuario = $_SESSION['idUsuario'];
     }
@@ -25,58 +23,51 @@
     }
 
     if (!isset($_SESSION['idUsuario'])){
-        $sql = "SELECT u.id
-                FROM usuario as u
-                INNER JOIN usuario_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = '$idUsuario'
-        ";
-
-        $rs = $db->query($sql);
+        $rs = seleccionarUsuarioConId($idUsuario);
 
         foreach ($rs as $row){
             $idUsuario = $row['id'];
         }
     }
 
-    $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
-            FROM `producto` as p 
-            INNER JOIN `favorito` as f on p.id = f.id_producto 
-            WHERE f.id_usuario = '$idUsuario'
-    "; 
-
-    $rs = $db->query($sql);
-
     $div = "<div class='consulta' id='consulta'>
-                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
-                    <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
+                <div class='renglon'>      
+                    <h1>
                         Favoritos
                     </h1>
                 </div>            
     ";
+
     $i = 0;
+    $rs = obtenerFavoritos($idUsuario);
 
     foreach ($rs as $row){
         $i++;
     }
 
-    $rs = $db->query($sql);
+    $rs = obtenerFavoritos($idUsuario);
 
     $selectNumero = 1; 
-    if ($i == 0){
-                $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay productos favoritos</div>";
 
-        $div .= "<div class='continuar' style='width: 100%; display: flex;'>
-                        <button type='button' class='btn-final' id='continuar' style='margin:auto;'>
-                            Continúa navegando
-                        </button>
-                </div>";
+    if ($i == 0){
+        $div .= "
+            <div class='vacio'> 
+                Aún no hay productos favoritos
+            </div>
+
+            <div class='continuar'>
+                    <button type='button' class='btn-final' id='continuar'>
+                        Continúa navegando
+                    </button>
+            </div>
+        ";
 
         if (isset($_GET['elim'])){
             $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
+
         $div .= "</div>";    
-    }
-    else{
+    } else {
         foreach ($rs as $row) { 
             $descripcion = $row['descripcion'];
             $material = $row['material'];
@@ -87,33 +78,24 @@
             $codigo = $row['codigo'];
             $id = $row['id'];
 
-            $sql = "SELECT * FROM imagen_productos 
-                WHERE id_producto = $id AND portada=1
-            ";
-
-            $result = $db -> query($sql);
-            $path = '';
-
-            foreach ($result as $r){
-                $path = $r['destination'];
-            }
+            $path = obtenerImagenProducto($id);
     
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
-                                    <div class='titulo' style='text-align:left;'>
-                                        <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
-                                            <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
-                                            <p class='enlace' style='font-size:16px; color: #858585;'> $marca</p>
+                                <img src='$path' class='productos img-cat' alt='$codigo'>
+                                    <div class='titulo'>
+                                        <div class='cont-enlaces'>
+                                            <p class='enlace'> $descripcion</p>
+                                            <p class='enlace'> $marca</p>
                                         </div> 
                                         <div class='contenedor-eventos'>
-                                            <div class='evento-producto' style='padding-right: 3%; border-right: 1px solid #D3D3D3; justify-content:end' >
-                                                <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
+                                            <div class='evento-producto' >
+                                                <img src='images/eliminar.png' alt='Eliminar producto'>
                                                 <button class='elim-fav' value='$id'> Eliminar producto</button>
                                             </div>
-                                            <div class='evento-producto' style='text-align:end; justify-content:start; padding-left: 3%'>
-                                                <img src='images/carrito.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar al carrito'>
+                                            <div class='evento-producto'>
+                                                <img src='images/carrito.png' alt='Agregar al carrito'>
                                                 <a id='agregar-fav-$selectNumero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
@@ -126,9 +108,9 @@
                                         <b>Precio:</b>
                                     </div> 
                                     <div class='caract'> 
-                                        <p>$color </p>
-                                        <p>$material</p>
-                                        <p>$$precio</p>
+                                        <p> $color </p>
+                                        <p> $material </p>
+                                        <p> $$precio </p>
                                     </div>
                             </div>                                            
                         </div>
@@ -194,6 +176,42 @@
             display:flex;
             justify-content:center;
             margin:0;
+            border-bottom:1px solid #858585; 
+            height:50px;
+        }
+
+        .renglon h1{
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            font-family: museosans500,arial,sans-serif; 
+            font-size:1.6rem;
+        }
+
+        .vacio{
+            margin:10px; 
+            width:100%; 
+            text-align:center; 
+            height:30px;
+        }
+
+        .cont-enlaces{
+            display:flex; 
+            flex-wrap:wrap;
+        }
+
+        .enlace{
+            color:#000; 
+            margin-top:10px; 
+            width:100%;
+        }
+
+        .enlace:last-child{
+            margin-top: 0;
+            color: none;
+            width: auto;
+            font-size:16px; 
+            color: #858585;
         }
 
         .productos{
@@ -281,6 +299,7 @@
         .titulo{
             width: 65%;
             height: auto;
+            text-align:left;
         }
 
         .botones{
@@ -296,6 +315,12 @@
 
         .continuar{
             height: 20%;
+            width: 100%; 
+            display: flex;
+        }
+
+        #continuar{
+            margin:auto;
         }
 
         .btn-final{
@@ -364,7 +389,24 @@
             color: #858585;
             display: flex;
             align-items: center;
+            padding-right: 3%; 
+            border-right: 1px solid #D3D3D3; 
+            justify-content:end;
         } 
+
+        .evento-producto:last-child{
+            text-align:end; 
+            justify-content:start; 
+            padding-left: 3%;
+            padding-right: 0;
+            border-right: none;
+        }
+
+        .evento-producto img{
+            width:20px; 
+            height:20px; 
+            margin-right:1px;
+        }
         
         .prod-fav{
             padding-left: 2px;
@@ -434,6 +476,10 @@
             transition: all 0.4s ease-in;
         }
 
+        .img-cat{
+            border:none;
+        }
+
         .img-cat:hover{
             cursor: pointer;
         }
@@ -491,10 +537,11 @@
                 height: 100%;
             }
             
-            .titulo{
+            /* .titulo{
                 width: 65%;
                 height: auto;
-            }
+                text-align:left;
+            } */
             
             .principal p {
                 margin-top: 1%;

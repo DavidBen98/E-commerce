@@ -13,9 +13,9 @@
     ";
 
     if (isset($_GET['modif'])) {
-        $formulario .= "<h1 style='width:100%;text-align:center;' id='h1'>Modificar producto</h1>";
+        $formulario .= "<h1 id='h1'>Modificar producto</h1>";
     } else {
-        $formulario .= "<h1 style='width:100%;text-align:center;' id='h1'>Baja producto</h1>";
+        $formulario .= "<h1 id='h1'>Baja producto</h1>";
     }
 
     $formulario .= "
@@ -202,6 +202,11 @@
             padding : 10px;
             border-radius : .5rem;
             text-align : center;
+        }
+
+        #h1{
+            width:100%;
+            text-align:center;
         }
     </style>
 </head>

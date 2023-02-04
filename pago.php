@@ -12,26 +12,19 @@
 
     $productosMP = array();
 
-    global $db; 
-
     $ruta = "<ol class='ruta'>
                 <li><a href='index.php'>Inicio</a></li>
                 <li><a href='carritoCompras.php'>Carrito de compras</a></li>
-                <li style='border:none;text-decoration: none;'>Pago</li>
+                <li>Pago</li>
             </ol>
     ";
         
     $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
     $listaCarrito = array();
-    // $productos_agregados = 0;
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
-            $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
-                                 FROM producto
-                                 WHERE id=?");
-            $sql -> execute ([$key]);
-            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+            $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
         }
     }
     else{
@@ -39,18 +32,20 @@
         exit;
     }
 
-    $carrito = "<div class='carrito'>";
+    $carrito = "<div class='carrito'>
+                    <div class='checkout-btn cont-btn'>
+    ";
         
-    if ($listaCarrito != null){
-        $carrito .= "<div class='checkout-btn cont-btn'>";
-    }
-    else{
-        $carrito .= "<div class='checkout-btn cont-btn'>";
-    }
+    // if ($listaCarrito != null){
+    //     $carrito .= "<div class='checkout-btn cont-btn'>";
+    // }
+    // else{
+    //     $carrito .= "<div class='checkout-btn cont-btn'>";
+    // }
 
     $carrito .= "<div>
-                    <h1 style='font-family: museosans500,arial,sans-serif; margin:0; font-size:1rem;'>FINALIZAR COMPRA</h1>
-                    <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
+                    <h1 class='finalizar'>FINALIZAR COMPRA</h1>
+                    <p class='resumen'>  
                         RESUMEN
                     </p>
                 </div>
@@ -93,16 +88,7 @@
 
         $i++;
 
-        $sql = "SELECT * FROM imagen_productos 
-                WHERE id_producto = $id AND portada=1
-        ";
-
-        $result = $db -> query($sql);
-        $path = '';
-
-        foreach ($result as $r){
-            $path = $r['destination'];
-        }
+        $path = obtenerImagenProducto($id);
 
         $carrito .= "<div class='contenedor'>
                             <div class='principal'>                                                                                          
@@ -391,6 +377,25 @@
             margin:auto;
             display: flex;
             justify-content: center;
+        }
+
+        .finalizar{
+            font-family: museosans500,arial,sans-serif; 
+            margin:0; 
+            font-size:1rem;
+        }
+
+        .resumen{
+            font-size: 0.9rem; 
+            font-weight:700; 
+            color: #858585; 
+            font-family: museosans500,arial,sans-serif; 
+            margin:0;
+        }
+
+        .ruta li:last-child{
+            border:none;
+            text-decoration: none;
         }
 
         @media screen and (max-width: 1024px){

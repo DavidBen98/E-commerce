@@ -997,8 +997,143 @@
         return $listas;
     }
 
-    function obtenerImagenes($tabla){
+    function obtenerImagenProducto($id){
+        global $db;
 
+        $sql = "SELECT * FROM imagen_productos 
+                WHERE id_producto = $id AND portada=1
+        ";
+
+        $rs = $db->query($sql); 
+
+        foreach ($rs as $r){
+            $path = $r['destination'];
+        }
+
+        return $path;
+    }
+
+    function obtenerImagenesSubcategorias($categoria){
+        global $db;
+
+        $sql = "SELECT destination, nombre_subcategoria 
+                FROM imagen_subcategorias as s
+                INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
+                INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
+                WHERE c.nombre_categoria = '$categoria'
+        ";
+
+        $rs = $db->query($sql);
+
+        return $rs;
+    }
+
+    function obtenerProductoConCantidad($id, $cantidad){
+        global $db;
+
+        $sql = $db->prepare(
+            "SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
+            FROM producto
+            WHERE id=?"
+        );
+
+        $sql -> execute ($id);
+
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function obtenerUsuario ($id){
+        global $db;
+
+        $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion
+            FROM `usuario`
+            WHERE id='$id'
+        "; 
+ 
+        $rs = $db->query($sql);
+
+        return $rs;
+    }
+
+    function insertarUsuario ($nombre, $apellido, $email, $perfil, $existe){
+        global $db;
+
+        //Si no existe una persona con ese nombre de usuario
+        if (!$existe){
+            $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil) VALUES
+                    ('$nombre$apellido','$nombre', '$apellido', '$email', $perfil)
+            ";
+        } else {
+            $sql = "INSERT INTO usuario (nombre, apellido, email, perfil) VALUES
+                    ('$nombre', '$apellido', '$email', $perfil)
+            ";
+        }
+
+        $db->query($sql);
+
+        return $db->lastInsertId();
+    }
+
+    function insertarUsuarioRS ($idUsuario, $id){
+        global $db;
+
+        $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
+                ('$idUsuario', '$id', 'Google')
+        ";
+
+        $db->query($sql);
+    }
+
+    function seleccionarUsuarioConEmail($email){
+        global $db;
+
+        $sql = "SELECT id_social, id_usuario
+                FROM `usuario_rs` as rs
+                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+                WHERE (u.email = '$email')
+        ";
+
+        $rs = $db->query($sql);
+        return $rs;
+    }
+
+    function seleccionarUsuarioConId($id){
+        global $db;
+
+        $sql = "SELECT u.id
+                FROM usuario as u 
+                INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
+                WHERE rs.id_social = '$id'
+        ";
+
+        $rs = $db->query($sql); 
+        
+        return $rs;
+    }
+
+    function seleccionarUsuarioConNombreUsuario($nombreUsuario){
+        global $db;
+
+        $sql = "SELECT nombreUsuario
+                FROM usuario
+                WHERE nombreUsuario = '$nombreUsuario'
+        ";
+
+        $rs = $db->query($sql);
+        return $rs;
+    }
+
+    function obtenerFavoritos($idUsuario){
+        global $db;
+
+        $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
+                FROM `producto` as p 
+                INNER JOIN `favorito` as f on p.id = f.id_producto 
+                WHERE f.id_usuario = '$idUsuario'
+        "; 
+
+        $rs = $db->query($sql);
+        return $rs;
     }
 
     function deleteDir($dir) {

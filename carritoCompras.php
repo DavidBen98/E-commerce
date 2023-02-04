@@ -18,8 +18,12 @@
     }
 
     $ruta = "<ol class='ruta'>
-                <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-                <li style='border:none;text-decoration: none;'>Carrito de compras</li>
+                <li style='margin-left:5px;'>
+                    <a href='index.php'> Inicio </a>
+                </li>
+                <li style='border:none;text-decoration: none;'>
+                    Carrito de compras
+                </li>
             </ol>
     ";
 
@@ -99,17 +103,7 @@
             $material = ucfirst($producto['material']);
             $stock = intval($producto['stock']);
             $cantidad = intval($producto['cantidad']);
-
-            $sql = "SELECT * FROM imagen_productos 
-                    WHERE id_producto = $id AND portada=1
-            ";
-
-            $result = $db -> query($sql);
-            $path = '';
-
-            foreach ($result as $r){
-                $path = $r['destination'];
-            }
+            $path = obtenerImagenProducto($id);
             
             if ($stock < $cantidad){
                 $cantidad = $stock;
@@ -150,7 +144,7 @@
                                             </tr>
                                             <tr>
                                                 <th class='definir'><b>Material:</b></th>
-                                                <td class='caract'>$material</td>
+                                                <td class='caract'> $material </td>
                                             </tr>
                                             <tr>
                                                 <th class='definir'><label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label></th>
@@ -161,7 +155,7 @@
                                                                 $carrito .= "<option value='$j' selected>$j</option>";
                                                             }
                                                             else{
-                                                                $carrito .= "<option value='$j'>$j</option>";
+                                                                $carrito .= "<option value='$j'> $j </option>";
                                                             }
                                                         }
                 $carrito .="                    </select>
@@ -177,7 +171,7 @@
                             if($precio != $precioDescuento){
                                 $carrito .= "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
                             }
-                                $carrito .= "<p>$$precioDescuento</p>
+                                $carrito .= "<p> $$precioDescuento </p>
                         </div>
                         <p style='padding: 1% 0 0 1%; margin-left:4%'>Precio </p> 
                         <p id='precioS-$selectNumero' style='padding: 1% 0 0 1%; font-family: Arial,Helvetica,sans-serif;'>
@@ -194,7 +188,7 @@
                         <div class= 'botones'>
                             <div class='totales' style='height:40px;'>
                                 <p class='subtotal txt-totales'>Subtotal:</p> 
-                                <p class='subtotal txt-totales' id='subtotal' style='justify-content:end;'> $$total </p>
+                                <p class='subtotal txt-totales' id='subtotal'> $$total </p>
                             </div>
                             <div class='totales' style='height:50px;'>
                                 <p class='txt-totales total' style='border-bottom-left-radius: 5px;'>
@@ -428,6 +422,7 @@
 
         #subtotal{
             padding-right: 4%;
+            justify-content:end;
         }
 
         #total{

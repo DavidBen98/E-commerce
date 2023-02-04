@@ -5,37 +5,37 @@
         header("location:index.php");
     }
 
-    $lista = obtenerCategorias();
+    $categorias = obtenerCategorias();
 
     $formulario = "  
         <form action='controlador/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>
-            <h1 style='width:100%;text-align:center;'>Modificar categoría</h1>
+            <h1>Modificar categoría</h1>
                             
-            <label for='categoria' class='' style='width:80%; text-align:center; font-size:1.3rem;'>
+            <label for='categoria' class='lCategoria'>
                 Categoría
             </label>
-            $lista
+            $categorias
             
             <div class='contenedor'>
                 <div class='cont-check'>
-                        <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
-                    <label for='nombre' class=''> Modificar nombre </label>
+                    <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
+                    <label for='nombre' > Modificar nombre </label>
                 </div>
                 <input type='text' class='form-control' name='nombre' id='nombre' placeholder='Ejemplo: Jardin' title='Nombre' value=''>
             </div>
 
             
-            <div style='border:1px solid #000; padding: 5px; margin: 20px 0; width: 100%;'>
-                <p style='text-align:center; margin: 5px;'>Imagen actual </p>
-                <div style='display:flex; justify-content:center;'>
-                <img src='' class='img-cat' id='img-cat' alt='Imagen categoría'> 
+            <div class='img-actual'>
+                <p> Imagen actual </p>
+                <div>
+                    <img src='' class='img-cat' id='img-cat' alt='Imagen categoría'> 
                 </div>
             </div>
 
             <div class='archivo' id='archivo'>
                 <div class='cont-check'>
                     <input type='checkbox' id='modImagen' name='modImagen' value='Modificar imagen'>
-                    <label for='nombre' class=''> Modificar imagen </label>
+                    <label for='nombre' > Modificar imagen </label>
                 </div>
                 <input type='file' name='imagen' class='form-control' id='imagen' aria-label='Upload'>          
             </div> 
@@ -242,6 +242,34 @@
             padding : 10px;
             border-radius : .5rem;
             text-align : center;
+        }
+
+        form h1{
+            width:100%;
+            text-align:center;
+        }
+
+        .lCategoria{
+            width:80%; 
+            text-align:center; 
+            font-size:1.3rem;
+        }
+
+        .img-actual{
+            border:1px solid #000; 
+            padding: 5px; 
+            margin: 20px 0; 
+            width: 100%;
+        }
+
+        .img-actual p{
+            text-align:center;
+            margin: 5px;
+        }
+
+        .img-actual div{
+            display:flex; 
+            justify-content:center;
         }
     </style>
 </head>

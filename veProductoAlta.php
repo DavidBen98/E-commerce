@@ -17,143 +17,144 @@
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
     $formulario = "
         <form class='cont' action='controlador/veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
-                <h1 style='width:100%;text-align:center;'>Alta producto</h1> ";
+            <h1>Alta producto</h1> 
+    ";
 
-                if (isset($_GET['alta'])){
-                    $formulario .= "
-                        <div class='contenedor mensaje' id='mensaje'>
-                            <p> ¡Se ha añadido el producto con éxito! </p>
-                        </div>
-                    ";
-                }
-                else if (isset($_GET['error'])){
-                    $error = $_GET['error'];
+    if (isset($_GET['alta'])){
+        $formulario .= "
+            <div class='contenedor mensaje' id='mensaje'>
+                <p> ¡Se ha añadido el producto con éxito! </p>
+            </div>
+        ";
+    }
+    else if (isset($_GET['error'])){
+        $error = $_GET['error'];
 
-                    if ($error == '1'){
-                        $formulario .="
-                            <div class='contenedor mensaje' id='mensaje'>
-                                <p style='text-align:center;'>
-                                    Error: la imagen no ha sido procesada con éxito, reintente nuevamente.
-                                </p>
-                            </div>
-                        ";
-                    } else if ($error == '2') {
-                        $formulario .="
-                            <div class='contenedor mensaje' id='mensaje'>
-                                <p style='text-align:center;'>
-                                    Error: La extensión del archivo es incorrecta, reintente con las siguientes extensiones
-                                    png, jpeg, jpg.
-                                </p>
-                            </div>
-                        ";
-                    } else if ($error == '3'){
-                        $formulario .="
-                            <div class='contenedor mensaje' id='mensaje'>
-                                <p style='text-align:center;'>
-                                    Error: Los datos ingresados no son correctos, verifique que todos los campos están completos
-                                    y cumplen con los requisitos de la aplicacion.
-                                </p>
-                            </div>
-                        ";    
-                    } else {
-                        $formulario .="
-                            <div class='contenedor mensaje' id='mensaje'>
-                                <p style='text-align:center;'>
-                                    Ha ocurrido un error inesperado, reintente nuevamente en otro momento.
-                                </p>
-                            </div>
-                        ";
-                    }
-                }
-                
-        $formulario .= 
-                "<div class='contenedor'>
-                    <label for='categoria'>Categoría</label>
-                    $lista
+        if ($error == '1'){
+            $formulario .="
+                <div class='contenedor mensaje' id='mensaje'>
+                    <p>
+                        Error: la imagen no ha sido procesada con éxito, reintente nuevamente.
+                    </p>
                 </div>
-    
-                <div class='contenedor' id='subc'>
+            ";
+        } else if ($error == '2') {
+            $formulario .="
+                <div class='contenedor mensaje' id='mensaje'>
+                    <p>
+                        Error: La extensión del archivo es incorrecta, reintente con las siguientes extensiones
+                        png, jpeg, jpg.
+                    </p>
+                </div>
+            ";
+        } else if ($error == '3'){
+            $formulario .="
+                <div class='contenedor mensaje' id='mensaje'>
+                    <p>
+                        Error: Los datos ingresados no son correctos, verifique que todos los campos están completos
+                        y cumplen con los requisitos de la aplicacion.
+                    </p>
+                </div>
+            ";    
+        } else {
+            $formulario .="
+                <div class='contenedor mensaje' id='mensaje'>
+                    <p>
+                        Ha ocurrido un error inesperado, reintente nuevamente en otro momento.
+                    </p>
+                </div>
+            ";
+        }
+    }
+                
+    $formulario .= 
+            "<div class='contenedor'>
+                <label for='categoria'>Categoría</label>
+                $lista
+            </div>
+
+            <div class='contenedor' id='subc'>
+                
+            </div>
+            
+            <div class='contenedor'>
+                <label for='codigo'>Código</label>
+                <input type='text' name='codigo' class='form-control-plaintext' id='codigo' title='Código' value='' readonly> 
+            </div>
+
+            <div class='contenedor'>
+                <label for='descripcion'>Descripción</label>
+                <input type='text' class='form-control' name='descripcion' id='descripcion' title='Descripción' value=''>
+            </div>
+
+            <div class='contenedor'>
+                <label for='imagen'>Imagen</label>
+                <input type='file' class='form-control' name='imagen' id='imagen' title='Seleccionar imagen' value=''>
+            </div>
                     
-                </div>
-                
-                <div class='contenedor'>
-                    <label for='codigo'>Código</label>
-                    <input type='text' name='codigo' class='form-control-plaintext' id='codigo' title='Código' value='' readonly> 
-                </div>
+            <div class='contenedor'>
+                <label for='material'>Material</label>
+                $materiales
+                <p> Nuevo material: *Solo en el caso de que todavia no exista</p>
+                <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
+            </div>
 
-                <div class='contenedor'>
-                    <label for='descripcion'>Descripción</label>
-                    <input type='text' class='form-control' name='descripcion' id='descripcion' title='Descripción' value=''>
-                </div>
+            <div class='contenedor' id='color'>
+                <label style='width:100%; height:40px;'>Color</label>
+                <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
+                <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
+                <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
+                <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
+                <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
+                <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
+                <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
+                <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
+                <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
+                <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
+                <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
+                <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
+                <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
+                <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
+                <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
+            </div>
 
-                <div class='contenedor'>
-                    <label for='imagen'>Imagen</label>
-                    <input type='file' class='form-control' name='imagen' id='imagen' title='Seleccionar imagen' value=''>
-                </div>
-                        
-                <div class='contenedor'>
-                    <label for='material'>Material</label>
-                    $materiales
-                    <p> Nuevo material: *Solo en el caso de que todavia no exista</p>
-                    <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
-                </div>
+            <div class='contenedor' id='caracteristicas'>
+                <label for='alto'>Características (Números redondos, en centímetros)</label>
+                <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
+                <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='0' step='5'>
+                <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
+                <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='0' step='5'>
+                <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
+                <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='0' step='5'>
+            </div>
 
-                <div class='contenedor' id='color'>
-                    <label style='width:100%; height:40px;'>Color</label>
-                    <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
-                    <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
-                    <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
-                    <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
-                    <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
-                    <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
-                    <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
-                    <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
-                    <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
-                    <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
-                    <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
-                    <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
-                    <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
-                    <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
-                    <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
-                </div>
+            <div class='contenedor'>
+                <label for='marca'>Marca</label>
+                $marcas
+                <p> Nueva marca: *Solo en el caso de que todavia no exista</p>
+                <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''> 
+            </div>
 
-                <div class='contenedor' id='caracteristicas'>
-                    <label for='alto'>Características (Números redondos, en centímetros)</label>
-                    <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='0' step='5'>
-                    <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='0' step='5'>
-                    <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
-                    <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='0' step='5'>
-                </div>
+            <div class='contenedor'>
+                <label for='cant'>Stock</label>
+                <input type='number' class='form-control' name='cant' id='cant' title='Cantidad' minValue='1' value=''>  
+            </div>
 
-                <div class='contenedor'>
-                    <label for='marca'>Marca</label>
-                    $marcas
-                    <p> Nueva marca: *Solo en el caso de que todavia no exista</p>
-                    <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''> 
-                </div>
+            <div class='contenedor'>
+                <label for='precio'>Precio unitario (Solo número, sin puntos ni comas)</label>
+                <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' minValue='1'>  
+            </div>
 
-                <div class='contenedor'>
-                    <label for='cant'>Stock</label>
-                    <input type='number' class='form-control' name='cant' id='cant' title='Cantidad' minValue='1' value=''>  
-                </div>
-
-                <div class='contenedor'>
-                    <label for='precio'>Precio unitario (Solo número, sin puntos ni comas)</label>
-                    <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' minValue='1'>  
-                </div>
-
-                <div class='contenedor'>
-                    <label for='descuento'>Porcentaje de descuento (Solo número)</label>
-                    <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
-                </div>
-                
-                <div class='contenedor' id='agregar'>
-                    <input type='submit' id='btnEnviar' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
-                </div>";
-
-    $formulario .= "</form>";
+            <div class='contenedor'>
+                <label for='descuento'>Porcentaje de descuento (Solo número)</label>
+                <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
+            </div>
+            
+            <div class='contenedor' id='agregar'>
+                <input type='submit' id='btnEnviar' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
+            </div>
+        </form>
+    ";
 ?>
 <html lang="es">
 <head>
@@ -369,6 +370,15 @@
             padding : 10px;
             border-radius : .5rem;
             text-align : center;
+        }
+
+        .mensaje p{
+            text-align:center;
+        }
+
+        form h1{
+            width:100%;
+            text-align:center;
         }
     </style>
 </head>

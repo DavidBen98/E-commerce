@@ -6,7 +6,7 @@
 
     $formulario ="
             <form action='controlador/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
-                <h1 style='width:100%;text-align:center;'>Alta categoría</h1>
+                <h1>Alta categoría</h1>
 
                 <div class='contenedor'>
                     <label for='nombre'>Nombre de categoría</label>
@@ -150,6 +150,11 @@
             padding : 10px;
             border-radius : .5rem;
             text-align : center;
+        }
+
+        form h1{
+            width:100%;
+            text-align:center;
         }
     </style>
 </head>

@@ -11,9 +11,6 @@
 	} 
 
     global $db;  
-	$rs = "";
-    $categoria = "";
-    $subcategoria = "";
     $filtros = [isset($_POST['color'])? $_POST['color']:null,
 				isset($_POST['marca'])? $_POST['marca']:null,
 				isset($_POST['valorMin'])? $_POST['valorMin']:null,
@@ -101,8 +98,6 @@
     }
 
 	//FILTROS DE LA BARRA LATERAL
-	$filtro = "";
-	$filtrado = "";
 	$url = $_SERVER["REQUEST_URI"];
 
 	if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
@@ -122,16 +117,16 @@
 	//RUTA DE NAVEGACIÓN
 	if (isset($_GET['cate'])){
 		$ruta = "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
-					<li style='border:none;text-decoration: none;'>Productos</li>
+					<li><a href='index.php'>Inicio</a></li>
+					<li><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
+					<li>Productos</li>
 				</ol>
 		";
 	}
 	else{
 		$ruta = "<ol class='ruta'>
-					<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-					<li style='border:none;text-decoration: none;'>Productos</li>
+					<li><a href='index.php'>Inicio</a></li>
+					<li>Productos</li>
 				</ol>
 		";
 	}
@@ -227,6 +222,15 @@
 		    display:flex; 
 		    width:70%; 
 		    margin-left:2%;
+		}
+
+		.ruta li:not(:last-child) {
+			margin-left:5px;
+		}
+
+		.ruta li:last-child {
+			border:none;
+			text-decoration: none;
 		}
 		
 		@media screen and (max-width: 1150px) {

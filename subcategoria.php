@@ -15,18 +15,9 @@
 			</ol>
 	";
 
-	global $db;  
-
 	$imagenes = $_GET['categoria'];
 
-	$sql = "SELECT destination, nombre_subcategoria 
-	 		FROM imagen_subcategorias as s
-			INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
-			INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
-	 		WHERE c.nombre_categoria = '$imagenes'
-	";
-	
-	$rs = $db->query($sql);
+	$rs = obtenerImagenesSubcategorias($imagenes);
 ?>
 <!DOCTYPE html>
 <html lang="es"> 

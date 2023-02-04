@@ -8,14 +8,15 @@
 ?>
 <!DOCTYPE html>
 <?php  
-    $listas = obtenerCategorias();
+    $categorias = obtenerCategorias();
 
 	$formulario =" 
         <form action='controlador/veFuncCategoriaBaja.php' onsubmit='return validarBajaCategoria()' method='post' class='cont'>
-            <h1 style='width:100%;text-align:center;'>Baja categoría</h1>
+            <h1>Baja categoría</h1>
 
             <label for='categoria'>CATEGORÍA</label>
-            $listas
+            $categorias
+            
             <div class= 'agregar'>
                 <input type='submit' class='btn btn-enviar' name='eliminar' id='eliminar' title='Eliminar' value='Eliminar categoría'>
             </div>
@@ -81,6 +82,11 @@
 
         .agregar, .btn{
             width: 100%;
+        }
+
+        form h1{
+            width:100%;
+            text-align:center;
         }
     </style>
 </head>

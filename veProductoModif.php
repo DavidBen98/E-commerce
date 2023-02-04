@@ -20,7 +20,7 @@
 
     $formulario = "
         <form class='cont' action='controlador/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
-            <h2 style='text-align:center; margin: auto;'>Ubicación</h2>
+            <h2>Ubicación</h2>
     ";
             
     if (isset($_GET['modUbi'])){
@@ -31,29 +31,30 @@
         ";
     }
 
-    $formulario .= "  <div class='contenedor' id='catActual'>
-                    
-                </div>
+    $formulario .= "  
+            <div class='contenedor' id='catActual'>
+                        
+            </div>
 
-                <div class='contenedor' style='display:none;'>
-                    <input type='hidden' name='id' class='btn btn-enviar' title='' value='$id'>     
-                </div>
+            <div class='contenedor' style='display:none;'>
+                <input type='hidden' name='id' class='btn btn-enviar' title='' value='$id'>     
+            </div>
 
-                <div class='contenedor'>
-                    <label for='categoria'>Categoría nueva</label>
-                    $lista
-                </div>
+            <div class='contenedor'>
+                <label for='categoria'>Categoría nueva</label>
+                $lista
+            </div>
 
-                <div class='contenedor' id='subc'>
-                    
-                </div>
+            <div class='contenedor' id='subc'>
+                
+            </div>
 
-                <div class='contenedor' id='ubicacion'>
-                    <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
-                </div>
-            </form>
+            <div class='contenedor' id='ubicacion'>
+                <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
+            </div>
+        </form>
 
-            <form class='cont' action='controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
+        <form class='cont' action='controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
     ";
 
     if (isset($_GET['modif'])){
@@ -71,7 +72,7 @@
     }
 
     $formulario .= "
-        <h2 style='text-align:center; margin: auto;'>Características</h2>
+        <h2>Características</h2>
         
         <div class='contenedor'>
             <label for='id'>Id</label>
@@ -90,7 +91,7 @@
         </div>
 
         <div class='contenedor' id='color'>
-            <label style='width:100%; height:40px;'>Color</label>
+            <label> Color </label>
             <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
             <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
             <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
@@ -433,6 +434,11 @@
             margin: 10px 0;
         }
 
+        .color label{
+            width:100%; 
+            height:40px;
+        }
+
         .material, .marca {
             padding: 10px 0;
         }
@@ -440,6 +446,11 @@
         .material input, .marca input{
             width: auto;
             height: auto;
+        }
+
+        form h2{
+            text-align:center; 
+            margin: auto;
         }
     </style>
 </head>
