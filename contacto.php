@@ -17,15 +17,6 @@
     <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <script src="js/funciones.js"></script>
-	<script>
-		// document.addEventListener ('DOMContentLoaded', () => {
-		// 	let btnEnviar = document.getElementById('enviar');
-
-		// 	btnEnviar.addEventListener ("click", () => {
-		// 		return validarContacto();
-		// 	})
-		// });
-	</script>
     <style>
 		body{
 			margin: 0;
@@ -157,6 +148,31 @@
 		    margin-bottom:10px; 
 		    width:100%;
 		}
+
+		.ruta li{
+			margin-left:5px;
+		}
+
+		.cont-h1{
+			width:100%; 
+			margin: 0 0 10px 0;
+		}
+
+		.cont-h1 h1{
+			font-family: museosans500,arial,sans-serif;
+		}
+
+		.ruta li:last-child{
+			margin-left:0;
+			border:none;
+			text-decoration: none;
+		}
+
+		#mensaje{
+			width:auto; 
+			border-radius: 5px; 
+			display:none;
+		}
 		
 		@media screen and (max-width:1000px) {
 		    .contacto-texto{
@@ -187,12 +203,12 @@
 
     <main id='main'>
 		<ol class='ruta'>
-			<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-			<li style='border:none;text-decoration: none; '>Contacto</li>
+			<li><a href='index.php'>Inicio</a></li>
+			<li>Contacto</li>
 		</ol>
 			
-		<div style='width:100%; margin: 0 0 10px 0;'>
-			<h1 style='font-family: museosans500,arial,sans-serif;'>Contacto</h1>
+		<div class='cont-h1'>
+			<h1>Contacto</h1>
 		</div>
 
 		<div class="contacto-texto">
@@ -213,7 +229,7 @@
 					}
 				?>
 				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" ></textarea>
-				<p id="mensaje" style="width:auto; border-radius: 5px; display:none;">
+				<p id="mensaje">
 
                 </p>
 				<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar">

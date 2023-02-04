@@ -12,7 +12,7 @@
 	global $db;
 
 	$ruta = "<ol class='ruta'>
-				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
+				<li><a href='index.php'>Inicio</a></li>
 	";
 
 	$cat = isset($_GET['categoria'])? $_GET['categoria'] : null;
@@ -20,26 +20,19 @@
 	$art = isset($_GET['articulos'])? $_GET['articulos']: null;
 
 	if ($cat != null){
-		$ruta .= "<li style='margin-left:5px;'><a href='subcategoria.php?categoria=$cat'>Subcategorías</a></li>
-			  	  <li style='margin-left:5px;'><a href='productos.php?articulos=$art&cate=$cat&sub=$sub'>Productos</a></li>
+		$ruta .= "<li><a href='subcategoria.php?categoria=$cat'>Subcategorías</a></li>
+			  	  <li><a href='productos.php?articulos=$art&cate=$cat&sub=$sub'>Productos</a></li>
 		";
 	}
 	else{
-		$ruta .= "<li style='margin-left:5px;'><a href='productos.php?productos=todos'>Productos</a></li>";
+		$ruta .= "<li><a href='productos.php?productos=todos'>Productos</a></li>";
 	}
 
-	$variable = $_GET['art'] ;
-	$whereSql = "WHERE codigo = '$variable'";
-
-	$sql = "SELECT *
-			FROM `producto`
-			$whereSql 
-	";
-
-	$rs = $db->query($sql);
+	$codigo = $_GET['art'] ;
+	$rs = obtenerProducto($codigo);
 
 	foreach ($rs as $row) { 	
-		$ruta .= "<li style='border:none;text-decoration: none;'>{$row['descripcion']}</li>
+		$ruta .= "<li>{$row['descripcion']}</li>
 			</ol>
 		";
 
@@ -68,37 +61,27 @@
 		}
 		else{
 			$botones = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
-						<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos' style='width:100%; margin-top:15px;'>
+						<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos'>
 			";						
 		}
 
 		if (isset($_GET['fav'])){
 			$fav = $_GET['fav'];
 			if ($fav == 'ok'){
-				$mensaje = "<div class='mensaje' id='mensaje' style='background-color: #099;'>
+				$mensaje = "<div class='mensaje' id='mensaje-exito'>
 								¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
 						   </div>
 				";
 			}
 			else{
-				$mensaje = "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
-								¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
+				$mensaje = "<div class='mensaje' id='mensaje-advertencia'>
+								¡El producto ya pertenece a <a href='favoritos.php'>favoritos</a>!
 						   </div>
 				";
 			}
 		}
 
-		$sql = "SELECT * FROM imagen_productos 
-                WHERE id_producto = $id AND portada=1
-		";
-
-		$result = $db -> query($sql);
-
-		$path = '';
-
-		foreach ($result as $r){
-			$path = $r['destination'];
-		}
+		$path = obtenerImagenProducto($id);
 
 		$contArticulo = "<div class='contenedor'> 
 							<div id='cont-images'>
@@ -109,19 +92,21 @@
 								<div class='cont-fund'>
 									<input type='hidden' name='codImg' value='$variable' />
 									
-									<h1 style='font-size: 30px; font-weight:600; font-family: proxima-nova;'>{$row['descripcion']}</h1>";
+									<h1>{$row['descripcion']}</h1>";
 									
                                     if ($row['descuento'] != 0){
                                         $precioDescuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
-                                        $contArticulo .=  "<h3 class='precio' style='display:flex; text-decoration:line-through; margin: 10px 0;'>
-															$". $precioDescuento ." 
-														</h3>
-											  			<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
+                                        $contArticulo .=  "
+											<h3 class='precio'>
+												$". $precioDescuento ." 
+											</h3>
+											<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
         								";
                                     }
                                     else{
-										$contArticulo .= "<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
-														<input type='hidden' name='precio' value='{$row['precio']}' />
+										$contArticulo .= "
+											<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
+											<input type='hidden' name='precio' value='{$row['precio']}' />
 										";
                                     }
 
@@ -181,6 +166,16 @@
 			justify-content:start;
 		}
 
+		.ruta li{
+			margin-left:5px;
+		}
+
+		.ruta li:last-child{
+			margin-left: 0;
+			border:none;
+			text-decoration: none;
+		}
+
 		.contenedor {
 			display:flex;
 			justify-content: center;
@@ -194,6 +189,18 @@
 
 		.contenedor h1{
 			font-size: 0.9em;
+		}
+
+		.cont-fund h1{
+			font-size: 30px; 
+			font-weight:600; 
+			font-family: proxima-nova;
+		}
+
+		.precio{
+			display:flex; 
+			text-decoration:line-through; 
+			margin: 10px 0;
 		}
 
 		#cont-images{
@@ -264,6 +271,11 @@
 			text-align:center;
 		}
 
+		#btn-fav{
+			width:100%; 
+			margin-top:15px;
+		}
+
 		#btn-fav:hover{
 			background-color: #000;
 		}
@@ -284,6 +296,19 @@
             color: white;
             transition: all 0.5s linear;
         }
+
+		#mensaje-exito{
+			background-color: #099;
+		}
+
+		#mensaje-advertencia{
+			background: rgb(241, 196, 15); 
+			color:#000;
+		}
+
+		#mensaje-advertencia a{
+			color:#000;
+		}
 
         .mensaje a:hover, .carrito-compras:hover{
             font-size:1.2rem;

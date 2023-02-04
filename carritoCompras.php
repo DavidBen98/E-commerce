@@ -18,29 +18,18 @@
     }
 
     $ruta = "<ol class='ruta'>
-                <li style='margin-left:5px;'>
-                    <a href='index.php'> Inicio </a>
-                </li>
-                <li style='border:none;text-decoration: none;'>
-                    Carrito de compras
-                </li>
+                <li> <a href='index.php'> Inicio </a> </li>
+                <li> Carrito de compras </li>
             </ol>
     ";
 
-    global $db; 
     $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
     $listaCarrito = array();
     $productosAgregados = 0;
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
-            $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
-                                 FROM producto
-                                 WHERE id=?
-            ");
-
-            $sql -> execute ([$key]);
-            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+            $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
         }
         $productosAgregados = count($listaCarrito);
     }
@@ -55,11 +44,10 @@
     }
 
     $carrito .= "<div>
-                    <h1 style='font-family: museosans500,arial,sans-serif; margin:0; font-size:1rem;'>
-                    CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS
-                    </h1>
-                    <p style='font-size: 0.9rem; font-weight:700; color: #858585; font-family: museosans500,arial,sans-serif; margin:0;'>  
-                        $productosAgregados PRODUCTO";
+                    <h1> CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS </h1>
+                    <p id='p-carrito'>  
+                        $productosAgregados PRODUCTO
+    ";
                     
     if ($productosAgregados != 1){
         $carrito .= "S"; //PRODUCTOS
@@ -71,7 +59,7 @@
     ";
 
     if ($listaCarrito == null){
-        $carrito .= "<div style='margin:10px;'> Aún no hay productos agregados</div>";
+        $carrito .= "<div id='vacio'> Aún no hay productos agregados</div>";
 
         $carrito .= "<div class='contenedor-botones'>
                         <div class= 'botones'>
@@ -118,19 +106,19 @@
             $carrito .= "<div class='contenedor'>
                             <div class='descrip'> 
                                 <div class='principal'>                                                                                          
-                                    <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                    <img src='$path' class='productos img-cat' alt='$codigo'>
                                         <div class='titulo'>
-                                            <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
-                                                <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
-                                                <p class='enlace' style='font-size:16px; color: #858585;'> $marca</p>
+                                            <div class='cont-enlaces'>
+                                                <p class='enlace'> $descripcion</p>
+                                                <p class='enlace'> $marca</p>
                                             </div> 
                                             <div class='contenedor-eventos'>
-                                                <div class='evento-producto' style='padding-right: 3%; text-aling: end; border-right: 1px solid #D3D3D3;'>
-                                                    <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
+                                                <div class='evento-producto'>
+                                                    <img src='images/eliminar.png' alt='Eliminar producto'>
                                                     <button class='elim-prod' value='$id'> Eliminar producto</button>
                                                 </div>
-                                                <div class='evento-producto' style='text-align:start; padding-left: 3%'>
-                                                    <img src='images/fav-carr.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar a favoritos'>
+                                                <div class='evento-producto'>
+                                                    <img src='images/fav-carr.png' alt='Agregar a favoritos'>
                                                     <button class='fav-prod' value='$id'> Agregar a favoritos</button>
                                                 </div>
                                             </div>
@@ -147,7 +135,11 @@
                                                 <td class='caract'> $material </td>
                                             </tr>
                                             <tr>
-                                                <th class='definir'><label for='cant-$selectNumero' class='labelSelect' id='$id'><b>Cantidad:</b></label></th>
+                                                <th class='definir'>
+                                                    <label for='cant-$selectNumero' class='labelSelect' id='$id'>
+                                                        <b>Cantidad:</b>
+                                                    </label>
+                                                </th>
                                                 <td class='caract'>
                                                     <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
                                                         for ($j=1; $j<=$stock; $j++){
@@ -158,54 +150,56 @@
                                                                 $carrito .= "<option value='$j'> $j </option>";
                                                             }
                                                         }
-                $carrito .="                    </select>
-                                            </td>
-                                        </tr>
+            $carrito .="                    
+                                                    </select>
+                                                </td>
+                                            </tr>
                                         </table>
-                        </div>                                            
-                    </div>
+                                </div>                                            
+                            </div>
 
-                    <div class='precio'>
-                        <p style='border-bottom: 0.5px solid #D3D3D3; padding:0 0 1% 1%; margin-left:4%;'>Precio unitario </p> 
-                        <div id='precioU-$selectNumero' style='display:flex; border-bottom: 0.5px solid #D3D3D3; padding:0 0 1% 1%; font-family: Arial,Helvetica,sans-serif;'>";
-                            if($precio != $precioDescuento){
-                                $carrito .= "<p style='text-decoration:line-through; font-size:0.85rem;'>$$precio</p>";
-                            }
-                                $carrito .= "<p> $$precioDescuento </p>
-                        </div>
-                        <p style='padding: 1% 0 0 1%; margin-left:4%'>Precio </p> 
-                        <p id='precioS-$selectNumero' style='padding: 1% 0 0 1%; font-family: Arial,Helvetica,sans-serif;'>
-                            <b>$".$subtotal."</b>
-                        </p>
-                    </div>
+                            <div class='precio'>
+                                <p class='precioU'>Precio unitario </p> 
+                                <div class='div-precioU' id='precioU-$selectNumero'>";
+                                    if($precio != $precioDescuento){
+                                        $carrito .= "<p class='precioDesc'>$$precio</p>";
+                                    }
+                                        $carrito .= "<p> $$precioDescuento </p>
+                                </div>
+                                <p class='p-precio'>Precio </p> 
+                                <p id='precioS-$selectNumero' class='precioS'>
+                                    <b>$".$subtotal."</b>
+                                </p>
+                            </div>
                 </div>
             ";
 
             $selectNumero++;
         }
 
-        $carrito .= "<div class='contenedor-botones'>
-                        <div class= 'botones'>
-                            <div class='totales' style='height:40px;'>
-                                <p class='subtotal txt-totales'>Subtotal:</p> 
-                                <p class='subtotal txt-totales' id='subtotal'> $$total </p>
-                            </div>
-                            <div class='totales' style='height:50px;'>
-                                <p class='txt-totales total' style='border-bottom-left-radius: 5px;'>
-                                    <b style='font-size: 1.1rem;'>Total</b> 
-                                </p> 
-                                <p class='total txt-totales' id='total'>
-                                    <b>$$total</b>
-                                </p>
-                            </div>
-                            <div class='btnRedirigir'>
-                                <button type='button' class='btn-final' id='procederCompra'>Proceder a la compra</button>
-                            </div>
-                            <div class='continuar'>
-                                <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
-                            </div>
-                        </div>
+        $carrito .= "
+            <div class='contenedor-botones'>
+                <div class= 'botones'>
+                    <div class='totales'>
+                        <p class='subtotal txt-totales'>Subtotal:</p> 
+                        <p class='subtotal txt-totales' id='subtotal'> $$total </p>
                     </div>
+                    <div class='totales'>
+                        <p class='txt-totales total' id='p-total'>
+                            <b>Total</b> 
+                        </p> 
+                        <p class='total txt-totales' id='total'>
+                            <b>$$total</b>
+                        </p>
+                    </div>
+                    <div class='btnRedirigir'>
+                        <button type='button' class='btn-final' id='procederCompra'>Proceder a la compra</button>
+                    </div>
+                    <div class='continuar'>
+                        <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
+                    </div>
+                </div>
+            </div>
         ";
 
         if (isset($_GET['elim'])){
@@ -214,23 +208,27 @@
         else if (isset($_GET['fav'])){
             $fav = $_GET['fav'];
             if ($fav == 'ok'){
-                $carrito .= "<div class='mensaje' id='mensaje' style='background-color: #099;'>
-                                ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
-                            </div>
+                $carrito .= "
+                    <div class='mensaje' id='mensaje-exito'>
+                        ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+                    </div>
                 ";
             }
             else{
-                $carrito .= "<div class='mensaje' id='mensaje' style='background: rgb(241, 196, 15); color:#000;'>
-                                ¡El producto ya pertenece a <a href='favoritos.php' style='color:#000;'>favoritos</a>!
-                            </div>
+                $carrito .= "
+                    <div class='mensaje' id='mensaje-advertencia'>
+                        ¡El producto ya pertenece a <a href='favoritos.php'>favoritos</a>!
+                    </div>
                 ";
             }
         }
+
         $carrito .= "
-        </div>
-        <a href='carritoXLS.php' title='Excel de compras' style='margin: 10px 0 0 10px; height:40px;'>
-            <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
-        </a>"; 
+            </div>
+            <a href='carritoXLS.php' title='Excel de compras' id='excel'>
+                <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
+            </a>
+        "; 
     }  
 ?> 
 <!DOCTYPE html>
@@ -277,12 +275,114 @@
             margin: 0 1%;
         }
 
+        h1{
+            font-family: museosans500,arial,sans-serif; 
+            margin:0; 
+            font-size:1rem;
+        }
+
+        #p-carrito{
+            font-size: 0.9rem; 
+            font-weight:700; 
+            color: #858585; 
+            font-family: museosans500,arial,sans-serif; 
+            margin:0;
+        }
+
+        .enlace:first-child{
+            color:#000; 
+            margin-top:10px; 
+            width:100%;
+        }
+
+        .enlace:last-child{
+            font-size:16px; 
+            color: #858585;
+        }
+
+        .cont-enlaces{
+            display:flex; 
+            flex-wrap:wrap;
+        }
+
+        #vacio{
+            margin:10px;
+        }
+
+        .precioU{
+            border-bottom: 0.5px solid #D3D3D3; 
+            padding:0 0 1% 1%; 
+            margin-left:4%;
+        }
+
+        .div-precioU{
+            display:flex; 
+            border-bottom: 0.5px solid #D3D3D3; 
+            padding:0 0 1% 1%; 
+            font-family: Arial,Helvetica,sans-serif;
+        }
+
+        .p-precio{
+            padding: 1% 0 0 1%; 
+            margin-left:4%;
+        }
+
+        .precioDesc{
+            text-decoration:line-through; 
+            font-size:0.85rem;
+        }
+
+        .presioS{
+            padding: 1% 0 0 1%; 
+            font-family: Arial,Helvetica,sans-serif;
+        }
+
+        .totales:first-child{
+            height:40px;
+        }
+
+        .totales:last-child{
+            height:50px;
+        }
+
+        #p-total{
+            border-bottom-left-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        #mensaje-exito{
+			background-color: #099;
+		}
+
+		#mensaje-advertencia{
+			background: rgb(241, 196, 15); 
+			color:#000;
+		}
+
+		#mensaje-advertencia a{
+			color:#000;
+		}
+
+        #excel{
+            margin: 10px 0 0 10px; 
+            height:40px;
+        }
+
         .productos{
             width: 30%;
             max-height: 120px;
             padding-right: 2%;
             object-fit: contain;
         }
+
+        .ruta li:first-child{
+			margin-left:5px;
+		}
+
+        .ruta li:last-child{
+			border:none;
+			text-decoration: none;
+		}
 
         .descrip{
             width:70%;
@@ -503,6 +603,24 @@
             display: flex;
             align-items: center;
         } 
+
+        .evento-producto img{
+            width:20px; 
+            height:20px; 
+            margin-right:1px;
+        }
+
+        .evento-producto:first-child{
+            text-align: end; 
+            padding-right: 3%; 
+            border-right: 1px solid #D3D3D3;
+        }
+
+        .evento-producto:last-child{
+            text-align:start; 
+            padding-left: 3%
+        }
+
         
         .fav-prod{
             padding-left: 2px;
@@ -560,6 +678,10 @@
 
         .img-cat:hover{
             cursor: pointer;
+        }
+
+        .img-cat{
+            border:none;
         }
 
         .enlace{

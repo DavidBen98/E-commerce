@@ -21,14 +21,8 @@
             $listaCarrito = array();
 
             foreach ($productos as $key => $cantidad){
-                $sql = $db->prepare("SELECT id
-                                     FROM producto
-                                     WHERE id=?");
-                $sql -> execute ([$key]);
-                $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+                $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
             }
-
-            $idUsuario = "";
 
             if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
                 $idUsuario = $_SESSION['idUsuario'];
@@ -41,13 +35,7 @@
             }
 
             if (!isset($_SESSION['idUsuario'])){
-                $sql = "SELECT u.id
-                        FROM usuarios as u
-                        INNER JOIN usuarios_rs as rs ON rs.id = u.id
-                        WHERE rs.id_social = $idUsuario
-                ";
-
-                $rs = $db->execute($sql);
+                $rs = obtenerUsuarioConRS ($idUsuario);
 
                 foreach ($rs as $row){
                     $idUsuario = $row['id'];
@@ -58,13 +46,7 @@
             $email = $response->payer->email;
             $fecha = $response->date_approved;
 
-            $sql = "INSERT INTO `compra`(`id_usuario`,`total`, `id_transaccion`, `fecha`, `estado`, `email`) 
-                    VALUES ('$idUsuario','$monto','$paymentId','$fecha','RECIBIDO', '$email')
-            ";
-
-            $rs = $db->query($sql);
-
-            $idCompra = $db->lastInsertId();
+            $idCompra = insertarCompra($idUsuario,$monto,$paymentId,$fecha,"RECIBIDO", $email);
 
             $items = $response->additional_info->items;
 
@@ -74,11 +56,7 @@
                 $precioUnitario = $items[$i]->unit_price;
                 $cantidad = $items[$i]->quantity;
 
-                $sql = "INSERT INTO detalle_compra (id_compra, id_producto, nombre, precio, cantidad) VALUES
-                            ('$idCompra','$idProducto','$nombre','$precioUnitario','$cantidad')
-                ";
-                
-                $rs = $db->query($sql);
+                insertarDetalleCompra($idCompra,$idProducto,$nombre,$precioUnitario,$cantidad);
             }
 
             unset($_SESSION['carrito']);

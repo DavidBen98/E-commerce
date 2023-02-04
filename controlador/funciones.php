@@ -1013,6 +1013,48 @@
         return $path;
     }
 
+    function obtenerProducto($codigo){
+        global $db;
+
+        $sql = "SELECT *
+			FROM `producto`
+			WHERE codigo = '$codigo'
+	    ";
+
+        $rs = $db->query($sql);
+
+        return $rs;
+    }
+
+    function obtenerConsultas($idUsuario){
+        global $db;
+
+        $sql= "SELECT c.texto, c.respondido
+            FROM `consulta` as c INNER JOIN `usuario` as u ON (c.usuario_id = u.id)
+            WHERE c.usuario_id='$idUsuario'
+        "; 
+
+        $rs = $db->query($sql);
+
+        return $rs;
+    }
+
+    function obtenerCompras($idUsuario){
+        global $db;
+
+        $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , p.`precio`,`codigo`,p.`id`
+            FROM `compra` as c
+            INNER JOIN `detalle_compra` as d on d.id_compra = c.id
+            INNER JOIN `producto` as p on p.id = d.id_producto 
+            INNER JOIN `usuario` as u on u.id = c.id_usuario
+            WHERE c.id_usuario = '$idUsuario'
+        "; 
+
+        $rs = $db->query($sql);
+
+        return $rs;
+    }
+
     function obtenerImagenesSubcategorias($categoria){
         global $db;
 
@@ -1055,6 +1097,19 @@
         return $rs;
     }
 
+    function obtenerUsuarioConRS ($id){
+        global $db;
+
+        $sql = "SELECT u.id
+                FROM usuario as u
+                INNER JOIN usuarios_rs as rs ON rs.id = u.id
+                WHERE rs.id_social = $id
+        ";
+
+        $rs = $db->execute($sql);
+        return $rs;
+
+    }
     function insertarUsuario ($nombre, $apellido, $email, $perfil, $existe){
         global $db;
 
@@ -1082,6 +1137,30 @@
         ";
 
         $db->query($sql);
+    }
+
+    function insertarCompra($idUsuario,$monto,$paymentId,$fecha,$estado, $email){
+        global $db;
+
+        $sql = "INSERT INTO `compra`(`id_usuario`,`total`, `id_transaccion`, `fecha`, `estado`, `email`) 
+                VALUES ('$idUsuario','$monto','$paymentId','$fecha','$estado', '$email')
+        ";
+
+        $rs = $db->query($sql);
+
+        $idCompra = $db->lastInsertId();
+
+        return $idCompra;
+    }
+
+    function insertarDetalleCompra($idCompra,$idProducto,$nombre,$precioUnitario,$cantidad){
+        global $db;
+
+        $sql = "INSERT INTO detalle_compra (id_compra, id_producto, nombre, precio, cantidad) VALUES
+            ('$idCompra','$idProducto','$nombre','$precioUnitario','$cantidad')
+        ";
+
+        $rs = $db->query($sql);
     }
 
     function seleccionarUsuarioConEmail($email){

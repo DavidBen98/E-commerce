@@ -12,8 +12,6 @@
         header("location:veABMProducto.php");
     } 
                  
-    global $db;
-    
     if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
         $idUsuario = $_SESSION['idUsuario'];
     }
@@ -24,16 +22,11 @@
         $idUsuario = $_SESSION["id_tw"];
     }
 
-    $sql= "SELECT c.texto, c.respondido
-            FROM `consulta` as c INNER JOIN `usuario` as u ON (c.usuario_id = u.id)
-            WHERE c.usuario_id='$idUsuario'
-    "; 
-
-    $rs = $db->query($sql);
+    $rs = obtenerConsultas($idUsuario);
 
     $div = "<div class='consulta'>
-                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
-                    <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
+                <div class='renglon renglon-consultas'>      
+                    <h1>
                         Consultas realizadas
                     </h1>
                 </div>         
@@ -48,16 +41,15 @@
         $div .= "<p>Aún no hay consultas realizadas </p>";
     }
     else{
-        $div .= "<div class='renglon' style='border-bottom:1px solid #858585;'>      
+        $div .= "<div class='renglon renglon-consultas'>      
                     <p><b>Consulta</b></p>
                     <p><b>Respuesta</b></p>
                 </div> 
         ";
         
-        $rs = $db->query($sql);
+        $rs = obtenerConsultas($idUsuario);
 
         foreach ($rs as $row) { 
-            $respuesta = "";                     
             if ($row['respondido']){
                 $respuesta = "Ha sido contestada la consulta";
             }
@@ -67,18 +59,19 @@
             
             $pregunta = ucfirst($row['texto']);
     
-            $div .= "   <div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
-                            <p style='border-right: 1px solid #d3d3d3;'>$pregunta</p>
+            $div .= "   <div class='renglon renglon-consultas'> 
+                            <p>$pregunta</p>
                             <p>$respuesta</p>
                         </div>
             ";
         }
     }
 
-    $div .= "<div class='renglon' style='border-bottom: 1px solid #D3D3D3;'> 
-                <button class='btn' id='nuevaConsulta' style='margin:15px;'>Nueva consulta </button>
+    $div .= "<div class='renglon renglon-consultas'> 
+                <button class='btn' id='nuevaConsulta'>Nueva consulta </button>
             </div>
-    </div>";
+        </div>
+    ";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -127,6 +120,27 @@
             display:flex;
             justify-content:center;
             margin:0;
+        }
+
+        .renglon-consultas{
+            border-bottom:1px solid #858585; 
+            height:50px;
+        }
+
+        .renglon-consultas p{
+            border-right: 1px solid #d3d3d3;
+        }
+
+        .renglon-consultas h1{
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            font-family: museosans500,arial,sans-serif; 
+            font-size:1.6rem;
+        }
+
+        #nuevaConsulta{
+            margin:15px;
         }
         
         @media screen and (max-width: 860px){

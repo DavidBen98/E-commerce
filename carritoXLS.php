@@ -29,22 +29,13 @@
                     </thead> 
         ";         
  
-        global $db; 
-
         $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
         $listaCarrito = array();
         $productosAgregados = 0;
 
         if ($productos != null){
             foreach ($productos as $key => $cantidad){
-                $sql = $db->prepare("SELECT precio, descripcion,nombre_subcategoria, descuento, $cantidad AS cantidad
-                                    FROM producto as p
-                                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-                                    WHERE id=?
-                ");
-
-                $sql -> execute ([$key]);
-                $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+                $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
             }
             $productosAgregados = count($listaCarrito);
         }

@@ -25,52 +25,36 @@
     }
 
     if (!isset($_SESSION['idUsuario'])){
-        $sql = "SELECT u.id
-                FROM usuario as u
-                INNER JOIN usuario_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = '$idUsuario'
-        ";
-
-        $rs = $db->query($sql);
+        $rs = seleccionarUsuarioConId($idUsuario);
 
         foreach ($rs as $row){
             $idUsuario = $row['id'];
         }
     }
 
-    $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , p.`precio`,`codigo`,p.`id`
-            FROM `compra` as c
-            INNER JOIN `detalle_compra` as d on d.id_compra = c.id
-            INNER JOIN `producto` as p on p.id = d.id_producto 
-            INNER JOIN `usuario` as u on u.id = c.id_usuario
-            WHERE c.id_usuario = '$idUsuario'
-    "; 
-
-    $rs = $db->query($sql);
-
     $div = "<div class='consulta'>
-                <div class='renglon' style='border-bottom:1px solid #858585; height:50px;'>      
-                <h1 style='margin: 0; display: flex; align-items: center; font-family: museosans500,arial,sans-serif; font-size:1.6rem;'>
-                    Compras realizadas
-                </h1>
+                <div class='renglon'>      
+                    <h1>
+                        Compras realizadas
+                    </h1>
                 </div>            
     ";
-    $i = 0;
 
+    $i = 0;
     foreach ($rs as $row){
         $i++;
     }
 
-    $rs = $db->query($sql);
+    $rs = seleccionarUsuarioConId($idUsuario);
 
     $selectNumero = 1; 
     if ($i == 0){
-        $div .= "<div style='margin:10px; width:100%; text-align:center; height:30px;'> Aún no hay compras realizadas</div>";
-
-        $div .= "<div class='continuar' style='width: 100%; display: flex;'>
-                        <button type='button' class='btn-final' id='continuar' style='margin:auto;'>
-                            Continúa navegando
-                        </button>
+        $div .= "
+                <div id='vacio'> Aún no hay compras realizadas</div>
+                <div class='continuar'>
+                    <button type='button' class='btn-final' id='continuar'>
+                        Continúa navegando
+                    </button>
                 </div>
         ";
 
@@ -90,33 +74,25 @@
             $codigo = $row['codigo'];
             $id = $row['id'];
 
-            $sql = "SELECT * FROM imagen_productos
-                WHERE id_producto = $id AND portada=1
-            ";
-
-            $result = $db -> query($sql);
-            $path = '';
-
-            foreach ($result as $r){
-                $path = $r['destination'];
-            }
+            $path = obtenerImagenProducto($id);
     
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
-                                    <div class='titulo' style='text-align:left;'>
-                                        <div style='display:flex; flex-wrap:wrap;'>
-                                            <a href='detalleArticulo.php?art=$codigo' class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</a>
-                                            <a href='detalleArticulo.php?art=$codigo' class='enlace' style='font-size:16px; color: #858585;'> $marca</a>
+                                <img src='$path' class='productos img-cat' alt='$codigo'>
+                                    <div class='titulo'>
+                                        <div>
+                                            <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
+                                            <a href='detalleArticulo.php?art=$codigo' class='enlace'> $marca</a>
                                         </div>
+
                                         <div class='elim-fav'>
-                                            <div class='elim-producto' style='width:45%; padding-right: 8px; border-right: 1px solid #D3D3D3;' >
-                                                <img src='images/eliminar.png' style='width:20px; height:20px; margin-right:1px;' alt='Eliminar producto'>
+                                            <div class='elim-producto'>
+                                                <img src='images/eliminar.png' alt='Eliminar producto'>
                                                 <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
                                             </div>
-                                            <div class='elim-producto' style='text-align:end;'>
-                                                <img src='images/carrito.png' style='width:20px; height:20px; margin-right:1px;' alt='Agregar al carrito'>
+                                            <div class='elim-producto'>
+                                                <img src='images/carrito.png' alt='Agregar al carrito'>
                                                 <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
@@ -209,11 +185,44 @@
             padding: 0 1%;
         }
 
+        .titulo div:first-child{
+            display:flex; 
+            flex-wrap:wrap;
+        }
+        
+        .enlace:first-child{
+            color:#000; 
+            margin-top:10px; 
+            width:100%;
+        }
+
+        .enlace:last-child{
+            font-size:16px; 
+            color: #858585;
+        }
+
         .renglon{
             width:100%;
             display:flex;
             justify-content:center;
             margin:0;
+            border-bottom:1px solid #858585; 
+            height:50px;
+        }
+
+        .renglon h1{
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            font-family: museosans500,arial,sans-serif; 
+            font-size:1.6rem;
+        }
+
+        #vacio{
+            margin:10px; 
+            width:100%; 
+            text-align:center; 
+            height:30px;
         }
 
         .productos{
@@ -319,6 +328,7 @@
         .titulo{
             width:300px;
             height: auto;
+            text-align:left;
         }
 
         .botones{
@@ -334,6 +344,8 @@
 
         .continuar{
             height: 20%;
+            width: 100%; 
+            display: flex;
         }
 
         .btn-final{
@@ -383,6 +395,10 @@
             cursor:pointer;
         }
 
+        #continuar{
+            margin:auto;
+        }
+
         .cant-compra{
             padding: 5px 10px;
         }
@@ -402,6 +418,12 @@
             display: flex;
             align-items: center;
         } 
+
+        .elim-producto img{
+            width:20px; 
+            height:20px; 
+            margin-right:1px;
+        }
         
         .fav-prod{
             padding-left: 2px;
@@ -412,6 +434,16 @@
         .elim-prod{
             transition: all 0.5s linear;
             color: #858585;
+        }
+
+        .elim-producto:first-child{
+            width:45%; 
+            padding-right: 8px; 
+            border-right: 1px solid #D3D3D3;
+        }
+
+        .elim-producto:last-child{
+            text-align:end;
         }
 
         .fav-prod:hover, .elim-prod:hover{
@@ -466,6 +498,10 @@
 
         .img-cat:hover{
             cursor: pointer;
+        }
+
+        .img-cat{
+            border:none;
         }
 
         .enlace{
