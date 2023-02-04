@@ -12,8 +12,6 @@
         header("location:veABMProducto.php");
     } 
                  
-    global $db;
-    
     if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
         $idUsuario = $_SESSION['idUsuario'];
     }

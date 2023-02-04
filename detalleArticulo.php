@@ -9,8 +9,6 @@
         header("location:veABMProducto.php");
     }  	
 	
-	global $db;
-
 	$ruta = "<ol class='ruta'>
 				<li><a href='index.php'>Inicio</a></li>
 	";
