@@ -461,10 +461,35 @@
                 $imgCat = $r['destination'];
             }
 
-            echo " <div class='cont-images'> 
-                        <img src= '$imgCat' alt='$nomCat' class='img-cat'>
-                        <div class='texto'>
-                            <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
+            echo " <div class='cont-images cards'> 
+                        <div
+                            class='card'
+                            style='
+                                background-image: url('$imgCat');
+                            '
+                        >
+                            <div class='info_container'>
+                                <div class='icon_container'>
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        viewBox='0 0 24 24'
+                                        width='100%'
+                                        height='100%'
+                                        class='icon'
+                                        stroke='currentColor'
+                                        stroke-width='2'
+                                    >
+                                        <path
+                                            stroke-linecap='round'
+                                            stroke-linejoin='round'
+                                            class='icon'
+                                            d='M12 4v16m8-8H4'
+                                        />
+                                    </svg>
+                                </div>
+
+                                <div class='info'>
+                                    <h2 class='img-titulo main'>".strtoupper($nomCat) ."</h2>
             ";
 
             $sql1 ="SELECT nombre_subcategoria
@@ -475,7 +500,7 @@
             
             $rs1 = $db->query($sql1);
 
-            echo "<p class='img-texto'>";
+            echo "<p class='img-texto sub'>";
             $subcatNombre = "";
             foreach ($rs1 as $row1){ //subcategorias
                 $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
@@ -492,6 +517,8 @@
             echo "" .  ucwords($subcatNombre) . "          
                             </p>     
                         </div>
+                    </div>
+                    </div>
                 </div>
             ";
         }

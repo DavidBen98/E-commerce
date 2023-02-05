@@ -187,6 +187,8 @@
     <link rel="icon" type="image/png" href="images/logo_sitio.png">
     <title>Muebles Giannis</title>
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600;700;800;900&display=swap");
+
         #main{
             padding: 1.5% 0;
         }
@@ -251,6 +253,101 @@
             margin: auto;
         }
 
+
+
+
+        .cards {
+            display: flex;
+            border-radius: 1rem;
+            overflow: hidden;
+            gap: 10px;
+        }
+
+        .card {
+            height: 500px;
+            width: 150px;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            background-color: #000;
+            transition: all 0.5s ease-in-out;
+            border-radius: 1rem;
+        }
+
+        .card:hover {
+            opacity: 1;
+        }
+
+        .active {
+            transition: all 0.5s ease-in-out;
+            height: 500px;
+            width: 700px;
+            opacity: 1;
+        }
+
+        .icon_container {
+            width: 100px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .icon {
+            stroke: #fff;
+            opacity: 1;
+        }
+
+        .info_container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .active .info_container {
+            background-image: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.6) 0%,
+            rgba(255, 255, 255, 0) 100%
+            );
+            border-radius: 20px;
+        }
+
+        .info {
+            display: none;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+            padding: 10px 15px;
+        }
+
+        .active .info {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .active .icon_container {
+            width: 60px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .main {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .sub {
+            font-size: 18px;
+            font-weight: 200;
+            color: white;
+        }
+
+
+
+
+
+
         @media screen and (max-width: 1120px) {
             .categorias{
                 grid-template-columns: repeat(4, 1fr);
@@ -281,28 +378,51 @@
     <script src="js/funciones.js"></script>
     <script>
         document.addEventListener ('DOMContentLoaded', () => {
+
+            const cards = document.querySelectorAll('.card')
+
+            // Añadimos un evento en cada click
+            cards.forEach((card) => {
+                card.addEventListener('click', () => {
+                    if (card.classList.contains("active")) {
+                        card.classList.toggle("active");
+                    } else {
+                        cards.forEach((card) => card.classList.remove("active"));
+                        card.classList.add("active");
+                    }
+
+                })
+            });
+
+
+
+
+
+
+
+
             let imgCat = document.getElementsByClassName('img-cat');
             let txtCat = document.getElementsByClassName('texto');
 
-            for (i=0;i<imgCat.length;i++){
-                let img = imgCat[i];
-                let txt = txtCat[i];
+            // for (i=0;i<imgCat.length;i++){
+            //     let img = imgCat[i];
+            //     let txt = txtCat[i];
 
-                img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-                img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
-                                    img.style.opacity="0.6";
-                                    txt.style.opacity = "0";
-                }); 
-                txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-            };
+            //     img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
+            //     img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
+            //                         img.style.opacity="0.6";
+            //                         txt.style.opacity = "0";
+            //     }); 
+            //     txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
+            // };
 
-            let imagenes = document.getElementsByClassName('cont-images');
-            for (j=0;j<imagenes.length;j++){
-                let imagen = imgCat[j].getAttribute('alt');
-                imagenes[j].addEventListener("click", () => {
-                    window.location = 'subcategoria.php?categoria='+imagen;
-                });
-            }
+            // let imagenes = document.getElementsByClassName('cont-images');
+            // for (j=0;j<imagenes.length;j++){
+            //     let imagen = imgCat[j].getAttribute('alt');
+            //     imagenes[j].addEventListener("click", () => {
+            //         window.location = 'subcategoria.php?categoria='+imagen;
+            //     });
+            // }
         });
     </script>
 </head>
