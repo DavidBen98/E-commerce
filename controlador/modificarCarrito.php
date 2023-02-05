@@ -1,7 +1,7 @@
 <?php  
     require_once 'config.php';
     include_once ("../inc/conn.php");
-    require_once 'vendor/autoload.php';
+    require_once '../vendor/autoload.php';
 
     if ((isset($_POST['id'])) && (isset($_POST['cantidad']))){
         $id = strval($_POST['id']);

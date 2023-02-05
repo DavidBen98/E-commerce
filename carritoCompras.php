@@ -46,8 +46,7 @@
     $carrito .= "<div>
                     <h1> CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS </h1>
                     <p id='p-carrito'>  
-                        $productosAgregados PRODUCTO
-    ";
+                        $productosAgregados PRODUCTO";
                     
     if ($productosAgregados != 1){
         $carrito .= "S"; //PRODUCTOS
@@ -332,7 +331,7 @@
             font-size:0.85rem;
         }
 
-        .presioS{
+        .precioS{
             padding: 1% 0 0 1%; 
             font-family: Arial,Helvetica,sans-serif;
         }
@@ -408,6 +407,10 @@
             font-size: 1rem;
             height: 30px;
             margin: 0;
+        }
+
+        .precio > p{
+            margin-left: 5px;
         }
 
         .precio div{

@@ -36,7 +36,7 @@
                         
             </div>
 
-            <div class='contenedor' style='display:none;'>
+            <div class='contenedor' id='idActual'>
                 <input type='hidden' name='id' class='btn btn-enviar' title='' value='$id'>     
             </div>
 
@@ -371,6 +371,10 @@
             justify-content:start;
         }
 
+        #idActual{
+            display:none;
+        }
+
         #color div label{
             width:40%;
             text-align:start;
@@ -452,6 +456,10 @@
             text-align:center; 
             margin: auto;
         }
+
+        #main > h1{
+            width:100%;text-align:center;
+        }
     </style>
 </head>
 <body>
@@ -461,7 +469,7 @@
 	</header>
 
     <main id='main'>
-        <h1 style='width:100%;text-align:center;'>Modificar producto</h1>
+        <h1>Modificar producto</h1>
 
         <?= $formulario; ?>
     </main>

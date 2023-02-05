@@ -137,7 +137,7 @@
                 $_SESSION['id_tw'] = $row['id'];
             }
         }
-    } 
+    } */
 
     $suscripcion="";
 
@@ -177,7 +177,6 @@
             ";
         }
     }
-    */
 ?>
 <!DOCTYPE html>
 <html lang="es">

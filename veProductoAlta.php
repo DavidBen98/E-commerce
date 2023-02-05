@@ -100,7 +100,7 @@
             </div>
 
             <div class='contenedor' id='color'>
-                <label style='width:100%; height:40px;'>Color</label>
+                <label>Color</label>
                 <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
                 <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
                 <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
@@ -317,6 +317,11 @@
         #color{
             justify-content:start;
             padding: 0 10% 10px;
+        }
+
+        #color > label{
+            width:100%; 
+            height:40px;
         }
 
         #color div label{

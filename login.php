@@ -62,11 +62,11 @@
 								
 								<div class='cont-reg'>
 									<label class='form-label'>Dirección </label>
-									<label class='form-label' for='calle' style='display:none;'>Calle </label>
+									<label class='form-label lDire' for='calle'>Calle </label>
 									<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
-									<label class='form-label' for='numero' style='display:none;'>Numero</label>
+									<label class='form-label lDire' for='numero'>Numero</label>
 									<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
-									<label class='form-label' for='piso' style='display:none;'>Piso</label>
+									<label class='form-label lDire' for='piso' >Piso</label>
 									<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
 								</div> 
 
@@ -93,12 +93,12 @@
 
 								<div class='cont-reg l-novedades'>
 									<label>
-										<input type='checkbox' id='novedades' style='width:auto;' name='suscripcion'  value=''>Suscripción a las novedades
+										<input type='checkbox' id='novedades' name='suscripcion'  value=''>Suscripción a las novedades
 									</label>			
 								</div>
 								
 								<div class='registro'>
-									<p class='mensaje' id='mensaje' style='display:none;'></p>
+									<p class='mensaje' id='mensaje'></p>
 									<button id='registrarse'>Registrarse</button>
 								</div>
 		";
@@ -155,7 +155,7 @@
 									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' >
 								</div>
 
-								<p class='mensaje' id='mensaje' style='display:none;'></p>
+								<p class='mensaje' id='mensaje'></p>
 		";
 		
 		$error ='';
@@ -272,6 +272,10 @@
 			display:flex;
     		justify-content: center;
 			margin:8px;
+		}
+
+		.lDire{
+			display:none;
 		}
 
 		.botones{
@@ -471,6 +475,10 @@
 		    justify-content:start; 
 		    margin-left:4%; 
 		    margin-top:2%;
+		}
+
+		#novedades{
+			width:auto;
 		}
 		
 		.l-novedades label{

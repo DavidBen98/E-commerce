@@ -39,11 +39,12 @@
     ";
 
     $i = 0;
+    $rs = seleccionarUsuarioConId($idUsuario);
+    
     foreach ($rs as $row){
         $i++;
     }
 
-    $rs = seleccionarUsuarioConId($idUsuario);
 
     $selectNumero = 1; 
     if ($i == 0){
@@ -511,6 +512,15 @@
             font-size:1.15rem;
             transition: all 0.5s linear;
         }
+
+        .ruta li:first-child{
+			margin-left:5px;
+		}
+
+        .ruta li:last-child{
+			border:none;
+			text-decoration: none;
+		}
         
         @media screen and (max-width:860px){
             main{
@@ -546,8 +556,8 @@
 
     <main>
         <ol class='ruta'>
-            <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-            <li style='border:none;text-decoration: none;'>Mis compras</li>
+            <li><a href='index.php'>Inicio</a></li>
+            <li>Mis compras</li>
         </ol>
         
         <aside class='contenedor-botones'>

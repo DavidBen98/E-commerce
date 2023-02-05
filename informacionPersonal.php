@@ -74,14 +74,14 @@
                 <div class='renglon'>
                     <label class='descripciones' for='prov'>Provincia</label>
                     <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row['provincia']}' readonly> 
-                    <label class='descripciones' for='provincia' style='display:none'>Provincia</label>
+                    <label class='descripciones' for='provincia' id='lModProvincia'>Provincia</label>
                     $select
                 </div>
 
                 <div class='renglon' id='renglonCiudad'>
                     <label class='descripciones' for='inputCiudad'>Ciudad</label>
                     <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row['ciudad']}' readonly>
-                    <label class='descripciones' for='ciu' style='display:none;'>Ciudad</label>
+                    <label class='descripciones' id='lModCiudad' for='ciu'>Ciudad</label>
                 </div>
 
                 <div class='renglon'>
@@ -102,8 +102,8 @@
     $infoPersonal .= "
         <div class='renglon renglon-mod'>
             <input type='button' id='modificarDatos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
-            <input type='button' id='cancelar' class='btn' value='Cancelar' style='display:none;'>  
-            <input type='submit' id='confirmar' class='btn' value='Confirmar' style='display:none;'>
+            <input type='button' id='cancelar' class='btn' value='Cancelar'>  
+            <input type='submit' id='confirmar' class='btn' value='Confirmar'>
         </div>
     ";
 
@@ -113,6 +113,8 @@
 
         if ($error == '1'){
             $infoPersonal .= "<p class='mensaje' id='mensaje'>¡El nombre de usuario ingresado ya existe, reintente con otro por favor!</p>";
+        } else if ($error == "2"){
+            $infoPersonal .= "<p class='mensaje' id='mensaje'>Falta ingresar al menos un campo </p>";
         }
 
         $infoPersonal .= "</div>";
@@ -186,6 +188,10 @@
             line-height: 1.5em;
         }
 
+        .direccion .dato{
+            width: 100%;
+        }
+
         p{
             text-align:center;
         }
@@ -216,6 +222,10 @@
 
         #modificarDatos, #confirmar, #cancelar{
             margin:10px;
+        }
+
+        #confirmar, #cancelar{
+            display:none;
         }
 
         .ruta{
@@ -278,8 +288,12 @@
             width:100%;
         }
 
+        #lModCiudad, #lModProvincia{
+            display:none;
+        }
+
         #inputNumero, #inputPiso{
-            width:8%;
+            width:50%;
         }
         
         main > section {
@@ -313,6 +327,16 @@
             border-bottom:1px solid #858585; 
             height:50px;
         }
+
+        .direccion{
+            flex-wrap:wrap;
+            justify-content:center;
+        }
+            
+        .direccion > .form-label{
+            width:100%;
+            text-align:center;
+        }
         
         @media screen and (max-width:860px){
             main > section {
@@ -333,16 +357,6 @@
             
             .renglon{
                 flex-wrap:wrap;
-            }
-            
-            .direccion{
-                flex-wrap:wrap;
-                justify-content:center;
-            }
-            
-            .direccion > .form-label{
-                width:100%;
-                text-align:center;
             }
         }
     </style>

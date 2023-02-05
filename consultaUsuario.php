@@ -67,7 +67,7 @@
         }
     }
 
-    $div .= "<div class='renglon renglon-consultas'> 
+    $div .= "<div class='renglon'> 
                 <button class='btn' id='nuevaConsulta'>Nueva consulta </button>
             </div>
         </div>
@@ -142,6 +142,15 @@
         #nuevaConsulta{
             margin:15px;
         }
+
+        .ruta li:first-child{
+			margin-left:5px;
+		}
+
+        .ruta li:last-child{
+			border:none;
+			text-decoration: none;
+		}
         
         @media screen and (max-width: 860px){
             .consulta{
@@ -159,8 +168,8 @@
 
     <main>
         <ol class='ruta'>
-            <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-            <li style='border:none;text-decoration: none;'>Consulta de usuario</li>
+            <li><a href='index.php'>Inicio</a></li>
+            <li>Consulta de usuario</li>
         </ol>
         
         <aside class='contenedor-botones'>

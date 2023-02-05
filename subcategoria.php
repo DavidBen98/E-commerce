@@ -10,8 +10,8 @@
 	}	 
 
 	$ruta = "<ol class='ruta'>
-				<li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-				<li style='border:none;text-decoration: none;'>Subcategorías</li>
+				<li><a href='index.php'>Inicio</a></li>
+				<li>Subcategorías</li>
 			</ol>
 	";
 
@@ -39,6 +39,15 @@
 		
 		.img-cat{
 			object-fit: contain;
+		}
+
+		.ruta li:first-child{
+			margin-left:5px;
+		}
+
+        .ruta li:last-child{
+			border:none;
+			text-decoration: none;
 		}
 
 		#form-filtrado{

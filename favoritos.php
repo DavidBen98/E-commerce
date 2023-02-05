@@ -501,6 +501,15 @@
             height:auto;
             margin: 0 0 4% 2%;
         }
+
+        .ruta li:first-child{
+			margin-left:5px;
+		}
+
+        .ruta li:last-child{
+			border:none;
+			text-decoration: none;
+		}
         
         @media screen and (max-width:860px){
             main > section{
@@ -577,8 +586,8 @@
     <main>
 
         <ol class='ruta'>
-            <li style='margin-left:5px;'><a href='index.php'>Inicio</a></li>
-            <li style='border:none;text-decoration: none;'>Favoritos</li>
+            <li><a href='index.php'>Inicio</a></li>
+            <li>Favoritos</li>
         </ol>
 
         <aside class='contenedor-botones'>

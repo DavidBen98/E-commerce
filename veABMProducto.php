@@ -33,6 +33,11 @@
         .cont{
             background: rgba(147, 81, 22,0.2);
         }
+
+        .cont h1{
+            text-align:center; 
+            width:100%;
+        }
     </style>
 </head>
 
@@ -43,7 +48,7 @@
 
     <main id='main'>
         <div class='cont'>
-            <h1 style='text-align:center; width:100%;'>PRODUCTOS</h1>
+            <h1>PRODUCTOS</h1>
             <button class="btn hover" id='altaProductos'>ALTA</button>
             <button class="btn hover" id='bajaProductos'>BAJA</button>
             <button class="btn hover" id='modProductos'>MODIFICACIÓN</button>

@@ -52,6 +52,17 @@ header a {
     font-family: "Salesforce Sans", serif;
 }
 
+#btnInfoPersonal{
+    border-top-left-radius:5px; 
+    border-top-right-radius:5px;
+}
+
+#btnCerrarSesion{
+    border-bottom: none; 
+    border-bottom-left-radius:5px; 
+    border-bottom-right-radius:5px;
+}
+
 #link-logo{
     width:130px;
 }
@@ -117,6 +128,8 @@ header a {
 
 #perfil{
     background-color: white;
+    width:20px; 
+    height:20px;
 }
 
 #perfilUsuario{
@@ -393,6 +406,65 @@ aside select{
     width:90%;
 }
 
+#form-filtrado > h1{
+    display:none; 
+    width:100%; 
+    text-align:center; 
+    margin:0; 
+    padding-left: 100px;
+}
+
+.descripcionPrecio{
+    display:block; 
+    justify-content:center; 
+    align-items:center;
+}
+
+#producto-vacio{
+    display:flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-content:center; 
+    min-height: 250px
+}
+
+#producto-vacio p{
+    width: 100%; 
+    text-align:center; 
+    max-height: 40px;
+}
+
+
+#producto-vacio a{
+    text-decoration: underline;
+}
+
+#min-max .ltitulo{
+    padding-top:20px;
+}
+
+#min-max label:first-child{
+    width: 50%; 
+    text-align: end;
+}
+
+#min-max label:last-child{
+    width: 47%; 
+    padding-left: 3%;
+}
+
+.input-minmax input{
+    text-align:center; 
+    height: 20px;
+}
+
+
+#h3Precio{
+    font-size:0.8rem; 
+    text-decoration: line-through; 
+    margin:0;
+}
+
 #catalogo{
     height:30px;
     margin-top: 10px;
@@ -603,7 +675,7 @@ option{
 }
 
 .modal_submit {
-    width: 50%;
+    width: 100%;
 }
 
 #cerrar_novedades{
@@ -629,6 +701,15 @@ option{
     padding : 10px;
     border-radius : .5rem;
     text-align : center;
+}
+
+#cont_modal{
+    margin: 0;
+}
+
+#usu-fav img, #usu-car img{
+    width:30px;
+    height:30px;
 }
 
 @media screen and (max-width: 860px){

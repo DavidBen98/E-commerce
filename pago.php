@@ -92,14 +92,14 @@
 
         $carrito .= "<div class='contenedor'>
                             <div class='principal'>                                                                                          
-                                <img src='$path' class='productos img-cat' alt='$codigo' style='border:none;'>
+                                <img src='$path' class='productos img-cat' alt='$codigo'>
                                     <div class='titulo'>
-                                        <div class='cont-enlaces' style='display:flex; flex-wrap:wrap;'>
-                                            <p class='enlace' style='color:#000; margin-top:10px; width:100%;'> $descripcion</p>
+                                        <div class='cont-enlaces'>
+                                            <p class='enlace'> $descripcion</p>
                                             <p class='enlace'>Cantidad: $cantidad</p> 
                                         </div>
-                                        <div class='enlace' style='width:30%;'>
-                                            <p style='width:100%; text-align:end;font-family: Arial,Helvetica,sans-serif;'>
+                                        <div class='enlace'>
+                                            <p id='enlSubtotal'>
                                                 <b>$".$subtotal."</b>
                                             </p>
                                         </div>
@@ -111,16 +111,20 @@
 
         $carrito .= "<div class='contenedor-botones'>
                         <div class= 'botones'>
-                            <div class='totales' style='height:50px;'>
-                                <p class='txt-totales total' style='border-bottom-left-radius: 5px; width:60%;'><b style='font-size: 1.1rem;'>Precio final:</b> </p> 
-                                <p class='total txt-totales' id='total' style='border-bottom-right-radius: 5px;padding-right:10px; justify-content:center; width:40%;'><b>$$total</b></p>
+                            <div class='totales'>
+                                <p class='txt-totales total'>
+                                    <b>Precio final:</b> 
+                                </p> 
+                                <p class='total txt-totales' id='total'>
+                                    <b>$$total</b>
+                                </p>
                             </div>
                             <div class='checkout btn-final'></div>
                         </div>
         ";
 
         if (isset($_GET['error_pago'])){
-            $carrito .= "<div class='mensaje' style='background:#E53935;'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
+            $carrito .= "<div class='mensaje' id='mensaje-error'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
         }
 
         $carrito .= "</div>";
@@ -199,6 +203,42 @@
             margin: 0;
         }
 
+        .cont-enlaces{
+            display:flex; 
+            flex-wrap:wrap;
+        }
+
+        .enlace:first-child{
+            color:#000; 
+            margin-top:10px; 
+            width:100%;
+        }
+
+        .enlace:last-child{
+            width: 30%;
+        }
+
+        #enlSubtotal{
+            width:100%; 
+            text-align:end;
+            font-family: Arial,Helvetica,sans-serif;
+        }
+
+        #total{
+            border-bottom-right-radius: 5px;
+            padding-right:10px; 
+            justify-content:center; 
+            width:40%;
+        }
+
+        #mensaje-error{
+            background:#E53935;
+        }
+
+        .total b:first-child{
+            font-size: 1.1rem;
+        }
+
         .cont-btn{
             display:flex;
             justify-content:space-between;
@@ -223,6 +263,10 @@
             margin: 0;
             text-align:start;
             height: auto;
+        }
+
+        .principal > img{
+            border:none;
         }
 
         .secundario{
@@ -284,6 +328,7 @@
             width:220px;
             margin: 0;
             justify-content:center;
+            height:50px;
         }
 
         .subtotal{
@@ -302,6 +347,11 @@
             padding-left: 10px;
             margin: 0;
             color: #000;
+        }
+
+        .txt-totales:first-child{
+            border-bottom-left-radius: 5px; 
+            width:60%;
         }
 
         .cant-compra{
@@ -469,7 +519,5 @@
             });
         }      
     </script>  
-    <!-- -->
-
 </body>
 </html>

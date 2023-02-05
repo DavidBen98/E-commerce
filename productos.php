@@ -18,6 +18,8 @@
 				isset($_POST['orden'])? $_POST['orden']:null]
 	;
 
+	$filtrado = "";
+
 	if ($filtros[2] != null && $filtros[3] != null && $filtros[2]>$filtros[3]){
 		$maximo = $filtros[2];
 		$filtros[2] = $filtros[3];
@@ -231,6 +233,10 @@
 		.ruta li:last-child {
 			border:none;
 			text-decoration: none;
+		}
+
+		.mensaje{
+			display:none;
 		}
 		
 		@media screen and (max-width: 1150px) {

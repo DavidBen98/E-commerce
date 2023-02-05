@@ -17,27 +17,22 @@
     }
 
     if (!isset($_SESSION['idUsuario'])){
-        $sql = "SELECT u.id
-                FROM usuario as u
-                INNER JOIN usuario_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = '$idUsuario'
-        ";
-
-        $rs = $db->query($sql);
+        $rs = obtenerUsuarioConRS($idUsuario);
 
         foreach ($rs as $row){
             $idUsuario = $row['id'];
         }
     }
 
-    $nombreUsuario = isset($_POST['nombreUsuario'])? $_POST['nombreUsuario']:null;
-    $dni = isset($_POST['dni'])? $_POST['dni']:null;
-    $nombre = isset($_POST['nombre'])? $_POST['nombre']:null;
-    $apellido = isset($_POST['apellido'])? $_POST['apellido']:null;
-    $email = isset($_POST['email'])? $_POST['email']:null;
-    $provincia = isset($_POST['provincia']) && $_POST['provincia'] != -1? trim($_POST['provincia']) : "";
-    $ciudad = isset($_POST['ciudad'])? trim($_POST['ciudad']) : "";
-    $direccion = isset($_POST['direccion'])? $_POST['direccion'] : "";
+    $nombreUsuario = (isset($_POST['nombreUsuario']) && !empty($_POST['nombreUsuario']) && trim($_POST['nombreUsuario']) != "")? trim($_POST['nombreUsuario']) : null;
+    $nombre = (isset($_POST['nombre']) && trim($_POST['nombre']) != "")? trim($_POST['nombre']) : null;
+    $apellido = (isset($_POST['apellido']) && trim($_POST['apellido']) != "")? trim($_POST['apellido']) : null;
+    $dni = (isset($_POST['dni']) && strlen(trim($_POST['dni'])) > 6)? trim($_POST['dni']) : null;
+    $email = (isset($_POST['email']) && trim($_POST['email']) != "")? trim($_POST['email']) : null;
+    $provincia = (isset($_POST['provincia']) && trim($_POST['provincia']) != "" && $_POST['provincia'] != -1)? trim($_POST['provincia']) : null;
+    $ciudad = (isset($_POST['ciudad']) && trim($_POST['ciudad']) != "")? trim($_POST['ciudad']) : null;
+    $direccion = (isset($_POST['direccion']) && trim($_POST['direccion'][0]) != "" && trim($_POST['direccion'][1]) != "")? $_POST['direccion'] : null;
+    $suscripcion = ($_POST['suscripcion'] == '1')? 1 : 0;
 
     $sql = "SELECT usuario.id
             FROM usuario
@@ -54,7 +49,9 @@
     if ($i > 0){
         header ('location: ../informacionPersonal.php?error=1#mensaje');
     }
-    else{
+    else if ($nombre == null || $apellido == null || $dni == null || $email == null || $provincia == null || ($ciudad == null && $provincia !="02") || $direccion == null || $nombreUsuario == null){
+        header("location:../informacionPersonal.php?error=2");
+    } else {
         switch ($provincia) {
             case '':
                 $ciudad = "";
@@ -137,11 +134,12 @@
 
         if ($direccion[0] != "" && $direccion[1] != "" && $direccion[2] != ""){
             for ($i=0;$i<count($direccion);$i++){
-                if ($direccion[$i] != "")
-                if ($i == 2){
-                    $dire .= ', ' . $direccion[$i];
-                }else{
-                    $dire .= $direccion[$i] . ' ';
+                if ($direccion[$i] != "") {
+                    if ($i == 2){
+                        $dire .= ', ' . $direccion[$i];
+                    }else{
+                        $dire .= $direccion[$i] . ' ';
+                    }
                 }
             }
         }

@@ -33,6 +33,11 @@
         #main{
             height:auto;
         }
+
+        .cont h2{
+            text-align:center;  
+            width:100%;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +48,7 @@
 
     <main id='main'>
         <div class='cont'>
-            <h2 style='text-align:center;  width:100%;'>SUBCATEGORÍAS</h1>
+            <h2>SUBCATEGORÍAS</h1>
             <button class='btn hover' id='altaSubcat'>ALTA</button>
             <button class='btn hover' id='bajaSubcat'>BAJA</button>
             <button class='btn hover' id='modSubcat'>MODIFICACIÓN</button>

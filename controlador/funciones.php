@@ -9,11 +9,11 @@
     define('PSW_SEMILLA','34a@$#aA9823$');
 
     define ('CONT_USUARIOS', "<div class='contenedor-btn'>        
-                                <div id='btnInfoPersonal' style='border-top-left-radius:5px; border-top-right-radius:5px;'>Datos personales</div>     
+                                <div id='btnInfoPersonal'>Datos personales</div>     
                                 <div id='btnCompraUsuario'>Mis pedidos</div>
                                 <div id='btnFavoritos'>Favoritos</div>
                                 <div id='btnConsultas'>Historial de consultas</div>
-                                <div id='btnCerrarSesion' style='border-bottom: none; border-bottom-left-radius:5px; border-bottom-right-radius:5px;'>Cerrar sesión</div>
+                                <div id='btnCerrarSesion'>Cerrar sesión</div>
                             </div> "
     );
 
@@ -160,7 +160,7 @@
 		$i=0;	
 
 		echo "<form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
-			    <h1 class='h1' style='display:none; width:100%; text-align:center; margin:0; padding-left: 100px;'> Muebles Giannis - Catálogo </h1>";
+			    <h1 class='h1'> Muebles Giannis - Catálogo </h1>";
         
             if (!$consulta){
                 $i++;
@@ -190,13 +190,13 @@
                             <img src='$path' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
                             <div class='caracteristicas'>
                                 <h2 class='descripcion'>". ucfirst($row['descripcion'])." </h2>
-                                <div style='display:block; justify-content:center; align-items:center;'>";
+                                <div class='descripcionPrecio'>";
                                     if ($row['descuento'] != 0){
                                         $precioDescuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
                                         echo "<h3 class='precio'>
                                                  $". $precioDescuento ." 
                                               </h3>
-                                              <h3 class='precio' style='font-size:0.8rem; text-decoration: line-through; margin:0;'>
+                                              <h3 class='precio' id='h3Precio'>
                                                  $". ucfirst($row['precio']).
                                             " </h3>
                                         ";
@@ -213,9 +213,9 @@
 
             if ($i == 0){
                 echo "
-                    <div style='display:flex; flex-wrap: wrap; justify-content: center; align-content:center; min-height: 250px'>
-                        <p style='width: 100%; text-align:center; max-height: 40px'> No existe ningún resultado que coincida con la búsqueda ingresada </p>
-                        <a href='index.php' style='text-decoration: underline;'>Regresar al inicio </a>
+                    <div id='producto-vacio'>
+                        <p> No existe ningún resultado que coincida con la búsqueda ingresada </p>
+                        <a href='index.php'>Regresar al inicio </a>
                     </div>
                 "; 
                 
@@ -657,13 +657,13 @@
 		echo "</div>	
 				</fieldset>
 				<fieldset id='min-max'>
-				    <legend class='ltitulo' style='padding-top:20px;'><b>Precios</b></legend>  
-                    <label for='valorMin' class='lmaxmin' style='width: 50%; text-align: end;'>Mínimo -</label> 
-                    <label for='valorMax' class='lmaxmin' style='width: 47%; padding-left: 3%;'>Máximo</label>			
+				    <legend class='ltitulo'><b>Precios</b></legend>  
+                    <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
+                    <label for='valorMax' class='lmaxmin'>Máximo</label>			
 					<div class='input-minmax'>
-						<input type='number' name='valorMin' id='valorMin' style='text-align:center; height: 20px;' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
+						<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
 						- 
-						<input type='number' name='valorMax' id='valorMax' style='text-align:center; height: 20px;' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
+						<input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
 					</div>
 				</fieldset>	
 				<p class='mensaje' id='mensaje'>
@@ -1110,6 +1110,7 @@
         return $rs;
 
     }
+    
     function insertarUsuario ($nombre, $apellido, $email, $perfil, $existe){
         global $db;
 

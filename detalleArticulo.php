@@ -88,7 +88,7 @@
 
 							<div id='cont-descripcion'>
 								<div class='cont-fund'>
-									<input type='hidden' name='codImg' value='$variable' />
+									<input type='hidden' name='codImg' value='$codigo' />
 									
 									<h1>{$row['descripcion']}</h1>";
 									
@@ -136,7 +136,7 @@
 			</div>
 			
 			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
-					<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.' style='border:0;width:32px;height:32px;'>
+				<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
 			</a>";                    
 	}
 ?>
@@ -164,6 +164,10 @@
 			justify-content:start;
 		}
 
+		.h1{
+			display:none;
+		}
+		
 		.ruta li{
 			margin-left:5px;
 		}
@@ -313,6 +317,12 @@
             transition: all 0.5s linear;
         }
 
+		#btn-imp img{
+			border:0;
+			width:32px;
+			height:32px;
+		}
+
 		@media print {				
 			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav, .ruta{
 				display:none;
@@ -374,7 +384,7 @@
 	</header>
 	
     <main id='main'>
-		<p class='h1' style='display:none;'>Muebles Giannis</p>
+		<p class='h1'>Muebles Giannis</p>
 
 		<?= $ruta ?>
 

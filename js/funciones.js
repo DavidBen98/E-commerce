@@ -226,7 +226,7 @@ const eliminarProducto = (id) => {
 
     $.ajax({
         data: param,
-        url: "eliminarCarrito.php",
+        url: "controlador/eliminarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -462,7 +462,7 @@ const eliminarFav = (id) => {
 
     $.ajax({
         data: param,
-        url: "eliminarFavorito.php?id="+id,
+        url: "controlador/eliminarFavorito.php?id="+id,
         method: "post",
         success: function(data) {
             if (data == 'ok'){
@@ -1074,7 +1074,7 @@ const validarModal = () => {
         if (p == null) {
             let error = document.createElement("div");
             error.setAttribute('id', 'mensaje');
-            let contenedorBoton = document.getElementsByClassName("contenedor")[0];
+            let contenedorBoton = document.getElementsByClassName("cont_modal")[0];
     
             error.innerHTML = "Error: el email ingresado no es correcto, reintente nuevamente con un email válido";
             contenedorBoton.appendChild(error);
