@@ -194,12 +194,13 @@
         }
 
         .categorias {
-            display: grid;
-            margin: 0 auto;
+            width: 100%;
+            /* height: 100vh; */
+            font-family: "Inter", sans-serif;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            grid-template-columns: repeat(4, 1fr);
-            flex-wrap: wrap;
-            width: 65%;
+            gap: 10px;
         }
 
         .cont-images img{
@@ -235,12 +236,20 @@
             background-color: rgba(0,0,0,0.8);
             width:180px;
             height:40px;
+            color: white;
+            border-radius: 5px;
         }
 
         .img-texto{
             background-color: rgba(0,0,0,0.8);
             width:160px;
             margin:auto;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 200;
+            color: white;
         }
 
         .contenedor{
@@ -252,9 +261,6 @@
         .btn{
             margin: auto;
         }
-
-
-
 
         .cards {
             display: flex;
@@ -276,6 +282,7 @@
 
         .card:hover {
             opacity: 1;
+            cursor: pointer;
         }
 
         .active {
@@ -331,23 +338,6 @@
             transition: all 0.5s ease-in-out;
         }
 
-        .main {
-            font-size: 18px;
-            font-weight: 600;
-            color: white;
-        }
-
-        .sub {
-            font-size: 18px;
-            font-weight: 200;
-            color: white;
-        }
-
-
-
-
-
-
         @media screen and (max-width: 1120px) {
             .categorias{
                 grid-template-columns: repeat(4, 1fr);
@@ -389,40 +379,26 @@
                     } else {
                         cards.forEach((card) => card.classList.remove("active"));
                         card.classList.add("active");
+
+                        let elementStyle = window.getComputedStyle(card);
+                        let elementImage = elementStyle.getPropertyValue('backgroundImage');
+
+                        console.log(elementImage);
+                        // card.addEventListener("click", () => {
+                        //     window.location = 'subcategoria.php?categoria='+imagen;
+                        // });
                     }
 
                 })
             });
 
-
-
-
-
-
-
-
-            let imgCat = document.getElementsByClassName('img-cat');
-            let txtCat = document.getElementsByClassName('texto');
-
-            // for (i=0;i<imgCat.length;i++){
-            //     let img = imgCat[i];
-            //     let txt = txtCat[i];
-
-            //     img.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-            //     img.addEventListener ("mouseout", ()=>{img.style.transform="scale(1)";
-            //                         img.style.opacity="0.6";
-            //                         txt.style.opacity = "0";
-            //     }); 
-            //     txt.addEventListener ("mouseover", () => {ponerMouse(txt,img);});
-            // };
-
-            // let imagenes = document.getElementsByClassName('cont-images');
             // for (j=0;j<imagenes.length;j++){
             //     let imagen = imgCat[j].getAttribute('alt');
             //     imagenes[j].addEventListener("click", () => {
             //         window.location = 'subcategoria.php?categoria='+imagen;
             //     });
             // }
+
         });
     </script>
 </head>

@@ -461,11 +461,11 @@
                 $imgCat = $r['destination'];
             }
 
-            echo " <div class='cont-images cards'> 
+            echo " <div class='cards'> 
                         <div
                             class='card'
                             style='
-                                background-image: url('$imgCat');
+                                background-image: url($imgCat);
                             '
                         >
                             <div class='info_container'>
@@ -500,7 +500,7 @@
             
             $rs1 = $db->query($sql1);
 
-            echo "<p class='img-texto sub'>";
+            echo "<p class='img-texto'>";
             $subcatNombre = "";
             foreach ($rs1 as $row1){ //subcategorias
                 $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
