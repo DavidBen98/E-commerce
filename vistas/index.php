@@ -241,7 +241,7 @@
 
         .img-texto{
             background-color: rgba(0,0,0,0.8);
-            width:160px;
+            min-width:160px;
             margin:auto;
             color: white;
             text-align: center;
@@ -249,6 +249,7 @@
             font-size: 18px;
             font-weight: 200;
             color: white;
+            padding: 2%;
         }
 
         .contenedor{
