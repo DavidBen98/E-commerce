@@ -113,11 +113,11 @@
                                             </div> 
                                             <div class='contenedor-eventos'>
                                                 <div class='evento-producto'>
-                                                    <img src='../images/eliminar.png' alt='Eliminar producto'>
+                                                    <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
                                                     <button class='elim-prod' value='$id'> Eliminar producto</button>
                                                 </div>
                                                 <div class='evento-producto'>
-                                                    <img src='../images/fav-carr.png' alt='Agregar a favoritos'>
+                                                    <img src='../images/iconos/fav-carr.png' alt='Agregar a favoritos'>
                                                     <button class='fav-prod' value='$id'> Agregar a favoritos</button>
                                                 </div>
                                             </div>
@@ -225,7 +225,7 @@
         $carrito .= "
             </div>
             <a href='carritoXLS.php' title='Excel de compras' id='excel'>
-                <img src='../images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
+                <img src='../images/iconos/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
             </a>
         "; 
     }  
@@ -237,7 +237,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
     <title>Muebles Giannis</title>
-    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="../js/funciones.js"></script>

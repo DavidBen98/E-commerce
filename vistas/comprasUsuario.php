@@ -87,11 +87,11 @@
 
                                         <div class='elim-fav'>
                                             <div class='elim-producto'>
-                                                <img src='../images/eliminar.png' alt='Eliminar producto'>
+                                                <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
                                                 <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
                                             </div>
                                             <div class='elim-producto'>
-                                                <img src='../images/carrito.png' alt='Agregar al carrito'>
+                                                <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
                                                 <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <title>Muebles Giannis</title> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="../js/funciones.js"></script>

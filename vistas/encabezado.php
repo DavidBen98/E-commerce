@@ -16,12 +16,12 @@
             <div id='buscar'>
                 <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                 <button id='lupa' title='lupa-buscar'>
-                    <img src='../images/lupa.png' title='lupa-buscar' alt='Lupa de buscar' id='perfil'>
+                    <img src='../images/iconos/lupa.png' title='lupa-buscar' alt='Lupa de buscar' id='perfil'>
                 </button>
             </div>
 
             <div>
-                <img src='../images/menu.png' alt='Lupa de buscar' class='header-menu'>
+                <img src='../images/iconos/menu.png' alt='Lupa de buscar' class='header-menu'>
             </div>
             "
             .
@@ -48,22 +48,22 @@
                                 </a>
                             </div>
                             <div>
-                                <img src='../images/menu.png' alt='' id='header-menu' class='header-menu'>
+                                <img src='../images/iconos/menu.png' alt='' id='header-menu' class='header-menu'>
                             </div>
                             <div id='buscar'>
                                 <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                                 <button id='lupa' title='Buscar'>
-                                    <img src='../images/lupa.png' alt='Lupa de buscar' id='perfil'>
+                                    <img src='../images/iconos/lupa.png' alt='Lupa de buscar' id='perfil'>
                                 </button>
                             </div>"
                             .   crear_barra() . 
                 "               
                             <div>
                                 <a href='favoritos.php' title='Favoritos' class='header-img' id='usu-fav'>
-                                    <img src='../images/favoritos.png' alt='Favoritos'>
+                                    <img src='../images/iconos/favoritos.png' alt='Favoritos'>
                                 </a>
                                 <a href='carritoCompras.php' title='Carrito de compras' class='header-img' id='usu-car'>
-                                    <img src='../images/carrito.png' alt='Carrito de compras'>
+                                    <img src='../images/iconos/carrito.png' alt='Carrito de compras'>
                                     <span id='num-car'>$cantCarrito</span>
                                 </a>
                             </div>
@@ -78,7 +78,7 @@
         ";
 
         $encabezado_mobile = "<div id='cont-mobile-menu'>
-                                <img src='../images/menu.png' alt='Lupa de buscar' id='mobile-menu' class='header-menu'>
+                                <img src='../images/iconos/menu.png' alt='Lupa de buscar' id='mobile-menu' class='header-menu'>
                              " . crear_barra_mobile() . "
                              </div>
                             <div id='mobile-header'> 

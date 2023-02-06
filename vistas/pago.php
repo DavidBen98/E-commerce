@@ -137,7 +137,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
     <title>Muebles Giannis</title>
-    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <style>
         main{

@@ -136,7 +136,7 @@
 			</div>
 			
 			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
-				<img src='../images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
+				<img src='../images/iconos/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
 			</a>";                    
 	}
 ?>
@@ -147,7 +147,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Muebles Giannis</title>
 	<link rel="stylesheet" type="text/css" href="../assets/css/estilos.css" media="screen">
-    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="../js/funciones.js"></script>
 	<style>

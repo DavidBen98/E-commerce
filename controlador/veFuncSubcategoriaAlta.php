@@ -36,10 +36,8 @@
                         $rs = $db->query($sql);
                         $imagen = $_FILES['imagen'];
                         $imagenDestino = '../images/subcategorias/';
-                        $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
+                        // $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
     
-                        echo $result;
-            
                         if ($rs->fetchColumn() == 0){
                             $sql = "INSERT INTO subcategoria (`nombre_subcategoria`, `id_categoria`) 
                                     VALUES ('$nombre',$categoria)
@@ -50,7 +48,7 @@
                             $idSubcategoria = $db->lastInsertId();
             
                             $imagen = $_FILES['imagen'];
-                            $imagenDestino = 'images/subcategorias/' . $idSubcategoria;
+                            $imagenDestino = '../images/subcategorias/' . $idSubcategoria;
                             $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
             
                             if(!$result){

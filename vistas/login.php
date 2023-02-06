@@ -196,7 +196,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis</title>
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
 	<script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/funciones.js"></script>
 	<script>

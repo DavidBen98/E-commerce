@@ -80,7 +80,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <title>Muebles Giannis</title>   
     <script src="../js/funciones.js"></script>
     <style>
