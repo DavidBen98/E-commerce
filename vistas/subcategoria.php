@@ -1,9 +1,9 @@
 <?php  
-	require_once 'controlador/config.php';
-	include ("encabezado.php");
-	include ("pie.php");
-    include("modalNovedades.php");
-	include ("inc/conn.php"); 
+	require_once "../controlador/config.php";
+	include "../inc/conn.php"; 
+	include "encabezado.php";
+    include "modalNovedades.php";
+	include "pie.php";
 	
 	if ($perfil == "E"){ 
 		header("location:veABMProducto.php");
@@ -15,7 +15,7 @@
 			</ol>
 	";
 
-	$imagenes = $_GET['categoria'];
+	$imagenes = $_GET["categoria"];
 
 	$rs = obtenerImagenesSubcategorias($imagenes);
 ?>
@@ -25,10 +25,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muebles Giannis</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="js/funciones.js"></script>
+	<script src="../js/funciones.js"></script>
 	<style>
 		#main{
 			display:flex;
@@ -90,7 +90,7 @@
         <?= $modalNovedades; ?>
 	</main>
 		
-	<footer id='pie'>
+	<footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 </body>

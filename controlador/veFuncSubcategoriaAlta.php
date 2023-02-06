@@ -9,7 +9,7 @@
     if ($subcategoria !== null){
         $sql = "UPDATE subcategoria SET activo = '1' WHERE id_subcategoria = '$subcategoria'";
         $rs = $db->query($sql);
-        header ("location: ../veSubcategoriaAlta.php?reactivacion=exito");
+        header ("location: ../vistas/veSubcategoriaAlta.php?reactivacion=exito");
     } else {
         $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
         $categoria = (isset($_POST['categoria']) && $_POST['categoria'] !== -1)? $_POST['categoria']: null;
@@ -35,7 +35,7 @@
             
                         $rs = $db->query($sql);
                         $imagen = $_FILES['imagen'];
-                        $imagenDestino = '../images/subcategorias/50';
+                        $imagenDestino = '../images/subcategorias/';
                         $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
     
                         echo $result;
@@ -57,7 +57,7 @@
                                 //inconveniente al subir imagen
                                 $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$idSubcategoria'";
                                 $rs = $db->query($sql);
-                                header ("location: ../veSubcategoriaAlta.php?error=1");
+                                header ("location: ../vistas/veSubcategoriaAlta.php?error=1");
                             }else{
                                 $sql = "INSERT INTO `imagen_subcategorias`(`id_subcategoria`, `destination`) 
                                         VALUES ('$idSubcategoria','$result')
@@ -65,27 +65,27 @@
                                 $rs=$db->query($sql);
     
                                 //exitoso
-                                header ("location: ../veSubcategoriaAlta.php?alta=exito");
+                                header ("location: ../vistas/veSubcategoriaAlta.php?alta=exito");
                             }  
                         } else {
                             //El nombre ya existe
-                            header ("location: ../veSubcategoriaAlta.php?error=2");
+                            header ("location: ../vistas/veSubcategoriaAlta.php?error=2");
                         }
                     } else {
                         //categoria no existente en bd
-                        header ("location: ../veSubcategoriaAlta.php?error=5");
+                        header ("location: ../vistas/veSubcategoriaAlta.php?error=5");
                     }
                 } else {
                     //categoria vacia
-                    header ("location: ../veSubcategoriaAlta.php?error=6");
+                    header ("location: ../vistas/veSubcategoriaAlta.php?error=6");
                 }
             } else {
                 //nombre vacio
-                header ("location: ../veSubategoriaAlta.php?error=3");     
+                header ("location: ../vistas/veSubategoriaAlta.php?error=3");     
             } 
         } else {
             //imagen vacia
-            header ("location: ../veSubcategoriaAlta.php?error=4");
+            header ("location: ../vistas/veSubcategoriaAlta.php?error=4");
         }
     }
 ?>

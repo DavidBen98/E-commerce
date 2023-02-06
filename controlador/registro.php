@@ -4,7 +4,7 @@
 
     $nombre = (isset($_POST['nombre']) && trim($_POST['nombre']) != "")? trim($_POST['nombre']) : "";
     $apellido = (isset($_POST['apellido']) && trim($_POST['apellido']) != "")? trim($_POST['apellido']) : "";
-    $dni = (isset($_POST['dni']) && str_len(trim($_POST['dni'])) > 6)? trim($_POST['dni']) : "";
+    $dni = (isset($_POST['dni']) && strlen(trim($_POST['dni'])) > 6)? trim($_POST['dni']) : "";
     $email = (isset($_POST['email']) && trim($_POST['email']) != "")? trim($_POST['email']) : "";
     $provincia = (isset($_POST['provincia']) && trim($_POST['provincia']) != "")? trim($_POST['provincia']) : "";
     $ciudad = (isset($_POST['ciudad']) && trim($_POST['ciudad']) != "")? trim($_POST['ciudad']) : "";
@@ -15,8 +15,8 @@
     $suscripcion = ($_POST['suscripcion'] == '1')? 1 : 0;
 
     $sql = "SELECT nombreUsuario, email
-		    FROM usuario 
-		    WHERE usuario.nombreUsuario = '$nombreUsuario' OR usuario.email = '$email' OR usuario.nroDni = '$dni'
+		    FROM usuario as u
+		    WHERE u.nombreUsuario = '$nombreUsuario' OR u.email = '$email' OR u.nroDni = '$dni'
     ";
 
     $rs = $db->query($sql);
@@ -27,93 +27,23 @@
     }
 
     if ($i > 0){
-        header("location:../login.php?reg=true&error=4");
+        header("location:../vistas/login.php?reg=true&error=4");
     }
     else if ($psw != $psw2){
-        header("location:../login.php?reg=true&error=1");
+        header("location:../vistas/login.php?reg=true&error=1");
     }
     else if (strlen($dni) < 7 || strlen($dni) > 8){
-        header("location:../login.php?reg=true&error=2");
+        header("location:../vistas/login.php?reg=true&error=2");
     }
     else if ($nombre == "" || $apellido == "" || $dni == "" || $email == "" || $provincia == "" || ($ciudad == "" && $provincia !="02") || $direccion == "" || $nombreUsuario == "" || $psw == ""){
-        header("location:../login.php?reg=true&error=3");
+        header("location:../vistas/login.php?reg=true&error=3");
+    } else if (strlen($psw) < 6) {
+        header("location:../vistas/login.php?reg=true&error=5");
     }
     else{
         $psw = generar_clave_encriptada($psw);
 
-        if ($provincia == "02"){
-            $provincia = "Ciudad Autónoma de Buenos Aires";
-        }
-        else if ($provincia == "06"){
-            $provincia = "Buenos Aires";
-        }
-        else if ($provincia == "10"){
-            $provincia = "Catamarca";
-        }
-        else if ($provincia == "14"){
-            $provincia = "Córdoba";
-        }
-        else if ($provincia == "18"){
-            $provincia = "Corrientes";
-        }
-        else if ($provincia == "22"){
-            $provincia = "Chaco";
-        }
-        else if ($provincia == "26"){
-            $provincia = "Chubut";
-        }
-        else if ($provincia == "30"){
-            $provincia = "Entre Ríos";
-        }
-        else if ($provincia == "34"){
-            $provincia = "Formosa";
-        }
-        else if ($provincia == "38"){
-            $provincia = "Jujuy";
-        }
-        else if ($provincia == "42"){
-            $provincia = "La Pampa";
-        }
-        else if ($provincia == "46"){
-            $provincia = "La Rioja";
-        }
-        else if ($provincia == "50"){
-            $provincia = "Mendoza";
-        }
-        else if ($provincia == "54"){
-            $provincia = "Misiones";
-        }
-        else if ($provincia == "58"){
-            $provincia = "Neuquén";
-        }
-        else if ($provincia == "62"){
-            $provincia = "Río Negro";
-        }
-        else if ($provincia == "66"){
-            $provincia = "Salta";
-        }
-        else if ($provincia == "70"){
-            $provincia = "San Juan";
-        }
-        else if ($provincia == "74"){
-            $provincia = "San Luis";
-        }
-        else if ($provincia == "78"){
-            $provincia = "Santa Cruz";
-        }
-        else if ($provincia == "82"){
-            $provincia = "Santa Fe";
-        }
-        else if ($provincia == "86"){
-            $provincia = "Santiago del Estero";
-        }
-        else if ($provincia == "90"){
-            $provincia = "Tucumán";
-        }
-        else if ($provincia == "94"){
-            $provincia = "Tierra del Fuego, Antártida e Islas del Atlántico Sur";
-        }
-
+        $provincia = obtenerNombreProvincia($provincia);
 
         $dire = "";
         for ($i=0;$i<count($direccion);$i++){
@@ -132,6 +62,6 @@
 
         $rs = $db->query($insertar);
 
-        header("location:../login.php?reg=true&registro=exitoso&apellido=$apellido");
+        header("location:../vistas/login.php?reg=true&registro=exitoso&apellido=$apellido");
     }
 ?>

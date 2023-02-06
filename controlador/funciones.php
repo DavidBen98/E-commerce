@@ -1,9 +1,5 @@
 <?php
-    if (str_contains($_SERVER["REQUEST_URI"],"controlador")){
-        require_once '../inc/conn.php';
-    } else{
-        require_once 'inc/conn.php';
-    }
+    require_once '../inc/conn.php';
     require_once 'config.php';
 
     define('PSW_SEMILLA','34a@$#aA9823$');
@@ -26,23 +22,23 @@
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barraSuperior ="<div id='mobile-perfilUsuario'>
@@ -61,23 +57,23 @@
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
                             . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
                         " </span> &nbsp;</a>
-                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if (isset($_SESSION['nombre_tw'])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
                             <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
                         </a>
-                        <a href='controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
         else if ($user=='') {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
         } else if($perfil=='E'){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         } else if($perfil=='U'){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+                        <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
         $barraSuperior ="<div id='perfilUsuario'>
@@ -174,7 +170,7 @@
 
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='$path' class='img-cat' id='$i' alt='".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <img src='../$path' class='img-cat' id='$i' alt='".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
                             <h2 class='tituloSubcat'>". ucfirst($row['nombre_subcategoria'])." </h2>
                         </div>
                     ";           
@@ -188,7 +184,7 @@
 
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='$path' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+                            <img src='../$path' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
                             <div class='caracteristicas'>
                                 <h2 class='descripcion'>". ucfirst($row['descripcion'])." </h2>
                                 <div class='descripcionPrecio'>";
@@ -445,7 +441,7 @@
             //agrega la imagen categoria y le pone el titulo 
             // echo " <div class='categoria'>
             //             <div class='cont-images'> 
-            //                 <img src= 'images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
+            //                 <img src= '../images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
             //                 <div class='texto'>
             //                     <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
             // ";
@@ -467,7 +463,7 @@
                             class='card'
                             id='$idCat'
                             style='
-                                background-image: url($imgCat);
+                                background-image: url(../$imgCat);
                             '
                         >
                             <div class='info_container'>
@@ -921,22 +917,22 @@
         $rs = $db->query($sql); 
     
         //lista de categorias
-        $listas = " 
+        $categorias = " 
                 <select id='categoria' class='hover' name='categoria'> 
         ";
     
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $listas .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
+            $categorias .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
             $nomCat .= $row['nombre_categoria'] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
     
-        $listas .= " </select> "; 
+        $categorias .= " </select> "; 
 
-        return $listas;
+        return $categorias;
     }
 
     function obtenerCategoriasInactivas(){
@@ -952,22 +948,22 @@
         $rs = $db->query($sql); 
     
         //lista de categorias
-        $listas = " 
+        $categorias = " 
                 <select id='categoria' class='hover' name='catInactivas'> 
         ";
     
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $listas .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
+            $categorias .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
             $nomCat .= $row['nombre_categoria'] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
     
-        $listas .= " </select> "; 
+        $categorias .= " </select> "; 
 
-        return $listas;
+        return $categorias;
     }
 
     function obtenerSubcategorias(){
@@ -983,22 +979,22 @@
         $rs = $db->query($sql); 
     
         //lista de categorias
-        $listas = " 
+        $subcategorias = " 
                 <select id='subcategoria' class='hover' name='subcategoria'> 
         ";
     
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $listas .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
+            $subcategorias .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
             $nomCat .= $row['nombre_subcategoria'] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
     
-        $listas .= " </select> "; 
+        $subcategorias .= " </select> "; 
 
-        return $listas;
+        return $subcategorias;
     }
 
     function obtenerSubcategoriasInactivas(){
@@ -1014,22 +1010,22 @@
         $rs = $db->query($sql); 
     
         //lista de categorias
-        $listas = " 
+        $subcategorias = " 
                 <select id='subcategoria' class='hover' name='subInactivas'> 
         ";
     
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $listas .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
+            $subcategorias .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
             $nomCat .= $row['nombre_subcategoria'] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
     
-        $listas .= " </select> "; 
+        $subcategorias .= " </select> "; 
 
-        return $listas;
+        return $subcategorias;
     }
 
     function obtenerImagenProducto($id){
@@ -1144,6 +1140,83 @@
         $rs = $db->execute($sql);
         return $rs;
 
+    }
+
+    function obtenerNombreProvincia ($provincia){
+        if ($provincia == "02"){
+            $provincia = "Ciudad Autónoma de Buenos Aires";
+        }
+        else if ($provincia == "06"){
+            $provincia = "Buenos Aires";
+        }
+        else if ($provincia == "10"){
+            $provincia = "Catamarca";
+        }
+        else if ($provincia == "14"){
+            $provincia = "Córdoba";
+        }
+        else if ($provincia == "18"){
+            $provincia = "Corrientes";
+        }
+        else if ($provincia == "22"){
+            $provincia = "Chaco";
+        }
+        else if ($provincia == "26"){
+            $provincia = "Chubut";
+        }
+        else if ($provincia == "30"){
+            $provincia = "Entre Ríos";
+        }
+        else if ($provincia == "34"){
+            $provincia = "Formosa";
+        }
+        else if ($provincia == "38"){
+            $provincia = "Jujuy";
+        }
+        else if ($provincia == "42"){
+            $provincia = "La Pampa";
+        }
+        else if ($provincia == "46"){
+            $provincia = "La Rioja";
+        }
+        else if ($provincia == "50"){
+            $provincia = "Mendoza";
+        }
+        else if ($provincia == "54"){
+            $provincia = "Misiones";
+        }
+        else if ($provincia == "58"){
+            $provincia = "Neuquén";
+        }
+        else if ($provincia == "62"){
+            $provincia = "Río Negro";
+        }
+        else if ($provincia == "66"){
+            $provincia = "Salta";
+        }
+        else if ($provincia == "70"){
+            $provincia = "San Juan";
+        }
+        else if ($provincia == "74"){
+            $provincia = "San Luis";
+        }
+        else if ($provincia == "78"){
+            $provincia = "Santa Cruz";
+        }
+        else if ($provincia == "82"){
+            $provincia = "Santa Fe";
+        }
+        else if ($provincia == "86"){
+            $provincia = "Santiago del Estero";
+        }
+        else if ($provincia == "90"){
+            $provincia = "Tucumán";
+        }
+        else if ($provincia == "94"){
+            $provincia = "Tierra del Fuego, Antártida e Islas del Atlántico Sur";
+        }
+
+        return $provincia;
     }
     
     function insertarUsuario ($nombre, $apellido, $email, $perfil, $existe){

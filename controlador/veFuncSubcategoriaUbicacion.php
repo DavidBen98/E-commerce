@@ -12,7 +12,7 @@
         $rs = $db->query($sql);
         
         foreach ($rs as $row){
-            $rutaAntigua = "images/".$row['id_categoria'].'/'.$idSubcategoria;
+            $rutaAntigua = "../images/".$row['id_categoria'].'/'.$idSubcategoria;
         }
         
         //Actualizo el id de la categoria en la tabla subcategoria
@@ -62,11 +62,11 @@
         }
 
         //Mover todos los archivos de subcategoria a otra carpeta de categorias
-        rename($rutaAntigua, "images/".$idCategoria.'/'.$idSubcategoria);
+        rename($rutaAntigua, "../images/".$idCategoria.'/'.$idSubcategoria);
 
-        header ("location: ../veSubcategoriaModif.php?modifU=exito");
+        header ("location: ../vistas/veSubcategoriaModif.php?modifU=exito");
     }
     else{
-        header ("location: ../veSubcategoriaModif.php?errorU=data");
+        header ("location: ../vistas/veSubcategoriaModif.php?errorU=data");
     }
 ?>

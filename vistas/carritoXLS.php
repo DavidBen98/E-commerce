@@ -4,8 +4,8 @@
     header("Content-type: application/octet-stream");
     header("Content-Disposition: attachment; filename=carrito_compras.xls");
     header("Content-type: application/vnd.ms-excel");  
-    require 'inc/conn.php';  	 	
-    include("encabezado.php");    		
+    require "../inc/conn.php";  	 	
+    include "encabezado.php";    		
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,7 +29,7 @@
                     </thead> 
         ";         
  
-        $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+        $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
         $listaCarrito = array();
         $productosAgregados = 0;
 
@@ -48,11 +48,11 @@
 
         foreach($listaCarrito as $producto){
             $subtotal = 0;
-            $subcategoria = $producto['nombre_subcategoria'];
-            $descripcion = ucfirst($producto['descripcion']);
-            $cantidad = intval($producto['cantidad']);
-            $precio = intval($producto['precio']);
-            $descuento = intval($producto['descuento']);
+            $subcategoria = $producto["nombre_subcategoria"];
+            $descripcion = ucfirst($producto["descripcion"]);
+            $cantidad = intval($producto["cantidad"]);
+            $precio = intval($producto["precio"]);
+            $descuento = intval($producto["descuento"]);
             $precioDescuento = $precio - (($precio * $descuento) /100);
             $subtotal += $cantidad * $precioDescuento; 
             $total += $subtotal;             

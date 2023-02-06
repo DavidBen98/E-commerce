@@ -1,6 +1,6 @@
 <?php 
-    include("encabezado.php");
-    include ("inc/conn.php");
+    include "encabezado.php";
+    include "../inc/conn.php";
     
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -11,7 +11,7 @@
     $categorias = obtenerCategorias();
 
 	$formulario =" 
-        <form action='controlador/veFuncCategoriaBaja.php' onsubmit='return validarBajaCategoria()' method='post' class='cont'>
+        <form action='../controlador/veFuncCategoriaBaja.php' onsubmit='return validarBajaCategoria()' method='post' class='cont'>
             <h1>Baja categoría</h1>
 
             <label for='categoria'>CATEGORÍA</label>
@@ -22,14 +22,14 @@
             </div>
     ";
 
-    if (isset($_GET['elim'])){
+    if (isset($_GET["elim"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha eliminado la categoría con éxito! </p>
             </div>
         ";
     }
-    else if (isset($_GET['error'])){
+    else if (isset($_GET["error"])){
         $formulario .="
             <div class='contenedor mensaje' id='mensaje'>
                 <p> Error: los datos ingresados no son correctos, reintente por favor </p>
@@ -43,9 +43,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Muebles Giannis - Las mejores marcas</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-	<script src="js/funciones.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+	<script src="../js/funciones.js"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <style>
         .cont{
             width:30%;
@@ -92,11 +92,11 @@
 </head>
 <body>
 
-	<header id='header'>
+	<header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
 		<?= $formulario; ?>
 	</main>
 

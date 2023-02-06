@@ -7,9 +7,9 @@
 	header("Content-Disposition: attachment; filename=catalogo.xls");
 	header("Content-type: application/vnd.ms-excel");  
 
-	require 'inc/conn.php';  
+	require "../inc/conn.php";  
 
-	$img = (isset($_GET['imagen']))? $_GET['imagen']:0;
+	$img = (isset($_GET["imagen"]))? $_GET["imagen"]:0;
 	$imagenes = explode(',',$img);
 
 	global $db;

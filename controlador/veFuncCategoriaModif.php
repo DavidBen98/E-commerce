@@ -9,7 +9,7 @@
 
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
-        header ("location: ../veCategoriaModif.php?categoria=$idCategoria&error=1#mensaje");
+        header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=1#mensaje");
     }
     
     if ($modNombre != null){
@@ -17,12 +17,12 @@
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: ../veCategoriaModif.php?categoria=$idCategoria&error=2#mensaje");
+            header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=2#mensaje");
         } else {
             $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $idCategoria");
             
             if ($modImagen == null){
-                header ("location: ../veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
             }
         }
     }
@@ -34,12 +34,12 @@
         if ($check == false){
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
-                header ("location: ../veCategoriaModif.php?categoria=$idCategoria&nombre=exito&error=3#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&nombre=exito&error=3#mensaje");
             } else {
-                header ("location: ../veCategoriaModif.php?categoria=$idCategoria&error=3#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=3#mensaje");
             }
         } else {
-            $path = 'images/categorias/';
+            $path = '../images/categorias/';
             $files = scandir($path);
         
             foreach($files as $file){
@@ -51,7 +51,7 @@
             //Si existe una imagen para esa categoria
             //Siempre debería entrar aca, ya que al crear una nueva categoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
-            if ($path != 'images/categorias/'){
+            if ($path != '../images/categorias/'){
                 deleteDir($path);
             }
     
@@ -60,9 +60,9 @@
             $error = subirImagen($imagen, $url, $path);
     
             if ($error){
-                header ("location: ../veCategoriaModif.php?categoria=$idCategoria&error=4#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=4#mensaje");
             } else {
-                header ("location: ../veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
             }
         }
     }

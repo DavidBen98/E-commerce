@@ -1,10 +1,10 @@
 <?php 
-    require 'inc/conn.php';
+    require "../inc/conn.php";
 
     global $db;
 
-    if (!empty($_POST['categoria'])){
-        $cate = $_POST['categoria'];
+    if (!empty($_POST["categoria"])){
+        $cate = $_POST["categoria"];
 
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM subcategoria
@@ -13,7 +13,7 @@
 
         $rs = $db->query($sql); 
 
-        if (!empty($_POST['subcategoria']) && $_POST['subcategoria'] == 'nueva'){
+        if (!empty($_POST["subcategoria"]) && $_POST["subcategoria"] == "nueva"){
             echo "  
                 <label for='subcategoria' class='label'> Subcategoría nueva </label>
                 <select id='subcategoria' name='subcategoria' class='form-select'>
@@ -25,28 +25,28 @@
         }
 
         foreach ($rs as $row) {
-            echo "<option value=".$row['id_subcategoria'].">". $row['nombre_subcategoria'] . "</option>";
+            echo "<option value=".$row["id_subcategoria"].">". $row["nombre_subcategoria"] . "</option>";
         }
         
         echo "</select>";
     }
     else{
-        include_once 'controlador/apiDatos.php';
+        include_once "../controlador/apiDatos.php";
     }
 
-    if (!empty($_POST['provincia'])){ //desde login(registrarse)
-        $provincia = $_POST['provincia'];
+    if (!empty($_POST["provincia"])){ //desde login(registrarse)
+        $provincia = $_POST["provincia"];
 
         if ($provincia != 02 && ($provincia == 30 || $provincia ==78 || $provincia == 86)){
             //Si es entre rios, santa cruz o santiago del estero
-            $url = 'https://apis.datos.gob.ar/georef/api/localidades?provincia='.$provincia.'&max=1000';
+            $url = "https://apis.datos.gob.ar/georef/api/localidades?provincia=".$provincia."&max=1000";
             $json = file_get_contents($url);
             $json = json_decode($json);
             $datos= $json->localidades;
         }
         else if($provincia != 02){
             //si es cualquier provincia menos las anteriores y ciudad de bs as
-            $url = 'https://apis.datos.gob.ar/georef/api/municipios?provincia='.$provincia.'&max=1000';
+            $url = "https://apis.datos.gob.ar/georef/api/municipios?provincia=".$provincia."&max=1000";
             $json = file_get_contents($url);
             $json = json_decode($json);
             $datos= $json->municipios;
@@ -70,21 +70,21 @@
         }
     }
 
-    if (!empty($_POST['prov'])){ //desde modificarDatos
-        $provincia = $_POST['prov'];
-        $ciudad = $_POST['ciudad'];
+    if (!empty($_POST["prov"])){ //desde modificarDatos
+        $provincia = $_POST["prov"];
+        $ciudad = $_POST["ciudad"];
 
         $selectCiudad = "";
         if ($provincia != 02 && ($provincia == 30 || $provincia ==78 || $provincia == 86)){
             //Si es entre rios, santa cruz o santiago del estero
-            $url = 'https://apis.datos.gob.ar/georef/api/localidades?provincia='.$provincia.'&max=1000';
+            $url = "https://apis.datos.gob.ar/georef/api/localidades?provincia=".$provincia."&max=1000";
             $json = file_get_contents($url);
             $json = json_decode($json);
             $datos= $json->localidades;
         }
         else if($provincia != 02){
             //si es cualquier provincia menos las anteriores y ciudad de bs as
-            $url = 'https://apis.datos.gob.ar/georef/api/municipios?provincia='.$provincia.'&max=1000';
+            $url = "https://apis.datos.gob.ar/georef/api/municipios?provincia=".$provincia."&max=1000";
             $json = file_get_contents($url);
             $json = json_decode($json);
             $datos= $json->municipios;

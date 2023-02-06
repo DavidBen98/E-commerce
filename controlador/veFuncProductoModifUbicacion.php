@@ -20,20 +20,22 @@
 
     $rs = $db->query($sql);
 
-    $ruta_destino = 'images/'.$categoria.'/'.$subcategoria.'/'.$id;
+    $ruta_destino = '../images/'.$categoria.'/'.$subcategoria.'/'.$id;
     
     foreach ($rs as $row){
         $ruta_origen = $row['destination'];
 
-        //Si existe el directorio, solo mover la imagen
-        if (is_dir($ruta_destino)){
-            $ruta_destino .= substr($row['destination'],strrpos($row['destination'],'/'), strlen($row['destination'])-1);
-            rename($ruta_origen, $ruta_destino);
-        } else {
-            //Si no existe el directorio, entonces crearlo y luego mover la imagen
+        //Si no existe el directorio, entonces crearlo y luego mover la imagen
+        if (!is_dir($ruta_destino)){
             mkdir($ruta_destino);
-            $ruta_destino .= substr($row['destination'],strrpos($row['destination'],'/'), strlen($row['destination'])-1);
-            rename($ruta_origen, $ruta_destino);
+        }
+
+        $ruta_destino .= substr($row['destination'],strrpos($row['destination'],'/'), strlen($row['destination'])-1);
+        
+        if (rename("../".$ruta_origen, $ruta_destino)){
+            $a = 1;
+        } else {
+            $a = 0;
         }
 
         $sql = "UPDATE imagen_productos SET destination = '$ruta_destino'
@@ -43,5 +45,5 @@
         $rs = $db->query($sql);
     }
     
-    header("location: ../veProductoModif.php?modUbi=exito&id=$id");
+    header("location: ../vistas/veProductoModif.php?modUbi=exito&id=$id&ruta=$a");
 ?>

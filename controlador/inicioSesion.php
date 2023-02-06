@@ -9,7 +9,7 @@
 	$psw =(isset($_POST['psw']) && !empty($_POST['psw']))? trim($_POST['psw']):"";
 	
 	if ($nombreUser == "" || $psw == ""){
-		header("location:../login.php?error=0"); 
+		header("location:../vistas/login.php?error=0"); 
 	}
 	else{
 		$sql = "SELECT contrasena, perfil, nombre, apellido, email,id
@@ -35,11 +35,11 @@
 					$_SESSION['idUsuario'] = $rs['id'];
 				} 
 				else{
-					header("location:../login.php?error=2"); 
+					header("location:../vistas/login.php?error=2"); 
 				}
 			}
 			else{
-				header("location:../login.php?error=1"); 
+				header("location:../vistas/login.php?error=1"); 
 			}
 		}
 
@@ -50,10 +50,10 @@
 			$_SESSION["user"]="";
 		} 
 		else if ($_SESSION["perfil"]=="E"){
-			header("location:../veABMProducto.php");
+			header("location:../vistas/veABMProducto.php");
 		}
 		else { 
-			header("location:../index.php");	
+			header("location:../vistas/index.php");	
 		}				
 	} 
 ?>

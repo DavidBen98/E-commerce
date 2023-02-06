@@ -17,12 +17,12 @@
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
+            header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
         } else {
             $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $idSubcategoria");
             
             if ($modImagen == null){
-                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }
@@ -34,12 +34,12 @@
         if ($check == false){
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
-                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
+                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
             } else {
-                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
+                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
             }
         } else {
-            $path = 'images/subcategorias/';
+            $path = '../images/subcategorias/';
             $files = scandir($path);
         
             foreach($files as $file){
@@ -51,18 +51,18 @@
             //Si existe una imagen para esa subcategoria
             //Siempre debería entrar aca, ya que al crear una nueva subcategoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
-            if ($path != 'images/subcategorias/'){
+            if ($path != '../images/subcategorias/'){
                 deleteDir($path);
             }
     
             $url = 'vesubcategoriaModif.php';
-            $path = 'images/subcategorias/'.$idSubcategoria;
+            $path = '../images/subcategorias/'.$idSubcategoria;
             $error = subirImagen($imagen, $url, $path);
     
             if ($error){
-                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
+                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
             } else {
-                header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }

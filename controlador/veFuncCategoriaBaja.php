@@ -11,9 +11,9 @@
 
         $rs = $db->query($sql);
 
-        header ("location: ../veCategoriaBaja.php?elim=exito");
+        header ("location: ../vistas/veCategoriaBaja.php?elim=exito");
     }
     else{
-        header ("location: ../veCategoriaBaja.php?error=data");
+        header ("location: ../vistas/veCategoriaBaja.php?error=data");
     }
 ?>

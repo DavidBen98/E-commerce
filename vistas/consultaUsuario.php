@@ -1,9 +1,9 @@
 <?php 
-    require_once 'controlador/config.php';
-    include("encabezado.php"); 
-    include("pie.php");
-    include("modalNovedades.php");
-    include ("inc/conn.php");
+    require_once "../controlador/config.php";
+    include "../inc/conn.php";
+    include "encabezado.php"; 
+    include "modalNovedades.php";
+    include "pie.php";
 
     if (perfil_valido(3)) {
         header("location:index.php");
@@ -12,11 +12,11 @@
         header("location:veABMProducto.php");
     } 
                  
-    if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-        $idUsuario = $_SESSION['idUsuario'];
+    if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
+        $idUsuario = $_SESSION["idUsuario"];
     }
-    else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-        $idUsuario = $_SESSION['id'];
+    else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
+        $idUsuario = $_SESSION["id"];
     }
     else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
         $idUsuario = $_SESSION["id_tw"];
@@ -50,14 +50,14 @@
         $rs = obtenerConsultas($idUsuario);
 
         foreach ($rs as $row) { 
-            if ($row['respondido']){
+            if ($row["respondido"]){
                 $respuesta = "Ha sido contestada la consulta";
             }
             else{
                 $respuesta = "Pendiente";
             }
             
-            $pregunta = ucfirst($row['texto']);
+            $pregunta = ucfirst($row["texto"]);
     
             $div .= "   <div class='renglon renglon-consultas'> 
                             <p>$pregunta</p>
@@ -67,7 +67,8 @@
         }
     }
 
-    $div .= "<div class='renglon'> 
+    $div .= "
+            <div class='renglon'> 
                 <button class='btn' id='nuevaConsulta'>Nueva consulta </button>
             </div>
         </div>
@@ -78,10 +79,10 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
     <title>Muebles Giannis</title>   
-    <script src="js/funciones.js"></script>
+    <script src="../js/funciones.js"></script>
     <style>
         main{
             display:flex;
@@ -167,12 +168,12 @@
     </header>
 
     <main>
-        <ol class='ruta'>
-            <li><a href='index.php'>Inicio</a></li>
+        <ol class="ruta">
+            <li><a href="index.php">Inicio</a></li>
             <li>Consulta de usuario</li>
         </ol>
         
-        <aside class='contenedor-botones'>
+        <aside class="contenedor-botones">
             <?= CONT_USUARIOS; ?>
         </aside>
 
@@ -180,7 +181,7 @@
         <?= $modalNovedades; ?>
     </main>
 
-    <footer id='pie'>
+    <footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 </body>

@@ -43,7 +43,7 @@ window.onload = function (){
             window.location.href='consultaUsuario.php';
         }
         else if (ev.target.matches('#btnCerrarSesion')){
-            window.location.href='controlador/cerrarSesion.php';
+            window.location.href='../controlador/cerrarSesion.php';
         }
         else if (ev.target.matches('#procederCompra')){
             window.location.href='pago.php';
@@ -206,7 +206,7 @@ const agregarFav = (id) => {
 
         $.ajax({
             data: param,
-            url: "controlador/agregarFavorito.php?id="+id,
+            url: "../controlador/agregarFavorito.php?id="+id,
             method: "post",
             success: function(data) {
                 if (data == 'ok'){
@@ -226,7 +226,7 @@ const eliminarProducto = (id) => {
 
     $.ajax({
         data: param,
-        url: "controlador/eliminarCarrito.php",
+        url: "../controlador/eliminarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -278,7 +278,7 @@ const modificarProducto = (id) => {
 
     $.ajax({
         data: param,
-        url: "controlador/modificarCarrito.php",
+        url: "../controlador/modificarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -306,7 +306,7 @@ const agregarFavorito = (id) => {
 
     $.ajax({
         data: param,
-        url: "controlador/agregarFavorito.php?id="+id,
+        url: "../controlador/agregarFavorito.php?id="+id,
         method: "post",
         success: function(data) {
             let url = window.location.href.split('?')[0];
@@ -358,7 +358,7 @@ const agregarProducto = (id) => {
 
     $.ajax({
         data: param,
-        url: "controlador/agregarCarrito.php",
+        url: "../controlador/agregarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -414,7 +414,7 @@ const agregarProductoCompra = (id) => {
 
     $.ajax({
         data: param,
-        url: "controlador/agregarCarrito.php",
+        url: "../controlador/agregarCarrito.php",
         method: "post",
         success: function(data) {
             let datos = JSON.parse(data);
@@ -462,7 +462,7 @@ const eliminarFav = (id) => {
 
     $.ajax({
         data: param,
-        url: "controlador/eliminarFavorito.php?id="+id,
+        url: "../controlador/eliminarFavorito.php?id="+id,
         method: "post",
         success: function(data) {
             if (data == 'ok'){

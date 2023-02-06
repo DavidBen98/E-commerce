@@ -16,5 +16,5 @@
         $path = $r['destination'];
     }
 
-    echo $path;
+    echo "../".$path;
 ?>

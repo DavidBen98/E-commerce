@@ -1,15 +1,15 @@
 <?php 
-    include ("pie.php"); 
-    include ("modalNovedades.php"); 
-    include ("inc/conn.php");
-    require_once 'controlador/config.php';
-    require_once 'vendor/autoload.php';
-    include("encabezado.php"); 
+    require_once "../controlador/config.php";
+    require_once "../vendor/autoload.php";
+    include "../inc/conn.php";
+    include "encabezado.php"; 
+    include "modalNovedades.php"; 
+    include "pie.php"; 
     
-    define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
-    define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
+    define ("TOKENMERCADOPAGO","TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106");
+    define ("CREDENCIALPRUEBAMP", "TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608");
   
-    if (perfil_valido(3) && (!isset($_GET['code']) || !isset($_SESSION['user_first_name'])) && (!isset($_SESSION['nombre_tw']))) {
+    if (perfil_valido(3) && (!isset($_GET["code"]) || !isset($_SESSION["user_first_name"])) && (!isset($_SESSION["nombre_tw"]))) {
         header("location:login.php"); 
         //TODO: cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
@@ -23,7 +23,7 @@
             </ol>
     ";
 
-    $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+    $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
     $listaCarrito = array();
     $productosAgregados = 0;
 
@@ -69,7 +69,7 @@
                     </div>
         ";
 
-        if (isset($_GET['elim'])){
+        if (isset($_GET["elim"])){
             $carrito .= "<div class='mensaje' id='msj'>¡El producto se ha eliminado correctamente!</div>";
         }
 
@@ -82,22 +82,22 @@
 
         foreach($listaCarrito as $producto){
             $subtotal = 0;
-            $id = $producto['id'];
-            $codigo = $producto['codigo'];
-            $descripcion = ucfirst($producto['descripcion']);
-            $marca = ucfirst($producto['marca']);
-            $color = ucfirst($producto['color']);
-            $material = ucfirst($producto['material']);
-            $stock = intval($producto['stock']);
-            $cantidad = intval($producto['cantidad']);
+            $id = $producto["id"];
+            $codigo = $producto["codigo"];
+            $descripcion = ucfirst($producto["descripcion"]);
+            $marca = ucfirst($producto["marca"]);
+            $color = ucfirst($producto["color"]);
+            $material = ucfirst($producto["material"]);
+            $stock = intval($producto["stock"]);
+            $cantidad = intval($producto["cantidad"]);
             $path = obtenerImagenProducto($id);
             
             if ($stock < $cantidad){
                 $cantidad = $stock;
             }
 
-            $precio = intval($producto['precio']);
-            $descuento = intval($producto['descuento']);
+            $precio = intval($producto["precio"]);
+            $descuento = intval($producto["descuento"]);
             $precioDescuento = $precio - (($precio * $descuento) /100);
             $subtotal += $cantidad * $precioDescuento; 
             $total += $subtotal; 
@@ -105,7 +105,7 @@
             $carrito .= "<div class='contenedor'>
                             <div class='descrip'> 
                                 <div class='principal'>                                                                                          
-                                    <img src='$path' class='productos img-cat' alt='$codigo'>
+                                    <img src='../$path' class='productos img-cat' alt='$codigo'>
                                         <div class='titulo'>
                                             <div class='cont-enlaces'>
                                                 <p class='enlace'> $descripcion</p>
@@ -113,11 +113,11 @@
                                             </div> 
                                             <div class='contenedor-eventos'>
                                                 <div class='evento-producto'>
-                                                    <img src='images/eliminar.png' alt='Eliminar producto'>
+                                                    <img src='../images/eliminar.png' alt='Eliminar producto'>
                                                     <button class='elim-prod' value='$id'> Eliminar producto</button>
                                                 </div>
                                                 <div class='evento-producto'>
-                                                    <img src='images/fav-carr.png' alt='Agregar a favoritos'>
+                                                    <img src='../images/fav-carr.png' alt='Agregar a favoritos'>
                                                     <button class='fav-prod' value='$id'> Agregar a favoritos</button>
                                                 </div>
                                             </div>
@@ -201,12 +201,12 @@
             </div>
         ";
 
-        if (isset($_GET['elim'])){
+        if (isset($_GET["elim"])){
             $carrito .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
-        else if (isset($_GET['fav'])){
-            $fav = $_GET['fav'];
-            if ($fav == 'ok'){
+        else if (isset($_GET["fav"])){
+            $fav = $_GET["fav"];
+            if ($fav == "ok"){
                 $carrito .= "
                     <div class='mensaje' id='mensaje-exito'>
                         ¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
@@ -225,7 +225,7 @@
         $carrito .= "
             </div>
             <a href='carritoXLS.php' title='Excel de compras' id='excel'>
-                <img src='images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
+                <img src='../images/logo_excel.png' title='Exportar a Excel' alt='icono Excel' > 
             </a>
         "; 
     }  
@@ -235,14 +235,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
     <title>Muebles Giannis</title>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/funciones.js"></script>
+    <script src="../js/funciones.js"></script>
     <script>
-        document.addEventListener('change', ev => {
+        document.addEventListener("change", ev => {
             let id = ev.target.id;
             modificarProducto(id);
         });
@@ -855,7 +855,7 @@
         <?= $modalNovedades; ?>
     </main> 
     
-    <footer id='pie'>
+    <footer id="pie">
         <?= $pie; ?> 
     </footer>
 

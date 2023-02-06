@@ -47,10 +47,10 @@
     }
 
     if ($i > 0){
-        header ('location: ../informacionPersonal.php?error=1#mensaje');
+        header ('location: ../vistas/informacionPersonal.php?error=1#mensaje');
     }
     else if ($nombre == null || $apellido == null || $dni == null || $email == null || $provincia == null || ($ciudad == null && $provincia !="02") || $direccion == null || $nombreUsuario == null){
-        header("location:../informacionPersonal.php?error=2");
+        header("location:../vistas/informacionPersonal.php?error=2");
     } else {
         switch ($provincia) {
             case '':
@@ -153,6 +153,6 @@
 
         $rs = $db->query ($sql);
 
-        header ('location: ../informacionPersonal.php?modif=exito#mensaje');
+        header ('location: ../vistas/informacionPersonal.php?modif=exito#mensaje');
     }
 ?>

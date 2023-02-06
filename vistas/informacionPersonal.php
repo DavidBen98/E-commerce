@@ -1,10 +1,10 @@
 <?php 
-    include("pie.php");  
-    include("modalNovedades.php");
-    include ("inc/conn.php");
-    require_once 'controlador/config.php';
-    include("encabezado.php"); 
-    include_once('controlador/apiDatos.php');
+    include  "../inc/conn.php";
+    require_once "../controlador/config.php";
+    include_once "../controlador/apiDatos.php";
+    include "encabezado.php"; 
+    include "modalNovedades.php";
+    include "pie.php";  
 
     if (perfil_valido(3)) {
        header("location:login.php");
@@ -19,78 +19,78 @@
             </ol>
     ";
     
-    if (isset($_SESSION['idUsuario'])){
-        $idUsuario = $_SESSION['idUsuario'];
+    if (isset($_SESSION["idUsuario"])){
+        $idUsuario = $_SESSION["idUsuario"];
     }
-    else if (isset($_SESSION['user'])){
-        $idUsuario = $_SESSION['user'];
+    else if (isset($_SESSION["user"])){
+        $idUsuario = $_SESSION["user"];
     }
-    else if ($_SESSION['id_tw']){
-        $idUsuario = $_SESSION['id_tw'];
+    else if (isset($_SESSION["id_tw"])){
+        $idUsuario = $_SESSION["id_tw"];
     }
  
     $rs = obtenerUsuario($idUsuario);
 
     $infoPersonal = "";
     foreach ($rs as $row) {
-        $provincia = isset($row['provincia'])? $row['provincia'] : null;
+        $provincia = isset($row["provincia"])? $row["provincia"] : null;
         $provincia = json_encode($provincia);
 
-        $ciudad =  isset($row['ciudad'])? $row['ciudad'] : null;
+        $ciudad =  isset($row["ciudad"])? $row["ciudad"] : null;
         $ciudad = json_encode ($ciudad);
 
         $infoPersonal = "
-            <form action='controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
+            <form action='../controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
                 <div class='renglon' id='renglon-h1'>      
                     <h1> Mis datos </h1>
                 </div> 
 
                 <div class='renglon'>
                     <label class='descripciones' for='nombreUsuario'>Nombre de usuario</label>
-                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row['nombreusuario']}' readonly>
+                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row["nombreusuario"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='dni'>Número de DNI</label>
-                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row['nrodni']}' readonly>
+                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row["nrodni"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='nombre'>Nombre</label>
-                    <input type='text' class='dato' id='nombre' name='nombre' title='nombre' value='{$row['nombre']}' readonly>
+                    <input type='text' class='dato' id='nombre' name='nombre' title='nombre' value='{$row["nombre"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='apellido'>Apellido</label>
-                    <input type='text' class='dato' name='apellido' id='apellido' title='apellido' value='{$row['apellido']}' readonly>
+                    <input type='text' class='dato' name='apellido' id='apellido' title='apellido' value='{$row["apellido"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='email'>Email</label>
-                    <input type='email' class='dato' id='email' name='email' title='email' value='{$row['email']}' readonly>
+                    <input type='email' class='dato' id='email' name='email' title='email' value='{$row["email"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='prov'>Provincia</label>
-                    <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row['provincia']}' readonly> 
+                    <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row["provincia"]}' readonly> 
                     <label class='descripciones' for='provincia' id='lModProvincia'>Provincia</label>
                     $select
                 </div>
 
                 <div class='renglon' id='renglonCiudad'>
                     <label class='descripciones' for='inputCiudad'>Ciudad</label>
-                    <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row['ciudad']}' readonly>
+                    <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row["ciudad"]}' readonly>
                     <label class='descripciones' id='lModCiudad' for='ciu'>Ciudad</label>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='direccion'>Dirección</label>
-                    <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row['direccion']}' readonly>
+                    <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row["direccion"]}' readonly>
                     <div class='direccion'>
                         <label for='inputCalle' class='form-label'>Calle</label>
                         <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
                         <label for='inputNumero' class='form-label'>Número</label>
-                        <input type='text' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
+                        <input type='number' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
                         <label for='inputPiso' class='form-label'>Depto</label>
                         <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
                     </div>
@@ -101,10 +101,10 @@
                         
         ";
 
-        if ($row['suscripcion'] === 1){
-            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row['suscripcion']}' checked disabled>";
+        if ($row["suscripcion"] === 1){
+            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row["suscripcion"]}' checked disabled>";
         } else {
-            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row['suscripcion']}' disabled>";
+            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row["suscripcion"]}' disabled>";
         }
 
         $infoPersonal .=" <label>
@@ -123,11 +123,11 @@
         </div>
     ";
 
-    if (isset($_GET['error'])){
-        $error = $_GET['error'];
+    if (isset($_GET["error"])){
+        $error = $_GET["error"];
         $infoPersonal .= "<div class='renglon renglon-mod'>";
 
-        if ($error == '1'){
+        if ($error == "1"){
             $infoPersonal .= "<p class='mensaje' id='mensaje'>¡El nombre de usuario ingresado ya existe, reintente con otro por favor!</p>";
         } else if ($error == "2"){
             $infoPersonal .= "<p class='mensaje' id='mensaje'>Falta ingresar al menos un campo </p>";
@@ -135,7 +135,7 @@
 
         $infoPersonal .= "</div>";
     }
-    else if (isset($_GET['modif'])){
+    else if (isset($_GET["modif"])){
         $infoPersonal .= "<p class='mensaje' id='mensaje-exito'>¡Se ha realizado la modificación con éxito!</p>";
     }
 
@@ -146,16 +146,16 @@
 <head> 
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="js/funciones.js"></script>
+	<script src="../js/funciones.js"></script>
     <title>Muebles Giannis</title>
     <script>
         $(document).ready(function(){
 			actualizarCiudad();
 
-            $('#provincia').change (function (){
+            $("#provincia").change (function (){
                 actualizarCiudad();
             });
 
@@ -399,7 +399,7 @@
     <main>
         <?= $ruta; ?>
 
-        <aside class='contenedor-botones'>
+        <aside class="contenedor-botones">
             <?= CONT_USUARIOS; ?>
         </aside>
 
@@ -411,7 +411,7 @@
 
     </main>
 
-    <footer id='pie'>
+    <footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 </body>

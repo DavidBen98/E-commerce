@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <?php 
-    include("encabezado.php");
+    include "encabezado.php";
 
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
 
-    $lista = obtenerCategorias();
+    $categorias = obtenerCategorias();
 
     $marcas = obtenerMarcas();
 
@@ -16,21 +16,21 @@
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
     //Ejemplo: colores no se pueden agregar mas y no se pueden elegir mas de uno
     $formulario = "
-        <form class='cont' action='controlador/veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='../controlador/veFuncProductoAlta.php' onsubmit='return validarAlta()' method='post' enctype='multipart/form-data'>
             <h1>Alta producto</h1> 
     ";
 
-    if (isset($_GET['alta'])){
+    if (isset($_GET["alta"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha añadido el producto con éxito! </p>
             </div>
         ";
     }
-    else if (isset($_GET['error'])){
-        $error = $_GET['error'];
+    else if (isset($_GET["error"])){
+        $error = $_GET["error"];
 
-        if ($error == '1'){
+        if ($error == "1"){
             $formulario .="
                 <div class='contenedor mensaje' id='mensaje'>
                     <p>
@@ -38,7 +38,7 @@
                     </p>
                 </div>
             ";
-        } else if ($error == '2') {
+        } else if ($error == "2") {
             $formulario .="
                 <div class='contenedor mensaje' id='mensaje'>
                     <p>
@@ -47,7 +47,7 @@
                     </p>
                 </div>
             ";
-        } else if ($error == '3'){
+        } else if ($error == "3"){
             $formulario .="
                 <div class='contenedor mensaje' id='mensaje'>
                     <p>
@@ -70,7 +70,7 @@
     $formulario .= 
             "<div class='contenedor'>
                 <label for='categoria'>Categoría</label>
-                $lista
+                $categorias
             </div>
 
             <div class='contenedor' id='subc'>
@@ -161,47 +161,47 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis - Las mejores marcas</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link type="text/css"  href="assets/css/ve_estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/ve_estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="js/funciones.js"></script>
+	<script src="../js/funciones.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "controlador/actualizarCodigo.php",
-                    data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
+                    url: "../controlador/actualizarCodigo.php",
+                    data: "categoria= " + $("#categoria").val () + "&subcategoria=" + $("#subcategoria").val (),
                     success: function (nroProducto){
-                        let input = document.getElementById('codigo');
-                        let categoria = document.getElementById('categoria');
+                        let input = document.getElementById("codigo");
+                        let categoria = document.getElementById("categoria");
                         categoria = categoria.options[categoria.selectedIndex].text;
                         categoria = categoria.substring(0,2);
 
-                        let subcategoria = document.getElementById('subcategoria');
+                        let subcategoria = document.getElementById("subcategoria");
 
                         if (subcategoria.selectedIndex != -1){
                             subcategoria = subcategoria.options[subcategoria.selectedIndex].text;
                             subcategoria = subcategoria.substring(0,2);
     
                             let codigo = (categoria + subcategoria + nroProducto).toLowerCase();
-                            input.setAttribute('value',codigo);
+                            input.setAttribute("value",codigo);
     
                             codigo = (categoria + subcategoria).toLowerCase();
 
                             verCaract(codigo);
                         } else {
-                            divSubcategoria = document.getElementById ('subc');
+                            divSubcategoria = document.getElementById ("subc");
                             let linkNuevaSubcategoria = document.createElement("a");
                             let parrafo = document.createElement("p");
-                            let text = document.createTextNode('Ir a crear nueva subcategoría');
+                            let text = document.createTextNode("Ir a crear nueva subcategoría");
                             parrafo.appendChild(text);
-                            parrafo.setAttribute('style', 'text-decoration: underline;');
-                            linkNuevaSubcategoria.setAttribute('href','veSubcategoriaAlta.php');
+                            parrafo.setAttribute("style", "text-decoration: underline;");
+                            linkNuevaSubcategoria.setAttribute("href","veSubcategoriaAlta.php");
                             linkNuevaSubcategoria.appendChild(parrafo);
                             divSubcategoria.appendChild(linkNuevaSubcategoria);
 
-                            input.setAttribute('value', 'Error, no existe subcategoria seleccionada');
+                            input.setAttribute("value", "Error, no existe subcategoria seleccionada");
                         }
 
                         //No escalable al agregar mas categorias/subcategorias
@@ -213,15 +213,15 @@
                 $.ajax ({
                     type: "POST",
                     url: "rellenarSelect.php",
-                    data: "categoria= " + $('#categoria').val (),
+                    data: "categoria= " + $("#categoria").val (),
                     success: function (r){
-                        $('#subc').html (r);
+                        $("#subc").html (r);
 
                         actualizarCodigo ();
 
-                        let sub = document.getElementById ('subcategoria');
+                        let sub = document.getElementById ("subcategoria");
 
-                        sub.addEventListener ('change', function (){
+                        sub.addEventListener ("change", function (){
                             actualizarCodigo ();
                         });
                     }
@@ -230,14 +230,14 @@
 
             actualizar ();
 
-            $('#categoria').change (function (){
+            $("#categoria").change (function (){
                 actualizar ();
             });
 
             function verCaract (codigo){
-                let caracUno = document.getElementById ('caracUno');
-                let caracDos = document.getElementById ('caracDos');
-                let caracTres = document.getElementById ('caracTres');
+                let caracUno = document.getElementById ("caracUno");
+                let caracDos = document.getElementById ("caracDos");
+                let caracTres = document.getElementById ("caracTres");
 
                 //Según la subcategoría se establecen el nombre de las características
                 if (codigo == "ofsi"){
@@ -250,8 +250,8 @@
                     caracTres.innerHTML = "Alto";
                 }
                 else if (codigo == "doca"){
-                    caracUno.innerHTML = 'Plazas';
-                    caracDos.innerHTML = 'Largo';
+                    caracUno.innerHTML = "Plazas";
+                    caracDos.innerHTML = "Largo";
                     caracTres.innerHTML = "Ancho";
                 }
                 else{
@@ -262,15 +262,15 @@
 
                 //Mostrar o no mostrar elementos HTML segun la cantidad de caracteristicas 
                 //que tiene la subcategoría
-                let inputProfundidad = document.getElementById ('profundidad');
+                let inputProfundidad = document.getElementById ("profundidad");
 
                 if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
-                    caracTres.style.display = 'block';
-                    inputProfundidad.style.display = 'block';
+                    caracTres.style.display = "block";
+                    inputProfundidad.style.display = "block";
                 }
                 else{
-                    caracTres.style.display = 'none';
-                    inputProfundidad.style.display = 'none';
+                    caracTres.style.display = "none";
+                    inputProfundidad.style.display = "none";
                 }
             }
         });
@@ -389,11 +389,11 @@
 </head>
 <body>
 
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
         <?= $formulario; ?>
     </main>
     

@@ -1,8 +1,8 @@
 <?php  
-	require_once 'controlador/config.php';
-    include("encabezado.php");
-    include("pie.php");
-    include("modalNovedades.php");
+	require_once "../controlador/config.php";
+    include "encabezado.php";
+    include "modalNovedades.php";
+    include "pie.php";
 
 	if (perfil_valido(1)) {
         header("location:veABMProducto.php");
@@ -14,9 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muebles Giannis</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
-    <script src="js/funciones.js"></script>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+    <script src="../js/funciones.js"></script>
     <style>
 		body{
 			margin: 0;
@@ -201,13 +201,13 @@
         <?= $encabezado_mobile; ?>
 	</header>
 
-    <main id='main'>
-		<ol class='ruta'>
-			<li><a href='index.php'>Inicio</a></li>
+    <main id="main">
+		<ol class="ruta">
+			<li><a href="index.php">Inicio</a></li>
 			<li>Contacto</li>
 		</ol>
 			
-		<div class='cont-h1'>
+		<div class="cont-h1">
 			<h1>Contacto</h1>
 		</div>
 
@@ -219,23 +219,23 @@
 			<p>No dudes en comunicarte también por nuestra vía telefónica al 0800 - 0303 - 456 de lunes a viernes de 9 a 18 hs.</p>
 		</div>
 
-		<form action="controlador/nuevoContacto.php" method="post" onsubmit="return validarContacto()" class="cont-con"> 
+		<form action="../controlador/nuevoContacto.php" method="post" onsubmit="return validarContacto()" class="cont-con"> 
 				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" >
 				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" >
 				
 				<?php
-					if (!(isset($_SESSION['servicio']) || $perfil == "U")){
+					if (!(isset($_SESSION["servicio"]) || $perfil == "U")){
 						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: jhonDoe@gmail.com' >";
 					}
 				?>
-				<textarea id="txtIngresado" class="txt-area" title='Consulta del usuario' placeholder='Consulta: Qué tarjetas aceptan?' name="txtIngresado" ></textarea>
+				<textarea id="txtIngresado" class="txt-area" title="Consulta del usuario" placeholder="Consulta: Qué tarjetas aceptan?" name="txtIngresado" ></textarea>
 				<p id="mensaje">
 
                 </p>
 				<input type="submit" class="btn-enviar" name="enviar" id="enviar" title="Enviar" value="Enviar">
 				
 				<?php
-					if (isset($_GET['consulta'])){
+					if (isset($_GET["consulta"])){
 						echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";
 					}
 				?>
@@ -244,7 +244,7 @@
 		<?= $modalNovedades; ?>
 	</main>
 	
-	<footer id='pie'>
+	<footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 	

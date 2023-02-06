@@ -35,7 +35,7 @@
         ";
 
         $rs = $db -> query ($sql);
-        header ("location: ../veProductoBaja.php?elim=exito");
+        header ("location: ../vistas/veProductoBaja.php?elim=exito");
     }
     else{
         $categoria = $_POST['categoria'];
@@ -65,7 +65,7 @@
             }
 
             $imagenes .= "<div class='producto'>
-                            <img src='$path' class='imagen' alt='$id' title='{$row['descripcion']}'>
+                            <img src='../$path' class='imagen' alt='$id' title='{$row['descripcion']}'>
                             <p>{$row['descripcion']}</p>
                             <p><b>Código:</b> {$row['codigo']}</p>
                         </div>";

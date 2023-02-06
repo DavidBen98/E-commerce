@@ -1,12 +1,13 @@
 <?php
-    include ("pie.php"); 
-    include ("inc/conn.php");
-    require_once 'controlador/config.php';
-    require_once 'vendor/autoload.php';
-    define ('TOKENMERCADOPAGO','TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
-    define ('CREDENCIALPRUEBAMP', 'TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608');
+    require_once "../controlador/funciones.php";
+    require_once "../controlador/config.php";
+    require_once "../vendor/autoload.php";
+    include "../inc/conn.php";
+    include "pie.php"; 
+    define ("TOKENMERCADOPAGO","TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106");
+    define ("CREDENCIALPRUEBAMP", "TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608");
 
-    MercadoPago\SDK::setAccessToken('TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106');
+    MercadoPago\SDK::setAccessToken("TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106");
 
     $preference = new MercadoPago\Preference();
 
@@ -19,7 +20,7 @@
             </ol>
     ";
         
-    $productos = isset ($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['productos'] : null;
+    $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
     $listaCarrito = array();
 
     if ($productos != null){
@@ -28,7 +29,7 @@
         }
     }
     else{
-        header('location: carritoCompras.php');
+        header("location: carritoCompras.php");
         exit;
     }
 
@@ -57,21 +58,21 @@
 
     foreach($listaCarrito as $producto){
         $subtotal = 0;
-        $id = $producto['id'];
-        $codigo = $producto['codigo'];
-        $descripcion = ucfirst($producto['descripcion']);
-        $marca = ucfirst($producto['marca']);
-        $color = ucfirst($producto['color']);
-        $material = ucfirst($producto['material']);
-        $stock = intval($producto['stock']);
-        $cantidad = intval($producto['cantidad']);
+        $id = $producto["id"];
+        $codigo = $producto["codigo"];
+        $descripcion = ucfirst($producto["descripcion"]);
+        $marca = ucfirst($producto["marca"]);
+        $color = ucfirst($producto["color"]);
+        $material = ucfirst($producto["material"]);
+        $stock = intval($producto["stock"]);
+        $cantidad = intval($producto["cantidad"]);
         
         if ($stock < $cantidad){
             $cantidad = $stock;
         }
 
-        $precio = intval($producto['precio']);
-        $descuento = intval($producto['descuento']);
+        $precio = intval($producto["precio"]);
+        $descuento = intval($producto["descuento"]);
         $precioDescuento = $precio - (($precio * $descuento) /100);
         $subtotal += $cantidad * $precioDescuento; 
         $total += $subtotal; 
@@ -92,7 +93,7 @@
 
         $carrito .= "<div class='contenedor'>
                             <div class='principal'>                                                                                          
-                                <img src='$path' class='productos img-cat' alt='$codigo'>
+                                <img src='../$path' class='productos img-cat' alt='$codigo'>
                                     <div class='titulo'>
                                         <div class='cont-enlaces'>
                                             <p class='enlace'> $descripcion</p>
@@ -123,7 +124,7 @@
                         </div>
         ";
 
-        if (isset($_GET['error_pago'])){
+        if (isset($_GET["error_pago"])){
             $carrito .= "<div class='mensaje' id='mensaje-error'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
         }
 
@@ -134,9 +135,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
     <title>Muebles Giannis</title>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <style>
         main{
@@ -466,7 +467,7 @@
         <?= $carrito; ?>
     </main> 
     
-    <footer id='pie'>
+    <footer id="pie">
         <?= $pie; ?> 
     </footer>
     
@@ -486,14 +487,14 @@
     ?>
 
     <script>
-        const mp = new MercadoPago('TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608', {
+        const mp = new MercadoPago("TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608", {
             locale: "es-AR",
         });
 
         // Inicializa el checkout
         mp.checkout({
             preference: {
-                id: '<?php echo $preference->id; ?>'
+                id: "<?php echo $preference->id; ?>"
             },
             render: {
                 container: ".checkout-btn", // Indica el nombre de la clase donde se mostrará el botón de pago
@@ -501,16 +502,16 @@
             }
         });
 
-        const mercadoPago = new MercadoPago('TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608', {
+        const mercadoPago = new MercadoPago("TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608", {
             locale: "es-AR",
         });
 
-        let btnMP = document.getElementsByClassName('checkout');
+        let btnMP = document.getElementsByClassName("checkout");
 
         if (btnMP[0] != null){
             mercadoPago.checkout({
                 preference: {
-                    id: '<?php echo $preference->id; ?>'
+                    id: "<?php echo $preference->id; ?>"
                 },
                 render: {
                     container: ".checkout",

@@ -1,11 +1,11 @@
 <?php 
-    include("encabezado.php");
+    include "encabezado.php";
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
 
     $formulario ="
-            <form action='controlador/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
+            <form action='../controlador/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
                 <h1>Alta categoría</h1>
 
                 <div class='contenedor'>
@@ -23,36 +23,36 @@
                 </div>
     ";
             
-    if (isset($_GET['alta'])){
+    if (isset($_GET["alta"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha añadido la categoría con éxito! </p>
             </div>
         ";
     }
-    else if (isset($_GET['error'])){
-        $error = $_GET['error'];
+    else if (isset($_GET["error"])){
+        $error = $_GET["error"];
 
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
         ";
 
-        if ($error === '1'){
+        if ($error === "1"){
             $formulario .= "
                 <p> Error: ha ocurrido un inconveniente al subir la imagen, 
                     verifique que la extensión es .png, .jpg o .jpeg y 
                     reintente en un momento por favor. 
                 </p>
             ";
-        } else if ($error === '2'){
+        } else if ($error === "2"){
             $formulario .= "
                 <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
             ";
-        }else if ($error === '3'){
+        }else if ($error === "3"){
             $formulario .= "
                 <p> Error: el nombre ingresado no cumple con los requisitos. </p>
             ";
-        } else if ($error === '4'){
+        } else if ($error === "4"){
             $formulario .= "
                 <p> Error: seleccione una imagen por favor. </p>
             ";
@@ -68,7 +68,7 @@
     $categoriasInactivas = obtenerCategoriasInactivas();
 
     $inactivas = "
-        <form class='cont' method='POST' action='controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='../controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
             <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
             $categoriasInactivas
             <div class= 'agregar'>
@@ -76,7 +76,7 @@
             </div>
     ";
 
-    if (isset($_GET['reactivacion'])){
+    if (isset($_GET["reactivacion"])){
         $inactivas .= "
             <div class='contenedor mensaje' id='reactivacion'>
                 <p> Exito <p/>
@@ -93,10 +93,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-	<script src="js/funciones.js"></script>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+	<script src="../js/funciones.js"></script>
     <title>Muebles Giannis - Las mejores marcas</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <style>
         .cont{
             width:40%;
@@ -160,11 +160,11 @@
 </head>
 <body>
 
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>  
+    <main id="main">  
         <?= $formulario; ?> 
         <?= $inactivas; ?>
     </main>

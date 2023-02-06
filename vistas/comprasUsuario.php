@@ -1,9 +1,9 @@
 <?php 
-    require_once 'controlador/config.php';
-    include("encabezado.php"); 
-    include("pie.php");
-    include("modalNovedades.php");
-    include ("inc/conn.php");
+    require_once "../controlador/config.php";
+    include  "../inc/conn.php";
+    include "encabezado.php"; 
+    include "modalNovedades.php";
+    include "pie.php";
 
     if (perfil_valido(3)) {
         header("location:login.php");
@@ -12,21 +12,21 @@
         header("location:veABMProducto.php");
     } 
                  
-    if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-        $idUsuario = $_SESSION['idUsuario'];
+    if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
+        $idUsuario = $_SESSION["idUsuario"];
     }
-    else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-        $idUsuario = $_SESSION['id'];
+    else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
+        $idUsuario = $_SESSION["id"];
     }
     else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
         $idUsuario = $_SESSION["user_id"];
     }
 
-    if (!isset($_SESSION['idUsuario'])){
+    if (!isset($_SESSION["idUsuario"])){
         $rs = seleccionarUsuarioConId($idUsuario);
 
         foreach ($rs as $row){
-            $idUsuario = $row['id'];
+            $idUsuario = $row["id"];
         }
     }
 
@@ -57,28 +57,28 @@
                 </div>
         ";
 
-        if (isset($_GET['elim'])){
+        if (isset($_GET["elim"])){
             $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
         $div .= "</div>";    
     }
     else{
         foreach ($rs as $row) { 
-            $descripcion = $row['descripcion'];
-            $material = $row['material'];
-            $color = $row['color'];
-            $caracteristicas = $row['caracteristicas'];
-            $marca = $row['marca'];
-            $precio = $row['precio'];
-            $codigo = $row['codigo'];
-            $id = $row['id'];
+            $descripcion = $row["descripcion"];
+            $material = $row["material"];
+            $color = $row["color"];
+            $caracteristicas = $row["caracteristicas"];
+            $marca = $row["marca"];
+            $precio = $row["precio"];
+            $codigo = $row["codigo"];
+            $id = $row["id"];
 
             $path = obtenerImagenProducto($id);
     
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='$path' class='productos img-cat' alt='$codigo'>
+                                <img src='../$path' class='productos img-cat' alt='$codigo'>
                                     <div class='titulo'>
                                         <div>
                                             <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
@@ -87,11 +87,11 @@
 
                                         <div class='elim-fav'>
                                             <div class='elim-producto'>
-                                                <img src='images/eliminar.png' alt='Eliminar producto'>
+                                                <img src='../images/eliminar.png' alt='Eliminar producto'>
                                                 <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
                                             </div>
                                             <div class='elim-producto'>
-                                                <img src='images/carrito.png' alt='Agregar al carrito'>
+                                                <img src='../images/carrito.png' alt='Agregar al carrito'>
                                                 <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
         
             $selectNumero++;
         }
-        if (isset($_GET['elim'])){
+        if (isset($_GET["elim"])){
             $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
         $div .= "</div>";
@@ -128,14 +128,14 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
     <title>Muebles Giannis</title> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/funciones.js"></script>
+    <script src="../js/funciones.js"></script>
 	<script>
-        document.addEventListener ('DOMContentLoaded', () => {
-            let continuar = document.getElementById('continuar');
+        document.addEventListener ("DOMContentLoaded", () => {
+            let continuar = document.getElementById("continuar");
 
             if (continuar != null){
                 continuar.addEventListener("click", () => {
@@ -143,12 +143,12 @@
                 });  
             }
 
-            let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+            let imagenes = document.getElementsByClassName("img-cat"); //Imagenes de los productos
 
             for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute('alt');
+                let articulo = imagenes[j].getAttribute("alt");
                 imagenes[j].addEventListener("click", () => {
-                    window.location = 'detalleArticulo.php?art='+articulo;
+                    window.location = "detalleArticulo.php?art="+articulo;
                 });
             }
         });	
@@ -555,12 +555,12 @@
     </header>
 
     <main>
-        <ol class='ruta'>
-            <li><a href='index.php'>Inicio</a></li>
+        <ol class="ruta">
+            <li><a href="index.php">Inicio</a></li>
             <li>Mis compras</li>
         </ol>
         
-        <aside class='contenedor-botones'>
+        <aside class="contenedor-botones">
             <?= CONT_USUARIOS; ?>
         </aside>
 
@@ -568,7 +568,7 @@
         <?= $modalNovedades; ?>
     </main>
 
-    <footer id='pie'>
+    <footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 </body>

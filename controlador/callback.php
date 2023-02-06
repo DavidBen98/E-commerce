@@ -9,7 +9,7 @@
     
     //Si se realizó un pago con mercado pago
     if (isset($_GET['failure'])){ //Si falló
-        header('location: ../pago.php?error_pago=fallo');
+        header('location: ../vistas/pago.php?error_pago=fallo');
     }
     else if(isset($_GET['payment_id'])){
         $paymentId = $_GET['payment_id'];   
@@ -61,11 +61,11 @@
 
             unset($_SESSION['carrito']);
 
-            header('location:../index.php');
+            header('location:../vistas/index.php');
         }
     }
     else if($auth->login()){
-        header ('location: ../index.php');
+        header ('location: ../vistas/index.php');
     }
     else{
         die('Error al inicio de sesion');

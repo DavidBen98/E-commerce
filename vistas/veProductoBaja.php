@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <?php 
-    include("encabezado.php");
+    include "encabezado.php";
 
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
 
-    $lista = obtenerCategorias();
+    $categorias = obtenerCategorias();
 
     $formulario = "
-        <form class='cont' action='controlador/veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
+        <form class='cont' action='../controlador/veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>
     ";
 
-    if (isset($_GET['modif'])) {
+    if (isset($_GET["modif"])) {
         $formulario .= "<h1 id='h1'>Modificar producto</h1>";
     } else {
         $formulario .= "<h1 id='h1'>Baja producto</h1>";
@@ -21,7 +21,7 @@
     $formulario .= "
         <div class='contenedor'>
             <label for='categoria'>Categoría</label>
-            $lista
+            $categorias
         </div>
 
         <div class='contenedor' id='subc'>
@@ -33,14 +33,14 @@
         </div>
     ";
     
-    if (isset($_GET['elim'])){
+    if (isset($_GET["elim"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha eliminado el producto de manera exitosa!</p>
             </div>
         ";
     }
-    else if (isset($_GET['error'])){
+    else if (isset($_GET["error"])){
         $formulario .="
             <div class='contenedor' id='error'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
@@ -55,36 +55,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis - Las mejores marcas</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link type="text/css"  href="assets/css/ve_estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/ve_estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const actualizarCodigo = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "controlador/veFuncProductoBaja.php",
-                    data: "categoria= " + $('#categoria').val () + "&subcategoria=" + $('#subcategoria').val (),
+                    url: "../controlador/veFuncProductoBaja.php",
+                    data: "categoria= " + $("#categoria").val () + "&subcategoria=" + $("#subcategoria").val (),
                     success: function (datos){
 
-                        let input = document.getElementById('imagen');
+                        let input = document.getElementById("imagen");
 
-                        if (datos == '') {
+                        if (datos == "") {
                             input.innerHTML = datos;
-                            let vacio = document.createElement('p');
-                            let texto = document.createTextNode('No existen resultados que coincidan con la búsqueda');
+                            let vacio = document.createElement("p");
+                            let texto = document.createTextNode("No existen resultados que coincidan con la búsqueda");
                             vacio.appendChild(texto);
                             input.appendChild(vacio);
                         } else {
                             input.innerHTML = datos;
     
-                            let imagen = document.getElementsByClassName('imagen');
+                            let imagen = document.getElementsByClassName("imagen");
     
                             for (let i = 0; i < imagen.length; i++){
-                                imagen[i].addEventListener ('click', () => {
+                                imagen[i].addEventListener ("click", () => {
     
-                                    if (window.location.search === '?modif=true'){
-                                        window.location.href = 'veProductoModif.php?id='+imagen[i].alt;
+                                    if (window.location.search === "?modif=true"){
+                                        window.location.href = "veProductoModif.php?id="+imagen[i].alt;
                                     }
                                     else{
                                         let confirmar = confirm ("¿Desea eliminar el producto con código " + imagen[i].alt + "?");
@@ -92,7 +92,7 @@
                                         if (confirmar){
                                             let codigo = imagen[i].alt;
         
-                                            window.location.href = 'controlador/veFuncProductoBaja.php?eliminar='+codigo;
+                                            window.location.href = "../controlador/veFuncProductoBaja.php?eliminar="+codigo;
                                         }
                                     }
                                 });
@@ -106,18 +106,18 @@
                 $.ajax ({
                     type: "POST",
                     url: "rellenarSelect.php",
-                    data: "categoria= " + $('#categoria').val (),
+                    data: "categoria= " + $("#categoria").val (),
                     success: function (r){
-                        $('#subc').html (r);
+                        $("#subc").html (r);
 
                         actualizarCodigo ();
 
-                        let sub = document.getElementById ('subcategoria');
+                        let sub = document.getElementById ("subcategoria");
 
-                        sub.addEventListener ('change', function (){
+                        sub.addEventListener ("change", function (){
                             actualizarCodigo ();
 
-                            let mensajeElim = document.getElementById ('mensaje');
+                            let mensajeElim = document.getElementById ("mensaje");
 
                             if (mensajeElim != null) {
                                 mensajeElim.remove();
@@ -129,10 +129,10 @@
 
             actualizar ();
 
-            $('#categoria').change (function (){
+            $("#categoria").change (function (){
                 actualizar ();
 
-                let mensajeElim = document.getElementById ('mensaje');
+                let mensajeElim = document.getElementById ("mensaje");
 
                 if (mensajeElim != null) {
                     mensajeElim.remove();
@@ -211,11 +211,11 @@
     </style>
 </head>
 <body>
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
         <?= $formulario; ?>
     </main>
 

@@ -1,7 +1,7 @@
 <?php 
     //En los archivos en donde solo se trabaje PHP no cerrar la etiqueta por seguridad
     //Si cerramos permite añadir un script de js
-    require '../inc/conn.php';
+    require "../inc/conn.php";
 
     global $db;
     
@@ -29,6 +29,6 @@
         echo $ultimoProducto;
     }
     else{
-        header("location:../index.php");
+        header("location:../vistas/index.php");
     }
 ?>

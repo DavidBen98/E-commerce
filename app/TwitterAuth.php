@@ -71,7 +71,7 @@
                     return true;
                 }
                 else if ($reply->httpstatus == 401){
-                    header ('location: login.php?error=401');
+                    header ('location: vistas/login.php?error=401');
                 }
             }
             return false;

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <?php 
-    include("encabezado.php");
+    include "encabezado.php";
 
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
 
-    $lista = obtenerCategorias();
+    $categorias = obtenerCategorias();
     $materiales = obtenerMateriales();
     $marcas = obtenerMarcas();
 
@@ -16,14 +16,14 @@
     //  <label for='portada' id='lPortada'>Imagen de portada</label>
     //</div>
 
-    $id = $_GET['id'];
+    $id = $_GET["id"];
 
     $formulario = "
-        <form class='cont' action='controlador/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
+        <form class='cont' action='../controlador/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
             <h2>Ubicación</h2>
     ";
             
-    if (isset($_GET['modUbi'])){
+    if (isset($_GET["modUbi"])){
         $formulario .= "
             <div class='mensaje'>
                 <p> ¡El producto con id '$id' se ha cambiado de ubicación exitosamente!</p>     
@@ -42,7 +42,7 @@
 
             <div class='contenedor'>
                 <label for='categoria'>Categoría nueva</label>
-                $lista
+                $categorias
             </div>
 
             <div class='contenedor' id='subc'>
@@ -54,16 +54,16 @@
             </div>
         </form>
 
-        <form class='cont' action='controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
+        <form class='cont' action='../controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
     ";
 
-    if (isset($_GET['modif'])){
+    if (isset($_GET["modif"])){
         $formulario .= "
             <div class='mensaje'>
                 <p> ¡El producto con id:'$id' se ha modificado exitosamente!</p>     
             </div>
         ";
-    } else if (isset($_GET['error'])){
+    } else if (isset($_GET["error"])){
         $formulario .="
             <div class='contenedor mensaje' id='mensaje'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
@@ -151,12 +151,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis - Las mejores marcas</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link type="text/css"  href="assets/css/ve_estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/ve_estilos.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="js/funciones.js"></script>
+	<script src="../js/funciones.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             let id = getQueryVariable("id");
 
             function parsearCaracteristicas(codigo, cadena){
@@ -184,15 +184,15 @@
                     numero = numero.replace (elementoDos+" ","");
 
                     let elementoTres = numero;
-                    document.getElementById('profundidad').value = elementoTres;
-                    document.getElementById('profundidad').setAttribute('value', elementoTres);
+                    document.getElementById("profundidad").value = elementoTres;
+                    document.getElementById("profundidad").setAttribute("value", elementoTres);
                 }       
 
-                document.getElementById('alto').value = elementoUno;
-                document.getElementById('ancho').value = elementoDos;
+                document.getElementById("alto").value = elementoUno;
+                document.getElementById("ancho").value = elementoDos;
 
-                document.getElementById('alto').setAttribute('value',elementoUno);
-                document.getElementById('ancho').setAttribute('value',elementoDos);
+                document.getElementById("alto").setAttribute("value",elementoUno);
+                document.getElementById("ancho").setAttribute("value",elementoDos);
 
                 verCaract (codigo);
             }
@@ -210,8 +210,8 @@
                     caracTres.innerHTML = "Alto";
                 }
                 else if (codigo == "doca"){
-                    caracUno.innerHTML = 'Plazas';
-                    caracDos.innerHTML = 'Largo';
+                    caracUno.innerHTML = "Plazas";
+                    caracDos.innerHTML = "Largo";
                     caracTres.innerHTML = "Ancho";
                 }
                 else{
@@ -221,38 +221,38 @@
                 }
 
                 if (codigo != "come" && codigo != "cosi" && codigo != "ofsi"){
-                    caracTres.style.display = 'block';
-                    document.getElementById('profundidad').style.display = 'block';
+                    caracTres.style.display = "block";
+                    document.getElementById("profundidad").style.display = "block";
                 }
                 else{
-                    caracTres.style.display = 'none';
-                    document.getElementById('profundidad').style.display = 'none';
+                    caracTres.style.display = "none";
+                    document.getElementById("profundidad").style.display = "none";
                 }
             }
 
             const completarDatos = () => {
                 $.ajax ({
                     type: "POST",
-                    url: "controlador/veFuncObtenerDatos.php",
+                    url: "../controlador/veFuncObtenerDatos.php",
                     data: "id=" + id,
                     success: function (datos){
                         let data = JSON.parse(datos);
 
-                        let contenedor = document.getElementsByClassName ('contenedor');
+                        let contenedor = document.getElementsByClassName ("contenedor");
 
                         let categoria = "<p><b>Categoría actual:</b> "+data.categoria+
                                         "</p><p><b>Subcategoría actual:</b> "+data.subcategoria+"</p>";
 
                         contenedor[0].innerHTML = categoria;
-                        document.getElementById('id').value = id;
-                        document.getElementById('descripcion').value = data.descripcion;
-                        document.getElementById('material').value = data.material;
+                        document.getElementById("id").value = id;
+                        document.getElementById("descripcion").value = data.descripcion;
+                        document.getElementById("material").value = data.material;
                         document.getElementById(data.color.toLowerCase()).checked = true;
-                        document.getElementById('descripcion').value = data.descripcion;
-                        document.getElementById('marca').value = data.marca;
-                        document.getElementById('cant').value = Number(data.stock);
-                        document.getElementById('precio').value = data.precio;
-                        document.getElementById('descuento').value = data.descuento;
+                        document.getElementById("descripcion").value = data.descripcion;
+                        document.getElementById("marca").value = data.marca;
+                        document.getElementById("cant").value = Number(data.stock);
+                        document.getElementById("precio").value = data.precio;
+                        document.getElementById("descuento").value = data.descuento;
 
                         parsearCaracteristicas (data.codigo,data.caracteristicas);
                     }
@@ -263,31 +263,31 @@
                 $.ajax ({
                     type: "POST",
                     url: "rellenarSelect.php",
-                    data: "categoria= " + $('#categoria').val () + "&subcategoria=nueva",
+                    data: "categoria= " + $("#categoria").val () + "&subcategoria=nueva",
                     success: function (r){
-                        $('#subc').html (r);
+                        $("#subc").html (r);
 
-                        let selectSubcategoria = document.getElementById('subcategoria');
+                        let selectSubcategoria = document.getElementById("subcategoria");
 
-                        let button = document.getElementById('bUbicacion');
+                        let button = document.getElementById("bUbicacion");
 
                         if (selectSubcategoria.selectedIndex == -1){
-                            button.style.display = 'none';
+                            button.style.display = "none";
 
-                            let contenedor = document.getElementById('ubicacion');
+                            let contenedor = document.getElementById("ubicacion");
 
                             let linkNuevaSubcategoria = document.createElement("a");
-                            linkNuevaSubcategoria.setAttribute('id', 'linkNuevaSubcategoria');
+                            linkNuevaSubcategoria.setAttribute("id", "linkNuevaSubcategoria");
                             let parrafo = document.createElement("p");
-                            let text = document.createTextNode('Ir a crear nueva subcategoría');
+                            let text = document.createTextNode("Ir a crear nueva subcategoría");
                             parrafo.appendChild(text);
-                            parrafo.setAttribute('style', 'text-decoration: underline;');
-                            linkNuevaSubcategoria.setAttribute('href','veSubcategoriaAlta.php');
+                            parrafo.setAttribute("style", "text-decoration: underline;");
+                            linkNuevaSubcategoria.setAttribute("href","veSubcategoriaAlta.php");
                             linkNuevaSubcategoria.appendChild(parrafo);
                             contenedor.appendChild(linkNuevaSubcategoria);
 
                         } else {
-                            button.style.display = 'block';
+                            button.style.display = "block";
                             var element = document.getElementById("linkNuevaSubcategoria");
 
                             if (element != null){
@@ -298,16 +298,16 @@
                 });
             }    
 
-            $('#categoria').change (function (){
+            $("#categoria").change (function (){
                 actualizar ();
             });
 
             const materiales = document.querySelectorAll('input[name="material"]');
 
             materiales.forEach(material => {
-                material.addEventListener('change', () => {
+                material.addEventListener("change", () => {
                     const materialChequeado = document.querySelector('input[name="material"]:checked').value;
-                    let inputMaterial = document.getElementById('material');
+                    let inputMaterial = document.getElementById("material");
                     inputMaterial.value = materialChequeado;
                 });
             });
@@ -315,9 +315,9 @@
             const marcas = document.querySelectorAll('input[name="marca"]');
 
             marcas.forEach(material => {
-                material.addEventListener('change', () => {
+                material.addEventListener("change", () => {
                     const marcaChequeada = document.querySelector('input[name="marca"]:checked').value;
-                    let inputMarca = document.getElementById('marca');
+                    let inputMarca = document.getElementById("marca");
                     inputMarca.value = marcaChequeada;
                 });
             });
@@ -464,11 +464,11 @@
 </head>
 <body>
 
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
         <h1>Modificar producto</h1>
 
         <?= $formulario; ?>

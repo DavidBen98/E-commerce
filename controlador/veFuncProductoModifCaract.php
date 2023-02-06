@@ -61,9 +61,9 @@
 
         $rs = $db->query($sql);
 
-        header ("location: ../veProductoModif.php?id=$id&modif=exito");
+        header ("location: ../vistas/veProductoModif.php?id=$id&modif=exito");
     }
     else{
-        header ("location: ../veProductoModif.php?id=$id&error=data");
+        header ("location: ../vistas/veProductoModif.php?id=$id&error=data");
     }
 ?>

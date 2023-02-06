@@ -1,9 +1,10 @@
 <?php  
-	require_once('vendor/autoload.php');
-	require_once('controlador/config.php');
-    include("pie.php");
-    include("modalNovedades.php");
-	include("encabezado.php");
+	// require_once "../app/TwitterAuth.php";
+	require_once "../vendor/autoload.php";
+	require_once "../controlador/config.php";
+	include "encabezado.php";
+    include "modalNovedades.php";
+    include "pie.php";
 
 	if (perfil_valido(2)) {
 		header("location:informacionPersonal.php");
@@ -12,16 +13,16 @@
 		header("veABMProducto.php");
 	}
 
-// 	$auth = new TwitterAuth($cliente);
-// 	$google= $google_client->createAuthUrl();
-// 	$twitter = $auth->getAuthUrl();
+	// $auth = new TwitterAuth($cliente);
+	$google= $google_client->createAuthUrl();
+	// $twitter = $auth->getAuthUrl();
 
-// 	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>
-// 					 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>
-// 	";
+	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>";
+	// 				 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>
+	// ";
 
-	if (isset($_GET['reg'])){
-	    include_once('controlador/apiDatos.php');
+	if (isset($_GET["reg"])){
+	    include_once("../controlador/apiDatos.php");
 	    
 		$ruta = "<ol class='ruta'>
 					<li><a href='index.php'>Inicio</a></li>
@@ -29,7 +30,7 @@
 				</ol>
 		";
 
-		$formulario = "<form action='controlador/registro.php' onsubmit='return validarRegistro()' method='post'  id='form-registro'>
+		$formulario = "<form action='../controlador/registro.php' onsubmit='return validarRegistro()' method='post'  id='form-registro'>
 							<div class='form'>
 								<div class='cont-reg'>
 									<label for='nombre' class='form-label'>Nombre</label>
@@ -65,7 +66,7 @@
 									<label class='form-label lDire' for='calle'>Calle </label>
 									<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
 									<label class='form-label lDire' for='numero'>Numero</label>
-									<input type='text' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
+									<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
 									<label class='form-label lDire' for='piso' >Piso</label>
 									<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
 								</div> 
@@ -98,15 +99,12 @@
 								</div>
 								
 								<div class='registro'>
-									<p class='mensaje' id='mensaje'></p>
-									<button id='registrarse'>Registrarse</button>
-								</div>
 		";
 
-		if (isset($_GET['error'])){
-			$error = isset($_GET['error']);
+		if (isset($_GET["error"])){
+			$error = $_GET["error"];
 
-			$formulario .= "<div id='error-reg'> <p>";
+			$formulario .= "<div class='mensaje' id='mensaje'> <p>";
 			
 			if ($error == "4"){
 				$formulario .= "El usuario, email y/o DNI ingresado ya existen";
@@ -120,29 +118,35 @@
 			else if ($error == "3"){
 				$formulario .= "Falta ingresar al menos un campo";
 			}
+			else if ($error == "5"){
+				$formulario .= "La contraseña debe tener al menos 6 caracteres";
+			}
+
 			$formulario .= "</p></div>";
 		}
-		else if (isset($_GET['registro'])){
+		else if (isset($_GET["registro"])){
 			$formulario .= "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
 		}
 		
-		$formulario .= "</div>
+		$formulario .= " <button id='registrarse'>Registrarse</button>
+						</div>
+				</div>
 				<div class='redes'>
-					
+					$login_button
 				</div>
 			</form>
 		";
 		
-		//$login_button
+		$login_button;
 	}
-	else if (!isset($_GET['login'])){
+	else if (!isset($_GET["login"])){
 		$ruta = "<ol class='ruta'>
 					<li><a href='index.php'>Inicio</a></li>
 					<li>Inicio de sesión</li>
 				</ol>
 		";
 
-		$formulario = "<form action='controlador/inicioSesion.php' onsubmit='return validarLogin()' method='post' class='formulario' novalidate>
+		$formulario = "<form action='../controlador/inicioSesion.php' onsubmit='return validarLogin()' method='post' class='formulario' novalidate>
 							<div id='sesion'>
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
 								<div class='cont-campo'>
@@ -154,24 +158,23 @@
 									<label for='psw' class='form-label'>Contraseña</label>				
 									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' >
 								</div>
-
-								<p class='mensaje' id='mensaje'></p>
 		";
 		
-		$error ='';
+		$error ="";
 
-		if(isset($_GET['error'])){
-			$error = $_GET['error'];
-			if ($error == '0'){
+		if(isset($_GET["error"])){
+			$error = $_GET["error"];
+
+			if ($error == "0"){
 				$formulario .= "<p class='mensaje'>Complete los campos por favor</p>";
 			}
-			else if($error == '1'){
+			else if($error == "1"){
 				$formulario .= "<p class='mensaje'>El usuario ingresado no existe</p>";
 			}
-			else if($error == '2'){
+			else if($error == "2"){
 				$formulario .= "<p class='mensaje'>La contraseña ingresada es inválida</p>";
 			}
-			else if ($error == '401'){
+			else if ($error == "401"){
 				$formulario .= "<p class='mensaje'>Ha ocurrido un error inesperado, reintente nuevamente por favor</p>";
 			}
 		}						
@@ -181,9 +184,9 @@
 						<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validarLogin()'>
 					</div>
 				</div>
+				<div class='redes'> $login_button </div>
 			</form>	
 		";
-		//<div class='redes'> $login_button </div>
 	}	
 ?>
 <!DOCTYPE html>
@@ -192,15 +195,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis</title>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
-	<script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/funciones.js"></script>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
+	<script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/funciones.js"></script>
 	<script>
 		$(document).ready(function(){
 			actualizarCiudadRegistro();
 
-			$('#provincia').change (function (){
+			$("#provincia").change (function (){
 				actualizarCiudadRegistro();
 			});
 
@@ -210,9 +213,9 @@
 			$.ajax ({
 				type: "POST",
 				url: "rellenarSelect.php",
-				data: "provincia=" + $('#provincia').val(),
+				data: "provincia=" + $("#provincia").val(),
 				success: function (r){
-					$('#ciudad').html (r);
+					$("#ciudad").html (r);
 				}
 			});
 		}	
@@ -497,6 +500,10 @@
             border:none;
             text-decoration: none;
         }
+
+		#mensaje{
+			width:100%;
+		}
 		
 		@media screen and (max-width:860px){
 		    .formulario{
@@ -521,7 +528,7 @@
 	<?= $encabezado_mobile; ?>
 
 
-	<main id='main'>
+	<main id="main">
 		<?= $ruta; ?>
 
 		<?= $formulario; ?>
@@ -529,7 +536,7 @@
 
 	<?= $modalNovedades; ?>
             
-    <footer id='pie'>
+    <footer id="pie">
 		<?= $pie; ?> 
 	</footer> 
 </body>

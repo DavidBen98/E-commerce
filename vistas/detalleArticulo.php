@@ -1,9 +1,9 @@
 <?php
-	include_once('controlador/config.php');
-    include_once ("encabezado.php");
-    include("modalNovedades.php");
-	require_once 'inc/conn.php';
-    include_once("pie.php");
+	include_once "../controlador/config.php";
+	require_once "../inc/conn.php";
+    include_once  "encabezado.php";
+    include "modalNovedades.php";
+    include_once "pie.php";
 	 
 	if (perfil_valido(1)) {
         header("location:veABMProducto.php");
@@ -13,9 +13,9 @@
 				<li><a href='index.php'>Inicio</a></li>
 	";
 
-	$cat = isset($_GET['categoria'])? $_GET['categoria'] : null;
-	$sub = isset($_GET['subcategoria'])? $_GET['subcategoria']: null;
-	$art = isset($_GET['articulos'])? $_GET['articulos']: null;
+	$cat = isset($_GET["categoria"])? $_GET["categoria"] : null;
+	$sub = isset($_GET["subcategoria"])? $_GET["subcategoria"]: null;
+	$art = isset($_GET["articulos"])? $_GET["articulos"]: null;
 
 	if ($cat != null){
 		$ruta .= "<li><a href='subcategoria.php?categoria=$cat'>Subcategorías</a></li>
@@ -26,7 +26,7 @@
 		$ruta .= "<li><a href='productos.php?productos=todos'>Productos</a></li>";
 	}
 
-	$codigo = $_GET['art'] ;
+	$codigo = $_GET["art"] ;
 	$rs = obtenerProducto($codigo);
 
 	foreach ($rs as $row) { 	
@@ -34,9 +34,9 @@
 			</ol>
 		";
 
-		$caract = $row['caracteristicas'];
+		$caract = $row["caracteristicas"];
 		$aCarac = explode (',', $caract);
-		$id = $row['id'];
+		$id = $row["id"];
 
 		//Separar la descripción que viene en la columna "caracteristicas" en la BD
 		$parrafoCarasteristica = "";
@@ -50,7 +50,7 @@
 			$parrafoCarasteristica .= "<p> $caracteristica $detalle </p><br>";
 		} 
 
-		if($row['stock'] == 0){
+		if($row["stock"] == 0){
 			$stock .= "<p>Lo sentimos, no poseemos stock de este artículo.
 							Si desea saber cuando volverá a tener stock suscríbase a las novedades.
 							Gracias.
@@ -63,9 +63,9 @@
 			";						
 		}
 
-		if (isset($_GET['fav'])){
-			$fav = $_GET['fav'];
-			if ($fav == 'ok'){
+		if (isset($_GET["fav"])){
+			$fav = $_GET["fav"];
+			if ($fav == "ok"){
 				$mensaje = "<div class='mensaje' id='mensaje-exito'>
 								¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
 						   </div>
@@ -83,28 +83,28 @@
 
 		$contArticulo = "<div class='contenedor'> 
 							<div id='cont-images'>
-								<img src='$path' class='img-cat' title='Producto en detalle' alt='{$row['descripcion']}'>                                   
+								<img src='../$path' class='img-cat' title='Producto en detalle' alt='{$row["descripcion"]}'>                                   
 							</div>
 
 							<div id='cont-descripcion'>
 								<div class='cont-fund'>
 									<input type='hidden' name='codImg' value='$codigo' />
 									
-									<h1>{$row['descripcion']}</h1>";
+									<h1>{$row["descripcion"]}</h1>";
 									
-                                    if ($row['descuento'] != 0){
-                                        $precioDescuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
+                                    if ($row["descuento"] != 0){
+                                        $precioDescuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
                                         $contArticulo .=  "
 											<h3 class='precio'>
 												$". $precioDescuento ." 
 											</h3>
-											<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
+											<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
         								";
                                     }
                                     else{
 										$contArticulo .= "
-											<h2 id='precio' value='{$row['precio']}'  title='El precio es: $".$row['precio']."'>$ {$row['precio']}</h2>
-											<input type='hidden' name='precio' value='{$row['precio']}' />
+											<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+											<input type='hidden' name='precio' value='{$row["precio"]}' />
 										";
                                     }
 
@@ -113,15 +113,15 @@
 
 								<div class='carac-prod'>
 									<div id='carac' name='carac' title='Caracteristicas'>
-										<p><b>Material: </b>" .  $row['material'] . "</p><br>
-										<p><b>Color:</b> " . $row['color'] . " </p><br>
-										<p><b>Marca:</b> " . $row['marca'].  "</p><br>
+										<p><b>Material: </b>" .  $row["material"] . "</p><br>
+										<p><b>Color:</b> " . $row["color"] . " </p><br>
+										<p><b>Marca:</b> " . $row["marca"].  "</p><br>
 										$parrafoCarasteristica
 									</div>
 								</div>
 					";
 								
-								if($row['stock'] == 0){
+								if($row["stock"] == 0){
 									$contArticulo .= $sinStock; 
 								}
 								else{
@@ -136,7 +136,7 @@
 			</div>
 			
 			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
-				<img src='images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
+				<img src='../images/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
 			</a>";                    
 	}
 ?>
@@ -146,10 +146,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Muebles Giannis</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/estilos.css" media="screen">
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+	<link rel="stylesheet" type="text/css" href="../assets/css/estilos.css" media="screen">
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/funciones.js"></script>
+    <script src="../js/funciones.js"></script>
 	<style>
 		main{
 			display:flex;
@@ -383,8 +383,8 @@
         <?= $encabezado_mobile; ?>
 	</header>
 	
-    <main id='main'>
-		<p class='h1'>Muebles Giannis</p>
+    <main id="main">
+		<p class="h1">Muebles Giannis</p>
 
 		<?= $ruta ?>
 
@@ -392,7 +392,7 @@
 		<?= $modalNovedades ?>
 	</main>
 	
-	<footer id='pie'>
+	<footer id="pie">
 		<?= $pie; ?> 
 	</footer>	 
 </body>

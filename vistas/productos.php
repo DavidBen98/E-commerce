@@ -1,9 +1,9 @@
 <?php
-    require_once 'controlador/config.php';
-    include("pie.php");
-    include("modalNovedades.php");
-	require 'inc/conn.php';
+    require_once "../controlador/config.php";
+	require "../inc/conn.php";
 	include ("encabezado.php");
+    include("modalNovedades.php");
+    include("pie.php");
 
 	if ($perfil == "E"){ 
 		header("location:veABMProducto.php");
@@ -13,11 +13,11 @@
 	$categoria = "";
 	$subcategoria = "";
 	 
-    $filtros = [isset($_POST['color'])? $_POST['color']:null,
-				isset($_POST['marca'])? $_POST['marca']:null,
-				isset($_POST['valorMin'])? $_POST['valorMin']:null,
-				isset($_POST['valorMax'])? $_POST['valorMax']:null,
-				isset($_POST['orden'])? $_POST['orden']:null]
+    $filtros = [isset($_POST["color"])? $_POST["color"]:null,
+				isset($_POST["marca"])? $_POST["marca"]:null,
+				isset($_POST["valorMin"])? $_POST["valorMin"]:null,
+				isset($_POST["valorMax"])? $_POST["valorMax"]:null,
+				isset($_POST["orden"])? $_POST["orden"]:null]
 	;
 
 	$filtrado = "";
@@ -28,7 +28,7 @@
 		$filtros[3] = $maximo;
 	}
 	
-    if(isset($_GET['productos'])){ 
+    if(isset($_GET["productos"])){ 
 		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
 		$from = "FROM `producto` as p";
 		$innerJoin = "INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
@@ -36,8 +36,8 @@
 		";
 
         //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
-        $categoria = (isset($_POST['categoria']))? intval($_POST['categoria']) : "";
-        $subcategoria = (isset($_POST['subcategoria']))? intval($_POST['subcategoria']) : "";
+        $categoria = (isset($_POST["categoria"]))? intval($_POST["categoria"]) : "";
+        $subcategoria = (isset($_POST["subcategoria"]))? intval($_POST["subcategoria"]) : "";
 
         if ($categoria != ""){
             $where = " WHERE p.id_categoria like '$categoria' ";
@@ -56,13 +56,13 @@
         $sql = completarWhere($select,$from,$innerJoin,$where,$filtros);
         $rs = $db->query($sql);
     }
-	else if (isset($_GET['buscador'])){
-		$busqueda = $_GET['buscador'];
+	else if (isset($_GET["buscador"])){
+		$busqueda = $_GET["buscador"];
 
-		if (trim($busqueda) != ''){
-			$busqueda = str_replace('%20', ' ', $busqueda);
+		if (trim($busqueda) != ""){
+			$busqueda = str_replace("%20", " ", $busqueda);
 			$busqueda = ucfirst($busqueda);
-			$palabras = explode (' ',$busqueda);			
+			$palabras = explode (" ",$busqueda);			
 
 			$sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio, p.id, p.descuento
 					FROM `producto` as p
@@ -87,8 +87,8 @@
 	}	 
     else{
         //Si entro desde subcategorias entonces la categoria y la subcategoria esta en la url
-        $categoria = $_GET['cate'];
-		$subcategoria = $_GET['sub'];
+        $categoria = $_GET["cate"];
+		$subcategoria = $_GET["sub"];
 
 		$select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
 		$from = "FROM producto as p";
@@ -119,7 +119,7 @@
 	}
 
 	//RUTA DE NAVEGACIÓN
-	if (isset($_GET['cate'])){
+	if (isset($_GET["cate"])){
 		$ruta = "<ol class='ruta'>
 					<li><a href='index.php'>Inicio</a></li>
 					<li><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
@@ -140,10 +140,10 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-	<script src="js/funciones.js"></script>
+	<script src="../js/funciones.js"></script>
     <title>Muebles Giannis</title>
 	<style>
 		#main{
@@ -314,43 +314,43 @@
 		}
     </style>
     <script> 
-		document.addEventListener ('DOMContentLoaded', () => {
-			let imagenes = document.getElementsByClassName('img-cat'); //Imagenes de los productos
+		document.addEventListener ("DOMContentLoaded", () => {
+			let imagenes = document.getElementsByClassName("img-cat"); //Imagenes de los productos
 
-			let catalogo = document.getElementById('catalogo'); //Boton excel
+			let catalogo = document.getElementById("catalogo"); //Boton excel
 
 			if (catalogo != null){
 				catalogo.addEventListener("click", () => { //Catalogo Excel
 					let variable = "";
 					for (j=0;j<imagenes.length-1;j++){
-						variable += imagenes[j].getAttribute('alt') + ","; //todos los codigos separados por ,
+						variable += imagenes[j].getAttribute("alt") + ","; //todos los codigos separados por ,
 					}
-					variable+= imagenes[imagenes.length-1].getAttribute('alt');
-					window.location = 'listadoXLS.php?imagen='+variable; //se manda por url, se recibe por get en listadoXLS
+					variable+= imagenes[imagenes.length-1].getAttribute("alt");
+					window.location = "listadoXLS.php?imagen="+variable; //se manda por url, se recibe por get en listadoXLS
 				});
 			}
 
-			let cambiar = document.getElementById('cambiar-filtro');
-			let form = document.getElementById('datos');
+			let cambiar = document.getElementById("cambiar-filtro");
+			let form = document.getElementById("datos");
 
 			if (cambiar != null){
 				cambiar.addEventListener("click", () => {
-					if (form.style.display == 'block'){
-						form.style.display = 'none';
+					if (form.style.display == "block"){
+						form.style.display = "none";
 					}
 					else{
-						form.style.display = 'block';
+						form.style.display = "block";
 					}
 				});
 
-				form.style.display = 'none';
+				form.style.display = "none";
 			}
 		});
 
 		$(document).ready(function(){
 			actualizarSubcategoria();
 
-			$('#categoria').change (function (){
+			$("#categoria").change (function (){
 				actualizarSubcategoria();
 			});
 		});	
@@ -371,18 +371,18 @@
 			<?= crearBarraLateral(); ?>
 		</aside>
 
-		<section class='contenedor-productos'>
+		<section class="contenedor-productos">
 			<?= crearImagenes ($rs); ?>
 			
-			<div class='btn-doc'>
-				<input type='image' src='images/logo_excel.png' class='excel' id='catalogo' title='Exportar a Excel' alt='Exportar a Excel'>
+			<div class="btn-doc">
+				<input type="image" src="../images/logo_excel.png" class="excel" id="catalogo" title="Exportar a Excel" alt="Exportar a Excel">
 			</div>
 		</section>
 
 		<?= $modalNovedades; ?>
     </main>   
    
-	<footer id='pie'>
+	<footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 

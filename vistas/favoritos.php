@@ -1,9 +1,9 @@
 <?php 
-    require_once 'controlador/config.php';
-    include("encabezado.php"); 
-    include("pie.php");
-    include("modalNovedades.php");
-    include ("inc/conn.php");
+    require_once "../controlador/config.php";
+    include "../inc/conn.php";
+    include "encabezado.php"; 
+    include "modalNovedades.php";
+    include "pie.php";
 
     if (perfil_valido(3)) {
         header("location:login.php");
@@ -12,21 +12,21 @@
         header("location:veABMProducto.php");
     } 
                  
-    if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-        $idUsuario = $_SESSION['idUsuario'];
+    if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
+        $idUsuario = $_SESSION["idUsuario"];
     }
-    else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-        $idUsuario = $_SESSION['id'];
+    else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
+        $idUsuario = $_SESSION["id"];
     }
     else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
         $idUsuario = $_SESSION["user_id"];
     }
 
-    if (!isset($_SESSION['idUsuario'])){
+    if (!isset($_SESSION["idUsuario"])){
         $rs = seleccionarUsuarioConId($idUsuario);
 
         foreach ($rs as $row){
-            $idUsuario = $row['id'];
+            $idUsuario = $row["id"];
         }
     }
 
@@ -62,28 +62,28 @@
             </div>
         ";
 
-        if (isset($_GET['elim'])){
+        if (isset($_GET["elim"])){
             $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
 
         $div .= "</div>";    
     } else {
         foreach ($rs as $row) { 
-            $descripcion = $row['descripcion'];
-            $material = $row['material'];
-            $color = $row['color'];
-            $caracteristicas = $row['caracteristicas'];
-            $marca = $row['marca'];
-            $precio = $row['precio'];
-            $codigo = $row['codigo'];
-            $id = $row['id'];
+            $descripcion = $row["descripcion"];
+            $material = $row["material"];
+            $color = $row["color"];
+            $caracteristicas = $row["caracteristicas"];
+            $marca = $row["marca"];
+            $precio = $row["precio"];
+            $codigo = $row["codigo"];
+            $id = $row["id"];
 
             $path = obtenerImagenProducto($id);
     
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
-                                <img src='$path' class='productos img-cat' alt='$codigo'>
+                                <img src='../$path' class='productos img-cat' alt='$codigo'>
                                     <div class='titulo'>
                                         <div class='cont-enlaces'>
                                             <p class='enlace'> $descripcion</p>
@@ -91,11 +91,11 @@
                                         </div> 
                                         <div class='contenedor-eventos'>
                                             <div class='evento-producto' >
-                                                <img src='images/eliminar.png' alt='Eliminar producto'>
+                                                <img src='../images/eliminar.png' alt='Eliminar producto'>
                                                 <button class='elim-fav' value='$id'> Eliminar producto</button>
                                             </div>
                                             <div class='evento-producto'>
-                                                <img src='images/carrito.png' alt='Agregar al carrito'>
+                                                <img src='../images/carrito.png' alt='Agregar al carrito'>
                                                 <a id='agregar-fav-$selectNumero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
         
             $selectNumero++;
         }
-        if (isset($_GET['elim'])){
+        if (isset($_GET["elim"])){
             $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
         $div .= "</div>";
@@ -130,11 +130,11 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="images/logo_sitio.png">
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="../images/logo_sitio.png">
     <title>Muebles Giannis</title> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="js/funciones.js"></script>
+    <script src="../js/funciones.js"></script>
     <style>
         main{
             display:flex;
@@ -250,7 +250,6 @@
         }
 
         .principal p{
-            width:200px;
             margin: 0;
             text-align:start;
             height: auto;
@@ -585,12 +584,12 @@
 
     <main>
 
-        <ol class='ruta'>
-            <li><a href='index.php'>Inicio</a></li>
+        <ol class="ruta">
+            <li><a href="index.php">Inicio</a></li>
             <li>Favoritos</li>
         </ol>
 
-        <aside class='contenedor-botones'>
+        <aside class="contenedor-botones">
             <?= CONT_USUARIOS; ?>
         </aside>
 
@@ -602,7 +601,7 @@
 
     </main>
 
-    <footer id='pie'>
+    <footer id="pie">
 		<?= $pie; ?> 
 	</footer>
 </body>

@@ -1,6 +1,6 @@
 <?php 
-    include("encabezado.php");
-    include ("inc/conn.php");
+    include "encabezado.php";
+    include "../inc/conn.php";
 
     if (!perfil_valido(1)) {
         header("location:index.php");
@@ -12,7 +12,7 @@
     $formulario = "
         <h1 id='modSubcategoria'>Modificar subcategoría</h1>
         <div class='div-cont'>                
-            <form action='controlador/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='formUbicacion' method='post' class='cont'>
+            <form action='../controlador/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='formUbicacion' method='post' class='cont'>
                 <h2>Ubicación</h2>
 
                 <label for='subcategoria' class='lSubcategoria'>Subcategoría a modificar</label>
@@ -28,14 +28,14 @@
                 </div>
     ";
 
-    if (isset($_GET['modifU'])){
+    if (isset($_GET["modifU"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha modificado el producto de manera exitosa!</p>
             </div>
         ";
     }
-    else if (isset($_GET['errorU'])){
+    else if (isset($_GET["errorU"])){
         $formulario .="
             <div class='contenedor mensaje' id='mensaje'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
@@ -46,7 +46,7 @@
     $formulario .="
         </form>
 
-        <form action='controlador/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
+        <form action='../controlador/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
             <h2>Características</h2>
         
             <label for='subcategoria' class='lSubcategoria'>Subcategoría a modificar</label>
@@ -80,14 +80,14 @@
             </div>
     ";
 
-    if (isset($_GET['modifC'])){
+    if (isset($_GET["modifC"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha modificado el producto de manera exitosa!</p>
             </div>
         ";
     }
-    else if (isset($_GET['errorC'])){
+    else if (isset($_GET["errorC"])){
         $formulario .="
             <div class='contenedor' id='error'>
                 <p>Error: los datos ingresados no son correctos, reintente por favor</p>
@@ -105,10 +105,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/funciones.js"></script>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/funciones.js"></script>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <style>
         #main{
@@ -264,56 +264,56 @@
         }
     </style>
       <script>
-		document.addEventListener('DOMContentLoaded', () => {
-            let modNombre = document.getElementById('modNombre');
-            let modImagen = document.getElementById('modImagen');
-            let subcategoria = document.getElementsByName('subcategoria')[1];
+		document.addEventListener("DOMContentLoaded", () => {
+            let modNombre = document.getElementById("modNombre");
+            let modImagen = document.getElementById("modImagen");
+            let subcategoria = document.getElementsByName("subcategoria")[1];
 
             actualizarImagen();
 
-            modNombre.addEventListener('change', () => {
+            modNombre.addEventListener("change", () => {
                 let checked = modNombre.checked;
 
-                let nombre = document.getElementById('nombre');
+                let nombre = document.getElementById("nombre");
 
                 if (checked){
-                    nombre.style.display = 'block';
+                    nombre.style.display = "block";
                 } else {
-                    nombre.style.display = 'none';
+                    nombre.style.display = "none";
                 }
             });
 
-            modImagen.addEventListener('change', () => {
+            modImagen.addEventListener("change", () => {
                 let checked = modImagen.checked;
 
-                let imagen = document.getElementById('imagen');
+                let imagen = document.getElementById("imagen");
 
                 if (checked){
-                    imagen.style.display = 'block';
+                    imagen.style.display = "block";
                 } else {
-                    imagen.style.display = 'none';
+                    imagen.style.display = "none";
                 }
             });
 
-            subcategoria.addEventListener('change', () => {
+            subcategoria.addEventListener("change", () => {
                 actualizarImagen();
             });
 
             function actualizarImagen (){
                 let subcat = subcategoria.options[subcategoria.selectedIndex].value;
-                let img = document.getElementById('img-cat');
+                let img = document.getElementById("img-cat");
 
                 $.ajax ({
                     type: "POST",
-                    url: "controlador/veObtenerImagen.php",
+                    url: "../controlador/veObtenerImagen.php",
                     data: "subcategoria=" + subcat ,
                     success: function (r){
-                        img.setAttribute('src', r);
+                        img.setAttribute("src", r);
                     }
                 });
             }	
 
-            let idSubategoria = getQueryVariable('subcategoria');
+            let idSubategoria = getQueryVariable("subcategoria");
             if (idSubategoria != false){
                 for (let i = 0; i < subcategoria.options.length; i++) {
                     if (subcategoria.options[i].value == idSubcategoria) {
@@ -328,11 +328,11 @@
 	</script>
 </head>
 <body>
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
         <?= $formulario; ?>
     </main> 
 

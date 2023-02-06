@@ -1,28 +1,28 @@
 <?php 
-    include("encabezado.php");
+    include "encabezado.php";
 
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
 
-    $lista = obtenerSubcategorias();
+    $subcategorias = obtenerSubcategorias();
 
     $formulario = " 
-        <form class='cont' method='POST' action='controlador/veFuncSubcategoriaBaja.php' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaBaja.php' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
             <label for='subcategoria' >Subcategoría</label>
-            $lista
+            $subcategorias
             
             <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
     ";
 
-    if (isset($_GET['elim'])){
+    if (isset($_GET["elim"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p> ¡Se ha eliminado la subcategoría con éxito! </p>
             </div>
         ";
     }
-    else if (isset($_GET['error'])){
+    else if (isset($_GET["error"])){
         $formulario .="
             <div class='contenedor mensaje' id='mensaje'>
                 <p> Error: los datos ingresados no son correctos, reintente por favor </p>
@@ -37,9 +37,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="js/funciones.js"></script>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
+	<script src="../js/funciones.js"></script>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <style>
         .cont{
@@ -80,11 +80,11 @@
 </head>
 <body>
 
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
         <?= $formulario; ?>
     </main> 
     

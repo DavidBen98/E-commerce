@@ -1,6 +1,6 @@
 <?php 
-    include("encabezado.php");
-    include ("inc/conn.php");
+    include "encabezado.php";
+    include "../inc/conn.php";
     if (!perfil_valido(1)) {
         header("location:index.php");
     }
@@ -8,7 +8,7 @@
     $categorias = obtenerCategorias();
 
     $formulario = "  
-        <form action='controlador/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>
+        <form action='../controlador/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>
             <h1>Modificar categoría</h1>
                             
             <label for='categoria' class='lCategoria'>
@@ -45,27 +45,27 @@
             </div>
     ";
 
-    if (isset($_GET['modif'])){
+    if (isset($_GET["modif"])){
         $formulario .= "
             <div class='contenedor' id='mensaje'>
                 <p> ¡Se ha modificado la categoría con éxito! </p>
             </div>
         ";
-    } else if (isset($_GET['error'])){
-        $error = $_GET['error'];
+    } else if (isset($_GET["error"])){
+        $error = $_GET["error"];
         $formulario .="
             <div class='contenedor' id='mensaje'>
         ";
-        if ($error === '1'){
+        if ($error === "1"){
             $formulario .="
                 <p> Error: debe modificar al menos un campo </p>
             ";
-        } else if ($error === '2'){
+        } else if ($error === "2"){
             $formulario .="
                 <p> Error: rellene correctamente el campo nombre por favor. </p>
             ";
-        } else if ($error === '3'){
-            $nombre = isset($_GET['nombre']);
+        } else if ($error === "3"){
+            $nombre = isset($_GET["nombre"]);
 
             if ($nombre){
                 $formulario .="
@@ -76,7 +76,7 @@
             $formulario .="
                 <p> Error: seleccione una imagen por favor </p>
             ";
-        } else if ($error === '4'){
+        } else if ($error === "4"){
             //No hace falta en este momento preguntar por el error 4 en particular,
             //pero se hace por si se necesita agregar errores en el futuro
             $formulario .="
@@ -96,62 +96,62 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/funciones.js"></script>
-    <link type="text/css"  href="assets/css/estilos.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="assets/css/ve_estilos.css" media="screen">
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/funciones.js"></script>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <script>
-		document.addEventListener('DOMContentLoaded', () => {
-            let modNombre = document.getElementById('modNombre');
-            let modImagen = document.getElementById('modImagen');
-            let categoria = document.getElementById('categoria');
+		document.addEventListener("DOMContentLoaded", () => {
+            let modNombre = document.getElementById("modNombre");
+            let modImagen = document.getElementById("modImagen");
+            let categoria = document.getElementById("categoria");
 
             actualizarImagen();
 
-            modNombre.addEventListener('change', () => {
+            modNombre.addEventListener("change", () => {
                 let checked = modNombre.checked;
 
-                let nombre = document.getElementById('nombre');
+                let nombre = document.getElementById("nombre");
 
                 if (checked){
-                    nombre.style.display = 'block';
+                    nombre.style.display = "block";
                 } else {
-                    nombre.style.display = 'none';
+                    nombre.style.display = "none";
                 }
             });
 
-            modImagen.addEventListener('change', () => {
+            modImagen.addEventListener("change", () => {
                 let checked = modImagen.checked;
 
-                let imagen = document.getElementById('imagen');
+                let imagen = document.getElementById("imagen");
 
                 if (checked){
-                    imagen.style.display = 'block';
+                    imagen.style.display = "block";
                 } else {
-                    imagen.style.display = 'none';
+                    imagen.style.display = "none";
                 }
             });
 
-            categoria.addEventListener('change', () => {
+            categoria.addEventListener("change", () => {
                 actualizarImagen();
             });
 
             function actualizarImagen (){
                 let cat = categoria.options[categoria.selectedIndex].value;
-                let img = document.getElementById('img-cat');
+                let img = document.getElementById("img-cat");
 
                 $.ajax ({
                     type: "POST",
-                    url: "controlador/veObtenerImagen.php",
+                    url: "../controlador/veObtenerImagen.php",
                     data: "categoria=" + cat ,
                     success: function (r){
-                        img.setAttribute('src', r);
+                        img.setAttribute("src", r);
                     }
                 });
             }	
 
-            let idCategoria = getQueryVariable('categoria');
+            let idCategoria = getQueryVariable("categoria");
             if (idCategoria != false){
                 for (let i = 0; i < categoria.options.length; i++) {
                     if (categoria.options[i].value == idCategoria) {
@@ -275,11 +275,11 @@
 </head>
 <body>
     
-    <header id='header'>
+    <header id="header">
         <?= $encabezado; ?>
 	</header>
 
-    <main id='main'>
+    <main id="main">
         <?= $formulario; ?>
     </main> 
 

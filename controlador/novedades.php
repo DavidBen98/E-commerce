@@ -25,11 +25,11 @@
         }
 
         if (!$exist){
-            header ('location: ../index.php?error=2');
+            header ('location: ../vistas/index.php?error=2');
         } else {
-            header ('location: ../index.php?sus=true');
+            header ('location: ../vistas/index.php?sus=true');
         }
     } else {
-        header ('location: ../index.php?error=1');
+        header ('location: ../vistas/index.php?error=1');
     }
 ?>

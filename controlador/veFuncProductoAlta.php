@@ -92,22 +92,22 @@
 
                     $rs = $db -> query($sql);
 
-                    header ("location: ../veProductoAlta.php?alta=exito");
+                    header ("location: ../vistas/veProductoAlta.php?alta=exito");
                 }else{
                     $sql = "DELETE FROM producto WHERE id = '$id_producto'";
                     $rs = $db->query($sql);
 
                     //No se pudo subir la imagen
-                    header ("location: ../veProductoAlta.php?error=1");
+                    header ("location: ../vistas/veProductoAlta.php?error=1");
                 }
             }   
         } else {
             //La extensión del archivo es incorrecta
-            header ("location: ../veProductoAlta.php?error=2");
+            header ("location: ../vistas/veProductoAlta.php?error=2");
         }
     }
     else{
         //Los datos ingresados no son correctos
-        header ("location: ../veProductoAlta.php?error=3");
+        header ("location: ../vistas/veProductoAlta.php?error=3");
     }
 ?>
