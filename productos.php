@@ -4,13 +4,15 @@
     include("modalNovedades.php");
 	require 'inc/conn.php';
 	include ("encabezado.php");
-    //TODO: AGREGAR MAS DE UNA IMAGEN POR PRODUCTO (VER SI HAY QUE HACER UNA CARPETA PARA CADA PRODUCTO)
 
 	if ($perfil == "E"){ 
 		header("location:veABMProducto.php");
 	} 
 
-    global $db;  
+    global $db; 
+	$categoria = "";
+	$subcategoria = "";
+	 
     $filtros = [isset($_POST['color'])? $_POST['color']:null,
 				isset($_POST['marca'])? $_POST['marca']:null,
 				isset($_POST['valorMin'])? $_POST['valorMin']:null,
@@ -93,7 +95,7 @@
 		$innerJoin = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					  INNER JOIN categoria as c on c.id_categoria = p.id_categoria
 		";
-		$where = "WHERE nombre_subcategoria='$subcategoria' AND nombre_categoria='$categoria'";
+		$where = "WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria'";
 
         $sql = completarWhere($select, $from, $innerJoin, $where, $filtros);
         $rs = $db->query($sql);
@@ -103,7 +105,7 @@
 	$url = $_SERVER["REQUEST_URI"];
 
 	if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
-		
+		$categoria = intval($categoria);
 		$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
 		
 		$filtrado = "<div id='filtros-usados'>		

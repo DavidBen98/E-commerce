@@ -38,7 +38,6 @@
 
         $ciudad =  isset($row['ciudad'])? $row['ciudad'] : null;
         $ciudad = json_encode ($ciudad);
-        
 
         $infoPersonal = "
             <form action='controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
@@ -94,6 +93,23 @@
                         <input type='text' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
                         <label for='inputPiso' class='form-label'>Depto</label>
                         <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
+                    </div>
+                </div>
+
+                <div class='renglon'>
+                    <div class='cont-reg l-novedades'>
+                        
+        ";
+
+        if ($row['suscripcion'] === 1){
+            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row['suscripcion']}' checked disabled>";
+        } else {
+            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row['suscripcion']}' disabled>";
+        }
+
+        $infoPersonal .=" <label>
+                            Suscripción a las novedades
+                        </label>			
                     </div>
                 </div>
         ";
@@ -336,6 +352,19 @@
         .direccion > .form-label{
             width:100%;
             text-align:center;
+        }
+
+        .cont-reg{
+			display:flex;
+			justify-content:center;
+			flex-wrap:wrap;
+            margin: 5px;
+            padding: 5px;
+		}
+
+        .cont-reg label{
+            display: flex;
+            align-items: center;
         }
         
         @media screen and (max-width:860px){

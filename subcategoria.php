@@ -88,7 +88,6 @@
 		<?= crearImagenes($rs); ?>
 
         <?= $modalNovedades; ?>
-
 	</main>
 		
 	<footer id='pie'>

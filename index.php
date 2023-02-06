@@ -368,37 +368,25 @@
     <script src="js/funciones.js"></script>
     <script>
         document.addEventListener ('DOMContentLoaded', () => {
-
-            const cards = document.querySelectorAll('.card')
-
+            // Eliminar eventos de clic
+            const cards = document.querySelectorAll('.card');
             // Añadimos un evento en cada click
             cards.forEach((card) => {
                 card.addEventListener('click', () => {
                     if (card.classList.contains("active")) {
                         card.classList.toggle("active");
                     } else {
-                        cards.forEach((card) => card.classList.remove("active"));
+                        cards.forEach((card) => {
+                            card.classList.remove("active");
+                        });
+                        
                         card.classList.add("active");
-
-                        let elementStyle = window.getComputedStyle(card);
-                        let elementImage = elementStyle.getPropertyValue('backgroundImage');
-
-                        console.log(elementImage);
-                        // card.addEventListener("click", () => {
-                        //     window.location = 'subcategoria.php?categoria='+imagen;
-                        // });
+                        card.addEventListener("click", () => {
+                            window.location = 'subcategoria.php?categoria='+card.id;
+                        });
                     }
-
                 })
             });
-
-            // for (j=0;j<imagenes.length;j++){
-            //     let imagen = imgCat[j].getAttribute('alt');
-            //     imagenes[j].addEventListener("click", () => {
-            //         window.location = 'subcategoria.php?categoria='+imagen;
-            //     });
-            // }
-
         });
     </script>
 </head>

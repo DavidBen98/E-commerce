@@ -485,6 +485,7 @@ const modDatos = (provincia) => {
     let modificar = document.getElementById('modificarDatos');
     let mensaje = document.getElementById ('mensaje');
     let descripcion = document.getElementsByClassName('descripciones');
+    let novedades = document.getElementById ('novedades');
 
     if (input[0].readOnly){
         for (let i=0; i< input.length; i++){
@@ -495,6 +496,7 @@ const modDatos = (provincia) => {
             }
         }
 
+        novedades.disabled = false;
         confirmar.style.display = 'block';
         cancelar.style.display = 'block';
         modificar.style.display = 'none';

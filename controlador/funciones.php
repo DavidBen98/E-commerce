@@ -82,7 +82,8 @@
     
         $barraSuperior ="<div id='perfilUsuario'>
                         $links
-                    </div> ";
+                    </div> 
+        ";
                     
         return  $barraSuperior;
     }
@@ -464,6 +465,7 @@
             echo " <div class='cards'> 
                         <div
                             class='card'
+                            id='$idCat'
                             style='
                                 background-image: url($imgCat);
                             '
@@ -495,7 +497,7 @@
             $sql1 ="SELECT nombre_subcategoria
                     FROM `subcategoria`
                     INNER JOIN `categoria` ON categoria.id_categoria = subcategoria.id_categoria
-                    WHERE subcategoria.id_categoria = '$idCat'
+                    WHERE subcategoria.id_categoria = '$idCat' AND subcategoria.activo = 1
             ";
             
             $rs1 = $db->query($sql1);
@@ -533,15 +535,16 @@
 			$producto = $_GET['articulos'];
 			$categoria = $_GET['cate'];
 			$subcategoria = $_GET['sub']; 
-			$formulario = "<form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
-						<div class='btn-select'>
-							<label for='orden' class='label'> Ordenar por </label>
-							<select class='form-select' id='orden' name='orden' title='Ordenar elementos'> 
-								<option value='0'> Menor precio </option>
-								<option value='1'> Mayor precio </option>	
-								<option value='2'> Mas vendidos </option>
-							</select>
-						</div>
+			$formulario = "
+                <form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
+                    <div class='btn-select'>
+                        <label for='orden' class='label'> Ordenar por </label>
+                        <select class='form-select' id='orden' name='orden' title='Ordenar elementos'> 
+                            <option value='0'> Menor precio </option>
+                            <option value='1'> Mayor precio </option>	
+                            <option value='2'> Mas vendidos </option>
+                        </select>
+                    </div>
             ";
 		}
 		else if (isset($_GET['productos']) || isset($_GET['buscador'])){ //Si se ingresa desde el nav ->productos o desde la barra de navegacion
@@ -603,7 +606,11 @@
 					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
         ";
 
-		$whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
+        if (isset($_GET['productos']) || isset($_GET['buscador'])){
+            $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
+        } else {
+            $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.id_categoria = '$categoria'";
+        }
 
 		$sql  = "SELECT p.id_categoria, p.id_subcategoria,descripcion, material,color,caracteristicas,marca,stock, precio
 				FROM `producto` as p
@@ -681,7 +688,8 @@
 					</div>				
 			";
 		}
-		echo "</div>	
+		echo "
+                </div>	
 				</fieldset>
 				<fieldset id='min-max'>
 				    <legend class='ltitulo'><b>Precios</b></legend>  
@@ -1089,7 +1097,7 @@
                 FROM imagen_subcategorias as s
                 INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
                 INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
-                WHERE c.nombre_categoria = '$categoria'
+                WHERE c.id_categoria = '$categoria' AND sub.activo = 1
         ";
 
         $rs = $db->query($sql);
@@ -1114,7 +1122,7 @@
     function obtenerUsuario ($id){
         global $db;
 
-        $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion
+        $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
             FROM `usuario`
             WHERE id='$id'
         "; 
