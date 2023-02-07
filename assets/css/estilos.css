@@ -453,6 +453,11 @@ aside select{
     padding-left: 3%;
 }
 
+.input-minmax{
+    width: 100%;
+    text-align: center;
+}
+
 .input-minmax input{
     text-align:center; 
     height: 20px;

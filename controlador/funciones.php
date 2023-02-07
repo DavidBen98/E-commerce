@@ -686,9 +686,11 @@
                 </div>	
 				</fieldset>
 				<fieldset id='min-max'>
-				    <legend class='ltitulo'><b>Precios</b></legend>  
-                    <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
-                    <label for='valorMax' class='lmaxmin'>Máximo</label>			
+				    <legend class='ltitulo'><b>Precios</b></legend> 
+                    <div class='input-minmax'> 
+                        <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
+                        <label for='valorMax' class='lmaxmin'>Máximo</label>			
+                    </div>
 					<div class='input-minmax'>
 						<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
 						- 
