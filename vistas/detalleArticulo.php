@@ -148,7 +148,7 @@
 	<title>Muebles Giannis</title>
 	<link rel="stylesheet" type="text/css" href="../assets/css/estilos.css" media="screen">
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="../js/funciones.js"></script>
 	<style>
 		main{

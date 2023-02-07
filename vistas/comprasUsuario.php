@@ -131,7 +131,7 @@
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <title>Muebles Giannis</title> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="../js/funciones.js"></script>
 	<script>
         document.addEventListener ("DOMContentLoaded", () => {
