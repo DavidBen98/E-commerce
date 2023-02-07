@@ -1220,6 +1220,40 @@
 
         return $provincia;
     }
+
+    function obtenerNombreCategoria($id){
+        global $db;
+
+        $sql = "SELECT nombre_categoria
+                FROM categoria
+                WHERE id_categoria = $id
+        ";
+
+        $rs = $db->query($sql);
+
+        foreach ($rs as $row){
+            $nombre = $row['nombre_categoria'];
+        }
+
+        return $nombre;
+    }
+
+    function obtenerNombreSubcategoria($id){
+        global $db;
+
+        $sql = "SELECT nombre_subcategoria
+                FROM subcategoria
+                WHERE id_subcategoria = $id
+        ";
+
+        $rs = $db->query($sql);
+
+        foreach ($rs as $row){
+            $nombre = $row['nombre_subcategoria'];
+        }
+
+        return $nombre;
+    }
     
     function insertarUsuario ($nombre, $apellido, $email, $perfil, $existe){
         global $db;

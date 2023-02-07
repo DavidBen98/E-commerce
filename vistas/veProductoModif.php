@@ -112,11 +112,11 @@
         <div class='contenedor' id='caracteristicas'>
             <label for='alto'>Características (Números redondos, en centímetros)</label>
             <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
-            <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value=''>
+            <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='' step='5'>
             <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
-            <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value=''>
+            <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='' step='5'>
             <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
-            <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value=''>
+            <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='' step='5'>
         </div>
 
         <div class='contenedor'>
