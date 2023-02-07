@@ -7,9 +7,9 @@
     //Destroy entire session data.
     session_destroy();
 
-    $auth = new TwitterAuth($cliente);
+    // $auth = new TwitterAuth($cliente);
 
-    $auth->signOut();
+    // $auth->signOut();
 
     //redirect page to index.php
     header("location:../vistas/index.php");

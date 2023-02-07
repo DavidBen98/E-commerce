@@ -13,9 +13,9 @@
         $idUsuario = $_SESSION["user"];
         $mail = false;
     }
-    else if ($_SESSION["id_tw"]){
-        $idUsuario = $_SESSION["id_tw"];
-    }
+    // else if ($_SESSION["id_tw"]){
+    //     $idUsuario = $_SESSION["id_tw"];
+    // }
 
     if (!isset($_SESSION["idUsuario"])){
         $rs = obtenerUsuarioConRS($idUsuario);

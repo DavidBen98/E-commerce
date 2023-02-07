@@ -14,7 +14,7 @@
     
     $msjError = "";
 
-    if( $nombre == ""){
+    if($nombre == ""){
         $msjError .= "Debe ingresar su nombre"; 
     }
     else if ($apellido == ""){
@@ -35,9 +35,9 @@
         else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
             $idUsuario = $_SESSION["id"];
         }
-        else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
-            $idUsuario = $_SESSION["id_tw"];
-        }
+        // else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
+        //     $idUsuario = $_SESSION["id_tw"];
+        // }
 
         $sql = "INSERT INTO `consulta` (`nombre`, `apellido`, `texto`,`usuario_id`) 
                 VALUES ('$nombre','$apellido','$txtIngresado','$idUsuario')

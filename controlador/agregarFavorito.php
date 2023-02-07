@@ -17,9 +17,9 @@
         else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
             $idUsuario = $_SESSION["id"];
         }
-        else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-            $idUsuario = $_SESSION["user_id"];
-        }
+        // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
+        //     $idUsuario = $_SESSION["user_id"];
+        // }
     
         if (!isset($_SESSION["idUsuario"])){
             $sql = "SELECT u.id

@@ -3,7 +3,7 @@
     require_once "config.php";
     require_once "../inc/conn.php";
 
-	$auth = new TwitterAuth($cliente);
+	// $auth = new TwitterAuth($cliente);
 
     global $db;
     
