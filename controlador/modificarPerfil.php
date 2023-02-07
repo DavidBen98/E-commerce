@@ -33,7 +33,7 @@
     $provincia = (isset($_POST["provincia"]) && trim($_POST["provincia"]) != "" && $_POST["provincia"] != -1)? trim($_POST["provincia"]) : null;
     $ciudad = (isset($_POST["ciudad"]) && trim($_POST["ciudad"]) != "")? trim($_POST["ciudad"]) : null;
     $direccion = (isset($_POST["direccion"]) && trim($_POST["direccion"][0]) != "" && trim($_POST["direccion"][1]) != "")? $_POST["direccion"] : null;
-    $suscripcion = ($_POST["suscripcion"] == "1")? 1 : 0;
+    $suscripcion = (isset($_POST["suscripcion"]))? 1 : 0;
 
     $sql = "SELECT usuario.id
             FROM usuario
@@ -76,7 +76,7 @@
         $dire = trim($dire);
 
         $sql = "UPDATE `usuario` SET 
-                `nombreUsuario`='$nombreUsuario',`nroDni`='$dni',`nombre`='$nombre',`apellido`='$apellido', `provincia` = '$provincia', `ciudad` = '$ciudad', `direccion` = '$dire'
+                `nombreUsuario`='$nombreUsuario',`nroDni`='$dni',`nombre`='$nombre',`apellido`='$apellido', `provincia` = '$provincia', `ciudad` = '$ciudad', `direccion` = '$dire', `suscripcion`  = '$suscripcion'
                 WHERE `id`='$idUsuario'
         ";
 
