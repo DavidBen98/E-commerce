@@ -2,7 +2,7 @@
     require_once "config.php";
 
     if (isset($_POST["id"])){
-        $id = $_POST["id"];
+        $id = htmlspecialchars($_POST["id"]);
 
         if (isset($_SESSION["carrito"]["productos"][$id])){
             $_SESSION["carrito"]["productos"][$id] += 1;

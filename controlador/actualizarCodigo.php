@@ -12,10 +12,13 @@
     
         $sql = "SELECT codigo
                 FROM producto
-                WHERE codigo LIKE '$categoria$subcategoria%'
+                WHERE codigo LIKE :categoriaSubcategoria
         ";
     
-        $rs = $db -> query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoriaSubcategoria', "$categoria$subcategoria%", PDO::PARAM_STR);
+        $stmt->execute();
+        $rs = $stmt->fetchAll();
     
         $ultimoProducto = 0;
 

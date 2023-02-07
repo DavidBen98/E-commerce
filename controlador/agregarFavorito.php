@@ -9,26 +9,29 @@
 	else{
         global $db;
     
-        $idProducto = $_GET["id"];
+        $idProducto = intval($_GET["id"]);
     
         if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
-            $idUsuario = $_SESSION["idUsuario"];
+            $idUsuario = intval($_SESSION["idUsuario"]);
         }
         else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
-            $idUsuario = $_SESSION["id"];
+            $idUsuario = intval($_SESSION["id"]);
         }
         // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-        //     $idUsuario = $_SESSION["user_id"];
+        //     $idUsuario = intval($_SESSION["user_id"]);
         // }
     
         if (!isset($_SESSION["idUsuario"])){
             $sql = "SELECT u.id
                     FROM usuario as u
                     INNER JOIN usuario_rs as rs ON rs.id = u.id
-                    WHERE rs.id_social = $idUsuario
+                    WHERE rs.id_social = ?
             ";
     
-            $rs = $db->query($sql);
+            $stmt = $db->prepare($sql);
+            $stmt->bind_param("i", $idUsuario);
+            $stmt->execute();
+            $rs = $stmt->get_result();
     
             foreach ($rs as $row){
                 $idUsuario = $row["id"];
@@ -62,9 +65,9 @@
         }
     
         if ($i > 0 || $j == 0){ //Si no está cargado ese producto o todavia no hay ningun producto con ese usuario
-            $sql = "INSERT INTO `favorito`(`id_producto`, `id_usuario`) VALUES ('$idProducto','$idUsuario')";
-    
-            $rs = $db->query ($sql);
+            $stmt = $db->prepare("INSERT INTO favorito (id_producto, id_usuario) VALUES (?, ?)");
+            $stmt->bind_param("ii", $idProducto, $idUsuario);
+            $stmt->execute();
             $datos = "ok";
         }
         else{

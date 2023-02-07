@@ -49,7 +49,7 @@
 								
 								<div class='cont-reg'>
 									<label for='email' class='form-label'>Email</label>
-									<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' >	
+									<input type='text' class='form-control' name='email' id='mail' value='' maxlength='40' >	
 								</div> 
 								
 								<div class='cont-reg'>
@@ -76,17 +76,17 @@
 								
 								<div class='cont-reg'>
 									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
+									<input type='text' autocomplete='username' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
 								</div> 
 								
 								<div class='cont-reg'>
 									<label for='psw' class='form-label'>Contraseña</label>				
-									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='50' >
+									<input type='password' autocomplete='new-password' class='form-control' name='psw' id='psw' value='' maxlength='50' >
 								</div>
 									
 								<div class='cont-reg'>
 									<label for='psw2' class='form-label'>Repetir contraseña</label>				
-									<input type='password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' >
+									<input type='password' autocomplete='new-password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' >
 								</div>
 
 								<div class='cont-reg'>
@@ -151,12 +151,12 @@
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
 								<div class='cont-campo'>
 									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
+									<input type='text' autocomplete='username' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
 								</div>  
 
 								<div class='cont-campo'>
 									<label for='psw' class='form-label'>Contraseña</label>				
-									<input type='password' class='form-control' name='psw' id='psw' value='' maxlength='20' >
+									<input type='password' autocomplete='current-password' class='form-control' name='psw' id='psw' value='' maxlength='20' >
 								</div>
 		";
 		
