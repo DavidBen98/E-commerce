@@ -19,10 +19,21 @@
             //Error: falta rellenar el campo nombre
             header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=2#mensaje");
         } else {
-            $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $idCategoria");
-            
-            if ($modImagen == null){
-                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+            $sql = "SELECT COUNT(*)
+                    FROM categoria
+                    WHERE nombre_categoria = '$nombre'
+            ";
+
+            $rs = $db->query($sql);
+
+            if ($rs->fetchColumn() == 0){
+                $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $idCategoria");
+                
+                if ($modImagen == null){
+                    header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                }
+            } else{
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=5#mensaje");
             }
         }
     }

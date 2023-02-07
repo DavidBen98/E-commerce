@@ -35,7 +35,7 @@
             <div class='archivo' id='archivo'>
                 <div class='cont-check'>
                     <input type='checkbox' id='modImagen' name='modImagen' value='Modificar imagen'>
-                    <label for='nombre' > Modificar imagen </label>
+                    <label for='nombre'> Modificar imagen </label>
                 </div>
                 <input type='file' name='imagen' class='form-control' id='imagen' aria-label='Upload'>          
             </div> 
@@ -77,19 +77,23 @@
                 <p> Error: seleccione una imagen por favor </p>
             ";
         } else if ($error === "4"){
-            //No hace falta en este momento preguntar por el error 4 en particular,
-            //pero se hace por si se necesita agregar errores en el futuro
             $formulario .="
                 <p> Error: ha ocurrido un error al subir la imagen </p>
             ";
-        }     
+        } else if ($error === "5"){
+            //No hace falta en este momento preguntar por el error 4 en particular,
+            //pero se hace por si se necesita agregar errores en el futuro
+            $formulario .="
+                <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
+            ";
+        }  
+
         $formulario .="
             </div>
         ";
     }
 
-    $formulario .= "</form>
-    ";
+    $formulario .= "</form>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
