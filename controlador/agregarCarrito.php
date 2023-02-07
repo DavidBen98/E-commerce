@@ -1,21 +1,21 @@
 <?php  
-    require_once 'config.php';
+    require_once "config.php";
 
-    if (isset($_POST['id'])){
-        $id = $_POST['id'];
+    if (isset($_POST["id"])){
+        $id = $_POST["id"];
 
-        if (isset($_SESSION['carrito']['productos'][$id])){
-            $_SESSION['carrito']['productos'][$id] += 1;
+        if (isset($_SESSION["carrito"]["productos"][$id])){
+            $_SESSION["carrito"]["productos"][$id] += 1;
         }
         else{
-            $_SESSION['carrito']['productos'][$id] = 1;    
+            $_SESSION["carrito"]["productos"][$id] = 1;    
         }
 
-        $datos['numero'] = count ($_SESSION['carrito']['productos']);
-        $datos['ok'] = true;
+        $datos["numero"] = count ($_SESSION["carrito"]["productos"]);
+        $datos["ok"] = true;
     }
     else{
-        $datos['ok'] = false;
+        $datos["ok"] = false;
     }
 
     echo json_encode ($datos);

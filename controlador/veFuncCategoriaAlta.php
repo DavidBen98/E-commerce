@@ -1,19 +1,19 @@
 <?php 
-    require '../inc/conn.php';
-    include_once('funciones.php');
+    require "../inc/conn.php";
+    include_once "funciones.php";
 
     global $db;
 
-    $categoria = isset($_POST['catInactivas']) ? $_POST['catInactivas'] : null;
+    $categoria = isset($_POST["catInactivas"]) ? $_POST["catInactivas"] : null;
 
     if ($categoria !== null){
         $sql = "UPDATE categoria SET activo = '1' WHERE id_categoria = '$categoria'";
         $rs = $db->query($sql);
         header ("location: ../vistas/veCategoriaAlta.php?reactivacion=exito");
     } else {
-        $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
+        $nombre = isset($_POST["nombre"]) && (trim($_POST["nombre"]) != "")? trim($_POST["nombre"]): null;
     
-        $existImg = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
+        $existImg = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
         
         if($existImg !== null){
             //Comprobar que nombre es diferente de vacío
@@ -37,9 +37,9 @@
 
                     $id_categoria = $db->lastInsertId();
 
-                    $imagen = $_FILES['imagen'];
-                    $imagenDestino = '../images/categorias/' . $id_categoria;
-                    $result = subirImagen($imagen, 'veCategoriaAlta.php', $imagenDestino);
+                    $imagen = $_FILES["imagen"];
+                    $imagenDestino = "../images/categorias/" . $id_categoria;
+                    $result = subirImagen($imagen, "veCategoriaAlta.php", $imagenDestino);
 
                     if(!$result){
                         //inconveniente al subir imagen

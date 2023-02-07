@@ -1,11 +1,11 @@
 <?php 
-    require '../inc/conn.php';
-    include_once ("funciones.php");
+    require "../inc/conn.php";
+    include_once "funciones.php";
 
     global $db;
-    $idCategoria = isset($_POST['categoria'])? $_POST['categoria']: null;
-    $modNombre = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
-    $modImagen = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
+    $idCategoria = isset($_POST["categoria"])? $_POST["categoria"]: null;
+    $modNombre = isset($_POST["modNombre"]) ? $_POST["modNombre"] : null;
+    $modImagen = isset($_POST["modImagen"]) ? $_POST["modImagen"] : null;
 
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
@@ -13,7 +13,7 @@
     }
     
     if ($modNombre != null){
-        $nombre = (isset($_POST['nombre']) && trim($_POST['nombre']) != "")? ucfirst(trim($_POST['nombre'])): null;
+        $nombre = (isset($_POST["nombre"]) && trim($_POST["nombre"]) != "")? ucfirst(trim($_POST["nombre"])): null;
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
@@ -29,7 +29,7 @@
 
     if ($modImagen != null){
         $imagen = $_FILES["imagen"];
-        $check = ($imagen["tmp_name"] != '')? getimagesize($imagen["tmp_name"]) : false;
+        $check = ($imagen["tmp_name"] != "")? getimagesize($imagen["tmp_name"]) : false;
 
         if ($check == false){
             //Error: falta rellenar el campo imagen
@@ -39,7 +39,7 @@
                 header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=3#mensaje");
             }
         } else {
-            $path = '../images/categorias/';
+            $path = "../images/categorias/";
             $files = scandir($path);
         
             foreach($files as $file){
@@ -51,12 +51,12 @@
             //Si existe una imagen para esa categoria
             //Siempre debería entrar aca, ya que al crear una nueva categoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
-            if ($path != '../images/categorias/'){
+            if ($path != "../images/categorias/"){
                 deleteDir($path);
             }
     
-            $url = 'veCategoriaModif.php';
-            $path = 'images/categorias/'.$idCategoria;
+            $url = "veCategoriaModif.php";
+            $path = "images/categorias/".$idCategoria;
             $error = subirImagen($imagen, $url, $path);
     
             if ($error){

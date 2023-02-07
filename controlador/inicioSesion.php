@@ -1,12 +1,12 @@
 <?php 
-	require '../inc/conn.php';
-	require 'funciones.php'; 
-	require_once 'config.php'; 
+	require "../inc/conn.php";
+	require "funciones.php"; 
+	require_once "config.php"; 
  
 	$login=0;	
 	
-	$nombreUser =(isset($_POST['nombreUsuario']) && !empty($_POST['nombreUsuario']))? trim($_POST['nombreUsuario']):"";
-	$psw =(isset($_POST['psw']) && !empty($_POST['psw']))? trim($_POST['psw']):"";
+	$nombreUser =(isset($_POST["nombreUsuario"]) && !empty($_POST["nombreUsuario"]))? trim($_POST["nombreUsuario"]):"";
+	$psw =(isset($_POST["psw"]) && !empty($_POST["psw"]))? trim($_POST["psw"]):"";
 	
 	if ($nombreUser == "" || $psw == ""){
 		header("location:../vistas/login.php?error=0"); 
@@ -22,17 +22,17 @@
 
 		if ($stmt -> execute($sqlvalue)) {  
 			if ($rs = $stmt->fetch()){		
-				$psw_user = $rs['contrasena'];
+				$psw_user = $rs["contrasena"];
 				$psw_encript = generar_clave_encriptada($psw);
 
 				if ($psw_user == $psw_encript) {		
 					$login=1;
  
-					$_SESSION['user'] = $nombreUser;
-					$_SESSION['perfil'] = $rs['perfil'];
-					$_SESSION['nombre'] = "{$rs['apellido']}, {$rs['nombre']}";
-					$_SESSION['email'] = $rs['email'];
-					$_SESSION['idUsuario'] = $rs['id'];
+					$_SESSION["user"] = $nombreUser;
+					$_SESSION["perfil"] = $rs["perfil"];
+					$_SESSION["nombre"] = "{$rs["apellido"]}, {$rs["nombre"]}";
+					$_SESSION["email"] = $rs["email"];
+					$_SESSION["idUsuario"] = $rs["id"];
 				} 
 				else{
 					header("location:../vistas/login.php?error=2"); 

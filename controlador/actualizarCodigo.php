@@ -1,6 +1,4 @@
 <?php 
-    //En los archivos en donde solo se trabaje PHP no cerrar la etiqueta por seguridad
-    //Si cerramos permite añadir un script de js
     require "../inc/conn.php";
 
     global $db;

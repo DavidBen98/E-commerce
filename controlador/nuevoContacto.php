@@ -1,16 +1,16 @@
 <?php 
-	require_once 'config.php';
-    require 'funciones.php';  
-    require '../inc/conn.php';
+	require_once "config.php";
+    require "funciones.php";  
+    require "../inc/conn.php";
 
     if (perfil_valido(1)) {
 		header("location:../vistas/veABMProducto.php");
 	}
 
-    $nombre =(isset($_POST['nombre']) && !empty($_POST['nombre']))? trim($_POST['nombre']):"";
-    $apellido =(isset($_POST['apellido']) && !empty($_POST['apellido']))? trim($_POST['apellido']):""; 
-    $email =(isset($_POST['email']) && !empty($_POST['email']))? trim($_POST['email']):"";
-    $txtIngresado =(isset($_POST['txtIngresado']) && !empty($_POST['txtIngresado']))? trim($_POST['txtIngresado']):"";
+    $nombre =(isset($_POST["nombre"]) && !empty($_POST["nombre"]))? trim($_POST["nombre"]):"";
+    $apellido =(isset($_POST["apellido"]) && !empty($_POST["apellido"]))? trim($_POST["apellido"]):""; 
+    $email =(isset($_POST["email"]) && !empty($_POST["email"]))? trim($_POST["email"]):"";
+    $txtIngresado =(isset($_POST["txtIngresado"]) && !empty($_POST["txtIngresado"]))? trim($_POST["txtIngresado"]):"";
     
     $msjError = "";
 
@@ -20,20 +20,20 @@
     else if ($apellido == ""){
         $msjError .= "Debe ingresar apellido";
     }
-    else if ($email == "" && !isset($_SESSION['servicio']) && $user == ""){
+    else if ($email == "" && !isset($_SESSION["servicio"]) && $user == ""){
         $msjError .= "Debe ingresar su email"; 
     }
     else if ($txtIngresado == ""){
         $msjError .= "Debe ingresar su consulta";
     }
-    else if(isset($_SESSION['servicio']) || ($user != "")){  
+    else if(isset($_SESSION["servicio"]) || ($user != "")){  
         global $db;
 
-        if (isset($_SESSION['idUsuario'])){ //si se inició sesion desde una cuenta nativa
-            $idUsuario = $_SESSION['idUsuario'];
+        if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
+            $idUsuario = $_SESSION["idUsuario"];
         }
-        else if (isset($_SESSION['id'])){ //Si se inicio sesion desde Google
-            $idUsuario = $_SESSION['id'];
+        else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
+            $idUsuario = $_SESSION["id"];
         }
         else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
             $idUsuario = $_SESSION["id_tw"];

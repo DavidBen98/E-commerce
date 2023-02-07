@@ -1,5 +1,5 @@
 <?php
-    require_once 'config.php';
+    require_once "config.php";
 
     //Reset OAuth access token
     $google_client->revokeToken();
@@ -12,5 +12,5 @@
     $auth->signOut();
 
     //redirect page to index.php
-    header('location:../vistas/index.php');
+    header("location:../vistas/index.php");
 ?>

@@ -1,9 +1,9 @@
 <?php 
-    require '../inc/conn.php';
+    require "../inc/conn.php";
 
     global $db;
 
-    $id = $_POST['id'];
+    $id = $_POST["id"];
 
     $sql = "SELECT *
             FROM producto
@@ -13,17 +13,17 @@
     $rs = $db -> query ($sql);
 
     foreach ($rs as $row){
-        $categoria = $row['id_categoria'];
-        $subcategoria = $row['id_subcategoria'];
-        $datos['codigo'] = $row['codigo'];
-        $datos['descripcion'] = $row['descripcion'];
-        $datos['color'] = $row['color'];
-        $datos['marca'] =  $row['marca'] ;
-        $datos['stock'] = $row['stock'];
-        $datos['caracteristicas'] = $row['caracteristicas'];
-        $datos['material'] = $row['material'];
-        $datos['precio'] = $row['precio'];
-        $datos['descuento'] = $row['descuento'];
+        $categoria = $row["id_categoria"];
+        $subcategoria = $row["id_subcategoria"];
+        $datos["codigo"] = $row["codigo"];
+        $datos["descripcion"] = $row["descripcion"];
+        $datos["color"] = $row["color"];
+        $datos["marca"] =  $row["marca"] ;
+        $datos["stock"] = $row["stock"];
+        $datos["caracteristicas"] = $row["caracteristicas"];
+        $datos["material"] = $row["material"];
+        $datos["precio"] = $row["precio"];
+        $datos["descuento"] = $row["descuento"];
     }
 
     $sql = "SELECT *
@@ -34,7 +34,7 @@
     $rs = $db->query($sql);
 
     foreach ($rs as $row){
-        $datos['categoria'] = $row['nombre_categoria'];
+        $datos["categoria"] = $row["nombre_categoria"];
     }
 
     $sql = "SELECT *
@@ -45,7 +45,7 @@
     $rs = $db->query($sql);
 
     foreach ($rs as $row){
-        $datos['subcategoria'] = $row['nombre_subcategoria'];
+        $datos["subcategoria"] = $row["nombre_subcategoria"];
     }
 
     echo json_encode($datos);

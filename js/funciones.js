@@ -734,34 +734,34 @@ const validarAlta = () => {
     let descuento = document.getElementById("descuento").value.trim().replace(/^0+/, '');
     let validate = true;
 
-    if (categoria || subcategoria || codigo === '' || descripcion === '' || imagen === 0 || 
-    (material === '' && selectedMaterial === null) || caracUno === undefined || caracDos === undefined 
-    || caracTres === undefined || selectedColor === null || (selectedMarca === null && marca === '')
-    || parseInt(caracUno) < 0 || parseInt(caracDos) < 0 || (caracTres !== null && parseInt(caracTres) < 0) 
-    || cant === '' || parseInt(cant) < 0 || precio === '' || parseInt(precio) <= 0 || descuento === '' 
-    || parseInt(descuento) < 0 || parseInt(descuento) > 100){
-        validate = false;
-        let p = document.getElementById("mensaje");
+    // if (categoria || subcategoria || codigo === '' || descripcion === '' || imagen === 0 || 
+    // (material === '' && selectedMaterial === null) || caracUno === undefined || caracDos === undefined 
+    // || caracTres === undefined || selectedColor === null || (selectedMarca === null && marca === '')
+    // || parseInt(caracUno) < 0 || parseInt(caracDos) < 0 || (caracTres !== null && parseInt(caracTres) < 0) 
+    // || cant === '' || parseInt(cant) < 0 || precio === '' || parseInt(precio) <= 0 || descuento === '' 
+    // || parseInt(descuento) < 0 || parseInt(descuento) > 100){
+    //     validate = false;
+    //     let p = document.getElementById("mensaje");
         
-        //Si no está creado el párrafo de error
-        if (p == null) {
-            let error = document.createElement("div");
-            error.setAttribute('id', 'mensaje');
-            let contenedorBoton = document.getElementById("agregar");
+    //     //Si no está creado el párrafo de error
+    //     if (p == null) {
+    //         let error = document.createElement("div");
+    //         error.setAttribute('id', 'mensaje');
+    //         let contenedorBoton = document.getElementById("agregar");
     
-            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
-            contenedorBoton.appendChild(error);
-        }
-    } else{
-        let error = document.getElementById("mensaje");
+    //         error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
+    //         contenedorBoton.appendChild(error);
+    //     }
+    // } else{
+    //     let error = document.getElementById("mensaje");
 
-        //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
-        if (error != null){
-            error.remove();
-        }
-    }
-    
-    return validate;
+    //     //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
+    //     if (error != null){
+    //         error.remove();
+    //     }
+    // }
+    return true;
+    // return validate;
 }
 
 //Modificar producto

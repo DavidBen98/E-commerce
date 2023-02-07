@@ -8,5 +8,5 @@
     $_SESSION=array();
     session_destroy();
 
-    header('location:../vistas/index.php');
+    header("location:../vistas/index.php");
 ?>

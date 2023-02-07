@@ -1,10 +1,10 @@
 <?php
-    require_once '../inc/conn.php';
-    require_once 'config.php';
+    require_once "../inc/conn.php";
+    require_once "config.php";
 
-    define('PSW_SEMILLA','34a@$#aA9823$');
+    define("PSW_SEMILLA","34a@$#aA9823$");
 
-    define ('CONT_USUARIOS', "<div class='contenedor-btn'>        
+    define ("CONT_USUARIOS", "<div class='contenedor-btn'>        
                                 <div id='btnInfoPersonal'>Datos personales</div>     
                                 <div id='btnCompraUsuario'>Mis pedidos</div>
                                 <div id='btnFavoritos'>Favoritos</div>
@@ -16,28 +16,28 @@
     function crear_barra_mobile() {
         global $user;
         global $perfil;
-        $links=''; 
+        $links=""; 
 
-        if (isset($_GET['code']) || isset($_SESSION['user_first_name'])){
+        if (isset($_GET["code"]) || isset($_SESSION["user_first_name"])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
-                            . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
+                            . $_SESSION["user_first_name"] . $_SESSION["user_last_name"] .
                         " </span> &nbsp;</a>
                         <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
-        else if (isset($_SESSION['nombre_tw'])){
+        else if (isset($_SESSION["nombre_tw"])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
-                            <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
+                            <span>" . preg_replace("([^A-Za-z0-9])", "", $_SESSION["nombre_tw"]) . " </span> &nbsp;
                         </a>
                         <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
-        else if ($user=='') {
+        else if ($user=="") {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
-        } else if($perfil=='E'){
-            $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
+        } else if($perfil=="E"){
+            $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION["nombre"]}  </span>
                         <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
-        } else if($perfil=='U'){
-            $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
+        } else if($perfil=="U"){
+            $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION["user"]} </span> &nbsp;</a>
                         <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
     
@@ -51,27 +51,27 @@
     function crear_barra() {
         global $user;
         global $perfil;
-        $links=''; 
+        $links=""; 
 
-        if (isset($_GET['code']) || isset($_SESSION['user_first_name'])){
+        if (isset($_GET["code"]) || isset($_SESSION["user_first_name"])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
-                            . $_SESSION['user_first_name'] . $_SESSION['user_last_name'] .
+                            . $_SESSION["user_first_name"] . $_SESSION["user_last_name"] .
                         " </span> &nbsp;</a>
                         <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
-        else if (isset($_SESSION['nombre_tw'])){
+        else if (isset($_SESSION["nombre_tw"])){
             $links = "  <a href='informacionPersonal.php' title='Perfil'> 
-                            <span>" . preg_replace('([^A-Za-z0-9])', '', $_SESSION['nombre_tw']) . " </span> &nbsp;
+                            <span>" . preg_replace("([^A-Za-z0-9])", "", $_SESSION["nombre_tw"]) . " </span> &nbsp;
                         </a>
                         <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
-        else if ($user=='') {
+        else if ($user=="") {
             $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
                         <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
-        } else if($perfil=='E'){
+        } else if($perfil=="E"){
             $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
                         <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
-        } else if($perfil=='U'){
+        } else if($perfil=="U"){
             $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
                         <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
         }
@@ -89,13 +89,13 @@
 
         switch($opcion){
             case 1: 
-                $valido=($perfil=='E')? true:false; 
+                $valido=($perfil=="E")? true:false; 
                 break;
             case 2: 
-                $valido=($perfil=='U')? true:false;
+                $valido=($perfil=="U")? true:false;
                 break;	
             case 3: 
-                $valido=($perfil=='')? true:false; 
+                $valido=($perfil=="")? true:false; 
                 break;
             default:
                 $valido=false;
@@ -106,13 +106,13 @@
 	
 	function generar_clave_encriptada($password) {			
 		$salt = PSW_SEMILLA;		 
-		$pswEncript = hash('sha512', $salt.$password);				
+		$pswEncript = hash("sha512", $salt.$password);				
 		return $pswEncript; 
 	}
     
     function mostrarInfoPersonal(){
         global $db; 
-        $nombreUser = $_SESSION['user'];
+        $nombreUser = $_SESSION["user"];
 
         $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion
                 FROM `usuario`
@@ -123,14 +123,14 @@
 
         foreach ($rs as $row) {
             echo "<div class='contenedor-botones'> 
-                                Nombre de usuario: {$row['nombreusuario']} <br>
-                                Numero de DNI: {$row['nrodni']} <br>
-                                Nombre: {$row['nombre']} <br>
-                                Apellido: {$row['apellido']} <br>
-                                Email: {$row['email']} <br>
-                                Provincia: {$row['provincia']} <br>
-                                Ciudad: {$row['ciudad']} <br>
-                                Direccion: {$row['direccion']} <br>
+                                Nombre de usuario: {$row["nombreusuario"]} <br>
+                                Numero de DNI: {$row["nrodni"]} <br>
+                                Nombre: {$row["nombre"]} <br>
+                                Apellido: {$row["apellido"]} <br>
+                                Email: {$row["email"]} <br>
+                                Provincia: {$row["provincia"]} <br>
+                                Ciudad: {$row["ciudad"]} <br>
+                                Direccion: {$row["direccion"]} <br>
                             </div>
             ";
         }
@@ -144,10 +144,10 @@
 
         $result = $db -> query($sql);
 
-        $path = '';
+        $path = "";
 
         foreach ($result as $r){
-            $path = $r['destination'];
+            $path = $r["destination"];
         }
 
         return $path;
@@ -163,15 +163,15 @@
                 $i++;
                 echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
             }
-            else if (isset($_GET['categoria'])){
+            else if (isset($_GET["categoria"])){
                 //subcategoria.php
                 foreach ($consulta as $row) {
-                    $path = $row['destination'];
+                    $path = $row["destination"];
 
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='../$path' class='img-cat' id='$i' alt='".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
-                            <h2 class='tituloSubcat'>". ucfirst($row['nombre_subcategoria'])." </h2>
+                            <img src='../$path' class='img-cat' id='$i' alt='".ucfirst($row["nombre_subcategoria"])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <h2 class='tituloSubcat'>". ucfirst($row["nombre_subcategoria"])." </h2>
                         </div>
                     ";           
                 };		
@@ -179,27 +179,27 @@
             else{
                 //productos.php
                 foreach ($consulta as $row) {
-                    $id = "'".$row['id'] . "'";
+                    $id = "'".$row["id"] . "'";
                     $path = obtenerRutaPortada($id);
 
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='../$path' class='img-cat' id='$i' alt='{$row['codigo']}' title='". ucfirst($row['descripcion'])."'> 
+                            <img src='../$path' class='img-cat' id='$i' alt='{$row["codigo"]}' title='". ucfirst($row["descripcion"])."'> 
                             <div class='caracteristicas'>
-                                <h2 class='descripcion'>". ucfirst($row['descripcion'])." </h2>
+                                <h2 class='descripcion'>". ucfirst($row["descripcion"])." </h2>
                                 <div class='descripcionPrecio'>";
-                                    if ($row['descuento'] != 0){
-                                        $precioDescuento = $row['precio'] - ($row['precio']*$row['descuento']/100);
+                                    if ($row["descuento"] != 0){
+                                        $precioDescuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
                                         echo "<h3 class='precio'>
                                                  $". $precioDescuento ." 
                                               </h3>
                                               <h3 class='precio' id='h3Precio'>
-                                                 $". ucfirst($row['precio']).
+                                                 $". ucfirst($row["precio"]).
                                             " </h3>
                                         ";
                                     }
                                     else{
-                                        echo "<h3 class='precio'> $". ucfirst($row['precio'])." </h3>";
+                                        echo "<h3 class='precio'> $". ucfirst($row["precio"])." </h3>";
                                     }
                     echo"       </div>
                             </div>
@@ -341,7 +341,7 @@
             $resultado = $db->query($sql);
             
             foreach($resultado as $row){
-                $cat = $row['nombre_categoria'];
+                $cat = $row["nombre_categoria"];
             }
             $filtro .= "<b>Categoría:</b> ". $cat . "<br>";
         }
@@ -358,7 +358,7 @@
             $resultado = $db->query($sql);
 
             foreach($resultado as $row){
-                $subcat = $row['nombre_subcategoria'];
+                $subcat = $row["nombre_subcategoria"];
             }
 
             $filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>";
@@ -402,22 +402,20 @@
         }
 
         if ($filtros[2]!= null){
-            $filtro .= '<b>Mínimo:</b> $' . $filtros[2] . "<br> ";
+            $filtro .= "<b>Mínimo:</b> $" . $filtros[2] . "<br> ";
         }
 
         if ($filtros[3]!= null){
-            $filtro .= ' <b>Máximo:</b> $' . $filtros[3];
+            $filtro .= " <b>Máximo:</b> $" . $filtros[3];
         }
 
         return $filtro;
     }
 
     function cantidadCarrito(){ 
-        require_once 'config.php';
-
         $cantCarrito = 0;   
-        if (isset($_SESSION['carrito'])){
-            foreach ($_SESSION['carrito']['productos'] as $value){
+        if (isset($_SESSION["carrito"])){
+            foreach ($_SESSION["carrito"]["productos"] as $value){
                 $cantCarrito += 1;
             }
         }
@@ -435,8 +433,8 @@
         $rs = $db->query($sql);
       
         foreach ($rs as $row) { //categorias
-            $idCat =  $row['id_categoria'];
-            $nomCat = $row['nombre_categoria'];
+            $idCat =  $row["id_categoria"];
+            $nomCat = $row["nombre_categoria"];
 
             //agrega la imagen categoria y le pone el titulo 
             // echo " <div class='categoria'>
@@ -455,7 +453,7 @@
             $result = $db->query($sql);
 
             foreach ($result as $r){
-                $imgCat = $r['destination'];
+                $imgCat = $r["destination"];
             }
 
             echo " <div class='cards'> 
@@ -501,7 +499,7 @@
             echo "<p class='img-texto'>";
             $subcatNombre = "";
             foreach ($rs1 as $row1){ //subcategorias
-                $subcatNombre .= $row1['nombre_subcategoria'] . " <br> ";
+                $subcatNombre .= $row1["nombre_subcategoria"] . " <br> ";
             }
 
             //agrega las diferentes subcategorias que pertenecen a esa categoria
@@ -527,10 +525,10 @@
 
 		$producto = "";
 
-		if (isset($_GET['articulos'])){ //Si se ingresa desde subcategorias
-			$producto = $_GET['articulos'];
-			$categoria = $_GET['cate'];
-			$subcategoria = $_GET['sub']; 
+		if (isset($_GET["articulos"])){ //Si se ingresa desde subcategorias
+			$producto = $_GET["articulos"];
+			$categoria = $_GET["cate"];
+			$subcategoria = $_GET["sub"]; 
 			$formulario = "
                 <form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
                     <div class='btn-select'>
@@ -543,7 +541,7 @@
                     </div>
             ";
 		}
-		else if (isset($_GET['productos']) || isset($_GET['buscador'])){ //Si se ingresa desde el nav ->productos o desde la barra de navegacion
+		else if (isset($_GET["productos"]) || isset($_GET["buscador"])){ //Si se ingresa desde el nav ->productos o desde la barra de navegacion
 			$arrCategorias = [];
 			$arrSubcategorias = [];
             $categoria = "%";
@@ -558,8 +556,8 @@
 			$rs = $db->query($sql);
 
 			foreach ($rs as $row) {
-				if(empty($arrCategorias[$row['nombre_categoria']])){
-					$arrCategorias[$row['nombre_categoria']] = $row['id_categoria'];						
+				if(empty($arrCategorias[$row["nombre_categoria"]])){
+					$arrCategorias[$row["nombre_categoria"]] = $row["id_categoria"];						
 				}													
 			}
 
@@ -602,7 +600,7 @@
 					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
         ";
 
-        if (isset($_GET['productos']) || isset($_GET['buscador'])){
+        if (isset($_GET["productos"]) || isset($_GET["buscador"])){
             $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
         } else {
             $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.id_categoria = '$categoria'";
@@ -617,11 +615,11 @@
 		$rs = $db->query($sql); 
 
 		foreach ($rs as $row) {
-			if(empty($arrColores[$row['color']])){
-				$arrColores[$row['color']] = 0;						
+			if(empty($arrColores[$row["color"]])){
+				$arrColores[$row["color"]] = 0;						
 			}										
-			if(empty($arrMarcas[$row['marca']])){
-				$arrMarcas[$row['marca']] = 0;
+			if(empty($arrMarcas[$row["marca"]])){
+				$arrMarcas[$row["marca"]] = 0;
 			}					
 		}
 		
@@ -710,8 +708,8 @@
     function existeEmail(){
         global $db;
 
-        if ($redSocial == 'Google'){
-            $email = $_SESSION['user_email_address'];
+        if ($redSocial == "Google"){
+            $email = $_SESSION["user_email_address"];
             $where = "WHERE (u.email = '$email')";
         }
         else{
@@ -738,13 +736,13 @@
     function existeIdUsuario (){    
         global $db;
 
-        $redSocial = $_SESSION['servicio'];
+        $redSocial = $_SESSION["servicio"];
 
-        if ($redSocial == 'Google'){
-            $id = $_SESSION['id']; 
+        if ($redSocial == "Google"){
+            $id = $_SESSION["id"]; 
         }
-        else if ($redSocial == 'Twitter'){
-            $id = $_SESSION['user_id'];
+        else if ($redSocial == "Twitter"){
+            $id = $_SESSION["user_id"];
         }
 
         $sql = "SELECT id_social, id_usuario
@@ -767,16 +765,16 @@
     function existeNombreUsuario (){
         global $db;
 
-        $redSocial = $_SESSION['servicio'];
+        $redSocial = $_SESSION["servicio"];
 
-        if ($redSocial == 'Google'){
-            $nombre = $_SESSION['user_first_name'];
-            $apellido = $_SESSION['user_last_name'];
+        if ($redSocial == "Google"){
+            $nombre = $_SESSION["user_first_name"];
+            $apellido = $_SESSION["user_last_name"];
             $where = "WHERE nombreUsuario = '$nombre$apellido' AND servicio = '$redSocial'";
         }
-        else if ($redSocial == 'Twitter'){
-            $nombreUsuario = $_SESSION['nombre_tw'];
-            $nombreUsuario = preg_replace('([^A-Za-z0-9])', '', $nombreUsuario);
+        else if ($redSocial == "Twitter"){
+            $nombreUsuario = $_SESSION["nombre_tw"];
+            $nombreUsuario = preg_replace("([^A-Za-z0-9])", "", $nombreUsuario);
             $where = "WHERE nombreUsuario = '$nombreUsuario' AND servicio = '$redSocial'";
         }
 
@@ -808,14 +806,14 @@
 		$rs = $db->query($sql); 
 
 		foreach ($rs as $row) {										
-			if(empty($arrMarcas[$row['marca']])){
-				$arrMarcas[$row['marca']] = 0;
+			if(empty($arrMarcas[$row["marca"]])){
+				$arrMarcas[$row["marca"]] = 0;
 			}					
 		}
 
 		ksort($arrMarcas);
 
-        $marcas = '';
+        $marcas = "";
 
 		foreach($arrMarcas as $indice => $valor){
 			$id = str_replace(" ","",$indice);
@@ -842,14 +840,14 @@
 		$rs = $db->query($sql); 
 
 		foreach ($rs as $row) {										
-			if(empty($arrMateriales[$row['material']])){
-				$arrMateriales[$row['material']] = 0;
+			if(empty($arrMateriales[$row["material"]])){
+				$arrMateriales[$row["material"]] = 0;
 			}					
 		}
 
 		ksort($arrMateriales);
 
-        $materiales = '';
+        $materiales = "";
 
 		foreach($arrMateriales as $indice => $valor){
 			$id = str_replace(" ","",$indice);
@@ -876,8 +874,8 @@
 		$rs = $db->query($sql); 
 
 		foreach ($rs as $row) {
-			if(empty($arrColores[$row['color']])){
-				$arrColores[$row['color']] = 0;						
+			if(empty($arrColores[$row["color"]])){
+				$arrColores[$row["color"]] = 0;						
 			}													
 		}
 
@@ -924,8 +922,8 @@
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $categorias .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
-            $nomCat .= $row['nombre_categoria'] . ",";	
+            $categorias .= " <option value='{$row["id_categoria"]}'> {$row["nombre_categoria"]} </option> ";
+            $nomCat .= $row["nombre_categoria"] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
@@ -955,8 +953,8 @@
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $categorias .= " <option value='{$row['id_categoria']}'> {$row['nombre_categoria']} </option> ";
-            $nomCat .= $row['nombre_categoria'] . ",";	
+            $categorias .= " <option value='{$row["id_categoria"]}'> {$row["nombre_categoria"]} </option> ";
+            $nomCat .= $row["nombre_categoria"] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
@@ -986,8 +984,8 @@
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $subcategorias .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
-            $nomCat .= $row['nombre_subcategoria'] . ",";	
+            $subcategorias .= " <option value='{$row["id_subcategoria"]}'> {$row["nombre_subcategoria"]} </option> ";
+            $nomCat .= $row["nombre_subcategoria"] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
@@ -1017,8 +1015,8 @@
         $nomCat = "";
         
         foreach ($rs as $row) {
-            $subcategorias .= " <option value='{$row['id_subcategoria']}'> {$row['nombre_subcategoria']} </option> ";
-            $nomCat .= $row['nombre_subcategoria'] . ",";	
+            $subcategorias .= " <option value='{$row["id_subcategoria"]}'> {$row["nombre_subcategoria"]} </option> ";
+            $nomCat .= $row["nombre_subcategoria"] . ",";	
         }
     
         $arrNomCat = explode(",",$nomCat); 
@@ -1038,7 +1036,7 @@
         $rs = $db->query($sql); 
 
         foreach ($rs as $r){
-            $path = $r['destination'];
+            $path = $r["destination"];
         }
 
         return $path;
@@ -1214,6 +1212,8 @@
         }
         else if ($provincia == "94"){
             $provincia = "Tierra del Fuego, Antártida e Islas del Atlántico Sur";
+        } else{
+            $provincia = "";
         }
 
         return $provincia;
@@ -1333,7 +1333,7 @@
         }
 
         foreach (scandir($dir) as $item) {
-            if ($item == '.' || $item == '..') {
+            if ($item == "." || $item == "..") {
                 continue;
             }
             if (!deleteDir($dir . DIRECTORY_SEPARATOR . $item)) {
@@ -1345,28 +1345,29 @@
     }
 
     function subirImagen($imagen, $url, $destination){
-        $imagen_name = $imagen['name'];
+        $imagen_name = $imagen["name"];
         $imagen_tmp = $imagen["tmp_name"];
-        $imagen_error = $imagen['error'];
-        $imagen_ext = explode('.',$imagen_name);
+        $imagen_error = $imagen["error"];
+        $imagen_ext = explode(".",$imagen_name);
         $imagen_ext = strtolower(end($imagen_ext));
-        $allowed = array('jpg', 'jpeg', 'png');
+        $allowed = array("jpg", "jpeg", "png");
 
         //Se podrian dividir los errores segun extensión o si falló el upload de la imagen
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
-                
-                if ($url === 'veCategoriaModif.php' || $url === 'veCategoriaAlta.php' || $url === 'veSubcategoriaAlta.php'){
-                    $destination .= '.'.$imagen_ext;
-                } else if ($url === 'veProductoAlta.php'){
-
+                if ($url === "veCategoriaModif.php" || $url === "veCategoriaAlta.php" || $url === "veSubcategoriaAlta.php"){
+                    $destination .= ".".$imagen_ext;
+                } else if ($url === "veFuncProductoAlta.php"){
+                    $imagen_name_new =  "portada." . $imagen_ext;
+                    mkdir($destination, 0777, true);
+                    $destination .= $imagen_name_new;
                 }
 
                 if(move_uploaded_file($imagen_tmp, $destination)){
                     $destination = str_replace("../","",$destination);
                     return $destination;
                 }else{
-                    return false;
+                    return $destination;
                 }
             }   
         } else {

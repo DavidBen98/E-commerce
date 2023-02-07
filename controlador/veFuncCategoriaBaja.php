@@ -1,10 +1,10 @@
 <?php 
-    require '../inc/conn.php';
-    include_once ("funciones.php");
+    require "../inc/conn.php";
+    include_once "funciones.php";
 
     global $db;
     
-    $id = isset($_POST['categoria'])? $_POST['categoria']: null;
+    $id = isset($_POST["categoria"])? $_POST["categoria"]: null;
 
     if ($id !== null){
         $sql = "UPDATE categoria SET `activo`='0' WHERE id_categoria = '$id'";
