@@ -70,13 +70,11 @@
                 $sql = "DELETE FROM producto WHERE id = '$id_producto'";
                 $rs = $db->query($sql);
                 
-                echo $result;
                 //No se pudo subir la imagen
                 header ("location: ../vistas/veProductoAlta.php?error=1");
-            //     header ("location: ../vistas/veProductoAlta.php?error=$result");
             } else{
                 $sql = "INSERT INTO imagen_productos (id_producto, destination, portada) VALUES
-                        ('$id_producto', '$imagenDestino', 1)
+                        ('$id_producto', '$result', 1)
                 ";
 
                 $rs = $db -> query($sql);

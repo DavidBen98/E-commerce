@@ -7,9 +7,7 @@
     }
 
     $categorias = obtenerCategorias();
-
     $marcas = obtenerMarcas();
-
     $materiales = obtenerMateriales();
     //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
     //Está conformado así para simplificar 
