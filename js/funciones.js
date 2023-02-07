@@ -724,6 +724,7 @@ const validarAlta = () => {
     let cant = document.getElementById("cant").value.trim().replace(/^0+/, '');
     let precio = document.getElementById("precio").value.trim().replace(/^0+/, '');
     let descuento = document.getElementById("descuento").value.trim().replace(/^0+/, '');
+    if (descuento === '') {descuento = 0};
     let validate = true;
 
     if (categoria || subcategoria || codigo === "" || descripcion === "" || imagen === 0 || 
@@ -734,19 +735,18 @@ const validarAlta = () => {
     || parseInt(descuento) < 0 || parseInt(descuento) > 100){
         validate = false;
         let p = document.getElementById("mensaje");
-        
         //Si no está creado el párrafo de error
         if (p == null) {
             let error = document.createElement("div");
             error.setAttribute("id", "mensaje");
             let contenedorBoton = document.getElementById("agregar");
     
-            error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
+            error.innerHTML = "Error:s datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
         }
     } else{
         let error = document.getElementById("mensaje");
-
+        validate = true;
         //Si anteriormente mostraba el mensaje de error, entonces eliminarlo
         if (error != null){
             error.remove();

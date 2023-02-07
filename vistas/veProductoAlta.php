@@ -172,7 +172,6 @@
                     url: "../controlador/actualizarCodigo.php",
                     data: "categoria= " + $("#categoria").val () + "&subcategoria=" + $("#subcategoria").val (),
                     success: function (nroProducto){
-                        console.log(nroProducto);
                         let input = document.getElementById("codigo");
                         let categoria = document.getElementById("categoria");
                         categoria = categoria.options[categoria.selectedIndex].text;

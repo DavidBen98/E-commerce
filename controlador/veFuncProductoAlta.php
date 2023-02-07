@@ -24,7 +24,7 @@
     
     $precio = (isset($_POST["precio"]) && floatval($_POST["precio"]) > 0)? $_POST["precio"]: null;
     
-    $descuento = (isset($_POST["descuento"]) && trim($_POST["descuento"]) != "" && floatval($_POST["descuento"]) >= 0 && floatval($_POST["descuento"]) < 100)? 
+    $descuento = (isset($_POST["descuento"]) && floatval($_POST["descuento"]) >= 0 && floatval($_POST["descuento"]) < 100)? 
                     $_POST["descuento"]: null;
     
     $existImg = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
