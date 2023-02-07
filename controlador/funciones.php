@@ -1391,7 +1391,7 @@
         //Se podrian dividir los errores segun extensión o si falló el upload de la imagen
         if(in_array($imagen_ext, $allowed)){
             if($imagen_error === 0){
-                if ($url === "veCategoriaModif.php" || $url === "veCategoriaAlta.php" || $url === "veSubcategoriaAlta.php"){
+                if ($url === "veCategoriaModif.php" || $url === "veCategoriaAlta.php" || $url === "veSubcategoriaAlta.php" || $url === "veSubcategoriaModif.php"){
                     $destination .= ".".$imagen_ext;
                 } else if ($url === "veFuncProductoAlta.php"){
                     $imagen_name_new =  "portada." . $imagen_ext;

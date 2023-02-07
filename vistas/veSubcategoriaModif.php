@@ -72,7 +72,7 @@
                     <input type='checkbox' id='modImagen' name='modImagen' value='Modificar imagen'>
                     <label for='nombre'> Modificar imagen </label>
                 </div>
-                <input type='file' class='form-control' id='imagen' aria-label='Upload'>           
+                <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
             </div> 
 
             <div class='contenedor'>      	 
@@ -80,17 +80,45 @@
             </div>
     ";
 
-    if (isset($_GET["modifC"])){
+    if (isset($_GET["modif"])){
         $formulario .= "
             <div class='contenedor mensaje' id='mensaje'>
                 <p>¡Se ha modificado el producto de manera exitosa!</p>
             </div>
         ";
     }
-    else if (isset($_GET["errorC"])){
-        $formulario .="
-            <div class='contenedor' id='error'>
-                <p>Error: los datos ingresados no son correctos, reintente por favor</p>
+    else if (isset($_GET["error"])){
+        $error = $_GET["error"];
+
+        $formulario .= "
+            <div class='contenedor mensaje' id='mensaje'>
+        ";
+
+        if ($error === "1"){
+            $formulario .= "
+                <p> 
+                    Debe modificar al menos una característica
+                </p>
+            ";
+        } else if ($error === "2"){
+            $formulario .= "
+                <p> Error: debe completar el campo nombre. </p>
+            ";
+        }else if ($error === "3"){
+            $formulario .= "
+                <p> Error: debe seleccionar una imagen por favor. </p>
+            ";
+        } else if ($error === "4"){
+            $formulario .= "
+                <p> Error: sucedió un error al cargar la imagen, reintente en unos momentos por favor. </p>
+            ";
+        } else if ($error === "5"){
+            $formulario .= "
+                <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
+            ";
+        }
+
+        $formulario .= "
             </div>
         ";
     }
@@ -165,7 +193,7 @@
 
         #formUbicacion{
             margin-right:20px;
-            height: 330px;
+            height: 400px;
         }
 
         #main{
@@ -190,7 +218,6 @@
             justify-content:center;
             flex-wrap: wrap;
             width:100%;
-            /* margin:20px; */
         }
 
         .archivo label{
@@ -314,8 +341,8 @@
                 });
             }	
 
-            let idSubategoria = getQueryVariable("subcategoria");
-            if (idSubategoria != false){
+            let idSubcategoria = getQueryVariable("subcategoria");
+            if (idSubcategoria != false){
                 for (let i = 0; i < subcategoria.options.length; i++) {
                     if (subcategoria.options[i].value == idSubcategoria) {
                         subcategoria.options[i].selected = true;

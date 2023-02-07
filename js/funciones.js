@@ -995,7 +995,14 @@ const validarBajaSubategoria = () => {
 
 //Subcategoria modificar ubicación
 const validarModUbiSubcategoria = () => {
+    let subcategoria = document.getElementById('subcategoria').selectedIndex === -1;
+    let categoria = document.getElementById('categoria').selectedIndex === -1;;
 
+    if (subcategoria || categoria){
+        return false;
+    } else{
+        return true;
+    }
 }
 
 //Subategoria modificacion caracteristicas

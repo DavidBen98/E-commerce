@@ -17,12 +17,27 @@
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
+            header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
         } else {
-            $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $idSubcategoria");
-            
-            if ($modImagen == null){
-                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+            $sql = "SELECT * 
+                    FROM subcategoria
+                    WHERE nombre_subcategoria='$nombre'
+            ";
+
+            $rs = $db->query($sql);
+            $existe = 0;
+            foreach ($rs as $row) {
+                $existe++;
+            }
+
+            if ($existe == 0) {
+                $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $idSubcategoria");
+                
+                if ($modImagen == null){
+                    header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                }
+            } else {
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=5#mensaje");
             }
         }
     }
@@ -34,9 +49,9 @@
         if ($check == false){
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
-                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
             } else {
-                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
             }
         } else {
             $path = '../images/subcategorias/';
@@ -55,14 +70,19 @@
                 deleteDir($path);
             }
     
-            $url = 'vesubcategoriaModif.php';
+            $url = 'veSubcategoriaModif.php';
             $path = '../images/subcategorias/'.$idSubcategoria;
-            $error = subirImagen($imagen, $url, $path);
+            $path = subirImagen($imagen, $url, $path);
     
-            if ($error){
-                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
+            if (!$path){
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
             } else {
-                header ("location: ../vistas/vesubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                $sql = "UPDATE imagen_subcategorias SET destination = '$path'
+                    WHERE id_subcategoria = '$idSubcategoria'
+                ";
+
+                $rs = $db->query($sql);
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
             }
         }
     }
