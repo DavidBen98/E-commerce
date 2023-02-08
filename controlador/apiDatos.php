@@ -19,21 +19,10 @@
     }
 
     $datos= $json['provincias'];
-
-    // $json = json_decode($json);
-    // $datos= $json->provincias;
     $cant = count ($datos);
     $i = 0;
+    
     for ($i; $i < $cant; $i++){
-        // $nombreProvincia = $datos[$i]->nombre;
-        // $idProvincia = $datos[$i] ->id;
-
-        // if ($i == 0){
-        //     $provincias[0] = array("id" => $idProvincia, "nombre" => $nombreProvincia);
-        // }
-        // else{
-        //     $provincias[$i]= ["id" => $idProvincia, "nombre" => $nombreProvincia]; 
-        // }
         $nombreProvincia = $datos[$i]['nombre'];
         $idProvincia = $datos[$i]['id'];
 

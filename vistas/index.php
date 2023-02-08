@@ -62,6 +62,7 @@
 
             $idUsuario = insertarUsuario($nombre, $apellido, $email, "U", $existe); //ID de la tabla usuario
             $_SESSION["idUsuario"] = $idUsuario;
+            $id = $_SESSION["id"];
 
             insertarUsuarioRS($idUsuario, $id);
         }

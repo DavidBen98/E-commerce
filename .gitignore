@@ -4,3 +4,4 @@ mercadopago.txt
 Hosting.txt
 *.txt
 credenciales.txt
+.env

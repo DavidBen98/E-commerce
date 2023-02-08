@@ -1,42 +1,46 @@
 <?php  
     require_once "config.php";
     include_once "../inc/conn.php";
+    include_once "funciones.php";
 
     global $db;
 
-    $idProducto = $_GET["id"];
+    // function deleteFavorito($db, $idProducto, $idUsuario) {
+    //     $idUsuario = intval($idUsuario);
+    //     if (!isset($_SESSION["idUsuario"])){
+    //         $sql = "SELECT id
+    //                 FROM usuario
+    //                 WHERE id_social = ?";
+    //         $stmt = $db->prepare($sql);
+    //         $stmt->bind_param("i", $idUsuario);
+    //         $stmt->execute();
+    //         $stmt->bind_result($idUsuario);
+    //         $stmt->fetch();
+    //         $stmt->close();
+    //     }
 
-    if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
+    //     $sql = "DELETE FROM favorito
+    //             WHERE (id_producto = ? AND id_usuario = ?)";
+    //     $stmt = $db->prepare($sql);
+    //     $stmt->bind_param("ii", $idProducto, $idUsuario);
+    //     $stmt->execute();
+    //     $stmt->close();
+
+    //     return "ok";
+    // }
+
+    $idUsuario = "";
+
+    if (isset($_SESSION["idUsuario"])) {
         $idUsuario = $_SESSION["idUsuario"];
-    }
-    else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
+    } elseif (isset($_SESSION["id"])) {
         $idUsuario = $_SESSION["id"];
     }
-    // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
+    // elseif (isset($_SESSION["user_id"])) {
     //     $idUsuario = $_SESSION["user_id"];
     // }
 
-    if (!isset($_SESSION["idUsuario"])){
-        $sql = "SELECT u.id
-                FROM usuario as u
-                INNER JOIN usuario_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = $idUsuario
-        ";
+    $idProducto = intval($_GET["id"]);
 
-        $rs = $db->query($sql);
-
-        foreach ($rs as $row){
-            $idUsuario = $row["id"];
-        }
-    }
-
-    $sql = "DELETE FROM favorito
-            WHERE (id_producto = '$idProducto' AND id_usuario = '$idUsuario')
-    ";
-    
-    $rs = $db->query($sql);
-
-    $datos = "ok";
-
-    echo $datos;
+    echo eliminarFavorito($db, $idProducto, $idUsuario);
 ?>

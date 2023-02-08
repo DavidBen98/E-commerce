@@ -11,8 +11,8 @@
     if (isset($_GET["failure"])){ //Si falló
         header("location: ../vistas/pago.php?error_pago=fallo");
     }
-    else if(isset($_GET["payment_id"])){
-        $paymentId = $_GET["payment_id"];   
+    else if(isset($_GET["payment_id"]) && ctype_alnum($_GET["payment_id"])){
+        $paymentId = filter_var($_GET["payment_id"], FILTER_SANITIZE_STRING);    
         $response = file_get_contents("https://api.mercadopago.com/v1/payments/$paymentId" . "?access_token=TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106");
         $response = json_decode($response);
 
@@ -30,9 +30,9 @@
             else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
                 $idUsuario = $_SESSION["id"];
             }
-            else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-                $idUsuario = $_SESSION["user_id"];
-            }
+            // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
+            //     $idUsuario = $_SESSION["user_id"];
+            // }
 
             if (!isset($_SESSION["idUsuario"])){
                 $rs = obtenerUsuarioConRS ($idUsuario);

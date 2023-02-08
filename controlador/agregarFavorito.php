@@ -25,52 +25,54 @@
             $sql = "SELECT u.id
                     FROM usuario as u
                     INNER JOIN usuario_rs as rs ON rs.id = u.id
-                    WHERE rs.id_social = ?
+                    WHERE rs.id_social = :id
             ";
-    
+
             $stmt = $db->prepare($sql);
-            $stmt->bind_param("i", $idUsuario);
+            $stmt->bindParam(":id", $idUsuario, PDO::PARAM_INT);
             $stmt->execute();
-            $rs = $stmt->get_result();
-    
+            $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
             foreach ($rs as $row){
                 $idUsuario = $row["id"];
             }
         }
     
-        $sql = "SELECT id_producto
+        $sql = "SELECT COUNT(id_producto) AS i
                 FROM favorito
-                WHERE '$idProducto' NOT IN(SELECT id_producto
-                                        FROM favorito
-                                        WHERE id_usuario = '$idUsuario')
+                WHERE id_producto = :idProducto AND id_usuario != :idUsuario
         ";
-    
-        $rs = $db->query($sql);
-    
-        $i = 0;
-        foreach ($rs as $row){
-            $i++;
-        }
-    
-        $sql = "SELECT id_producto
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
+        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $rs = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $i = $rs['i'];
+
+        $sql = "SELECT COUNT(id_producto) AS j
                 FROM favorito
-                WHERE id_usuario = '$idUsuario'
-        ";
-    
-        $rs = $db->query ($sql);
-    
-        $j = 0;
-        foreach ($rs as $row){
-            $j++;
-        }
-    
-        if ($i > 0 || $j == 0){ //Si no está cargado ese producto o todavia no hay ningun producto con ese usuario
-            $stmt = $db->prepare("INSERT INTO favorito (id_producto, id_usuario) VALUES (?, ?)");
-            $stmt->bind_param("ii", $idProducto, $idUsuario);
+                WHERE id_usuario = :idUsuario";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $rs = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $j = $rs['j'];
+
+        if ($i > 0 || $j == 0){
+            $sql = "INSERT INTO favorito (id_producto, id_usuario)
+                    VALUES (:idProducto, :idUsuario)";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
+            $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $stmt->execute();
+
             $datos = "ok";
-        }
-        else{
+        } else {
             $datos = "false";
         }
     }

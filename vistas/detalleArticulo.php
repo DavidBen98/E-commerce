@@ -324,7 +324,7 @@
 		}
 
 		@media print {				
-			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav, .ruta{
+			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav, .ruta, #form_novedades{
 				display:none;
 			}
 
