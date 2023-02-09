@@ -9,6 +9,7 @@
     $categorias = obtenerCategorias();
     $materiales = obtenerMateriales();
     $marcas = obtenerMarcas();
+    $colores = obtenerColores();
 
     //Establecer si la foto es de portada
     //<div style='width:100%; display: flex; justify-content: center; align-items: center;'>
@@ -90,23 +91,12 @@
             $materiales
         </div>
 
-        <div class='contenedor' id='color'>
-            <label> Color </label>
-            <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
-            <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
-            <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
-            <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
-            <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
-            <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
-            <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
-            <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
-            <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
-            <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
-            <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
-            <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
-            <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
-            <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
-            <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
+        <div class='contenedor'>
+            <label for='color'>Color</label>
+            <div class='color-div'>
+                <input type='text' class='form-control' name='input-color' id='color' title='Color' value=''>
+            </div> 
+            $colores
         </div>
 
         <div class='contenedor' id='caracteristicas'>
@@ -248,7 +238,7 @@
                         document.getElementById("id").value = id;
                         document.getElementById("descripcion").value = data.descripcion;
                         document.getElementById("material").value = data.material;
-                        document.getElementById(data.color.toLowerCase()).checked = true;
+                        document.getElementById("color").value = data.color;
                         document.getElementById("descripcion").value = data.descripcion;
                         document.getElementById("marca").value = data.marca;
                         document.getElementById("cant").value = Number(data.stock);
@@ -315,11 +305,21 @@
 
             const marcas = document.querySelectorAll('input[name="marca"]');
 
-            marcas.forEach(material => {
-                material.addEventListener("change", () => {
+            marcas.forEach(marcas => {
+                marcas.addEventListener("change", () => {
                     const marcaChequeada = document.querySelector('input[name="marca"]:checked').value;
                     let inputMarca = document.getElementById("marca");
                     inputMarca.value = marcaChequeada;
+                });
+            });
+
+            const colores = document.querySelectorAll('input[name="color"]');
+
+            colores.forEach(colores => {
+                colores.addEventListener("change", () => {
+                    const colorChequeado = document.querySelector('input[name="color"]:checked').value;
+                    let inputColor = document.getElementById("color");
+                    inputColor.value = colorChequeado;
                 });
             });
 
@@ -428,6 +428,12 @@
             width:40%;
         }
 
+        .color-div{
+            width:100%;
+            display: flex;
+            justify-content: center;
+        }
+
         .mensaje{
             display:flex;
             justify-content: center;
@@ -444,11 +450,11 @@
             height:40px;
         }
 
-        .material, .marca {
+        .material, .marca, .color {
             padding: 10px 0;
         }
 
-        .material input, .marca input{
+        .material input, .marca input, .color input{
             width: auto;
             height: auto;
         }

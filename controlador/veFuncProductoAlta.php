@@ -14,7 +14,7 @@
     
     $material = (isset($_POST["material"]) && trim($_POST["material"]) !== "")? ucfirst(trim($_POST["material"])): (trim($_POST["input-material"]) !== ""? ucfirst(trim($_POST["input-material"])) : null);
     
-    $color = (isset($_POST["color"]))? ucfirst(trim($_POST["color"])): null;
+    $color = (isset($_POST["color"]) && trim($_POST["color"]) !== "")? ucfirst(trim($_POST["color"])): (trim($_POST["input-color"]) !== ""? ucfirst(trim($_POST["input-color"])) : null);
     
     $caracteristicas = (isset($_POST["caracteristicas"]))? $_POST["caracteristicas"]: null;
     

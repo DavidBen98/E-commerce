@@ -962,7 +962,7 @@
             $where = "WHERE (u.email = '$email')";
         }
         else{
-            $where = "WHERE (u.email = '%')";
+            $where = "WHERE (u.email LIKE '%')";
         }
 
         $sql = "SELECT id_social, id_usuario
@@ -971,13 +971,17 @@
                 $where
         ";
 
-        $resultado = $db->query($sql);
+        $stmt = $db->prepare($sql);
 
-        foreach ($resultado as $r){
-            return true;
+        if ($redSocial == "Google"){
+            $stmt->bindValue(':email', $email);
         }
 
-        return false;
+        $stmt->execute();
+        $result = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $result ? true : false;
     }
 
     function existeIdUsuario (){    
@@ -992,158 +996,117 @@
             $id = $_SESSION["user_id"];
         }
 
-        $sql = "SELECT id_social, id_usuario
-                FROM `usuario_rs` as rs
-                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                WHERE id_social = '$id' AND servicio = '$redSocial'
+        $sql = "SELECT COUNT(id_usuario)
+                FROM `usuario_rs`
+                WHERE id_social = :id_social AND servicio = :servicio
         ";
 
-        $resultado = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":id_social", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":servicio", $redSocial, PDO::PARAM_STR);
+        $stmt->execute();
 
-        $existe = false;
-        foreach ($resultado as $r){
-            $existe = true;
-            break;
-        }
-
-        return $existe;
+        $count = $stmt->fetchColumn();
+        return ($count > 0);
     }
 
     function existeNombreUsuario (){
         global $db;
-
+    
         $redSocial = $_SESSION["servicio"];
-
+        $nombreUsuario = "";
+    
         if ($redSocial == "Google"){
-            $nombre = $_SESSION["user_first_name"];
-            $apellido = $_SESSION["user_last_name"];
-            $where = "WHERE nombreUsuario = '$nombre$apellido' AND servicio = '$redSocial'";
+            $nombreUsuario = $_SESSION["user_first_name"] . $_SESSION["user_last_name"];
         }
         else if ($redSocial == "Twitter"){
             $nombreUsuario = $_SESSION["nombre_tw"];
             $nombreUsuario = preg_replace("([^A-Za-z0-9])", "", $nombreUsuario);
-            $where = "WHERE nombreUsuario = '$nombreUsuario' AND servicio = '$redSocial'";
         }
-
+    
         $sql = "SELECT id_social, id_usuario
                 FROM `usuario_rs` as rs
                 INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                $where
+                WHERE nombreUsuario = :nombre_usuario AND servicio = :servicio
         ";
-        
-        $result = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":nombre_usuario", $nombreUsuario, PDO::PARAM_STR);
+        $stmt->bindParam(":servicio", $redSocial, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
 
-        foreach ($result as $r){
-            return true;
-        }
-
-        return false;
+        return (count($result) > 0);
     }
 
     function obtenerMarcas() {
         global $db;
 
-		$arrMarcas = [];
+        $sql = "SELECT DISTINCT marca FROM `producto` ORDER BY marca ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
 
-        $sql  = "SELECT marca
-				FROM `producto` as p
-        ";
+        $marcas = [];
 
-		$rs = $db->query($sql); 
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id = str_replace(" ", "", $row["marca"]);
+            $marcas[] = "
+                <div class='marca'>
+                    <input type='radio' class='input' name='marca' id='$id' title='Marca {$row["marca"]}' value='{$row["marca"]}'>
+                    <label for='$id'>".ucfirst($row["marca"])."</label>
+                </div>
+            ";
+        }
 
-		foreach ($rs as $row) {										
-			if(empty($arrMarcas[$row["marca"]])){
-				$arrMarcas[$row["marca"]] = 0;
-			}					
-		}
-
-		ksort($arrMarcas);
-
-        $marcas = "";
-
-		foreach($arrMarcas as $indice => $valor){
-			$id = str_replace(" ","",$indice);
-			$marcas .= "				
-					<div class='marca'>		
-						<input type='radio' class='input' name='marca' id='$id' title='Marca $indice' value='$indice'>													  																															
-						<label for='$id'> ".ucfirst($indice)."</label>	
-					</div>				
-			";
-		}
-
-        return $marcas;
+        return implode("", $marcas);
     }
 
     function obtenerMateriales() {
         global $db;
 
-		$arrMateriales = [];
+        $sql = "SELECT DISTINCT material FROM `producto` ORDER BY material ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
 
-        $sql  = "SELECT material
-				FROM `producto` as p
-        ";
+        $materiales = [];
 
-		$rs = $db->query($sql); 
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id = str_replace(" ", "", $row["material"]);
+            $materiales[] = "
+                <div class='material'>
+                    <input type='radio' class='input' name='material' id='$id' title='material {$row["material"]}' value='{$row["material"]}'>
+                    <label for='$id'>".ucfirst($row["material"])."</label>
+                </div>
+            ";
+        }
 
-		foreach ($rs as $row) {										
-			if(empty($arrMateriales[$row["material"]])){
-				$arrMateriales[$row["material"]] = 0;
-			}					
-		}
-
-		ksort($arrMateriales);
-
-        $materiales = "";
-
-		foreach($arrMateriales as $indice => $valor){
-			$id = str_replace(" ","",$indice);
-			$materiales .= "				
-					<div class='material'>		
-						<input type='radio' class='input' name='material' id='$id' title='Material $indice' value='$indice'>													  																															
-						<label for='$id'> ".ucfirst($indice)."</label>	
-					</div>				
-			";
-		}
-
-        return $materiales;
+        return implode("", $materiales);
     }
 
     function obtenerColores() {
         global $db;
-
         $arrColores = [];
-
-        $sql  = "SELECT color
-				FROM `producto` as p
-        ";
-
-		$rs = $db->query($sql); 
-
-		foreach ($rs as $row) {
-			if(empty($arrColores[$row["color"]])){
-				$arrColores[$row["color"]] = 0;						
-			}													
-		}
-
-        ksort($arrColores);
-		
-		$colores = " 
-            <fieldset class='colores contenedor'>
-                <legend class='ltitulo' for='colores'><b>Colores</b></legend>
-                <div id='colores' class='input'>
-		";
-		
-		foreach($arrColores as $indice => $valor){
-			$id = str_replace(" ","",$indice);
-			$colores .=" 
-				<div class='color'>	
-					<input type='checkbox' class='input' name='color[]' id='$id' title='Color $indice' value='$indice'>													  																															
-					<label for='$id' > ".ucfirst($indice)."</label>			
-				</div>			
-			";
-		}
-        $colores .= "</div> 
-        </fieldset>";
+    
+        $stmt = $db->prepare("SELECT color FROM producto");
+        $stmt->execute();
+        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        foreach ($rs as $row) {
+            if (!in_array($row["color"], $arrColores)) {
+                $arrColores[] = $row["color"];
+            }
+        }
+    
+        sort($arrColores);
+        $colores = "";
+        foreach ($arrColores as $indice) {
+            $id = str_replace(" ", "", $indice);
+            $colores .= "
+                <div class='color'>
+                    <input type='radio' class='input' name='color' id='$id' title='Color $indice' value='$indice'>
+                    <label for='$id'>".ucfirst($indice)."</label>
+                </div>
+            ";
+        }
 
         return $colores;
     }

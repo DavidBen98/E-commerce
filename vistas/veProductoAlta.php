@@ -9,6 +9,7 @@
     $categorias = obtenerCategorias();
     $marcas = obtenerMarcas();
     $materiales = obtenerMateriales();
+    $colores = obtenerColores();
     //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)
@@ -99,21 +100,9 @@
 
             <div class='contenedor' id='color'>
                 <label>Color</label>
-                <div><input type='radio' id='amarillo' name='color' value='amarillo' checked><label for='amarillo'>Amarillo</label></div>
-                <div><input type='radio' id='azul' name='color' value='azul'><label for='azul'>Azul</label></div>
-                <div><input type='radio' id='beige' name='color' value='beige'><label for='beige'>Beige</label></div>
-                <div><input type='radio' id='blanco' name='color' value='blanco'><label for='blanco'>Blanco</label></div>
-                <div><input type='radio' id='blancoviejo' name='color' value='blanco viejo'><label for='blancoviejo'>Blanco viejo</label></div>
-                <div><input type='radio' id='celeste' name='color' value='celeste'><label for='celeste'>Celeste</label></div>
-                <div><input type='radio' id='gris' name='color' value='gris'><label for='gris'>Gris</label></div>
-                <div><input type='radio' id='marron' name='color' value='marron'><label for='marron'>Marrón</label></div>
-                <div><input type='radio' id='morado' name='color' value='morado'><label for='morado'>Morado</label></div>
-                <div><input type='radio' id='naranja' name='color' value='naranja'><label for='naranja'>Naranja</label></div>
-                <div><input type='radio' id='negro' name='color' value='negro'><label for='negro'>Negro</label></div>
-                <div><input type='radio' id='rojo' name='color' value='rojo'><label for='rojo'>Rojo</label></div>
-                <div><input type='radio' id='rosa' name='color' value='rosa'><label for='rosa'>Rosa</label></div>
-                <div><input type='radio' id='verde' name='color' value='verde'><label for='verde'>Verde</label></div>
-                <div><input type='radio' id='violeta' name='color' value='violeta'><label for='violeta'>Violeta</label></div>
+                $colores
+                <p> Nuevo color: *Solo en el caso de que todavia no exista</p>
+                <input type='text' class='form-control' name='input-color' id='input-color' title='Color' value=''> 
             </div>
 
             <div class='contenedor' id='caracteristicas'>
@@ -354,16 +343,20 @@
             cursor: pointer;
         }
 
-		.marca, .material{
+		.marca, .material, .color{
 			display:flex;
 			justify-content:start;
 			align-items: center;
 			width:40%;
 		}
 
-        .marca input, .material input{
+        .marca input, .material input, .color input{
             min-height: 15px;
             width: 8%;
+        }
+
+        #input-color{
+            width: 100%;
         }
 
         #mensaje, .mensaje{
