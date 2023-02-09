@@ -1111,185 +1111,157 @@
         return $colores;
     }
 
-    function obtenerCategorias(){
+    function obtenerCategorias() {
         global $db; 
+    
+        // Prepara la consulta para traer los nombres y los IDs de las categorías activas
+        $stmt = $db->prepare("SELECT nombre_categoria, id_categoria
+            FROM categoria 
+            WHERE activo = ?
+            GROUP BY nombre_categoria"
+        );
+    
+        // Ejecuta la consulta con un valor vinculado para evitar inyecciones SQL
+        $stmt->execute([1]);
+        $rs = $stmt->fetchAll();
+    
+        // Construye la lista de categorías
+        $categorias = "<select id='categoria' class='hover' name='categoria'>";
 
-        //trae los nombres de las categorias
-        $sql = "SELECT nombre_categoria, id_categoria
-                FROM `categoria` 
-                WHERE activo = '1'
-                GROUP BY nombre_categoria 
-        "; 
-    
-        $rs = $db->query($sql); 
-    
-        //lista de categorias
-        $categorias = " 
-                <select id='categoria' class='hover' name='categoria'> 
-        ";
-    
-        $nomCat = "";
-        
         foreach ($rs as $row) {
-            $categorias .= " <option value='{$row["id_categoria"]}'> {$row["nombre_categoria"]} </option> ";
-            $nomCat .= $row["nombre_categoria"] . ",";	
+            $categorias .= "<option value='{$row['id_categoria']}'>{$row['nombre_categoria']}</option>";
         }
+        $categorias .= "</select>"; 
     
-        $arrNomCat = explode(",",$nomCat); 
-    
-        $categorias .= " </select> "; 
-
         return $categorias;
     }
 
     function obtenerCategoriasInactivas(){
         global $db; 
 
-        //trae los nombres de las categorias
-        $sql = "SELECT nombre_categoria, id_categoria
-                FROM `categoria` 
-                WHERE activo = '0'
-                GROUP BY nombre_categoria 
-        "; 
-    
-        $rs = $db->query($sql); 
-    
-        //lista de categorias
-        $categorias = " 
-                <select id='categoria' class='hover' name='catInactivas'> 
-        ";
-    
-        $nomCat = "";
-        
-        foreach ($rs as $row) {
-            $categorias .= " <option value='{$row["id_categoria"]}'> {$row["nombre_categoria"]} </option> ";
-            $nomCat .= $row["nombre_categoria"] . ",";	
+        $categorias = "<select id='categoria' class='hover' name='catInactivas'>";
+        $stmt = $db->prepare("SELECT nombre_categoria, id_categoria FROM categoria WHERE activo = 0 GROUP BY nombre_categoria");
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $categorias .= "<option value='{$row["id_categoria"]}'>{$row["nombre_categoria"]}</option>";
         }
-    
-        $arrNomCat = explode(",",$nomCat); 
-    
-        $categorias .= " </select> "; 
 
+        $categorias .= "</select>";
         return $categorias;
     }
 
     function obtenerSubcategorias(){
         global $db; 
-
-        //trae los nombres de las categorias
+    
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM `subcategoria` 
-                WHERE activo = '1'
-                GROUP BY nombre_subcategoria 
-        "; 
-    
-        $rs = $db->query($sql); 
-    
-        //lista de categorias
-        $subcategorias = " 
-                <select id='subcategoria' class='hover' name='subcategoria'> 
-        ";
-    
-        $nomCat = "";
+                WHERE activo = :activo
+                GROUP BY nombre_subcategoria"; 
+       
+        $stmt = $db->prepare($sql); 
+        $stmt->bindValue(':activo', 1, PDO::PARAM_INT); 
+        $stmt->execute(); 
         
-        foreach ($rs as $row) {
-            $subcategorias .= " <option value='{$row["id_subcategoria"]}'> {$row["nombre_subcategoria"]} </option> ";
-            $nomCat .= $row["nombre_subcategoria"] . ",";	
+        //lista de subcategorias
+        $subcategorias = "<select id='subcategoria' class='hover' name='subcategoria'>";
+    
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $subcategorias .= "<option value='{$row['id_subcategoria']}'>{$row['nombre_subcategoria']}</option>";
         }
+       
+        $subcategorias .= "</select>"; 
     
-        $arrNomCat = explode(",",$nomCat); 
-    
-        $subcategorias .= " </select> "; 
-
         return $subcategorias;
     }
 
-    function obtenerSubcategoriasInactivas(){
+    function obtenerSubcategoriasInactivas() {
         global $db; 
+    
+        $stmt = $db->prepare("SELECT nombre_subcategoria, id_subcategoria
+                              FROM `subcategoria` 
+                              WHERE activo = '0'
+                              GROUP BY nombre_subcategoria
+        ");
 
-        //trae los nombres de las categorias
-        $sql = "SELECT nombre_subcategoria, id_subcategoria
-                FROM `subcategoria` 
-                WHERE activo = '0'
-                GROUP BY nombre_subcategoria 
-        "; 
-    
-        $rs = $db->query($sql); 
-    
-        //lista de categorias
+        $stmt->execute(); 
+        $rs = $stmt->fetchAll();
+        
         $subcategorias = " 
                 <select id='subcategoria' class='hover' name='subInactivas'> 
         ";
-    
-        $nomCat = "";
         
         foreach ($rs as $row) {
             $subcategorias .= " <option value='{$row["id_subcategoria"]}'> {$row["nombre_subcategoria"]} </option> ";
-            $nomCat .= $row["nombre_subcategoria"] . ",";	
         }
-    
-        $arrNomCat = explode(",",$nomCat); 
-    
+        
         $subcategorias .= " </select> "; 
-
+    
         return $subcategorias;
     }
 
     function obtenerImagenProducto($id){
         global $db;
 
-        $sql = "SELECT * FROM imagen_productos 
-                WHERE id_producto = $id AND portada=1
+        $sql = "SELECT destination FROM imagen_productos 
+                WHERE id_producto = :id AND portada = 1
+                LIMIT 1
         ";
 
-        $rs = $db->query($sql); 
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-        foreach ($rs as $r){
-            $path = $r["destination"];
-        }
+        $path = $stmt->fetchColumn();
 
         return $path;
     }
 
     function obtenerProducto($codigo){
         global $db;
-
+    
         $sql = "SELECT *
-			FROM `producto`
-			WHERE codigo = '$codigo'
-	    ";
-
-        $rs = $db->query($sql);
-
-        return $rs;
+            FROM `producto`
+            WHERE codigo = :codigo
+        ";
+    
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':codigo', $codigo, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        return $stmt;
     }
 
     function obtenerConsultas($idUsuario){
         global $db;
-
-        $sql= "SELECT c.texto, c.respondido
-            FROM `consulta` as c INNER JOIN `usuario` as u ON (c.usuario_id = u.id)
-            WHERE c.usuario_id='$idUsuario'
-        "; 
-
-        $rs = $db->query($sql);
-
-        return $rs;
+    
+        $stmt = $db->prepare("SELECT c.texto, c.respondido
+                FROM `consulta` as c INNER JOIN `usuario` as u ON (c.usuario_id = u.id)
+                WHERE c.usuario_id= :idUsuario"
+        );
+    
+        $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+    
+        $stmt->execute();
+    
+        return $stmt;
     }
 
     function obtenerCompras($idUsuario){
         global $db;
-
+    
         $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , p.`precio`,`codigo`,p.`id`
             FROM `compra` as c
             INNER JOIN `detalle_compra` as d on d.id_compra = c.id
             INNER JOIN `producto` as p on p.id = d.id_producto 
             INNER JOIN `usuario` as u on u.id = c.id_usuario
-            WHERE c.id_usuario = '$idUsuario'
+            WHERE c.id_usuario = :id_usuario
         "; 
-
-        $rs = $db->query($sql);
-
+    
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":id_usuario", $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
         return $rs;
     }
 
