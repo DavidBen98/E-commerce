@@ -37,34 +37,26 @@
                 $idUsuario = $row["id"];
             }
         }
-    
-        $sql = "SELECT COUNT(id_producto) AS i
-                FROM favorito
-                WHERE id_producto = :idProducto AND id_usuario != :idUsuario
+
+        $sql = "SELECT * FROM favorito
+                WHERE id_producto = :idProducto AND id_usuario = :idUsuario
         ";
 
         $stmt = $db->prepare($sql);
+        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
         $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
-        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
         $stmt->execute();
-        $rs = $stmt->fetch(PDO::FETCH_ASSOC);
+        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $i = $rs['i'];
+        $i = 0;
+        foreach ($rs as $row){
+            $i++;
+        }
 
-        $sql = "SELECT COUNT(id_producto) AS j
-                FROM favorito
-                WHERE id_usuario = :idUsuario";
-
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-        $stmt->execute();
-        $rs = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $j = $rs['j'];
-
-        if ($i > 0 || $j == 0){
+        if ($i === 0){
             $sql = "INSERT INTO favorito (id_producto, id_usuario)
-                    VALUES (:idProducto, :idUsuario)";
+                    VALUES (:idProducto, :idUsuario)
+            ";
 
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);

@@ -292,15 +292,10 @@ const agregarFavorito = (id) => {
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
-    let param = {
-        id: id
-    };
-
     $.ajax({
-        data: param,
         url: "../controlador/agregarFavorito.php?id="+id,
-        method: "post",
         success: function(data) {
+            console.log(data);
             let url = window.location.href.split("?")[0];
             let categoria = getParameterByName ("categoria");
             let subcategoria = getParameterByName ("subcategoria");

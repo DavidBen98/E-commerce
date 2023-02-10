@@ -1300,32 +1300,32 @@
         return $listaCarrito;
     }
 
-    function obtenerUsuario ($id){
-        global $db;
-
-        $sql= "SELECT *
-            FROM `usuario`
-            WHERE id='$id'
-        "; 
- 
-        $rs = $db->query($sql);
-
-        return $rs;
-    }
-
     // function obtenerUsuario ($id){
     //     global $db;
 
-    //     $sql = $db->prepare("SELECT nombre_usuario, perfil, nro_dni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
-    //                         FROM `usuario`
-    //                         WHERE id = :id
-    //     ");
+    //     $sql= "SELECT *
+    //         FROM `usuario`
+    //         WHERE id='$id'
+    //     "; 
+ 
+    //     $rs = $db->query($sql);
 
-    //     $sql->bindParam(':id', $id, PDO::PARAM_INT);
-    //     $sql->execute();
-    
-    //     return $sql->fetchAll(PDO::FETCH_ASSOC);
+    //     return $rs;
     // }
+
+    function obtenerUsuario ($id){
+        global $db;
+
+        $sql = $db->prepare("SELECT nombre_usuario, perfil, nro_dni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
+                            FROM `usuario`
+                            WHERE id = :id
+        ");
+
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+    
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     function obtenerUsuarioConRS ($id){
         global $db;
