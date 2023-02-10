@@ -21,24 +21,24 @@
     
     if (isset($_SESSION["idUsuario"])){
         $idUsuario = $_SESSION["idUsuario"];
+    }else if (isset($_SESSION["id"])){
+        $idUsuario = obtenerUsuarioConRS($_SESSION["id"]);
     }
-    else if (isset($_SESSION["user"])){
-        $idUsuario = $_SESSION["user"];
-    }
-    else if (isset($_SESSION["id_tw"])){
-        $idUsuario = $_SESSION["id_tw"];
-    }
- 
+    // else if (isset($_SESSION["id_tw"])){
+    //     $idUsuario = $_SESSION["id_tw"];
+    // }
+        
     $rs = obtenerUsuario($idUsuario);
 
     $infoPersonal = "";
+
     foreach ($rs as $row) {
         $provincia = isset($row["provincia"])? $row["provincia"] : null;
         $provincia = json_encode($provincia);
 
         $ciudad =  isset($row["ciudad"])? $row["ciudad"] : null;
         $ciudad = json_encode ($ciudad);
-
+        
         $infoPersonal = "
             <form action='../controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
                 <div class='renglon' id='renglon-h1'>      
@@ -47,12 +47,12 @@
 
                 <div class='renglon'>
                     <label class='descripciones' for='nombreUsuario'>Nombre de usuario</label>
-                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row["nombreusuario"]}' readonly>
+                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row["nombre_usuario"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='dni'>Número de DNI</label>
-                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row["nrodni"]}' readonly>
+                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row["nro_dni"]}' readonly>
                 </div>
 
                 <div class='renglon'>

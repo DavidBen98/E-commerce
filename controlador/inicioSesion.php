@@ -13,7 +13,7 @@
 	
 	$stmt = $db->prepare("SELECT contrasena, perfil, nombre, apellido, email,id
 						  FROM usuario 
-						  WHERE usuario.nombreUsuario =?
+						  WHERE usuario.nombre_usuario =?
 	");
 	
 	$stmt->execute([$nombreUser]);

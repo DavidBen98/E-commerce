@@ -14,9 +14,9 @@
     $psw2 = (isset($_POST["psw2"]) && trim($_POST["psw2"]) != "")? trim($_POST["psw2"]) : "";
     $suscripcion = ($_POST["suscripcion"] == "1")? 1 : 0;
 
-    $sql = "SELECT nombreUsuario, email
+    $sql = "SELECT nombre_usuario, email
 		    FROM usuario as u
-		    WHERE u.nombreUsuario = '$nombreUsuario' OR u.email = '$email' OR u.nroDni = '$dni'
+		    WHERE u.nombre_usuario = '$nombreUsuario' OR u.email = '$email' OR u.nro_dni = '$dni'
     ";
 
     $rs = $db->query($sql);
@@ -56,7 +56,7 @@
 
         $dire = trim($dire);
 
-        $insertar = "INSERT INTO `usuario`(`nombreUsuario`, `contrasena`, `perfil`, `nroDni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`,`suscripcion`) 
+        $insertar = "INSERT INTO `usuario`(`nombre_usuario`, `contrasena`, `perfil`, `nro_dni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`,`suscripcion`) 
                      VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')
         ";
 

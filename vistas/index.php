@@ -109,7 +109,7 @@
                 }
                 //Si no existe una persona con el nombre de usuario = arroba de twitter
                 if ($i == 0){
-                    $sql = "INSERT INTO usuario (nombreUsuario, perfil) VALUES
+                    $sql = "INSERT INTO usuario (nombre_usuario, perfil) VALUES
                             ('$nombreUsuario', 'U')
                     ";
                 }

@@ -119,9 +119,9 @@
         
         $nombreUser = filter_var($_SESSION["user"], FILTER_SANITIZE_STRING);
         
-        $stmt = $db->prepare("SELECT nombreUsuario, nroDni, nombre, apellido, email, provincia, ciudad, direccion
+        $stmt = $db->prepare("SELECT nombre_usuario, nro_dni, nombre, apellido, email, provincia, ciudad, direccion
                               FROM `usuario`
-                              WHERE nombreUsuario=:username"
+                              WHERE nombre_usuario=:username"
         );
         
         $stmt->bindParam(":username", $nombreUser);
@@ -129,8 +129,8 @@
         if ($stmt->execute()) {
             if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='contenedor-botones'> 
-                          Nombre de usuario: {$row["nombreusuario"]} <br>
-                          Numero de DNI: {$row["nrodni"]} <br>
+                          Nombre de usuario: {$row["nombre_usuario"]} <br>
+                          Numero de DNI: {$row["nro_dni"]} <br>
                           Nombre: {$row["nombre"]} <br>
                           Apellido: {$row["apellido"]} <br>
                           Email: {$row["email"]} <br>
@@ -144,17 +144,17 @@
 
         // $nombreUser = $_SESSION["user"];
 
-        // $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion
+        // $sql= "SELECT nombre_usuario, perfil, nro_dni, nombre, apellido, email, provincia, ciudad, direccion
         //         FROM `usuario`
-        //         WHERE nombreUsuario='$nombreUser'
+        //         WHERE nombre_usuario='$nombreUser'
         // ";  
     
         // $rs = $db->query($sql);
 
         // foreach ($rs as $row) {
         //     echo "<div class='contenedor-botones'> 
-        //                         Nombre de usuario: {$row["nombreusuario"]} <br>
-        //                         Numero de DNI: {$row["nrodni"]} <br>
+        //                         Nombre de usuario: {$row["nombre_usuario"]} <br>
+        //                         Numero de DNI: {$row["nro_dni"]} <br>
         //                         Nombre: {$row["nombre"]} <br>
         //                         Apellido: {$row["apellido"]} <br>
         //                         Email: {$row["email"]} <br>
@@ -1027,7 +1027,7 @@
         $sql = "SELECT id_social, id_usuario
                 FROM `usuario_rs` as rs
                 INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                WHERE nombreUsuario = :nombre_usuario AND servicio = :servicio
+                WHERE nombre_usuario = :nombre_usuario AND servicio = :servicio
         ";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":nombre_usuario", $nombreUsuario, PDO::PARAM_STR);
@@ -1302,23 +1302,37 @@
 
     function obtenerUsuario ($id){
         global $db;
-        $sql = $db->prepare("SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
-                            FROM `usuario`
-                            WHERE id = :id"
-        );
 
-        $sql->bindParam(':id', $id, PDO::PARAM_INT);
-        $sql->execute();
-    
-        return $sql->fetch(PDO::FETCH_ASSOC);
+        $sql= "SELECT *
+            FROM `usuario`
+            WHERE id='$id'
+        "; 
+ 
+        $rs = $db->query($sql);
+
+        return $rs;
     }
+
+    // function obtenerUsuario ($id){
+    //     global $db;
+
+    //     $sql = $db->prepare("SELECT nombre_usuario, perfil, nro_dni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
+    //                         FROM `usuario`
+    //                         WHERE id = :id
+    //     ");
+
+    //     $sql->bindParam(':id', $id, PDO::PARAM_INT);
+    //     $sql->execute();
+    
+    //     return $sql->fetchAll(PDO::FETCH_ASSOC);
+    // }
 
     function obtenerUsuarioConRS ($id){
         global $db;
 
         $sql = "SELECT u.id
                 FROM usuario as u
-                INNER JOIN usuarios_rs as rs ON rs.id = u.id
+                INNER JOIN usuario_rs as rs ON rs.id = u.id
                 WHERE rs.id_social = :id
         ";
 
@@ -1396,12 +1410,12 @@
         global $db;
     
         $nombreUsuario = $existe ? "$nombre$apellido" : "";
-        $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil)
-                VALUES (:nombreUsuario, :nombre, :apellido, :email, :perfil)
+        $sql = "INSERT INTO usuario (nombre_usuario, nombre, apellido, email, perfil)
+                VALUES (:nombre_usuario, :nombre, :apellido, :email, :perfil)
         ";
     
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':nombreUsuario', $nombreUsuario);
+        $stmt->bindValue(':nombre_usuario', $nombreUsuario);
         $stmt->bindValue(':nombre', $nombre);
         $stmt->bindValue(':apellido', $apellido);
         $stmt->bindValue(':email', $email);
@@ -1485,15 +1499,14 @@
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
-        $rs = $stmt->fetch();
         
-        return $rs;
+        return $stmt->fetchAll();
     }
 
     function seleccionarUsuarioConNombreUsuario($nombreUsuario){
         global $db;
     
-        $stmt = $db->prepare("SELECT nombreUsuario FROM usuario WHERE nombreUsuario = :nombreUsuario");
+        $stmt = $db->prepare("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = :nombreUsuario");
         $stmt->bindValue(':nombreUsuario', $nombreUsuario, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
