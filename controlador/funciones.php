@@ -1283,33 +1283,20 @@
         return $rs;
     }
 
-    // function obtenerProductoConCantidad($id, $cantidad){
-    //     global $db;
-    
-    //     $sql = $db->prepare(
-    //         "SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, :cantidad AS cantidad
-    //         FROM producto
-    //         WHERE id=:id"
-    //     );
-    
-    //     $sql->bindParam(':id', $id, PDO::PARAM_INT);
-    //     $sql->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
-    //     $sql->execute();
-    
-    //     return $sql->fetch(PDO::FETCH_ASSOC);
-    // }
-
-    function obtenerProductoConCantidad($id, $cantidad){
+    function obtenerListaCarrito($productos) {
         global $db;
-    
-        $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
+
+        $listaCarrito = array();
+        foreach ($productos as $key => $cantidad) {
+            $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
                                  FROM producto
                                  WHERE id=?
             ");
-
-        $sql -> execute ([$key]);
-        $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
-
+    
+            $sql -> execute ([$key]);
+            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+        }
+        
         return $listaCarrito;
     }
 
