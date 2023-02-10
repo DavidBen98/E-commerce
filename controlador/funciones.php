@@ -125,20 +125,6 @@
         }
 
         return $path;
-        // global $db;
-
-        // $sql = "SELECT * FROM imagen_productos 
-        // WHERE id_producto = $id AND portada=1";
-
-        // $result = $db -> query($sql);
-
-        // $path = "";
-
-        // foreach ($result as $r){
-        //     $path = $r["destination"];
-        // }
-
-        // return $path;
     }
 
     function crearImagenes ($consulta){
@@ -431,14 +417,6 @@
             $idCat =  $row["id_categoria"];
             $nomCat = $row["nombre_categoria"];
 
-            //agrega la imagen categoria y le pone el titulo 
-            // echo " <div class='categoria'>
-            //             <div class='cont-images'> 
-            //                 <img src= '../images/categorias/$idCat.png' alt='$nomCat' class='img-cat'>
-            //                 <div class='texto'>
-            //                     <h2 class='img-titulo'>".strtoupper($nomCat) ."</h2>
-            // ";
-
             $sql = "SELECT destination 
                     FROM imagen_categorias
                     WHERE id_categoria = :id_categoria
@@ -496,17 +474,10 @@
 
             echo "<p class='img-texto'>";
             $subcatNombre = "";
+
             foreach ($resultSub as $rowSub){
                 $subcatNombre .= $rowSub["nombre_subcategoria"] . " <br/> ";
             }
-
-            //agrega las diferentes subcategorias que pertenecen a esa categoria
-            // echo "" .  ucwords($subcatNombre) . "          
-            //                 </p>     
-            //             </div>
-            //         </div>
-            //     </div>
-            // ";
 
             echo "" .  ucwords($subcatNombre) . "          
                             </p>     
@@ -1097,18 +1068,38 @@
         }
     }
 
-    function obtenerNombreCategoria($id){
+    // function obtenerNombreCategoria($id){
+    //     global $db;
+    
+    //     $sql = "SELECT nombre_categoria
+    //             FROM categoria
+    //             WHERE id_categoria = $id
+    //             LIMIT 1
+    //     ";
+    
+    //     $rs = $db->query($sql)->fetch();
+    
+    //     return $rs['nombre_categoria'];
+    // }
+
+    function obtenerNombreCategoria($id) {
         global $db;
     
-        $sql = "SELECT nombre_categoria
-                FROM categoria
-                WHERE id_categoria = $id
-                LIMIT 1
-        ";
+        $id = intval($id);
+        if ($id <= 0) {
+            return null;
+        }
     
-        $rs = $db->query($sql)->fetch();
+        $stmt = $db->prepare("SELECT nombre_categoria FROM categoria WHERE id_categoria = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
     
-        return $rs['nombre_categoria'];
+        $result = $stmt->fetch();
+        if ($result === false) {
+            return null;
+        }
+    
+        return $result['nombre_categoria'];
     }
 
     function obtenerNombreSubcategoria($id){

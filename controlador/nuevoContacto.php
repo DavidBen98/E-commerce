@@ -12,21 +12,19 @@
     $email =(isset($_POST["email"]) && !empty($_POST["email"]))? trim($_POST["email"]):"";
     $txtIngresado =(isset($_POST["txtIngresado"]) && !empty($_POST["txtIngresado"]))? trim($_POST["txtIngresado"]):"";
     
-    $msjError = "";
-
     if($nombre == ""){
-        $msjError .= "Debe ingresar su nombre"; 
+        header("location:../vistas/contacto.php?error=1");  
     }
     else if ($apellido == ""){
-        $msjError .= "Debe ingresar apellido";
+        header("location:../vistas/contacto.php?error=2");  
     }
     else if ($email == "" && !isset($_SESSION["servicio"]) && $user == ""){
-        $msjError .= "Debe ingresar su email"; 
+        header("location:../vistas/contacto.php?error=3");  
     }
     else if ($txtIngresado == ""){
-        $msjError .= "Debe ingresar su consulta";
+        header("location:../vistas/contacto.php?error=4");  
     }
-    else if(isset($_SESSION["servicio"]) || ($user != "")){  
+    else if(isset($_SESSION["servicio"]) || isset($_SESSION["idUsuario"])){  
         global $db;
 
         if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
@@ -45,7 +43,7 @@
 
         $rs = $db->query($sql);
 
-        header("location:../vistas/consultaUsuario.php");                       
+        header("location:../vistas/contacto.php?consulta=exito");                       
     }  
     else{
         global $db;
@@ -58,4 +56,5 @@
 
         header("location:../vistas/contacto.php?consulta=exito");
     }
+
 ?>

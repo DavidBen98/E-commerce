@@ -2,7 +2,6 @@ window.onload = function (){
     let filtro = document.getElementById ("header-buscar"); 
     let eliminarCarrito = document.getElementsByClassName("elim-prod");
     let agregarFavorito = document.getElementsByClassName ("fav-prod");
-    let modificarCarrito = document.getElementsByClassName ("cant-compra");
 
     document.addEventListener("click", ev => {
         if (ev.target.matches("#inicio")){
@@ -1062,7 +1061,7 @@ const validarModCarSubcategoria = () => {
 }
 
 const validarModal = () => {
-    let email = document.getElementById("email").value;
+    let email = document.getElementById("modal_email").value;
     let validate = true;
 
     if( email == null || email.trim() == ""){

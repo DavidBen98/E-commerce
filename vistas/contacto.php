@@ -7,6 +7,7 @@
 	if (perfil_valido(1)) {
         header("location:veABMProducto.php");
     }  
+	
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -173,6 +174,15 @@
 			border-radius: 5px; 
 			display:none;
 		}
+
+		#error{
+            background: #000;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+			margin: 20px;
+			
+        }
 		
 		@media screen and (max-width:1000px) {
 		    .contacto-texto{
@@ -219,7 +229,7 @@
 			<p>No dudes en comunicarte también por nuestra vía telefónica al 0800 - 0303 - 456 de lunes a viernes de 9 a 18 hs.</p>
 		</div>
 
-		<form action="../controlador/nuevoContacto.php" method="post" onsubmit="return validarContacto()" class="cont-con"> 
+		<form action="../controlador/nuevoContacto.php" onsubmit="return validarContacto()" method="post" class="cont-con"> 
 				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" >
 				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" >
 				
@@ -237,6 +247,18 @@
 				<?php
 					if (isset($_GET["consulta"])){
 						echo "<div class='parrafo-exito'>La consulta ha sido realizada con éxito, en breve procederemos a responderla vía mail</div>";
+					} else if(isset($_GET["error"])){
+						$error = $_GET["error"];
+
+						if ($error == 1){
+							echo "<div class='mensaje' id='error'>Debe ingresar su nombre</div>";
+						} else if ($error == 2){
+							echo "<div class='mensaje' id='error'>Debe ingresar apellido</div>";
+						} else if ($error == 3){
+							echo "<div class='mensaje' id='error'>Debe ingresar su email</div>";
+						} else if ($error == 4){
+							echo "<div class='mensaje' id='error'>Debe ingresar su consulta</div>";
+						}
 					}
 				?>
 		</form>	
