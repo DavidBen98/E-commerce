@@ -522,7 +522,13 @@ const modDatos = (provincia) => {
         let auxDireccion = direccion.substring(4,direccion.length);
         let numeroDesde = auxDireccion.search(/[1-9]/);
         let numeroHasta = direccion.indexOf(",", numeroDesde);
-        let numero = direccion.substring (numeroDesde+4, numeroHasta-1);
+        let numero = "";
+        if (numeroHasta === -1){
+            numeroHasta = direccion.length;
+            numero = direccion.substring (numeroDesde+4, numeroHasta);
+        } else {
+            numero = direccion.substring (numeroDesde+4, numeroHasta-1);
+        }
         let calle = direccion.substring (0,numeroDesde+3);
         let piso = direccion.substring(numeroHasta+2, direccion.length);
 

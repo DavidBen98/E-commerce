@@ -110,62 +110,6 @@
 		return $pswEncript; 
 	}
     
-    function mostrarInfoPersonal(){
-        global $db; 
-
-        if (!isset($_SESSION["user"])) {
-            exit();
-        }
-        
-        $nombreUser = filter_var($_SESSION["user"], FILTER_SANITIZE_STRING);
-        
-        $stmt = $db->prepare("SELECT nombre_usuario, nro_dni, nombre, apellido, email, provincia, ciudad, direccion
-                              FROM `usuario`
-                              WHERE nombre_usuario=:username"
-        );
-        
-        $stmt->bindParam(":username", $nombreUser);
-        
-        if ($stmt->execute()) {
-            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<div class='contenedor-botones'> 
-                          Nombre de usuario: {$row["nombre_usuario"]} <br>
-                          Numero de DNI: {$row["nro_dni"]} <br>
-                          Nombre: {$row["nombre"]} <br>
-                          Apellido: {$row["apellido"]} <br>
-                          Email: {$row["email"]} <br>
-                          Provincia: {$row["provincia"]} <br>
-                          Ciudad: {$row["ciudad"]} <br>
-                          Direccion: {$row["direccion"]} <br>
-                      </div>
-                ";
-            }
-        }
-
-        // $nombreUser = $_SESSION["user"];
-
-        // $sql= "SELECT nombre_usuario, perfil, nro_dni, nombre, apellido, email, provincia, ciudad, direccion
-        //         FROM `usuario`
-        //         WHERE nombre_usuario='$nombreUser'
-        // ";  
-    
-        // $rs = $db->query($sql);
-
-        // foreach ($rs as $row) {
-        //     echo "<div class='contenedor-botones'> 
-        //                         Nombre de usuario: {$row["nombre_usuario"]} <br>
-        //                         Numero de DNI: {$row["nro_dni"]} <br>
-        //                         Nombre: {$row["nombre"]} <br>
-        //                         Apellido: {$row["apellido"]} <br>
-        //                         Email: {$row["email"]} <br>
-        //                         Provincia: {$row["provincia"]} <br>
-        //                         Ciudad: {$row["ciudad"]} <br>
-        //                         Direccion: {$row["direccion"]} <br>
-        //                     </div>
-        //     ";
-        // }
-    }  
-    
     function obtenerRutaPortada($id){
         global $db;
 
@@ -465,17 +409,6 @@
         return $filtro;
     }
 
-    // function cantidadCarrito(){ 
-    //     $cantCarrito = 0;   
-    //     if (isset($_SESSION["carrito"])){
-    //         foreach ($_SESSION["carrito"]["productos"] as $value){
-    //             $cantCarrito += 1;
-    //         }
-    //     }
-
-    //     return $cantCarrito;
-    // }
-
     function cantidadCarrito(){ 
         if (isset($_SESSION["carrito"]) && isset($_SESSION["carrito"]["productos"])){
             return count($_SESSION["carrito"]["productos"]);
@@ -585,193 +518,6 @@
         }
     }  
 
-    // function crearBarraLateral(){
-	// 	global $db;
-
-	// 	$producto = "";
-
-	// 	if (isset($_GET["articulos"])){ //Si se ingresa desde subcategorias
-	// 		$producto = $_GET["articulos"];
-	// 		$categoria = $_GET["cate"];
-	// 		$subcategoria = $_GET["sub"]; 
-	// 		$formulario = "
-    //             <form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
-    //                 <div class='btn-select'>
-    //                     <label for='orden' class='label'> Ordenar por </label>
-    //                     <select class='form-select' id='orden' name='orden' title='Ordenar elementos'> 
-    //                         <option value='0'> Menor precio </option>
-    //                         <option value='1'> Mayor precio </option>	
-    //                         <option value='2'> Mas vendidos </option>
-    //                     </select>
-    //                 </div>
-    //         ";
-	// 	}
-	// 	else if (isset($_GET["productos"]) || isset($_GET["buscador"])){ //Si se ingresa desde el nav ->productos o desde la barra de navegacion
-	// 		$arrCategorias = [];
-	// 		$arrSubcategorias = [];
-    //         $categoria = "%";
-    //         $subcategoria = "%";
-
-	// 		$sql  = "SELECT c.id_categoria,c.nombre_categoria,descripcion, material,color,caracteristicas,marca,stock, precio, s.nombre_subcategoria
-    //                 FROM `producto`
-    //                 INNER JOIN categoria as c ON producto.id_categoria = c.id_categoria
-    //                 INNER JOIN subcategoria as s ON producto.id_subcategoria = s.id_subcategoria
-    //         ";
-			
-	// 		$rs = $db->query($sql);
-
-	// 		foreach ($rs as $row) {
-	// 			if(empty($arrCategorias[$row["nombre_categoria"]])){
-	// 				$arrCategorias[$row["nombre_categoria"]] = $row["id_categoria"];						
-	// 			}													
-	// 		}
-
-	// 		ksort($arrCategorias);
-	// 		$formulario = " 
-	// 			<form action='productos.php?productos=filtrado' method='post' id='datos'> 
-	// 				<div class='btn-select'>
-	// 					<label for='orden' class='label'> Ordenar por </label>
-	// 					<select class='form-select' name='orden' id='orden' title='Ordenar elementos'> 
-	// 						<option value='0'> Menor precio </option>
-	// 						<option value='1'> Mayor precio </option>	
-	// 						<option value='2'> Mas vendidos </option>
-	// 					</select>
-	// 				</div>
-	// 				<div class='btn-select'>
-	// 					<label for='categoria' class='label'> Categorías </label>
-	// 					<select class='form-select' id='categoria' name='categoria' title='Categorias'>
-    //         ";
-
-	// 		foreach($arrCategorias as $indice => $valor){
-	// 			$formulario .=" <option value='$valor'> $indice </option>";
-	// 		}
-
-	// 		$formulario .= "</select>
-	// 				</div>
-	// 				<div id='subc' class='btn-select'>
-	// 			</div>
-    //         ";
-
-	// 	}
-
-	// 	echo $formulario;
-
-	// 	$arrColores = [];
-	// 	$arrMarcas = [];
-	// 	//$variable = substr($producto,0,4);
-		
-	// 	//$whereSql = " WHERE codigo like '$variable%'";
-    //     $innerJoin = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
-	// 				   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
-    //     ";
-
-    //     if (isset($_GET["productos"]) || isset($_GET["buscador"])){
-    //         $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
-    //     } else {
-    //         $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.id_categoria = '$categoria'";
-    //     }
-
-	// 	$sql  = "SELECT p.id_categoria, p.id_subcategoria,descripcion, material,color,caracteristicas,marca,stock, precio
-	// 			FROM `producto` as p
-    //             $innerJoin
-	// 			$whereSql
-    //     ";
-
-	// 	$rs = $db->query($sql); 
-
-	// 	foreach ($rs as $row) {
-	// 		if(empty($arrColores[$row["color"]])){
-	// 			$arrColores[$row["color"]] = 0;						
-	// 		}										
-	// 		if(empty($arrMarcas[$row["marca"]])){
-	// 			$arrMarcas[$row["marca"]] = 0;
-	// 		}					
-	// 	}
-		
-	// 	$sql1 = "SELECT min(precio) 
-    //              FROM `producto` as p
-    //              $innerJoin
-    //              $whereSql
-	// 	";
-
-	// 	$rs1 = $db->query($sql1);
-		
-	// 	foreach ($rs1 as $row) {
-	// 		$valorMin = implode($row);
-	// 	}
-
-	// 	$sql2 = "SELECT max(precio) 
-    //             FROM `producto` as p
-    //             $innerJoin
-    //             $whereSql
-	// 	";
-
-	// 	$rs2 = $db->query($sql2);
-		
-	// 	foreach ($rs2 as $row) {
-	// 		$valorMax = implode($row);
-	// 	}
-		
-	// 	ksort($arrColores);
-		
-	// 		echo" <fieldset class='colores contenedor'>
-	// 					<legend class='ltitulo' for='colores'><b>Colores</b></legend>
-	// 					<div id='colores' class='input'>
-	// 		";
-		
-	// 	foreach($arrColores as $indice => $valor){
-	// 		$id = str_replace(" ","",$indice);
-	// 		echo" 
-	// 			<div class='color'>	
-	// 				<input type='checkbox' class='input' name='color[]' id='$id' title='Color $indice' value='$indice'>													  																															
-	// 				<label for='$id' > ".ucfirst($indice)."</label>			
-	// 			</div>			
-	// 		";
-	// 	}
-    //     echo "</div> 
-    //     </fieldset>";
-
-	// 	ksort($arrMarcas);
-
-	// 	echo"<fieldset class='marcas contenedor'>					
-	// 			<legend class='ltitulo'><b>Marcas</b></legend>
-	// 			<div id='marcas' class='input'>
-	// 	";	
-
-	// 	foreach($arrMarcas as $indice => $valor){
-	// 		$id = str_replace(" ","",$indice);
-	// 		echo "				
-	// 				<div class='marca'>		
-	// 					<input type='checkbox' class='input' name='marca[]' id='$id' title='Marca $indice' value='$indice'>													  																															
-	// 					<label for='$id'> ".ucfirst($indice)."</label>	
-	// 				</div>				
-	// 		";
-	// 	}
-	// 	echo "
-    //             </div>	
-	// 			</fieldset>
-	// 			<fieldset id='min-max'>
-	// 			    <legend class='ltitulo'><b>Precios</b></legend> 
-    //                 <div class='input-minmax'> 
-    //                     <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
-    //                     <label for='valorMax' class='lmaxmin'>Máximo</label>			
-    //                 </div>
-	// 				<div class='input-minmax'>
-	// 					<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
-	// 					- 
-	// 					<input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
-	// 				</div>
-	// 			</fieldset>	
-	// 			<p class='mensaje' id='mensaje'>
-
-	// 			</p> 
-	// 			<div id='botones' class='botones'>
-	// 				<input type='submit'  id='filtros' class='btn' name='Aplicar filtros' title='Aplicar filtros' value='Aplicar filtros'>						
-	// 			</div>
-	// 		</form>
-    //     ";
-	// }	
-
     function crearBarraLateral(){
         global $db;
     
@@ -844,27 +590,14 @@
 		echo $formulario;
 
 		$arrColores = $arrMarcas = [];
-		//$variable = substr($producto,0,4);
-		
-		//$whereSql = " WHERE codigo like '$variable%'";
+
         $innerJoin = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
         ";
 
-        // if (isset($_GET["productos"]) || isset($_GET["buscador"])){
-        //     $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.nombre_categoria like '$categoria'";
-        // } else {
-        //     $whereSql = " WHERE s.nombre_subcategoria like '$subcategoria' AND c.id_categoria = '$categoria'";
-        // }
         $whereSql = "WHERE s.nombre_subcategoria like '$subcategoria' 
              AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
         ");
-
-		// $sql  = "SELECT p.id_categoria, p.id_subcategoria,descripcion, material,color,caracteristicas,marca,stock, precio
-		// 		FROM `producto` as p
-        //         $innerJoin
-		// 		$whereSql
-        // ";
 
         $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
                 FROM `producto` as p
@@ -1299,19 +1032,6 @@
         
         return $listaCarrito;
     }
-
-    // function obtenerUsuario ($id){
-    //     global $db;
-
-    //     $sql= "SELECT *
-    //         FROM `usuario`
-    //         WHERE id='$id'
-    //     "; 
- 
-    //     $rs = $db->query($sql);
-
-    //     return $rs;
-    // }
 
     function obtenerUsuario ($id){
         global $db;
