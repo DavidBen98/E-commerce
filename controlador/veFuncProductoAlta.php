@@ -72,6 +72,7 @@
                 
                 //No se pudo subir la imagen
                 header ("location: ../vistas/veProductoAlta.php?error=1");
+                exit;
             } else{
                 $sql = "INSERT INTO imagen_productos (id_producto, destination, portada) VALUES
                         ('$id_producto', '$result', 1)
@@ -79,14 +80,17 @@
 
                 $rs = $db -> query($sql);
                 header ("location: ../vistas/veProductoAlta.php?alta=exito");
+                exit;
             }
         } else {
             //La extensión del archivo es incorrecta
             header ("location: ../vistas/veProductoAlta.php?error=2");
+            exit;
         }
     }
     else{
         //Los datos ingresados no son correctos
         header ("location: ../vistas/veProductoAlta.php?error=3");
+        exit;
     }
 ?>

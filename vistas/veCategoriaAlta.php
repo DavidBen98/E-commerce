@@ -2,6 +2,7 @@
     include "encabezado.php";
     if (!perfil_valido(1)) {
         header("location:index.php");
+        exit;
     }
 
     $formulario ="

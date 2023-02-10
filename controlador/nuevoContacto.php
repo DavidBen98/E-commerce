@@ -5,6 +5,7 @@
 
     if (perfil_valido(1)) {
 		header("location:../vistas/veABMProducto.php");
+        exit;
 	}
 
     $nombre =(isset($_POST["nombre"]) && !empty($_POST["nombre"]))? trim($_POST["nombre"]):"";
@@ -14,15 +15,19 @@
     
     if($nombre == ""){
         header("location:../vistas/contacto.php?error=1");  
+        exit;
     }
     else if ($apellido == ""){
         header("location:../vistas/contacto.php?error=2");  
+        exit;
     }
     else if ($email == "" && !isset($_SESSION["servicio"]) && $user == ""){
-        header("location:../vistas/contacto.php?error=3");  
+        header("location:../vistas/contacto.php?error=3"); 
+        exit; 
     }
     else if ($txtIngresado == ""){
-        header("location:../vistas/contacto.php?error=4");  
+        header("location:../vistas/contacto.php?error=4"); 
+        exit; 
     }
     else if(isset($_SESSION["servicio"]) || isset($_SESSION["idUsuario"])){  
         global $db;
@@ -43,7 +48,8 @@
 
         $rs = $db->query($sql);
 
-        header("location:../vistas/contacto.php?consulta=exito");                       
+        header("location:../vistas/contacto.php?consulta=exito"); 
+        exit;                      
     }  
     else{
         global $db;
@@ -55,6 +61,7 @@
         $rs = $db->query($sql);
 
         header("location:../vistas/contacto.php?consulta=exito");
+        exit;
     }
 
 ?>

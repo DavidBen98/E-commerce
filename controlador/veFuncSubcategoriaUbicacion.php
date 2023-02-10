@@ -65,8 +65,10 @@
         rename($rutaAntigua, "../images/".$idCategoria.'/'.$idSubcategoria);
 
         header ("location: ../vistas/veSubcategoriaModif.php?modifU=exito");
+        exit;
     }
     else{
         header ("location: ../vistas/veSubcategoriaModif.php?errorU=data");
+        exit;
     }
 ?>

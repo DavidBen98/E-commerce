@@ -3,6 +3,7 @@
 
     if (!perfil_valido(1)) {
         header("location:index.php");
+        exit;
     }
 
     $subcategorias = obtenerSubcategorias();

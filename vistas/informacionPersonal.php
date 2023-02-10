@@ -8,9 +8,11 @@
 
     if (perfil_valido(3)) {
        header("location:login.php");
+       exit;
     }
     else if (perfil_valido(1)) {
         header("location:veABMProducto.php");
+        exit;
     }  
 
     $ruta = "<ol class='ruta'>

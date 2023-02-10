@@ -7,6 +7,7 @@
 
     if ($perfil == "E"){ 
         header("location:veABMProducto.php");
+        exit;
     }
 
     //Si se valida el token al iniciar sesion con Google

@@ -7,6 +7,7 @@
 	 
 	if (perfil_valido(1)) {
         header("location:veABMProducto.php");
+		exit;
     }  	
 	
 	$ruta = "<ol class='ruta'>

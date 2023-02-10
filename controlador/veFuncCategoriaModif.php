@@ -10,6 +10,7 @@
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
         header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=1#mensaje");
+        exit;
     }
     
     if ($modNombre != null){
@@ -18,6 +19,7 @@
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
             header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=2#mensaje");
+            exit;
         } else {
             $sql = "SELECT COUNT(*)
                     FROM categoria
@@ -31,9 +33,11 @@
                 
                 if ($modImagen == null){
                     header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                    exit;
                 }
             } else{
                 header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=5#mensaje");
+                exit;
             }
         }
     }
@@ -46,8 +50,10 @@
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
                 header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&nombre=exito&error=3#mensaje");
+                exit;
             } else {
                 header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=3#mensaje");
+                exit;
             }
         } else {
             $path = "../images/categorias/";
@@ -72,8 +78,10 @@
     
             if ($error){
                 header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=4#mensaje");
+                exit;
             } else {
                 header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                exit;
             }
         }
     }

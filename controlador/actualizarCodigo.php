@@ -32,5 +32,6 @@
     }
     else{
         header("location:../vistas/index.php");
+        exit;
     }
 ?>

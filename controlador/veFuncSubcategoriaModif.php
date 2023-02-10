@@ -10,6 +10,7 @@
     if ($modNombre == null && $modImagen == null){
         //Debe modificar al menos un campo
         header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=1#mensaje");
+        exit;
     }
     
     if ($modNombre != null){
@@ -18,6 +19,7 @@
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
             header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
+            exit;
         } else {
             $sql = "SELECT * 
                     FROM subcategoria
@@ -35,9 +37,11 @@
                 
                 if ($modImagen == null){
                     header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                    exit;
                 }
             } else {
                 header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=5#mensaje");
+                exit;
             }
         }
     }
@@ -50,8 +54,10 @@
             //Error: falta rellenar el campo imagen
             if($modNombre != null){
                 header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
+                exit;
             } else {
                 header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
+                exit;
             }
         } else {
             $path = '../images/subcategorias/';
@@ -76,6 +82,7 @@
     
             if (!$path){
                 header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
+                exit;
             } else {
                 $sql = "UPDATE imagen_subcategorias SET destination = '$path'
                     WHERE id_subcategoria = '$idSubcategoria'
@@ -83,6 +90,7 @@
 
                 $rs = $db->query($sql);
                 header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                exit;
             }
         }
     }

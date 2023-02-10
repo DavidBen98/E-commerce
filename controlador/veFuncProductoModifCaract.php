@@ -62,8 +62,10 @@
         $rs = $db->query($sql);
 
         header ("location: ../vistas/veProductoModif.php?id=$id&modif=exito");
+        exit;
     }
     else{
         header ("location: ../vistas/veProductoModif.php?id=$id&error=data");
+        exit;
     }
 ?>

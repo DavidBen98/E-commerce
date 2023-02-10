@@ -45,5 +45,6 @@
         $rs = $db->query($sql);
     }
     
-    header("location: ../vistas/veProductoModif.php?modUbi=exito&id=$id&ruta=$a");
+    header("location: ../vistas/veProductoModif.php?modUbi=exito&id=$id");
+    exit;
 ?>

@@ -7,9 +7,11 @@
 
     if (perfil_valido(3)) {
         header("location:login.php");
+        exit;
     }
     else if (perfil_valido(1)) {
         header("location:veABMProducto.php");
+        exit;
     } 
                  
     if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa

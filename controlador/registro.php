@@ -28,17 +28,22 @@
 
     if ($i > 0){
         header("location:../vistas/login.php?reg=true&error=4");
+        exit;
     }
     else if ($psw != $psw2){
         header("location:../vistas/login.php?reg=true&error=1");
+        exit;
     }
     else if (strlen($dni) < 7 || strlen($dni) > 8){
         header("location:../vistas/login.php?reg=true&error=2");
+        exit;
     }
     else if ($nombre == "" || $apellido == "" || $dni == "" || $email == "" || $provincia == "" || ($ciudad == "" && $provincia !="02") || $direccion == "" || $nombreUsuario == "" || $psw == ""){
         header("location:../vistas/login.php?reg=true&error=3");
+        exit;
     } else if (strlen($psw) < 6) {
         header("location:../vistas/login.php?reg=true&error=5");
+        exit;
     }
     else{
         $psw = generar_clave_encriptada($psw);
@@ -63,5 +68,6 @@
         $rs = $db->query($insertar);
 
         header("location:../vistas/login.php?reg=true&registro=exitoso&apellido=$apellido");
+        exit;
     }
 ?>

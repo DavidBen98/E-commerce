@@ -36,6 +36,7 @@
 
         $rs = $db -> query ($sql);
         header ("location: ../vistas/veProductoBaja.php?elim=exito");
+        exit;
     }
     else{
         $categoria = $_POST['categoria'];

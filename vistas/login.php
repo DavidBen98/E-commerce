@@ -8,9 +8,11 @@
 
 	if (perfil_valido(2)) {
 		header("location:informacionPersonal.php");
+		exit;
 	} 
 	else if (perfil_valido(1)) {
 		header("veABMProducto.php");
+		exit;
 	}
 
 	// $auth = new TwitterAuth($cliente);

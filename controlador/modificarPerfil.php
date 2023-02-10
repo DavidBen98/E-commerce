@@ -115,5 +115,6 @@
         $stmt->execute();
 
         header("location: ../vistas/informacionPersonal.php?modif=exito#mensaje");
+        exit;
     }
 ?>

@@ -11,10 +11,12 @@
   
     if (perfil_valido(3) && (!isset($_GET["code"]) || !isset($_SESSION["user_first_name"])) && (!isset($_SESSION["nombre_tw"]))) {
         header("location:login.php"); 
+        exit;
         //TODO: cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
     else if (perfil_valido(1)) {
         header("location:veABMProducto.php");
+        exit;
     }
 
     $ruta = "<ol class='ruta'>

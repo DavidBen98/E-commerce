@@ -11,8 +11,10 @@
         $rs = $db->query($sql);
 
         header ("location: ../vistas/veSubcategoriaBaja.php?elim=exito");
+        exit;
     }
     else{
         header ("location: ../vistas/veSubcategoriaBaja.php?error=data");
+        exit;
     }
 ?>

@@ -10,6 +10,7 @@
         $sql = "UPDATE categoria SET activo = '1' WHERE id_categoria = '$categoria'";
         $rs = $db->query($sql);
         header ("location: ../vistas/veCategoriaAlta.php?reactivacion=exito");
+        exit;
     } else {
         $nombre = isset($_POST["nombre"]) && (trim($_POST["nombre"]) != "")? trim($_POST["nombre"]): null;
     
@@ -47,6 +48,7 @@
                         $rs = $db->query($sql);
 
                         header ("location: ../vistas/veCategoriaAlta.php?error=1");
+                        exit;
                     } else {
                         $sql = "INSERT INTO `imagen_categorias`(`id_categoria`, `destination`) 
                                 VALUES ('$id_categoria','$result')
@@ -54,19 +56,23 @@
                         $rs = $db->query($sql);
                         //exitoso
                         header ("location: ../vistas/veCategoriaAlta.php?alta=exito");
+                        exit;
                     }  
                 } else {
                     //El nombre ya existe
                     header ("location: ../vistas/veCategoriaAlta.php?error=2");
+                    exit;
                 }
 
             } else {
                 //nombre vacio
-                header ("location: ../vistas/veCategoriaAlta.php?error=3");     
+                header ("location: ../vistas/veCategoriaAlta.php?error=3");    
+                exit; 
             } 
         } else {
             //imagen vacia
             header ("location: ../vistas/veCategoriaAlta.php?error=4");
+            exit;
         }
     }
 ?>

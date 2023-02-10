@@ -10,6 +10,7 @@
         $sql = "UPDATE subcategoria SET activo = '1' WHERE id_subcategoria = '$subcategoria'";
         $rs = $db->query($sql);
         header ("location: ../vistas/veSubcategoriaAlta.php?reactivacion=exito");
+        exit;
     } else {
         $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
         $categoria = (isset($_POST['categoria']) && $_POST['categoria'] !== -1)? $_POST['categoria']: null;
@@ -56,6 +57,7 @@
                                 $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$idSubcategoria'";
                                 $rs = $db->query($sql);
                                 header ("location: ../vistas/veSubcategoriaAlta.php?error=1");
+                                exit;
                             }else{
                                 $sql = "INSERT INTO `imagen_subcategorias`(`id_subcategoria`, `destination`) 
                                         VALUES ('$idSubcategoria','$result')
@@ -64,26 +66,32 @@
     
                                 //exitoso
                                 header ("location: ../vistas/veSubcategoriaAlta.php?alta=exito");
+                                exit;
                             }  
                         } else {
                             //El nombre ya existe
                             header ("location: ../vistas/veSubcategoriaAlta.php?error=2");
+                            exit;
                         }
                     } else {
                         //categoria no existente en bd
                         header ("location: ../vistas/veSubcategoriaAlta.php?error=5");
+                        exit;
                     }
                 } else {
                     //categoria vacia
                     header ("location: ../vistas/veSubcategoriaAlta.php?error=6");
+                    exit;
                 }
             } else {
                 //nombre vacio
-                header ("location: ../vistas/veSubategoriaAlta.php?error=3");     
+                header ("location: ../vistas/veSubategoriaAlta.php?error=3");
+                exit;     
             } 
         } else {
             //imagen vacia
             header ("location: ../vistas/veSubcategoriaAlta.php?error=4");
+            exit;
         }
     }
 ?>

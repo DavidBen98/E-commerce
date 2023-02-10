@@ -7,6 +7,7 @@
 
 	if ($perfil == "E"){ 
 		header("location:veABMProducto.php");
+		exit;
 	} 
 
     global $db; 
