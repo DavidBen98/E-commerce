@@ -67,7 +67,7 @@
             //Siempre debería entrar aca, ya que al crear una nueva subcategoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
             if ($path != '../images/subcategorias/'){
-                deleteDir($path);
+                eliminarDireccion($path);
             }
     
             $url = 'veSubcategoriaModif.php';

@@ -892,7 +892,7 @@
         foreach($arrColores as $indice => $valor){
             $id = str_replace(" ","",$indice);
             $html .= "<div class='$fieldset_class'>
-                        <input type='checkbox' class='input' name='$input_name' id='$id' title='$legend_title $indice' value='$indice'>
+                        <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
                         <label for='$id'> ".ucfirst($indice)."</label>
                     </div>";
         }
@@ -913,7 +913,7 @@
         foreach($arrMarcas as $indice => $valor){
             $id = str_replace(" ","",$indice);
             $html .= "<div class='$fieldset_class'>
-                        <input type='checkbox' class='input' name='$input_name' id='$id' title='$legend_title $indice' value='$indice'>
+                        <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
                         <label for='$id'> ".ucfirst($indice)."</label>
                     </div>"
             ;
@@ -959,7 +959,7 @@
 
         if ($redSocial == "Google"){
             $email = $_SESSION["user_email_address"];
-            $where = "WHERE (u.email = '$email')";
+            $where = "WHERE (u.email = :email)";
         }
         else{
             $where = "WHERE (u.email LIKE '%')";
@@ -1272,39 +1272,58 @@
                 FROM imagen_subcategorias as s
                 INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
                 INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
-                WHERE c.id_categoria = '$categoria' AND sub.activo = 1
+                WHERE c.id_categoria = :categoria AND sub.activo = 1
         ";
 
-        $rs = $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
+        $stmt->execute();
+        $rs = $stmt->fetchAll();
 
         return $rs;
     }
 
+    // function obtenerProductoConCantidad($id, $cantidad){
+    //     global $db;
+    
+    //     $sql = $db->prepare(
+    //         "SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, :cantidad AS cantidad
+    //         FROM producto
+    //         WHERE id=:id"
+    //     );
+    
+    //     $sql->bindParam(':id', $id, PDO::PARAM_INT);
+    //     $sql->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+    //     $sql->execute();
+    
+    //     return $sql->fetch(PDO::FETCH_ASSOC);
+    // }
+
     function obtenerProductoConCantidad($id, $cantidad){
         global $db;
+    
+        $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
+                                 FROM producto
+                                 WHERE id=?
+            ");
 
-        $sql = $db->prepare(
-            "SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
-            FROM producto
-            WHERE id=?"
-        );
+        $sql -> execute ([$key]);
+        $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
 
-        $sql -> execute ($id);
-
-        return $sql->fetch(PDO::FETCH_ASSOC);
+        return $listaCarrito;
     }
 
     function obtenerUsuario ($id){
         global $db;
+        $sql = $db->prepare("SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
+                            FROM `usuario`
+                            WHERE id = :id"
+        );
 
-        $sql= "SELECT nombreUsuario, perfil, nroDni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
-            FROM `usuario`
-            WHERE id='$id'
-        "; 
- 
-        $rs = $db->query($sql);
-
-        return $rs;
+        $sql->bindParam(':id', $id, PDO::PARAM_INT);
+        $sql->execute();
+    
+        return $sql->fetch(PDO::FETCH_ASSOC);
     }
 
     function obtenerUsuarioConRS ($id){
@@ -1313,191 +1332,158 @@
         $sql = "SELECT u.id
                 FROM usuario as u
                 INNER JOIN usuarios_rs as rs ON rs.id = u.id
-                WHERE rs.id_social = $id
+                WHERE rs.id_social = :id
         ";
 
-        $rs = $db->execute($sql);
-        return $rs;
-
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     function obtenerNombreProvincia ($provincia){
-        if ($provincia == "02"){
-            $provincia = "Ciudad Autónoma de Buenos Aires";
-        }
-        else if ($provincia == "06"){
-            $provincia = "Buenos Aires";
-        }
-        else if ($provincia == "10"){
-            $provincia = "Catamarca";
-        }
-        else if ($provincia == "14"){
-            $provincia = "Córdoba";
-        }
-        else if ($provincia == "18"){
-            $provincia = "Corrientes";
-        }
-        else if ($provincia == "22"){
-            $provincia = "Chaco";
-        }
-        else if ($provincia == "26"){
-            $provincia = "Chubut";
-        }
-        else if ($provincia == "30"){
-            $provincia = "Entre Ríos";
-        }
-        else if ($provincia == "34"){
-            $provincia = "Formosa";
-        }
-        else if ($provincia == "38"){
-            $provincia = "Jujuy";
-        }
-        else if ($provincia == "42"){
-            $provincia = "La Pampa";
-        }
-        else if ($provincia == "46"){
-            $provincia = "La Rioja";
-        }
-        else if ($provincia == "50"){
-            $provincia = "Mendoza";
-        }
-        else if ($provincia == "54"){
-            $provincia = "Misiones";
-        }
-        else if ($provincia == "58"){
-            $provincia = "Neuquén";
-        }
-        else if ($provincia == "62"){
-            $provincia = "Río Negro";
-        }
-        else if ($provincia == "66"){
-            $provincia = "Salta";
-        }
-        else if ($provincia == "70"){
-            $provincia = "San Juan";
-        }
-        else if ($provincia == "74"){
-            $provincia = "San Luis";
-        }
-        else if ($provincia == "78"){
-            $provincia = "Santa Cruz";
-        }
-        else if ($provincia == "82"){
-            $provincia = "Santa Fe";
-        }
-        else if ($provincia == "86"){
-            $provincia = "Santiago del Estero";
-        }
-        else if ($provincia == "90"){
-            $provincia = "Tucumán";
-        }
-        else if ($provincia == "94"){
-            $provincia = "Tierra del Fuego, Antártida e Islas del Atlántico Sur";
+        $provincias = [
+            "02" => "Ciudad Autónoma de Buenos Aires",
+            "06" => "Buenos Aires",
+            "10" => "Catamarca",
+            "14" => "Córdoba",
+            "18" => "Corrientes",
+            "22" => "Chaco",
+            "26" => "Chubut",
+            "30" => "Entre Ríos",
+            "34" => "Formosa",
+            "38" => "Jujuy",
+            "42" => "La Pampa",
+            "46" => "La Rioja",
+            "50" => "Mendoza",
+            "54" => "Misiones",
+            "58" => "Neuquén",
+            "62" => "Río Negro",
+            "66" => "Salta",
+            "70" => "San Juan",
+            "74" => "San Luis",
+            "78" => "Santa Cruz",
+            "82" => "Santa Fe",
+            "86" => "Santiago del Estero",
+            "90" => "Tucumán",
+            "94" => "Tierra del Fuego, Antártida e Islas del Atlántico Sur"
+        ];
+    
+        if (array_key_exists($provincia, $provincias)){
+            return $provincias[$provincia];
         } else{
-            $provincia = "";
+            return "";
         }
-
-        return $provincia;
     }
 
     function obtenerNombreCategoria($id){
         global $db;
-
+    
         $sql = "SELECT nombre_categoria
                 FROM categoria
                 WHERE id_categoria = $id
+                LIMIT 1
         ";
-
-        $rs = $db->query($sql);
-
-        foreach ($rs as $row){
-            $nombre = $row['nombre_categoria'];
-        }
-
-        return $nombre;
+    
+        $rs = $db->query($sql)->fetch();
+    
+        return $rs['nombre_categoria'];
     }
 
     function obtenerNombreSubcategoria($id){
         global $db;
-
+    
         $sql = "SELECT nombre_subcategoria
                 FROM subcategoria
-                WHERE id_subcategoria = $id
+                WHERE id_subcategoria = ?
         ";
-
-        $rs = $db->query($sql);
-
-        foreach ($rs as $row){
-            $nombre = $row['nombre_subcategoria'];
-        }
-
+    
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$id]);
+        $nombre = $stmt->fetchColumn();
+    
         return $nombre;
     }
     
-    function insertarUsuario ($nombre, $apellido, $email, $perfil, $existe){
+    function insertarUsuario($nombre, $apellido, $email, $perfil, $existe){
         global $db;
-
-        //Si no existe una persona con ese nombre de usuario
-        if (!$existe){
-            $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil) VALUES
-                    ('$nombre$apellido','$nombre', '$apellido', '$email', '$perfil')
-            ";
-        } else {
-            $sql = "INSERT INTO usuario (nombre, apellido, email, perfil) VALUES
-                    ('$nombre', '$apellido', '$email', '$perfil')
-            ";
-        }
-
-        $db->query($sql);
-
+    
+        $nombreUsuario = $existe ? "$nombre$apellido" : "";
+        $sql = "INSERT INTO usuario (nombreUsuario, nombre, apellido, email, perfil)
+                VALUES (:nombreUsuario, :nombre, :apellido, :email, :perfil)
+        ";
+    
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':nombreUsuario', $nombreUsuario);
+        $stmt->bindValue(':nombre', $nombre);
+        $stmt->bindValue(':apellido', $apellido);
+        $stmt->bindValue(':email', $email);
+        $stmt->bindValue(':perfil', $perfil);
+        $stmt->execute();
+    
         return $db->lastInsertId();
     }
 
-    function insertarUsuarioRS ($idUsuario, $id){
+    function insertarUsuarioRS ($idUsuario, $id, $servicio = 'Google'){
         global $db;
 
         $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                ('$idUsuario', '$id', 'Google')
+                (?,?,?)
         ";
-
-        $db->query($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$idUsuario, $id, $servicio]);
     }
 
-    function insertarCompra($idUsuario,$monto,$paymentId,$fecha,$estado, $email){
+    function insertarCompra($idUsuario, $monto, $paymentId, $fecha, $estado, $email){
         global $db;
-
-        $sql = "INSERT INTO `compra`(`id_usuario`,`total`, `id_transaccion`, `fecha`, `estado`, `email`) 
-                VALUES ('$idUsuario','$monto','$paymentId','$fecha','$estado', '$email')
-        ";
-
-        $rs = $db->query($sql);
-
-        $idCompra = $db->lastInsertId();
-
-        return $idCompra;
+    
+        $query = "INSERT INTO compra (id_usuario, total, id_transaccion, fecha, estado, email) 
+                  VALUES (:id_usuario, :total, :id_transaccion, :fecha, :estado, :email)";
+    
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':id_usuario', $idUsuario);
+        $stmt->bindValue(':total', $monto);
+        $stmt->bindValue(':id_transaccion', $paymentId);
+        $stmt->bindValue(':fecha', $fecha);
+        $stmt->bindValue(':estado', $estado);
+        $stmt->bindValue(':email', $email);
+    
+        $stmt->execute();
+    
+        return $db->lastInsertId();
     }
 
-    function insertarDetalleCompra($idCompra,$idProducto,$nombre,$precioUnitario,$cantidad){
+    function insertarDetalleCompra($idCompra, $idProducto, $nombre, $precioUnitario, $cantidad){
         global $db;
-
-        $sql = "INSERT INTO detalle_compra (id_compra, id_producto, nombre, precio, cantidad) VALUES
-            ('$idCompra','$idProducto','$nombre','$precioUnitario','$cantidad')
+    
+        $sql = "INSERT INTO detalle_compra (id_compra, id_producto, nombre, precio, cantidad) 
+                VALUES (:id_compra, :id_producto, :nombre, :precio, :cantidad)
         ";
-
-        $rs = $db->query($sql);
+    
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id_compra', $idCompra, PDO::PARAM_INT);
+        $stmt->bindParam(':id_producto', $idProducto, PDO::PARAM_INT);
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        $stmt->bindParam(':precio', $precioUnitario, PDO::PARAM_STR);
+        $stmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
+    
+        return $stmt->execute();
     }
 
     function seleccionarUsuarioConEmail($email){
         global $db;
 
-        $sql = "SELECT id_social, id_usuario
-                FROM `usuario_rs` as rs
-                INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-                WHERE (u.email = '$email')
-        ";
+        $stmt = $db->prepare("
+            SELECT id_social, id_usuario
+            FROM `usuario_rs` as rs
+            INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+            WHERE (u.email = :email)
+        ");
 
-        $rs = $db->query($sql);
-        return $rs;
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 
     function seleccionarUsuarioConId($id){
@@ -1506,37 +1492,41 @@
         $sql = "SELECT u.id
                 FROM usuario as u 
                 INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
-                WHERE rs.id_social = '$id'
+                WHERE rs.id_social = :id
         ";
 
-        $rs = $db->query($sql); 
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $rs = $stmt->fetch();
         
         return $rs;
     }
 
     function seleccionarUsuarioConNombreUsuario($nombreUsuario){
         global $db;
-
-        $sql = "SELECT nombreUsuario
-                FROM usuario
-                WHERE nombreUsuario = '$nombreUsuario'
-        ";
-
-        $rs = $db->query($sql);
-        return $rs;
+    
+        $stmt = $db->prepare("SELECT nombreUsuario FROM usuario WHERE nombreUsuario = :nombreUsuario");
+        $stmt->bindValue(':nombreUsuario', $nombreUsuario, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        return $result;
     }
 
-    function obtenerFavoritos($idUsuario){
+    function obtenerFavoritos($idUsuario) {
         global $db;
 
-        $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
-                FROM `producto` as p 
-                INNER JOIN `favorito` as f on p.id = f.id_producto 
-                WHERE f.id_usuario = '$idUsuario'
-        "; 
+        $stmt = $db->prepare("
+            SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
+            FROM `producto` as p 
+            INNER JOIN `favorito` as f on p.id = f.id_producto 
+            WHERE f.id_usuario = :idUsuario
+        ");
+        $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
 
-        $rs = $db->query($sql);
-        return $rs;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function eliminarFavorito($db, $idProducto, $idUsuario) {
@@ -1560,52 +1550,56 @@
         return "ok";
     }
 
-    function deleteDir($dir) {
-        if (!file_exists($dir)) {
+    function eliminarDireccion($direccion) {
+        if (!file_exists($direccion)) {
             return false;
         }
-        if (!is_dir($dir)) {
-            return unlink($dir);
+        if (!is_dir($direccion)) {
+            return unlink($direccion);
         }
 
-        foreach (scandir($dir) as $item) {
+        foreach (scandir($direccion) as $item) {
             if ($item == "." || $item == "..") {
                 continue;
             }
-            if (!deleteDir($dir . DIRECTORY_SEPARATOR . $item)) {
+            if (!eliminarDireccion($direccion . DIRECTORY_SEPARATOR . $item)) {
                 return false;
             }
         }
         
-        return rmdir($dir);
+        return rmdir($direccion);
     }
 
     function subirImagen($imagen, $url, $destination){
         $imagen_name = $imagen["name"];
         $imagen_tmp = $imagen["tmp_name"];
         $imagen_error = $imagen["error"];
-        $imagen_ext = explode(".",$imagen_name);
-        $imagen_ext = strtolower(end($imagen_ext));
-        $allowed = array("jpg", "jpeg", "png");
+        $imagen_ext = strtolower(pathinfo($imagen_name, PATHINFO_EXTENSION));
+    
+        define("ALLOWED_EXTENSIONS", array("jpg", "jpeg", "png"));
+    
+        // Se comprueba si la extensión es válida
+        if (!in_array($imagen_ext, ALLOWED_EXTENSIONS)) {
+            return false;
+        }
+    
+        // Se comprueba si la imagen se subió correctamente
+        if ($imagen_error !== 0) {
+            return false;
+        }
+    
+        // Se determina la nueva ruta de destino
+        if ($url === "veFuncProductoAlta.php"){
+            $imagen_name_new = "portada." . $imagen_ext;
+            mkdir($destination, 0777, true);
+            $new_destination = $destination . $imagen_name_new;
+        } else {
+            $new_destination = $destination . "." . $imagen_ext;
+        }
 
-        //Se podrian dividir los errores segun extensión o si falló el upload de la imagen
-        if(in_array($imagen_ext, $allowed)){
-            if($imagen_error === 0){
-                if ($url === "veCategoriaModif.php" || $url === "veCategoriaAlta.php" || $url === "veSubcategoriaAlta.php" || $url === "veSubcategoriaModif.php"){
-                    $destination .= ".".$imagen_ext;
-                } else if ($url === "veFuncProductoAlta.php"){
-                    $imagen_name_new =  "portada." . $imagen_ext;
-                    mkdir($destination, 0777, true);
-                    $destination .= $imagen_name_new;
-                }
-
-                if(move_uploaded_file($imagen_tmp, $destination)){
-                    $destination = str_replace("../","",$destination);
-                    return $destination;
-                }else{
-                    return $destination;
-                }
-            }   
+        if(move_uploaded_file($imagen_tmp, $new_destination)){
+            $new_destination = str_replace("../", "", $new_destination);
+            return $new_destination;
         } else {
             return false;
         }

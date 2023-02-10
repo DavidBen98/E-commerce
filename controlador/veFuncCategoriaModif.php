@@ -63,7 +63,7 @@
             //Siempre debería entrar aca, ya que al crear una nueva categoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
             if ($path != "../images/categorias/"){
-                deleteDir($path);
+                eliminarDireccion($path);
             }
     
             $url = "veCategoriaModif.php";

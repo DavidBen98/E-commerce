@@ -22,7 +22,7 @@
 
         $path = substr($path,0, strrpos($path,'/'));
 
-        deleteDir($path);
+        eliminarDireccion($path);
         //Elimina todas las imagenes de ese producto, ya sean portadas o no
         $sql = "DELETE FROM imagen_productos
                 WHERE id_producto = '$id'

@@ -95,7 +95,7 @@
 		$innerJoin = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					  INNER JOIN categoria as c on c.id_categoria = p.id_categoria
 		";
-		$where = "WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria'";
+		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria'";
 
         $sql = completarWhere($select, $from, $innerJoin, $where, $filtros);
         $rs = $db->query($sql);

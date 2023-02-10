@@ -26,10 +26,17 @@
     $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
     $listaCarrito = array();
     $productosAgregados = 0;
+    global $db;
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
-            $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
+            $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
+                                 FROM producto
+                                 WHERE id=?
+            ");
+
+            $sql -> execute ([$key]);
+            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
         $productosAgregados = count($listaCarrito);
     }

@@ -1,16 +1,21 @@
 <?php
     require_once "config.php";
 
-    //Reset OAuth access token
+    // Revocar el token OAuth
     $google_client->revokeToken();
 
-    //Destroy entire session data.
+    // Cerrar sesión de Twitter
+    // if (isset($_SESSION['access_token'])) {
+    //     $auth = new TwitterAuth($cliente);
+    //     $auth->signOut();
+    // }
+
+    // Eliminar todos los datos de sesión
+    $_SESSION = array();
+    session_unset();
     session_destroy();
 
-    // $auth = new TwitterAuth($cliente);
-
-    // $auth->signOut();
-
-    //redirect page to index.php
-    header("location:../vistas/index.php");
+    // Redirigir a la página de inicio
+    header("Location: ../vistas/index.php");
+    exit;
 ?>
