@@ -55,5 +55,4 @@
         }
     }
     $select .= "</select>";
-    exit;
 ?>

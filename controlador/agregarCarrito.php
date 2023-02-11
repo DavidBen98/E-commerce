@@ -19,5 +19,4 @@
     }
 
     echo json_encode ($datos);
-    exit;
 ?>

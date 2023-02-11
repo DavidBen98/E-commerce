@@ -70,5 +70,4 @@
     }
 
     echo $datos;
-    exit;
 ?>

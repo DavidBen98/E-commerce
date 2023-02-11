@@ -2,9 +2,9 @@
     include  "../inc/conn.php";
     require_once "../controlador/config.php";
     include_once "../controlador/apiDatos.php";
-    include "encabezado.php"; 
-    include "modalNovedades.php";
-    include "pie.php";  
+    include_once "encabezado.php"; 
+    include_once "modalNovedades.php";
+    include_once "pie.php";  
 
     if (perfil_valido(3)) {
        header("location:login.php");
@@ -23,7 +23,7 @@
     
     if (isset($_SESSION["idUsuario"])){
         $id_usuario = $_SESSION["idUsuario"];
-    }else if (isset($_SESSION["id"])){
+    } else if (isset($_SESSION["id"])){
         $id_usuario = obtener_usuario_con_rs($_SESSION["id"]);
     }
     // else if (isset($_SESSION["id_tw"])){
@@ -99,8 +99,7 @@
                 </div>
 
                 <div class='renglon'>
-                    <div class='cont-reg l-novedades'>
-                        
+                    <div class='cont-reg l-novedades'>                
         ";
 
         if ($row["suscripcion"] === 1){
