@@ -4,21 +4,13 @@
     global $db;
 
     $id = $_POST['id'];
-
-    $descripcion = (isset($_POST['descripcion']) && $_POST['descripcion'] !== "")? ucfirst($_POST['descripcion']): null;
-    
+    $descripcion = (isset($_POST['descripcion']) && $_POST['descripcion'] !== "")? ucfirst($_POST['descripcion']): null;    
     $material = (isset($_POST['input-material']) && $_POST['input-material'] !== "")? ucfirst($_POST['input-material']): null;
-    
     $color = (isset($_POST['color']))? ucfirst($_POST['color']): null;
-    
     $caracteristicas = (isset($_POST['caracteristicas']))? $_POST['caracteristicas']: null;
-    
     $marca = (isset($_POST['input-marca']) && $_POST['input-marca'] !== "")? $_POST['input-marca']: null;
-    
     $cant = (isset($_POST['cant']) && $_POST['cant'] !== "" && $_POST['cant'] >= 0)? $_POST['cant']: null;
-    
     $precio = (isset($_POST['precio']) && $_POST['precio'] > 0)? $_POST['precio']: null;
-    
     $descuento = (isset($_POST['descuento']) && $_POST['descuento'] != "" && $_POST['descuento'] >= 0)? 
                     $_POST['descuento']: null;
 

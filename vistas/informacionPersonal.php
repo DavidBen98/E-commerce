@@ -22,15 +22,15 @@
     ";
     
     if (isset($_SESSION["idUsuario"])){
-        $idUsuario = $_SESSION["idUsuario"];
+        $id_usuario = $_SESSION["idUsuario"];
     }else if (isset($_SESSION["id"])){
-        $idUsuario = obtenerUsuarioConRS($_SESSION["id"]);
+        $id_usuario = obtener_usuario_con_rs($_SESSION["id"]);
     }
     // else if (isset($_SESSION["id_tw"])){
-    //     $idUsuario = $_SESSION["id_tw"];
+    //     $id_usuario = $_SESSION["id_tw"];
     // }
         
-    $rs = obtenerUsuario($idUsuario);
+    $rs = obtener_usuario($id_usuario);
 
     $infoPersonal = "";
 

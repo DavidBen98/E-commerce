@@ -29,7 +29,7 @@
     $productosAgregados = 0;
 
     if ($productos != null){
-        $listaCarrito = obtenerListaCarrito($productos);
+        $listaCarrito = obtener_lista_carrito($productos);
         $productosAgregados = count($listaCarrito);
     }
 
@@ -92,7 +92,7 @@
             $material = ucfirst($producto["material"]);
             $stock = intval($producto["stock"]);
             $cantidad = intval($producto["cantidad"]);
-            $path = obtenerImagenProducto($id);
+            $path = obtener_imagen_producto($id);
             
             if ($stock < $cantidad){
                 $cantidad = $stock;

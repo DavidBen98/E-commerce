@@ -5,29 +5,19 @@
     global $db;
     
     $categoria = (isset($_POST["categoria"]) && $_POST["categoria"] !== -1)? $_POST["categoria"]: null;
-  
     $subcategoria = (isset($_POST["subcategoria"]) && $_POST["subcategoria"] !== -1)? $_POST["subcategoria"]: null;
-    
     $codigo = (isset($_POST["codigo"]) && trim($_POST["codigo"]) !== "")? trim($_POST["codigo"]): null;
-    
     $descripcion = (isset($_POST["descripcion"]) && trim($_POST["descripcion"]) !== "")? ucfirst(trim($_POST["descripcion"])): null;
-    
     $material = (isset($_POST["material"]) && trim($_POST["material"]) !== "")? ucfirst(trim($_POST["material"])): (trim($_POST["input-material"]) !== ""? ucfirst(trim($_POST["input-material"])) : null);
-    
     $color = (isset($_POST["color"]) && trim($_POST["color"]) !== "")? ucfirst(trim($_POST["color"])): (trim($_POST["input-color"]) !== ""? ucfirst(trim($_POST["input-color"])) : null);
-    
     $caracteristicas = (isset($_POST["caracteristicas"]))? $_POST["caracteristicas"]: null;
-    
     $marca = (isset($_POST["marca"]) && trim($_POST["marca"]) !== "")? trim($_POST["marca"]): (trim($_POST["input-marca"]) !== ""? ucfirst(trim($_POST["input-marca"])) : null);
-    
-    $cant = (isset($_POST["cant"]) && $_POST["cant"] !== "" && intval($_POST["cant"]) >= 0)? $_POST["cant"]: null;
-    
+    $cant = (isset($_POST["cant"]) && $_POST["cant"] !== "" && intval($_POST["cant"]) >= 0)? $_POST["cant"]: null; 
     $precio = (isset($_POST["precio"]) && floatval($_POST["precio"]) > 0)? $_POST["precio"]: null;
-    
     $descuento = (isset($_POST["descuento"]) && floatval($_POST["descuento"]) >= 0 && floatval($_POST["descuento"]) < 100)? 
                     $_POST["descuento"]: null;
     
-    $existImg = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
+    $existe_imagen = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
 
     if ($categoria !== null && $subcategoria !== null && $codigo !== null && $descripcion !== null && $material !== null &&
     $color !== null && $caracteristicas !== null && $marca !== null && $cant !== null && $precio !== null && $descuento !== null){
@@ -51,7 +41,7 @@
             $caract = "Alto: ".strval($caracteristicas[0]). "cm,ancho: ".strval($caracteristicas[1]) ."cm";
         }
 
-        if($existImg !== null){
+        if($existe_imagen !== null){
             $sql = "INSERT INTO producto (`codigo`, `descripcion`, `material`, `color`,`caracteristicas`,
                                 `marca`, `stock`, `precio`, `id_categoria`, `id_subcategoria`, `descuento`) 
                     VALUES ('$codigo', '$descripcion', '$material', '$color','$caract','$marca','$cant',
@@ -62,9 +52,9 @@
             $id_producto = $db->lastInsertId();
 
             $imagen = $_FILES["imagen"];
-            $imagenDestino = "../images/". $categoria . "/". $subcategoria . "/" . $id_producto . "/";
-            mkdir($imagenDestino, 0777, true);
-            $result = subirImagen($imagen, "veFuncProductoAlta.php", $imagenDestino);
+            $destino_imagen = "../images/". $categoria . "/". $subcategoria . "/" . $id_producto . "/";
+            mkdir($destino_imagen, 0777, true);
+            $result = subir_imagen($imagen, "veFuncProductoAlta.php", $destino_imagen);
 
             if(!$result){
                 $sql = "DELETE FROM producto WHERE id = '$id_producto'";

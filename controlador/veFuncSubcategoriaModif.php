@@ -3,22 +3,22 @@
     include_once ("funciones.php");
 
     global $db;
-    $idSubcategoria = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
-    $modNombre = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
-    $modImagen = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
+    $id_subcategoria = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
+    $nombre_modificado = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
+    $imagen_modificada = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
 
-    if ($modNombre == null && $modImagen == null){
+    if ($nombre_modificado == null && $imagen_modificada == null){
         //Debe modificar al menos un campo
-        header ("location: ../vesubcategoriaModif.php?subcategoria=$idSubcategoria&error=1#mensaje");
+        header ("location: ../vesubcategoriaModif.php?subcategoria=$id_subcategoria&error=1#mensaje");
         exit;
     }
     
-    if ($modNombre != null){
+    if ($nombre_modificado != null){
         $nombre = (isset($_POST['nombre']) && trim($_POST['nombre']) != "")? ucfirst(trim($_POST['nombre'])): null;
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=2#mensaje");
+            header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&error=2#mensaje");
             exit;
         } else {
             $sql = "SELECT * 
@@ -33,30 +33,30 @@
             }
 
             if ($existe == 0) {
-                $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $idSubcategoria");
+                $rs = $db->query ("UPDATE `subcategoria` SET `nombre_subcategoria`='$nombre' WHERE `id_subcategoria` = $id_subcategoria");
                 
-                if ($modImagen == null){
-                    header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                if ($imagen_modificada == null){
+                    header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&modif=exito#mensaje");
                     exit;
                 }
             } else {
-                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=5#mensaje");
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&error=5#mensaje");
                 exit;
             }
         }
     }
 
-    if ($modImagen != null){
+    if ($imagen_modificada != null){
         $imagen = $_FILES["imagen"];
         $check = ($imagen["tmp_name"] != '')? getimagesize($imagen["tmp_name"]) : false;
 
         if ($check == false){
             //Error: falta rellenar el campo imagen
-            if($modNombre != null){
-                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&nombre=exito&error=3#mensaje");
+            if($nombre_modificado != null){
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&nombre=exito&error=3#mensaje");
                 exit;
             } else {
-                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=3#mensaje");
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&error=3#mensaje");
                 exit;
             }
         } else {
@@ -64,7 +64,7 @@
             $files = scandir($path);
         
             foreach($files as $file){
-                if ($file == $idSubcategoria.".png" || $file == $idSubcategoria.".jpg" || $file == $idSubcategoria.".jpeg"){
+                if ($file == $id_subcategoria.".png" || $file == $id_subcategoria.".jpg" || $file == $id_subcategoria.".jpeg"){
                     $path .= $file;
                 }
             }
@@ -73,23 +73,23 @@
             //Siempre debería entrar aca, ya que al crear una nueva subcategoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
             if ($path != '../images/subcategorias/'){
-                eliminarDireccion($path);
+                eliminar_direccion($path);
             }
     
             $url = 'veSubcategoriaModif.php';
-            $path = '../images/subcategorias/'.$idSubcategoria;
-            $path = subirImagen($imagen, $url, $path);
+            $path = '../images/subcategorias/'.$id_subcategoria;
+            $path = subir_imagen($imagen, $url, $path);
     
             if (!$path){
-                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&error=4#mensaje");
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&error=4#mensaje");
                 exit;
             } else {
                 $sql = "UPDATE imagen_subcategorias SET destination = '$path'
-                    WHERE id_subcategoria = '$idSubcategoria'
+                    WHERE id_subcategoria = '$id_subcategoria'
                 ";
 
                 $rs = $db->query($sql);
-                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$idSubcategoria&modif=exito#mensaje");
+                header ("location: ../vistas/veSubcategoriaModif.php?subcategoria=$id_subcategoria&modif=exito#mensaje");
                 exit;
             }
         }

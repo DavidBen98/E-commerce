@@ -14,9 +14,9 @@
     } else {
         $nombre = isset($_POST['nombre']) && (trim($_POST['nombre']) != '')? trim($_POST['nombre']): null;
         $categoria = (isset($_POST['categoria']) && $_POST['categoria'] !== -1)? $_POST['categoria']: null;
-        $existImg = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
+        $existe_imagen = ($_FILES["imagen"]["tmp_name"] != '')? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
     
-        if($existImg !== null){
+        if($existe_imagen !== null){
             //Comprobar que nombre es diferente de vacío
             if ($nombre !== null){
                 //Comprobar que se seleccionó una categoría
@@ -36,8 +36,8 @@
             
                         $rs = $db->query($sql);
                         $imagen = $_FILES['imagen'];
-                        $imagenDestino = '../images/subcategorias/';
-                        // $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
+                        $destino_imagen = '../images/subcategorias/';
+                        // $result = subir_imagen($imagen, 'veSubcategoriaAlta.php', $destino_imagen);
     
                         if ($rs->fetchColumn() == 0){
                             $sql = "INSERT INTO subcategoria (`nombre_subcategoria`, `id_categoria`) 
@@ -46,21 +46,21 @@
             
                             $rs = $db->query($sql);
             
-                            $idSubcategoria = $db->lastInsertId();
+                            $id_subcategoria = $db->lastInsertId();
             
                             $imagen = $_FILES['imagen'];
-                            $imagenDestino = '../images/subcategorias/' . $idSubcategoria;
-                            $result = subirImagen($imagen, 'veSubcategoriaAlta.php', $imagenDestino);
+                            $destino_imagen = '../images/subcategorias/' . $id_subcategoria;
+                            $result = subir_imagen($imagen, 'veSubcategoriaAlta.php', $destino_imagen);
             
                             if(!$result){
                                 //inconveniente al subir imagen
-                                $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$idSubcategoria'";
+                                $sql = "DELETE FROM subcategoria WHERE id_subcategoria = '$id_subcategoria'";
                                 $rs = $db->query($sql);
                                 header ("location: ../vistas/veSubcategoriaAlta.php?error=1");
                                 exit;
                             }else{
                                 $sql = "INSERT INTO `imagen_subcategorias`(`id_subcategoria`, `destination`) 
-                                        VALUES ('$idSubcategoria','$result')
+                                        VALUES ('$id_subcategoria','$result')
                                 ";
                                 $rs=$db->query($sql);
     

@@ -14,9 +14,9 @@
     } else {
         $nombre = isset($_POST["nombre"]) && (trim($_POST["nombre"]) != "")? trim($_POST["nombre"]): null;
     
-        $existImg = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
+        $existe_imagen = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
         
-        if($existImg !== null){
+        if($existe_imagen !== null){
             //Comprobar que nombre es diferente de vacío
             if ($nombre !== null){
                 //Comprobar que no existe una categoria con ese nombre
@@ -39,8 +39,8 @@
                     $id_categoria = $db->lastInsertId();
 
                     $imagen = $_FILES["imagen"];
-                    $imagenDestino = "../images/categorias/" . $id_categoria;
-                    $result = subirImagen($imagen, "veCategoriaAlta.php", $imagenDestino);
+                    $destino_imagen = "../images/categorias/" . $id_categoria;
+                    $result = subir_imagen($imagen, "veCategoriaAlta.php", $destino_imagen);
 
                     if(!$result){
                         //inconveniente al subir imagen

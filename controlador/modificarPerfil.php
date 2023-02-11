@@ -5,33 +5,33 @@
     
     global $db;
 
-    // $idUsuario = "";
+    // $id_usuario = "";
 
     // if (isset($_SESSION["idUsuario"])){
-    //     $idUsuario = $_SESSION["idUsuario"];
+    //     $id_usuario = $_SESSION["idUsuario"];
     // }
     // else if (isset($_SESSION["user"])){
-    //     $idUsuario = $_SESSION["user"];
+    //     $id_usuario = $_SESSION["user"];
     //     $mail = false;
     // }
     // // else if ($_SESSION["id_tw"]){
-    // //     $idUsuario = $_SESSION["id_tw"];
+    // //     $id_usuario = $_SESSION["id_tw"];
     // // }
 
     // if (!isset($_SESSION["idUsuario"])){
-    //     $rs = obtenerUsuarioConRS($idUsuario);
+    //     $rs = obtener_usuario_con_rs($id_usuario);
 
     //     foreach ($rs as $row){
-    //         $idUsuario = $row["id"];
+    //         $id_usuario = $row["id"];
     //     }
     // }
 
-    $idUsuario = $_SESSION["idUsuario"] ?? $_SESSION["user"] ?? null;
+    $id_usuario = $_SESSION["idUsuario"] ?? $_SESSION["user"] ?? null;
     $mail = true;
 
-    if (!isset($_SESSION["idUsuario"]) && isset($idUsuario)) {
-        $rs = obtenerUsuarioConRS($idUsuario);
-        $idUsuario = $rs[0]["id"] ?? null;
+    if (!isset($_SESSION["idUsuario"]) && isset($id_usuario)) {
+        $rs = obtener_usuario_con_rs($id_usuario);
+        $id_usuario = $rs[0]["id"] ?? null;
         $mail = false;
     }
 
@@ -49,7 +49,7 @@
         return $value;
     }
 
-    $nombreUsuario = getPostData("nombreUsuario");
+    $nombre_usuario = getPostData("nombreUsuario");
     $nombre = getPostData("nombre");
     $apellido = getPostData("apellido");
     $dni = getPostData("dni");
@@ -62,8 +62,8 @@
     $query = "SELECT id FROM usuario WHERE nombre_usuario = :nombreUsuario AND id != :idUsuario";
     
     $statement = $db->prepare($query);
-    $statement->bindParam(":nombreUsuario", $nombreUsuario);
-    $statement->bindParam(":idUsuario", $idUsuario);
+    $statement->bindParam(":nombreUsuario", $nombre_usuario);
+    $statement->bindParam(":idUsuario", $id_usuario);
     $statement->execute();
     $result = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -73,13 +73,13 @@
     }
 
     if ($nombre === null || $apellido === null || $dni === null || $email === null || $provincia === null 
-    || ($ciudad === null && $provincia !== "02") || $direccion === null || $nombreUsuario === null) {
+    || ($ciudad === null && $provincia !== "02") || $direccion === null || $nombre_usuario === null) {
         header("location:../vistas/informacionPersonal.php?error=2");
         exit;
     } else {
-        $provinciaNombre = obtenerNombreProvincia($provincia);
+        $nombre_provincia = obtener_nombre_provincia($provincia);
 
-        if ($provinciaNombre == ""){
+        if ($nombre_provincia == ""){
             $ciudad = "";
         }
 
@@ -103,15 +103,15 @@
         $query = "UPDATE usuario SET nombre_usuario = :nombreUsuario, nro_dni = :dni, nombre = :nombre, apellido = :apellido, provincia = :provinciaNombre, ciudad = :ciudad, direccion = :direccion, suscripcion = :suscripcion WHERE id = :idUsuario";
 
         $stmt = $db->prepare($query);
-        $stmt->bindParam(":nombreUsuario", $nombreUsuario);
+        $stmt->bindParam(":nombreUsuario", $nombre_usuario);
         $stmt->bindParam(":dni", $dni);
         $stmt->bindParam(":nombre", $nombre);
         $stmt->bindParam(":apellido", $apellido);
-        $stmt->bindParam(":provinciaNombre", $provinciaNombre);
+        $stmt->bindParam(":provinciaNombre", $nombre_provincia);
         $stmt->bindParam(":ciudad", $ciudad);
         $stmt->bindParam(":direccion", $dire);
         $stmt->bindParam(":suscripcion", $suscripcion);
-        $stmt->bindParam(":idUsuario", $idUsuario);
+        $stmt->bindParam(":idUsuario", $id_usuario);
         $stmt->execute();
 
         header("location: ../vistas/informacionPersonal.php?modif=exito#mensaje");

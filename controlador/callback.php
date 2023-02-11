@@ -13,33 +13,33 @@
         exit;
     }
     else if(isset($_GET["payment_id"]) && ctype_alnum($_GET["payment_id"])){
-        $paymentId = filter_var($_GET["payment_id"], FILTER_SANITIZE_STRING);    
-        $response = file_get_contents("https://api.mercadopago.com/v1/payments/$paymentId" . "?access_token=TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106");
+        $payment_id = filter_var($_GET["payment_id"], FILTER_SANITIZE_STRING);    
+        $response = file_get_contents("https://api.mercadopago.com/v1/payments/$payment_id" . "?access_token=TEST-5976931908635341-011902-66f238a2e8fba7fb50819cd40a6ecef9-172145106");
         $response = json_decode($response);
 
         if ($response->status == "approved"){
             $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-            $listaCarrito = array();
+            $lista_carrito = array();
 
             foreach ($productos as $key => $cantidad){
-                $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
+                $lista_carrito[] = obtener_producto_con_cantidad([$key], $cantidad);
             }
 
             if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
-                $idUsuario = $_SESSION["idUsuario"];
+                $id_usuario = $_SESSION["idUsuario"];
             }
             else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
-                $idUsuario = $_SESSION["id"];
+                $id_usuario = $_SESSION["id"];
             }
             // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-            //     $idUsuario = $_SESSION["user_id"];
+            //     $id_usuario = $_SESSION["user_id"];
             // }
 
             if (!isset($_SESSION["idUsuario"])){
-                $rs = obtenerUsuarioConRS ($idUsuario);
+                $rs = obtener_usuario_con_rs ($id_usuario);
 
                 foreach ($rs as $row){
-                    $idUsuario = $row["id"];
+                    $id_usuario = $row["id"];
                 }
             }
 
@@ -47,17 +47,17 @@
             $email = $response->payer->email;
             $fecha = $response->date_approved;
 
-            $idCompra = insertarCompra($idUsuario,$monto,$paymentId,$fecha,"RECIBIDO", $email);
+            $id_compra = insertar_compra($id_usuario,$monto,$payment_id,$fecha,"RECIBIDO", $email);
 
             $items = $response->additional_info->items;
 
             for ($i=0;$i<count($items);$i++){
-                $idProducto = $listaCarrito[$i]["id"];
+                $id_producto = $lista_carrito[$i]["id"];
                 $nombre = $items[$i]->title;
-                $precioUnitario = $items[$i]->unit_price;
+                $precio_unitario = $items[$i]->unit_price;
                 $cantidad = $items[$i]->quantity;
 
-                insertarDetalleCompra($idCompra,$idProducto,$nombre,$precioUnitario,$cantidad);
+                insertar_detalle_compra($id_compra,$id_producto,$nombre,$precio_unitario,$cantidad);
             }
 
             unset($_SESSION["carrito"]);

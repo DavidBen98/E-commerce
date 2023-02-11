@@ -18,7 +18,7 @@
 
 	$imagenes = $_GET["categoria"];
 
-	$rs = obtenerImagenesSubcategorias($imagenes);
+	$rs = obtener_imagenes_subcategorias($imagenes);
 ?>
 <!DOCTYPE html>
 <html lang="es"> 
@@ -86,7 +86,7 @@
 	<main id="main">
 		<?= $ruta; ?>
 
-		<?= crearImagenes($rs); ?>
+		<?= crear_imagenes($rs); ?>
 
         <?= $modalNovedades; ?>
 	</main>

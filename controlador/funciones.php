@@ -19,33 +19,45 @@
         $links=""; 
 
         if (isset($_GET["code"]) || isset($_SESSION["user_first_name"])){
-            $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
-                            . $_SESSION["user_first_name"] . $_SESSION["user_last_name"] .
-                        " </span> &nbsp;</a>
-                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = " 
+                <a href='informacionPersonal.php' title='Perfil'> <span>" 
+                    . $_SESSION["user_first_name"] . $_SESSION["user_last_name"] .
+                " </span> &nbsp;</a>
+                <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         }
         else if (isset($_SESSION["nombre_tw"])){
-            $links = "  <a href='informacionPersonal.php' title='Perfil'> 
-                            <span>" . preg_replace("([^A-Za-z0-9])", "", $_SESSION["nombre_tw"]) . " </span> &nbsp;
-                        </a>
-                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "
+                <a href='informacionPersonal.php' title='Perfil'> 
+                    <span>" . preg_replace("([^A-Za-z0-9])", "", $_SESSION["nombre_tw"]) . " </span> &nbsp;
+                </a>
+                <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         }
         else if ($user=="") {
-            $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
-                        <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
+            $links = "
+                <a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
+                <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>
+            ";
         } else if($perfil=="E"){
-            $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION["nombre"]}  </span>
-                        <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "  
+                <span title='Nombre de usuario' id='span'> {$_SESSION["nombre"]} </span>
+                <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         } else if($perfil=="U"){
-            $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION["user"]} </span> &nbsp;</a>
-                        <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "
+                <a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION["user"]} </span> &nbsp;</a>
+                <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         }
     
-        $barraSuperior ="<div id='mobile-perfilUsuario'>
-                        $links
-                    </div> ";
+        $barra_superior ="
+            <div id='mobile-perfilUsuario'>
+                $links
+            </div> 
+        ";
                     
-        return  $barraSuperior;
+        return $barra_superior;
     }
 
     function crear_barra() {
@@ -54,34 +66,45 @@
         $links=""; 
 
         if (isset($_GET["code"]) || isset($_SESSION["user_first_name"])){
-            $links = "  <a href='informacionPersonal.php' title='Perfil'> <span>" 
-                            . $_SESSION["user_first_name"] . $_SESSION["user_last_name"] .
-                        " </span> &nbsp;</a>
-                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "  
+                <a href='informacionPersonal.php' title='Perfil'> <span>" 
+                    . $_SESSION["user_first_name"] . $_SESSION["user_last_name"] .
+                " </span> &nbsp;</a>
+                <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         }
         else if (isset($_SESSION["nombre_tw"])){
-            $links = "  <a href='informacionPersonal.php' title='Perfil'> 
-                            <span>" . preg_replace("([^A-Za-z0-9])", "", $_SESSION["nombre_tw"]) . " </span> &nbsp;
-                        </a>
-                        <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "
+                <a href='informacionPersonal.php' title='Perfil'> 
+                    <span>" . preg_replace("([^A-Za-z0-9])", "", $_SESSION["nombre_tw"]) . " </span> &nbsp;
+                </a>
+                <a href='../controlador/logout.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         }
         else if ($user=="") {
-            $links = "<a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
-                        <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>";
+            $links = "
+                <a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
+                <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>
+            ";
         } else if($perfil=="E"){
-            $links = "  <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
-                        <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "
+                <span title='Nombre de usuario' id='span'> {$_SESSION['nombre']}  </span>
+                <a href='../controlador/cerrarSesion.php'  id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         } else if($perfil=="U"){
-            $links = "<a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
-                        <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>";
+            $links = "
+                <a href='informacionPersonal.php' title='Perfil'> <span> {$_SESSION['user']} </span> &nbsp;</a>
+                <a href='../controlador/cerrarSesion.php' id='cerrar' title='Cerrar sesión de usuario'> X </a>
+            ";
         }
     
-        $barraSuperior ="<div id='perfilUsuario'>
-                        $links
-                    </div> 
+        $barra_superior ="
+            <div id='perfilUsuario'>
+                $links
+            </div> 
         ";
                     
-        return  $barraSuperior;
+        return $barra_superior;
     }
 
     function perfil_valido($opcion) {
@@ -106,11 +129,11 @@
 	
 	function generar_clave_encriptada($password) {			
 		$salt = PSW_SEMILLA;		 
-		$pswEncript = hash("sha512", $salt.$password);				
-		return $pswEncript; 
+		$psw_encript = hash("sha512", $salt.$password);				
+		return $psw_encript; 
 	}
     
-    function obtenerRutaPortada($id){
+    function obtener_ruta_portada($id){
         global $db;
 
         $stmt = $db->prepare("SELECT destination FROM imagen_productos WHERE id_producto = ? AND portada = 1");
@@ -127,10 +150,11 @@
         return $path;
     }
 
-    function crearImagenes ($consulta){
+    function crear_imagenes ($consulta){
 		$i=0;	
 
-		echo "<form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
+		echo "
+            <form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
 			    <h1 class='h1'> Muebles Giannis - Catálogo </h1>";
         
             if (!$consulta){
@@ -154,27 +178,31 @@
                 //productos.php
                 foreach ($consulta as $row) {
                     $id = $row["id"];
-                    $path = obtenerRutaPortada($id);
+                    $path = obtener_ruta_portada($id);
 
                     $i++; 
-                    echo "<div class='producto'>
+                    echo "
+                        <div class='producto'>
                             <img src='../$path' class='img-cat' id='$i' alt='{$row["codigo"]}' title='". ucfirst($row["descripcion"])."'> 
                             <div class='caracteristicas'>
                                 <h2 class='descripcion'>". ucfirst($row["descripcion"])." </h2>
-                                <div class='descripcionPrecio'>";
-                                    if ($row["descuento"] != 0){
-                                        $precioDescuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
-                                        echo "<h3 class='precio'>
-                                                 $". $precioDescuento ." 
-                                              </h3>
-                                              <h3 class='precio' id='h3Precio'>
-                                                 $". ucfirst($row["precio"]).
-                                            " </h3>
-                                        ";
-                                    }
-                                    else{
-                                        echo "<h3 class='precio'> $". ucfirst($row["precio"])." </h3>";
-                                    }
+                                <div class='descripcionPrecio'>
+                    ";
+
+                    if ($row["descuento"] != 0){
+                        $precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
+                        echo "<h3 class='precio'>
+                                    $". $precio_descuento ." 
+                                </h3>
+                                <h3 class='precio' id='h3Precio'>
+                                    $". ucfirst($row["precio"]).
+                            " </h3>
+                        ";
+                    }
+                    else{
+                        echo "<h3 class='precio'> $". ucfirst($row["precio"])." </h3>";
+                    }
+
                     echo"       </div>
                             </div>
                         </div>
@@ -189,91 +217,94 @@
                         <a href='index.php'>Regresar al inicio </a>
                     </div>
                 "; 
-                
             }
                     
-        echo "	</div>
+        echo "	
+                </div>
             </form>
         ";	
 	} 
 
-    function completarWhere ($select,$from,$innerJoin,$where,$filtros){
+    function completar_where ($select,$from,$inner_join,$where,$filtros){
         global $db;
         $rs = "";	
-        $whereColor = "";
-        $whereSql = "";
+        $where_color = "";
+        $where_marca = "";
+        $where_sql = "";
+        $order_by = "";
+		$orden_mas_vendido = 0;
 
+        //Color
         if (isset($filtros[0])){
             if (count($filtros[0]) == 1){
-                $whereColor .= " AND color = '" . $filtros[0][0]. "' ";
+                $where_color .= " AND color = '" . $filtros[0][0]. "' ";
             }
             else{
-				$whereColor .= " AND ( ";
-                for ($i=0;$i<count($filtros[0])-1;$i++){ 
-                    $whereColor .= " color = '". $filtros[0][$i] . "' OR " ;
+				$where_color .= " AND ( ";
+                for ($i=0; $i<count($filtros[0])-1; $i++){ 
+                    $where_color .= " color = '". $filtros[0][$i] . "' OR " ;
                 }
                 $i = count($filtros[0])-1;
-                $whereColor .= " color = '". $filtros[0][$i] . "') ";
+                $where_color .= " color = '". $filtros[0][$i] . "') ";
             }
         }
 
-        $whereMarca = "";
+        //Marca
         if (isset($filtros[1])){
             if (count($filtros[1]) == 1){
-                $whereMarca .= " AND marca = '" . $filtros[1][0]. "' ";
+                $where_marca .= " AND marca = '" . $filtros[1][0]. "' ";
             }
             else{
-				$whereMarca .= " AND ( ";
+				$where_marca .= " AND ( ";
                 for ($i=0;$i<count($filtros[1])-1;$i++){
-                    $whereMarca .= "  marca = '" . $filtros[1][$i]. "' OR ";
+                    $where_marca .= "  marca = '" . $filtros[1][$i]. "' OR ";
                 }
                 $i = count($filtros[1])-1;
-                $whereMarca .= " marca = '". $filtros[1][$i] . "') ";
+                $where_marca .= " marca = '". $filtros[1][$i] . "') ";
             }
         }
 
-		$wherePrecio=""; 
-
+        //Precio
 		if ($filtros[2] != null){
-			$whereSql .= "AND precio >=". $filtros[2];
+			$where_sql .= "AND precio >=". $filtros[2];
 		}
 
         if ($filtros[3] != null){
-            $whereSql .= " AND precio <= ". $filtros[3];
+            $where_sql .= " AND precio <= ". $filtros[3];
         }
 
-        $orderBy = "";
-		$orderMasVen = 0;
-
+        //Order by
         if(isset($filtros[4])){
             if ($filtros[4] == 0){
-                $orderBy = " ORDER BY precio asc ";
+                $order_by = " ORDER BY precio asc ";
             }
             else if ($filtros[4] == 1) {
-                $orderBy = " ORDER BY precio desc ";
+                $order_by = " ORDER BY precio desc ";
             }
             else {              
-				$orderMasVen++;
+				$orden_mas_vendido++;
             }
         }
 		
-        if($whereColor != "" && $whereMarca != ""){
-            $whereSql .=  $whereColor . $whereMarca;
+        //Se ordena el where
+        if($where_color != "" && $where_marca != ""){
+            $where_sql .=  $where_color . $where_marca;
         }
-        else if ($whereColor != ""){
-            $whereSql .=  $whereColor;
+        else if ($where_color != ""){
+            $where_sql .=  $where_color;
         }
         else{
-            $whereSql .=  $whereMarca;
+            $where_sql .=  $where_marca;
         } 
 
-		if($orderMasVen != 0){
+        //Si se elige el orden mas vendido
+		if($orden_mas_vendido != 0){
 			$sql = $select . " " .
                    $from . " " .
-                   $innerJoin . " " . 
+                   $inner_join . " " . 
 				   "LEFT JOIN `detalle_compra` as `dc` ON `dc`.id_producto = `p`.codigo" . 
                    $where .
-				   $whereSql .
+				   $where_sql .
                    "GROUP  BY p.`codigo`
 					ORDER  BY SUM(dc.`cantidad`) DESC;
             ";
@@ -281,17 +312,17 @@
 		else{
 			$sql = "$select
                     $from
-                    $innerJoin
+                    $inner_join
                     $where
-                    $whereSql
-                 	$orderBy
+                    $where_sql
+                 	$order_by
             ";  
 		}
 
         return $sql;       
     }
 
-    function mostrarFiltros ($filtros,$categoria,$subcategoria){
+    function mostrar_filtros ($filtros,$categoria,$subcategoria){
         global $db;  
 		$filtro = "";
 
@@ -357,7 +388,7 @@
             else{
                 $filtro .= "<b>Colores: </b>";
             }
-            for ($i=0;$i<count($filtros[0]);$i++){ 
+            for ($i=0; $i<count($filtros[0]); $i++){ 
                 if ($i == count($filtros[0])-1){
                     $filtro .= $filtros[0][$i] . " <br>"; 
                 }
@@ -374,7 +405,7 @@
             else{
                 $filtro .= "<b>Marcas: </b>";
             }
-            for ($i=0;$i<count($filtros[1]);$i++){ 
+            for ($i=0; $i<count($filtros[1]); $i++){ 
                 if ($i == count($filtros[1])-1){
                     $filtro .= $filtros[1][$i] . "<br>"; 
                 }
@@ -395,15 +426,16 @@
         return $filtro;
     }
 
-    function cantidadCarrito(){ 
+    function cantidad_carrito(){ 
         if (isset($_SESSION["carrito"]) && isset($_SESSION["carrito"]["productos"])){
             return count($_SESSION["carrito"]["productos"]);
         }
         return 0;
     }
 
-    function agregarImgCategorias (){
+    function agregar_imagen_categorias (){
         global $db;
+
         $sql = "SELECT nombre_categoria, id_categoria
                 FROM `categoria`
                 WHERE activo = '1'
@@ -414,26 +446,26 @@
         $result = $stmt->fetchAll();
       
         foreach ($result as $row){
-            $idCat =  $row["id_categoria"];
-            $nomCat = $row["nombre_categoria"];
+            $id_categoria =  $row["id_categoria"];
+            $nombre_categoria = $row["nombre_categoria"];
 
             $sql = "SELECT destination 
                     FROM imagen_categorias
                     WHERE id_categoria = :id_categoria
             ";
 
-            $stmtImg = $db->prepare($sql);
-            $stmtImg->bindParam(':id_categoria', $idCat, PDO::PARAM_INT);
-            $stmtImg->execute();
-            $resultImg = $stmtImg->fetch(PDO::FETCH_ASSOC);
-            $imgCat = $resultImg['destination'];
+            $stmt_img = $db->prepare($sql);
+            $stmt_img->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
+            $stmt_img->execute();
+            $result_img = $stmt_img->fetch(PDO::FETCH_ASSOC);
+            $imagen_categoria = $result_img['destination'];
 
             echo " <div class='cards'> 
                         <div
                             class='card'
-                            id='$idCat'
+                            id='$id_categoria'
                             style='
-                                background-image: url(../$imgCat);
+                                background-image: url(../$imagen_categoria);
                             '
                         >
                             <div class='info_container'>
@@ -457,7 +489,7 @@
                                 </div>
 
                                 <div class='info'>
-                                    <h2 class='img-titulo main'>".strtoupper($nomCat) ."</h2>
+                                    <h2 class='img-titulo main'>".strtoupper($nombre_categoria) ."</h2>
             ";
 
             $sql1 = "SELECT nombre_subcategoria
@@ -466,20 +498,20 @@
                     WHERE subcategoria.id_categoria = ? AND subcategoria.activo = ?
             ";
 
-            $stmtSub = $db->prepare($sql1);
-            $stmtSub->bindValue(1, $idCat, PDO::PARAM_INT);
-            $stmtSub->bindValue(2, 1, PDO::PARAM_INT);
-            $stmtSub->execute();
-            $resultSub = $stmtSub->fetchAll();
+            $stmt_subcategoria = $db->prepare($sql1);
+            $stmt_subcategoria->bindValue(1, $id_categoria, PDO::PARAM_INT);
+            $stmt_subcategoria->bindValue(2, 1, PDO::PARAM_INT);
+            $stmt_subcategoria->execute();
+            $result_subcategoria = $stmt_subcategoria->fetchAll();
 
             echo "<p class='img-texto'>";
-            $subcatNombre = "";
+            $nombre_subcategoria = "";
 
-            foreach ($resultSub as $rowSub){
-                $subcatNombre .= $rowSub["nombre_subcategoria"] . " <br/> ";
+            foreach ($result_subcategoria as $rowSub){
+                $nombre_subcategoria .= $rowSub["nombre_subcategoria"] . " <br/> ";
             }
 
-            echo "" .  ucwords($subcatNombre) . "          
+            echo "" .  ucwords($nombre_subcategoria) . "          
                             </p>     
                         </div>
                     </div>
@@ -489,11 +521,11 @@
         }
     }  
 
-    function crearBarraLateral(){
+    function crear_barra_lateral(){
         global $db;
     
-        $arrCategorias = [];
-        $arrSubcategorias = [];
+        $arreglo_categorias = [];
+        $arreglo_subcategorias = [];
         $formulario = "";
     
         if (isset($_GET["articulos"])){
@@ -526,11 +558,11 @@
             $rs = $stmt->fetchAll();
         
             foreach ($rs as $row) {
-                $arrCategorias[$row["nombre_categoria"]] = $row["id_categoria"];
-                $arrSubcategorias[$row["nombre_categoria"]][$row["nombre_subcategoria"]] = $row["id_subcategoria"];
+                $arreglo_categorias[$row["nombre_categoria"]] = $row["id_categoria"];
+                $arreglo_subcategorias[$row["nombre_categoria"]][$row["nombre_subcategoria"]] = $row["id_subcategoria"];
             }
         
-            ksort($arrCategorias);
+            ksort($arreglo_categorias);
             
             $formulario = " 
                 <form action='productos.php?productos=filtrado' method='post' id='datos'> 
@@ -547,7 +579,7 @@
                         <select class='form-select' id='categoria' name='categoria' title='Categorias'>
             ";
         
-            foreach($arrCategorias as $indice => $valor){
+            foreach($arreglo_categorias as $indice => $valor){
                 $formulario .=" <option value='$valor'> $indice </option>";
             }
         
@@ -560,40 +592,40 @@
 
 		echo $formulario;
 
-		$arrColores = $arrMarcas = [];
+		$arreglo_colores = $arreglo_marcas = [];
 
-        $innerJoin = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+        $inner_join = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
         ";
 
-        $whereSql = "WHERE s.nombre_subcategoria like '$subcategoria' 
+        $where_sql = "WHERE s.nombre_subcategoria like '$subcategoria' 
              AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
         ");
 
         $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
                 FROM `producto` as p
-                $innerJoin
-                $whereSql
+                $inner_join
+                $where_sql
                 GROUP BY p.color, p.marca
         ";
 
         $rs = $db->query($sql); 
 
         foreach ($rs as $row) {
-            $arrColores[$row["color"]] = 0;
-            $arrMarcas[$row["marca"]] = 0;
-            $valorMin = $row["min_precio"];
-            $valorMax = $row["max_precio"];
+            $arreglo_colores[$row["color"]] = 0;
+            $arreglo_marcas[$row["marca"]] = 0;
+            $valor_minimo = $row["min_precio"];
+            $valor_maximo = $row["max_precio"];
         }
 
-        ksort($arrColores);
+        ksort($arreglo_colores);
 		
 		$html = "";
         $fieldset_class = "colores";
         $legend_title = "Colores";
         $input_name = "color";
 
-        foreach($arrColores as $indice => $valor){
+        foreach($arreglo_colores as $indice => $valor){
             $id = str_replace(" ","",$indice);
             $html .= "<div class='$fieldset_class'>
                         <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
@@ -604,7 +636,7 @@
         echo "<fieldset class='$fieldset_class contenedor'>
                 <legend class='ltitulo'><b>$legend_title</b></legend>
                 <div id='$fieldset_class' class='input'>
-                $html
+                    $html
                 </div>
             </fieldset>
         ";
@@ -614,7 +646,7 @@
         $legend_title = "Marcas";
         $input_name = "marca";
 
-        foreach($arrMarcas as $indice => $valor){
+        foreach($arreglo_marcas as $indice => $valor){
             $id = str_replace(" ","",$indice);
             $html .= "<div class='$fieldset_class'>
                         <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
@@ -626,7 +658,7 @@
         echo "<fieldset class='$fieldset_class contenedor'>
                 <legend class='ltitulo'><b>$legend_title</b></legend>
                 <div id='$fieldset_class' class='input'>
-                $html
+                    $html
                 </div>
             </fieldset>
         ";
@@ -641,9 +673,9 @@
                         <label for='valorMax' class='lmaxmin'>Máximo</label>			
                     </div>
 					<div class='input-minmax'>
-						<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valorMin' min='$valorMin' max='$valorMax' value='' >
+						<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
 						- 
-						<input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valorMax' min='$valorMin' max='$valorMax' value='' > 							
+						<input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
 					</div>
 				</fieldset>	
 				<p class='mensaje' id='mensaje'>
@@ -656,12 +688,12 @@
         ";
 	}	
 
-    function existeEmail(){
+    function existe_email(){
         global $db;
 
-        $redSocial = $_SESSION["servicio"];
+        $red_social = $_SESSION["servicio"];
 
-        if ($redSocial == "Google"){
+        if ($red_social == "Google"){
             $email = $_SESSION["user_email_address"];
             $where = "WHERE (u.email = :email)";
         }
@@ -677,7 +709,7 @@
 
         $stmt = $db->prepare($sql);
 
-        if ($redSocial == "Google"){
+        if ($red_social == "Google"){
             $stmt->bindValue(':email', $email);
         }
 
@@ -688,15 +720,15 @@
         return $result ? true : false;
     }
 
-    function existeIdUsuario (){    
+    function existe_id_usuario(){    
         global $db;
 
-        $redSocial = $_SESSION["servicio"];
+        $red_social = $_SESSION["servicio"];
 
-        if ($redSocial == "Google"){
+        if ($red_social == "Google"){
             $id = $_SESSION["id"]; 
         }
-        else if ($redSocial == "Twitter"){
+        else if ($red_social == "Twitter"){
             $id = $_SESSION["user_id"];
         }
 
@@ -707,25 +739,25 @@
 
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":id_social", $id, PDO::PARAM_INT);
-        $stmt->bindParam(":servicio", $redSocial, PDO::PARAM_STR);
+        $stmt->bindParam(":servicio", $red_social, PDO::PARAM_STR);
         $stmt->execute();
 
         $count = $stmt->fetchColumn();
         return ($count > 0);
     }
 
-    function existeNombreUsuario (){
+    function existe_nombre_usuario(){
         global $db;
     
-        $redSocial = $_SESSION["servicio"];
-        $nombreUsuario = "";
+        $red_social = $_SESSION["servicio"];
+        $nombre_usuario = "";
     
-        if ($redSocial == "Google"){
-            $nombreUsuario = $_SESSION["user_first_name"] . $_SESSION["user_last_name"];
+        if ($red_social == "Google"){
+            $nombre_usuario = $_SESSION["user_first_name"] . $_SESSION["user_last_name"];
         }
-        else if ($redSocial == "Twitter"){
-            $nombreUsuario = $_SESSION["nombre_tw"];
-            $nombreUsuario = preg_replace("([^A-Za-z0-9])", "", $nombreUsuario);
+        else if ($red_social == "Twitter"){
+            $nombre_usuario = $_SESSION["nombre_tw"];
+            $nombre_usuario = preg_replace("([^A-Za-z0-9])", "", $nombre_usuario);
         }
     
         $sql = "SELECT id_social, id_usuario
@@ -734,15 +766,15 @@
                 WHERE nombre_usuario = :nombre_usuario AND servicio = :servicio
         ";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(":nombre_usuario", $nombreUsuario, PDO::PARAM_STR);
-        $stmt->bindParam(":servicio", $redSocial, PDO::PARAM_STR);
+        $stmt->bindParam(":nombre_usuario", $nombre_usuario, PDO::PARAM_STR);
+        $stmt->bindParam(":servicio", $red_social, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetchAll();
 
         return (count($result) > 0);
     }
 
-    function obtenerMarcas() {
+    function obtener_marcas() {
         global $db;
 
         $sql = "SELECT DISTINCT marca FROM `producto` ORDER BY marca ASC";
@@ -764,7 +796,7 @@
         return implode("", $marcas);
     }
 
-    function obtenerMateriales() {
+    function obtener_materiales() {
         global $db;
 
         $sql = "SELECT DISTINCT material FROM `producto` ORDER BY material ASC";
@@ -786,23 +818,23 @@
         return implode("", $materiales);
     }
 
-    function obtenerColores() {
+    function obtener_colores() {
         global $db;
-        $arrColores = [];
+        $arreglo_colores = [];
     
         $stmt = $db->prepare("SELECT color FROM producto");
         $stmt->execute();
         $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         foreach ($rs as $row) {
-            if (!in_array($row["color"], $arrColores)) {
-                $arrColores[] = $row["color"];
+            if (!in_array($row["color"], $arreglo_colores)) {
+                $arreglo_colores[] = $row["color"];
             }
         }
     
-        sort($arrColores);
+        sort($arreglo_colores);
         $colores = "";
-        foreach ($arrColores as $indice) {
+        foreach ($arreglo_colores as $indice) {
             $id = str_replace(" ", "", $indice);
             $colores .= "
                 <div class='color'>
@@ -815,7 +847,7 @@
         return $colores;
     }
 
-    function obtenerCategorias() {
+    function obtener_categorias() {
         global $db; 
     
         // Prepara la consulta para traer los nombres y los IDs de las categorías activas
@@ -840,21 +872,23 @@
         return $categorias;
     }
 
-    function obtenerCategoriasInactivas(){
+    function obtener_categorias_inactivas(){
         global $db; 
 
         $categorias = "<select id='categoria' class='hover' name='catInactivas'>";
         $stmt = $db->prepare("SELECT nombre_categoria, id_categoria FROM categoria WHERE activo = 0 GROUP BY nombre_categoria");
         $stmt->execute();
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $categorias .= "<option value='{$row["id_categoria"]}'>{$row["nombre_categoria"]}</option>";
         }
 
         $categorias .= "</select>";
+
         return $categorias;
     }
 
-    function obtenerSubcategorias(){
+    function obtener_subcategorias(){
         global $db; 
     
         $sql = "SELECT nombre_subcategoria, id_subcategoria
@@ -878,7 +912,7 @@
         return $subcategorias;
     }
 
-    function obtenerSubcategoriasInactivas() {
+    function obtener_subcategorias_inactivas() {
         global $db; 
     
         $stmt = $db->prepare("SELECT nombre_subcategoria, id_subcategoria
@@ -903,7 +937,7 @@
         return $subcategorias;
     }
 
-    function obtenerImagenProducto($id){
+    function obtener_imagen_producto($id){
         global $db;
 
         $sql = "SELECT destination FROM imagen_productos 
@@ -920,7 +954,7 @@
         return $path;
     }
 
-    function obtenerProducto($codigo){
+    function obtener_producto($codigo){
         global $db;
     
         $sql = "SELECT *
@@ -935,7 +969,7 @@
         return $stmt;
     }
 
-    function obtenerConsultas($idUsuario){
+    function obtener_consultas($id_usuario){
         global $db;
     
         $stmt = $db->prepare("SELECT c.texto, c.respondido
@@ -943,14 +977,14 @@
                 WHERE c.usuario_id= :idUsuario"
         );
     
-        $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $stmt->bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
     
         $stmt->execute();
     
         return $stmt;
     }
 
-    function obtenerCompras($idUsuario){
+    function obtener_compras($id_usuario){
         global $db;
     
         $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , p.`precio`,`codigo`,p.`id`
@@ -962,14 +996,14 @@
         "; 
     
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(":id_usuario", $idUsuario, PDO::PARAM_INT);
+        $stmt->bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
         $stmt->execute();
         $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
         return $rs;
     }
 
-    function obtenerImagenesSubcategorias($categoria){
+    function obtener_imagenes_subcategorias($categoria){
         global $db;
 
         $sql = "SELECT destination, nombre_subcategoria 
@@ -987,10 +1021,10 @@
         return $rs;
     }
 
-    function obtenerListaCarrito($productos) {
+    function obtener_lista_carrito($productos) {
         global $db;
 
-        $listaCarrito = array();
+        $lista_carrito = array();
         foreach ($productos as $key => $cantidad) {
             $sql = $db->prepare("SELECT id, precio, codigo, descripcion, material, color, marca, stock, descuento, $cantidad AS cantidad
                                  FROM producto
@@ -998,13 +1032,13 @@
             ");
     
             $sql -> execute ([$key]);
-            $listaCarrito[] = $sql->fetch(PDO::FETCH_ASSOC);
+            $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
         }
         
-        return $listaCarrito;
+        return $lista_carrito;
     }
 
-    function obtenerUsuario ($id){
+    function obtener_usuario($id){
         global $db;
 
         $sql = $db->prepare("SELECT nombre_usuario, perfil, nro_dni, nombre, apellido, email, provincia, ciudad, direccion, suscripcion
@@ -1018,7 +1052,7 @@
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function obtenerUsuarioConRS ($id){
+    function obtener_usuario_con_rs($id){
         global $db;
 
         $sql = "SELECT u.id
@@ -1033,7 +1067,7 @@
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    function obtenerNombreProvincia ($provincia){
+    function obtener_nombre_provincia($provincia){
         $provincias = [
             "02" => "Ciudad Autónoma de Buenos Aires",
             "06" => "Buenos Aires",
@@ -1068,21 +1102,7 @@
         }
     }
 
-    // function obtenerNombreCategoria($id){
-    //     global $db;
-    
-    //     $sql = "SELECT nombre_categoria
-    //             FROM categoria
-    //             WHERE id_categoria = $id
-    //             LIMIT 1
-    //     ";
-    
-    //     $rs = $db->query($sql)->fetch();
-    
-    //     return $rs['nombre_categoria'];
-    // }
-
-    function obtenerNombreCategoria($id) {
+    function obtener_nombre_categoria($id) {
         global $db;
     
         $id = intval($id);
@@ -1102,7 +1122,7 @@
         return $result['nombre_categoria'];
     }
 
-    function obtenerNombreSubcategoria($id){
+    function obtener_nombre_subcategoria($id){
         global $db;
     
         $sql = "SELECT nombre_subcategoria
@@ -1117,16 +1137,16 @@
         return $nombre;
     }
     
-    function insertarUsuario($nombre, $apellido, $email, $perfil, $existe){
+    function insertar_usuario($nombre, $apellido, $email, $perfil, $existe){
         global $db;
     
-        $nombreUsuario = $existe ? "$nombre$apellido" : "";
+        $nombre_usuario = $existe ? "$nombre$apellido" : "";
         $sql = "INSERT INTO usuario (nombre_usuario, nombre, apellido, email, perfil)
                 VALUES (:nombre_usuario, :nombre, :apellido, :email, :perfil)
         ";
     
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':nombre_usuario', $nombreUsuario);
+        $stmt->bindValue(':nombre_usuario', $nombre_usuario);
         $stmt->bindValue(':nombre', $nombre);
         $stmt->bindValue(':apellido', $apellido);
         $stmt->bindValue(':email', $email);
@@ -1136,26 +1156,26 @@
         return $db->lastInsertId();
     }
 
-    function insertarUsuarioRS ($idUsuario, $id, $servicio = 'Google'){
+    function insertar_usuario_rs ($id_usuario, $id, $servicio = 'Google'){
         global $db;
 
         $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
                 (?,?,?)
         ";
         $stmt = $db->prepare($sql);
-        $stmt->execute([$idUsuario, $id, $servicio]);
+        $stmt->execute([$id_usuario, $id, $servicio]);
     }
 
-    function insertarCompra($idUsuario, $monto, $paymentId, $fecha, $estado, $email){
+    function insertar_compra($id_usuario, $monto, $payment_id, $fecha, $estado, $email){
         global $db;
     
         $query = "INSERT INTO compra (id_usuario, total, id_transaccion, fecha, estado, email) 
                   VALUES (:id_usuario, :total, :id_transaccion, :fecha, :estado, :email)";
     
         $stmt = $db->prepare($query);
-        $stmt->bindValue(':id_usuario', $idUsuario);
+        $stmt->bindValue(':id_usuario', $id_usuario);
         $stmt->bindValue(':total', $monto);
-        $stmt->bindValue(':id_transaccion', $paymentId);
+        $stmt->bindValue(':id_transaccion', $payment_id);
         $stmt->bindValue(':fecha', $fecha);
         $stmt->bindValue(':estado', $estado);
         $stmt->bindValue(':email', $email);
@@ -1165,7 +1185,7 @@
         return $db->lastInsertId();
     }
 
-    function insertarDetalleCompra($idCompra, $idProducto, $nombre, $precioUnitario, $cantidad){
+    function insertar_detalle_compra($id_compra, $id_producto, $nombre, $precio_unitario, $cantidad){
         global $db;
     
         $sql = "INSERT INTO detalle_compra (id_compra, id_producto, nombre, precio, cantidad) 
@@ -1173,16 +1193,16 @@
         ";
     
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id_compra', $idCompra, PDO::PARAM_INT);
-        $stmt->bindParam(':id_producto', $idProducto, PDO::PARAM_INT);
+        $stmt->bindParam(':id_compra', $id_compra, PDO::PARAM_INT);
+        $stmt->bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
         $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-        $stmt->bindParam(':precio', $precioUnitario, PDO::PARAM_STR);
+        $stmt->bindParam(':precio', $precio_unitario, PDO::PARAM_STR);
         $stmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
     
         return $stmt->execute();
     }
 
-    function seleccionarUsuarioConEmail($email){
+    function obtener_usuario_con_email($email){
         global $db;
 
         $stmt = $db->prepare("
@@ -1198,7 +1218,7 @@
         return $stmt->fetchAll();
     }
 
-    function seleccionarUsuarioConId($id){
+    function obtener_usuario_con_id_rs($id){
         global $db;
 
         $sql = "SELECT u.id
@@ -1214,18 +1234,18 @@
         return $stmt->fetchAll();
     }
 
-    function seleccionarUsuarioConNombreUsuario($nombreUsuario){
+    function obtener_usuario_con_nombre_usuario($nombre_usuario){
         global $db;
     
         $stmt = $db->prepare("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = :nombreUsuario");
-        $stmt->bindValue(':nombreUsuario', $nombreUsuario, PDO::PARAM_STR);
+        $stmt->bindValue(':nombreUsuario', $nombre_usuario, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
     
         return $result;
     }
 
-    function obtenerFavoritos($idUsuario) {
+    function obtener_favoritos($id_usuario) {
         global $db;
 
         $stmt = $db->prepare("
@@ -1234,34 +1254,35 @@
             INNER JOIN `favorito` as f on p.id = f.id_producto 
             WHERE f.id_usuario = :idUsuario
         ");
-        $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $stmt->bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function eliminarFavorito($db, $idProducto, $idUsuario) {
-        $idUsuario = intval($idUsuario);
+    function eliminar_favorito($db, $id_producto, $id_usuario) {
+        $id_usuario = intval($id_usuario);
+
         if (!isset($_SESSION["idUsuario"])){
             $sql = "SELECT id
                     FROM usuario
                     WHERE id_social = ?";
             $stmt = $db->prepare($sql);
-            $stmt->execute([$idUsuario]);
+            $stmt->execute([$id_usuario]);
             $row = $stmt->fetch();
-            $idUsuario = $row["id"];
+            $id_usuario = $row["id"];
         }
 
         $sql = "DELETE FROM favorito
                 WHERE (id_producto = ? AND id_usuario = ?)
         ";
         $stmt = $db->prepare($sql);
-        $stmt->execute([$idProducto, $idUsuario]);
+        $stmt->execute([$id_producto, $id_usuario]);
 
         return "ok";
     }
 
-    function eliminarDireccion($direccion) {
+    function eliminar_direccion($direccion) {
         if (!file_exists($direccion)) {
             return false;
         }
@@ -1273,7 +1294,7 @@
             if ($item == "." || $item == "..") {
                 continue;
             }
-            if (!eliminarDireccion($direccion . DIRECTORY_SEPARATOR . $item)) {
+            if (!eliminar_direccion($direccion . DIRECTORY_SEPARATOR . $item)) {
                 return false;
             }
         }
@@ -1281,7 +1302,7 @@
         return rmdir($direccion);
     }
 
-    function subirImagen($imagen, $url, $destination){
+    function subir_imagen($imagen, $url, $destination){
         $imagen_name = $imagen["name"];
         $imagen_tmp = $imagen["tmp_name"];
         $imagen_error = $imagen["error"];

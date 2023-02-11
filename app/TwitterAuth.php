@@ -2,7 +2,7 @@
     class TwitterAuth
     {
         protected $cliente;
-        protected $clienteCallback = "http://127.0.0.1/E-commerceMuebleria/callback.php";
+        protected $cliente_callback = "http://127.0.0.1/E-commerceMuebleria/callback.php";
 
         public function __construct(\Codebird\Codebird $cliente){
             $this->cliente = $cliente;
@@ -17,14 +17,14 @@
 
         public function requestTokens(){
             $reply = $this->cliente->oauth_requestToken([
-                'oauth_callback' => $this->clienteCallback
+                'oauth_callback' => $this->cliente_callback
             ]);
             $this->storeTokens($reply->oauth_token, $reply->oauth_token_secret);
         }
 
-        public function storeTokens($token, $tokenSecret){
+        public function storeTokens($token, $token_secret){
             $_SESSION['oauth_token'] = $token;
-            $_SESSION['oauth_token_secret'] = $tokenSecret;
+            $_SESSION['oauth_token_secret'] = $token_secret;
         }
 
         public function verifyTokens(){

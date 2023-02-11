@@ -6,7 +6,7 @@
         exit;
     }
 
-    $categorias = obtenerCategorias();
+    $categorias = obtener_categorias();
 
     $formulario = "  
         <form action='../controlador/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>

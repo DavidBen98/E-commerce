@@ -7,10 +7,10 @@
         exit;
     }
 
-    $categorias = obtenerCategorias();
-    $marcas = obtenerMarcas();
-    $materiales = obtenerMateriales();
-    $colores = obtenerColores();
+    $categorias = obtener_categorias();
+    $marcas = obtener_marcas();
+    $materiales = obtener_materiales();
+    $colores = obtener_colores();
     //Las caracteristicas del producto se pueden elegir entre algunas especificas o queda al libre arbitrio del usuario
     //Está conformado así para simplificar 
     //Ejemplo: en las marcas se puede poner cualquier texto (puede ocasionar info escrita de diferente manera)

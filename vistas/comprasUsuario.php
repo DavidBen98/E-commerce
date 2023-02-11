@@ -15,20 +15,20 @@
     } 
                  
     if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
-        $idUsuario = $_SESSION["idUsuario"];
+        $id_usuario = $_SESSION["idUsuario"];
     }
     else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
-        $idUsuario = $_SESSION["id"];
+        $id_usuario = $_SESSION["id"];
     }
       // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-    //     $idUsuario = $_SESSION["user_id"];
+    //     $id_usuario = $_SESSION["user_id"];
     // }
 
     if (!isset($_SESSION["idUsuario"])){
-        $rs = seleccionarUsuarioConId($idUsuario);
+        $rs = obtener_usuario_con_id_rs($id_usuario);
 
         foreach ($rs as $row){
-            $idUsuario = $row["id"];
+            $id_usuario = $row["id"];
         }
     }
 
@@ -41,7 +41,7 @@
     ";
 
     $i = 0;
-    $rs = seleccionarUsuarioConId($idUsuario);
+    $rs = obtener_usuario_con_id_rs($id_usuario);
     
     foreach ($rs as $row){
         $i++;
@@ -75,7 +75,7 @@
             $codigo = $row["codigo"];
             $id = $row["id"];
 
-            $path = obtenerImagenProducto($id);
+            $path = obtener_imagen_producto($id);
     
             $div.= "<div class='contenedor'>
                         <div class='descrip'> 

@@ -7,7 +7,7 @@
         exit;
     }
 
-    $categorias = obtenerCategorias();
+    $categorias = obtener_categorias();
 
     $formulario = "
         <form class='cont' action='../controlador/veFuncProductoBaja.php' method='post' enctype='multipart/form-data'>

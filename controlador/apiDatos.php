@@ -23,14 +23,14 @@
     $i = 0;
     
     for ($i; $i < $cant; $i++){
-        $nombreProvincia = $datos[$i]['nombre'];
-        $idProvincia = $datos[$i]['id'];
+        $nombre_provincia = $datos[$i]['nombre'];
+        $id_provincia = $datos[$i]['id'];
 
         if ($i == 0){
-            $provincias[0] = array("id" => $idProvincia, "nombre" => $nombreProvincia);
+            $provincias[0] = array("id" => $id_provincia, "nombre" => $nombre_provincia);
         }
         else{
-            $provincias[$i]= ["id" => $idProvincia, "nombre" => $nombreProvincia]; 
+            $provincias[$i]= ["id" => $id_provincia, "nombre" => $nombre_provincia]; 
         }
     }
 
@@ -54,4 +54,5 @@
         }
     }
     $select .= "</select>";
+    exit;
 ?>

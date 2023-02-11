@@ -3,22 +3,22 @@
     include_once "funciones.php";
 
     global $db;
-    $idCategoria = isset($_POST["categoria"])? $_POST["categoria"]: null;
-    $modNombre = isset($_POST["modNombre"]) ? $_POST["modNombre"] : null;
-    $modImagen = isset($_POST["modImagen"]) ? $_POST["modImagen"] : null;
+    $id_categoria = isset($_POST["categoria"])? $_POST["categoria"]: null;
+    $nombre_modificado = isset($_POST["modNombre"]) ? $_POST["modNombre"] : null;
+    $imagen_modificada = isset($_POST["modImagen"]) ? $_POST["modImagen"] : null;
 
-    if ($modNombre == null && $modImagen == null){
+    if ($nombre_modificado == null && $imagen_modificada == null){
         //Debe modificar al menos un campo
-        header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=1#mensaje");
+        header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&error=1#mensaje");
         exit;
     }
     
-    if ($modNombre != null){
+    if ($nombre_modificado != null){
         $nombre = (isset($_POST["nombre"]) && trim($_POST["nombre"]) != "")? ucfirst(trim($_POST["nombre"])): null;
 
         if ($nombre == null){
             //Error: falta rellenar el campo nombre
-            header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=2#mensaje");
+            header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&error=2#mensaje");
             exit;
         } else {
             $sql = "SELECT COUNT(*)
@@ -29,30 +29,30 @@
             $rs = $db->query($sql);
 
             if ($rs->fetchColumn() == 0){
-                $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $idCategoria");
+                $rs = $db->query ("UPDATE `categoria` SET `nombre_categoria`='$nombre' WHERE `id_categoria` = $id_categoria");
                 
-                if ($modImagen == null){
-                    header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                if ($imagen_modificada == null){
+                    header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&modif=exito#mensaje");
                     exit;
                 }
             } else{
-                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=5#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&error=5#mensaje");
                 exit;
             }
         }
     }
 
-    if ($modImagen != null){
+    if ($imagen_modificada != null){
         $imagen = $_FILES["imagen"];
         $check = ($imagen["tmp_name"] != "")? getimagesize($imagen["tmp_name"]) : false;
 
         if ($check == false){
             //Error: falta rellenar el campo imagen
-            if($modNombre != null){
-                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&nombre=exito&error=3#mensaje");
+            if($nombre_modificado != null){
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&nombre=exito&error=3#mensaje");
                 exit;
             } else {
-                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=3#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&error=3#mensaje");
                 exit;
             }
         } else {
@@ -60,7 +60,7 @@
             $files = scandir($path);
         
             foreach($files as $file){
-                if ($file == $idCategoria.".png" || $file == $idCategoria.".jpg" || $file == $idCategoria.".jpeg"){
+                if ($file == $id_categoria.".png" || $file == $id_categoria.".jpg" || $file == $id_categoria.".jpeg"){
                     $path .= $file;
                 }
             }
@@ -69,18 +69,18 @@
             //Siempre debería entrar aca, ya que al crear una nueva categoria es obligatorio que tenga una imagen
             //Sin embargo para hacer mas robusta la aplicación se hace la validación
             if ($path != "../images/categorias/"){
-                eliminarDireccion($path);
+                eliminar_direccion($path);
             }
     
             $url = "veCategoriaModif.php";
-            $path = "images/categorias/".$idCategoria;
-            $error = subirImagen($imagen, $url, $path);
+            $path = "images/categorias/".$id_categoria;
+            $error = subir_imagen($imagen, $url, $path);
     
             if ($error){
-                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&error=4#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&error=4#mensaje");
                 exit;
             } else {
-                header ("location: ../vistas/veCategoriaModif.php?categoria=$idCategoria&modif=exito#mensaje");
+                header ("location: ../vistas/veCategoriaModif.php?categoria=$id_categoria&modif=exito#mensaje");
                 exit;
             }
         }

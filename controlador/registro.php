@@ -9,14 +9,14 @@
     $provincia = (isset($_POST["provincia"]) && trim($_POST["provincia"]) != "")? trim($_POST["provincia"]) : "";
     $ciudad = (isset($_POST["ciudad"]) && trim($_POST["ciudad"]) != "")? trim($_POST["ciudad"]) : "";
     $direccion = (isset($_POST["direccion"]) && trim($_POST["direccion"][0]) != "")? $_POST["direccion"] : "";
-    $nombreUsuario = (isset($_POST["nombreUsuario"]) && !empty($_POST["nombreUsuario"]) && trim($_POST["nombreUsuario"]) != "")? trim($_POST["nombreUsuario"]) : "";
+    $nombre_usuario = (isset($_POST["nombreUsuario"]) && !empty($_POST["nombreUsuario"]) && trim($_POST["nombreUsuario"]) != "")? trim($_POST["nombreUsuario"]) : "";
     $psw = (isset($_POST["psw"]) && trim($_POST["psw"]) != "")? trim($_POST["psw"]) : "";
     $psw2 = (isset($_POST["psw2"]) && trim($_POST["psw2"]) != "")? trim($_POST["psw2"]) : "";
     $suscripcion = ($_POST["suscripcion"] == "1")? 1 : 0;
 
     $sql = "SELECT nombre_usuario, email
 		    FROM usuario as u
-		    WHERE u.nombre_usuario = '$nombreUsuario' OR u.email = '$email' OR u.nro_dni = '$dni'
+		    WHERE u.nombre_usuario = '$nombre_usuario' OR u.email = '$email' OR u.nro_dni = '$dni'
     ";
 
     $rs = $db->query($sql);
@@ -38,7 +38,7 @@
         header("location:../vistas/login.php?reg=true&error=2");
         exit;
     }
-    else if ($nombre == "" || $apellido == "" || $dni == "" || $email == "" || $provincia == "" || ($ciudad == "" && $provincia !="02") || $direccion == "" || $nombreUsuario == "" || $psw == ""){
+    else if ($nombre == "" || $apellido == "" || $dni == "" || $email == "" || $provincia == "" || ($ciudad == "" && $provincia !="02") || $direccion == "" || $nombre_usuario == "" || $psw == ""){
         header("location:../vistas/login.php?reg=true&error=3");
         exit;
     } else if (strlen($psw) < 6) {
@@ -48,7 +48,7 @@
     else{
         $psw = generar_clave_encriptada($psw);
 
-        $provincia = obtenerNombreProvincia($provincia);
+        $nombre_provincia = obtener_nombre_provincia($provincia);
 
         $dire = "";
         for ($i=0;$i<count($direccion);$i++){
@@ -62,7 +62,7 @@
         $dire = trim($dire);
 
         $insertar = "INSERT INTO `usuario`(`nombre_usuario`, `contrasena`, `perfil`, `nro_dni`, `nombre`, `apellido`, `email`, `provincia`, `ciudad`, `direccion`,`suscripcion`) 
-                     VALUES ('$nombreUsuario','$psw','U','$dni','$nombre','$apellido','$email','$provincia','$ciudad','$dire','$suscripcion')
+                     VALUES ('$nombre_usuario','$psw','U','$dni','$nombre','$apellido','$email','$nombre_provincia','$ciudad','$dire','$suscripcion')
         ";
 
         $rs = $db->query($insertar);

@@ -51,24 +51,24 @@
         $apellido = $_SESSION["user_last_name"];
         $email = $_SESSION["user_email_address"];
 
-        $existe = existeIdUsuario();
+        $existe = existe_id_usuario();
 
         if (!$existe){
-            $existe = existeEmail();
+            $existe = existe_email();
         }
 
         //Si ese id que devuelve Google no existe y tampoco existe el email
         if (!$existe){
-            $existe = existeNombreUsuario();
+            $existe = existe_nombre_usuario();
 
-            $idUsuario = insertarUsuario($nombre, $apellido, $email, "U", $existe); //ID de la tabla usuario
-            $_SESSION["idUsuario"] = $idUsuario;
+            $id_usuario = insertar_usuario($nombre, $apellido, $email, "U", $existe); //ID de la tabla usuario
+            $_SESSION["idUsuario"] = $id_usuario;
             $id = $_SESSION["id"];
 
-            insertarUsuarioRS($idUsuario, $id);
+            insertar_usuario_rs($id_usuario, $id);
         }
         else{
-            $resultado = seleccionarUsuarioConEmail($email);
+            $resultado = obtener_usuario_con_email($email);
 
             foreach($resultado as $row){
                 $_SESSION["idUsuario"] = $row["id_usuario"];
@@ -84,14 +84,14 @@
         $_SESSION["servicio"] = "Twitter";
         $_SESSION["perfil"] = "U"; 
 
-        $existe = existeIdUsuario();
+        $existe = existe_id_usuario();
 
         //Si ese id que devuelve Twitter no existe
         if (!$existe){
             $nombreUsuario = $_SESSION["nombre_tw"];
             $nombreUsuario = preg_replace("([^A-Za-z0-9])", "", $nombreUsuario);
             
-            $existe = existeNombreUsuario();
+            $existe = existe_nombre_usuario();
 
             //Si no existe una persona con ese nombre de usuario
             if (!$existe){
@@ -102,7 +102,7 @@
             else{
                 $nombreUsuario = $_SESSION["arroba_tw"];
 
-                $result = seleccionarUsuarioConNombreUsuario($nombreUsuario);
+                $result = obtener_usuario_con_nombre_usuario($nombreUsuario);
                 $i=0;
 
                 foreach ($result as $r){
@@ -121,18 +121,18 @@
             
             $db->query($sql);
 
-            $idUsuario = $db->lastInsertId(); //ID de la tabla usuario
+            $id_usuario = $db->lastInsertId(); //ID de la tabla usuario
 
             $sql = "INSERT INTO usuario_rs (id_usuario, id_social, servicio) VALUES
-                    ('$idUsuario', '$id', 'Twitter')
+                    ('$id_usuario', '$id', 'Twitter')
             ";
 
             $db->query($sql);  
             
-            $_SESSION["id_tw"] = $idUsuario;
+            $_SESSION["id_tw"] = $id_usuario;
         }
         else{         
-            $rs = seleccionarUsuarioConId($id);
+            $rs = obtener_usuario_con_id_rs($id);
 
             foreach ($rs as $row){
                 $_SESSION["id_tw"] = $row["id"];
@@ -401,7 +401,7 @@
     <main id="main" class="main">
 
         <form class="categorias">
-            <?= agregarImgCategorias(); ?>
+            <?= agregar_imagen_categorias(); ?>
         </form>
 
         <?= $modalNovedades; ?>

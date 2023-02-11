@@ -9,7 +9,7 @@
 ?>
 <!DOCTYPE html>
 <?php  
-    $categorias = obtenerCategorias();
+    $categorias = obtener_categorias();
 
 	$formulario =" 
         <form action='../controlador/veFuncCategoriaBaja.php' onsubmit='return validarBajaCategoria()' method='post' class='cont'>

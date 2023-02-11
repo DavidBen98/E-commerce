@@ -6,7 +6,7 @@
         exit;
     }
 
-    $subcategorias = obtenerSubcategorias();
+    $subcategorias = obtener_subcategorias();
 
     $formulario = " 
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaBaja.php' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     

@@ -11,7 +11,7 @@
     $nombre =(isset($_POST["nombre"]) && !empty($_POST["nombre"]))? trim($_POST["nombre"]):"";
     $apellido =(isset($_POST["apellido"]) && !empty($_POST["apellido"]))? trim($_POST["apellido"]):""; 
     $email =(isset($_POST["email"]) && !empty($_POST["email"]))? trim($_POST["email"]):"";
-    $txtIngresado =(isset($_POST["txtIngresado"]) && !empty($_POST["txtIngresado"]))? trim($_POST["txtIngresado"]):"";
+    $texto_ingresado =(isset($_POST["txtIngresado"]) && !empty($_POST["txtIngresado"]))? trim($_POST["txtIngresado"]):"";
     
     if($nombre == ""){
         header("location:../vistas/contacto.php?error=1");  
@@ -25,7 +25,7 @@
         header("location:../vistas/contacto.php?error=3"); 
         exit; 
     }
-    else if ($txtIngresado == ""){
+    else if ($texto_ingresado == ""){
         header("location:../vistas/contacto.php?error=4"); 
         exit; 
     }
@@ -33,17 +33,17 @@
         global $db;
 
         if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
-            $idUsuario = $_SESSION["idUsuario"];
+            $id_usuario = $_SESSION["idUsuario"];
         }
         else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
-            $idUsuario = $_SESSION["id"];
+            $id_usuario = $_SESSION["id"];
         }
         // else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
-        //     $idUsuario = $_SESSION["id_tw"];
+        //     $id_usuario = $_SESSION["id_tw"];
         // }
 
         $sql = "INSERT INTO `consulta` (`nombre`, `apellido`, `texto`,`usuario_id`) 
-                VALUES ('$nombre','$apellido','$txtIngresado','$idUsuario')
+                VALUES ('$nombre','$apellido','$texto_ingresado','$id_usuario')
         "; 
 
         $rs = $db->query($sql);
@@ -55,7 +55,7 @@
         global $db;
 
         $sql = "INSERT INTO `consulta` (`email`, `nombre`, `apellido`, `texto`) 
-                VALUES ('$email','$nombre','$apellido','$txtIngresado')
+                VALUES ('$email','$nombre','$apellido','$texto_ingresado')
         "; 
 
         $rs = $db->query($sql);

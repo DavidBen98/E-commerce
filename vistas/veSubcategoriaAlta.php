@@ -6,7 +6,7 @@
         exit;
     }
 
-    $categorias = obtenerCategorias();
+    $categorias = obtener_categorias();
 
     $formulario = "
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
@@ -76,7 +76,7 @@
 
     $formulario .= "</form>";
 
-    $subcategoriasInactivas = obtenerSubcategoriasInactivas();
+    $subcategoriasInactivas = obtener_subcategorias_inactivas();
 
     $inactivas = "
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     

@@ -15,16 +15,16 @@
     } 
                  
     if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
-        $idUsuario = $_SESSION["idUsuario"];
+        $id_usuario = $_SESSION["idUsuario"];
     }
     else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
-        $idUsuario = $_SESSION["id"];
+        $id_usuario = $_SESSION["id"];
     }
     else if (isset($_SESSION["id_tw"])){ //Si se inicio sesion desde twitter
-        $idUsuario = $_SESSION["id_tw"];
+        $id_usuario = $_SESSION["id_tw"];
     }
 
-    $rs = obtenerConsultas($idUsuario);
+    $rs = obtener_consultas($id_usuario);
 
     $div = "<div class='consulta'>
                 <div class='renglon renglon-consultas'>      
@@ -49,7 +49,7 @@
                 </div> 
         ";
         
-        $rs = obtenerConsultas($idUsuario);
+        $rs = obtener_consultas($id_usuario);
 
         foreach ($rs as $row) { 
             if ($row["respondido"]){

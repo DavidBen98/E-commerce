@@ -25,7 +25,7 @@
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
-            $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
+            $listaCarrito[] = obtener_producto_con_cantidad([$key], $cantidad);
         }
     }
     else{
@@ -89,7 +89,7 @@
 
         $i++;
 
-        $path = obtenerImagenProducto($id);
+        $path = obtener_imagen_producto($id);
 
         $carrito .= "<div class='contenedor'>
                             <div class='principal'>                                                                                          

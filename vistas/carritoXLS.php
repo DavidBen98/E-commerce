@@ -35,7 +35,7 @@
 
         if ($productos != null){
             foreach ($productos as $key => $cantidad){
-                $listaCarrito[] = obtenerProductoConCantidad([$key], $cantidad);
+                $listaCarrito[] = obtener_producto_con_cantidad([$key], $cantidad);
             }
             $productosAgregados = count($listaCarrito);
         }

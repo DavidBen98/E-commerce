@@ -28,7 +28,7 @@
 	}
 
 	$codigo = $_GET["art"] ;
-	$rs = obtenerProducto($codigo);
+	$rs = obtener_producto($codigo);
 
 	foreach ($rs as $row) { 	
 		$ruta .= "<li>{$row['descripcion']}</li>
@@ -80,7 +80,7 @@
 			}
 		}
 
-		$path = obtenerImagenProducto($id);
+		$path = obtener_imagen_producto($id);
 
 		$contArticulo = "<div class='contenedor'> 
 							<div id='cont-images'>

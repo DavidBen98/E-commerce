@@ -12,6 +12,7 @@
     }
 
     $rs = $db->query($sql);
+    
     foreach($rs as $r){
         $path = $r['destination'];
     }

@@ -9,16 +9,16 @@
 	else{
         global $db;
     
-        $idProducto = intval($_GET["id"]);
+        $id_producto = intval($_GET["id"]);
     
         if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
-            $idUsuario = intval($_SESSION["idUsuario"]);
+            $id_usuario = intval($_SESSION["idUsuario"]);
         }
         else if (isset($_SESSION["id"])){ //Si se inicio sesion desde Google
-            $idUsuario = intval($_SESSION["id"]);
+            $id_usuario = intval($_SESSION["id"]);
         }
         // else if (isset($_SESSION["user_id"])){ //Si se inicio sesion desde twitter
-        //     $idUsuario = intval($_SESSION["user_id"]);
+        //     $id_usuario = intval($_SESSION["user_id"]);
         // }
     
         if (!isset($_SESSION["idUsuario"])){
@@ -29,12 +29,12 @@
             ";
 
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(":id", $idUsuario, PDO::PARAM_INT);
+            $stmt->bindParam(":id", $id_usuario, PDO::PARAM_INT);
             $stmt->execute();
             $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($rs as $row){
-                $idUsuario = $row["id"];
+                $id_usuario = $row["id"];
             }
         }
 
@@ -43,8 +43,8 @@
         ";
 
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-        $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
+        $stmt->bindParam(":idUsuario", $id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(":idProducto", $id_producto, PDO::PARAM_INT);
         $stmt->execute();
         $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -59,8 +59,8 @@
             ";
 
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
-            $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+            $stmt->bindParam(":idProducto", $id_producto, PDO::PARAM_INT);
+            $stmt->bindParam(":idUsuario", $id_usuario, PDO::PARAM_INT);
             $stmt->execute();
 
             $datos = "ok";
@@ -70,4 +70,5 @@
     }
 
     echo $datos;
+    exit;
 ?>

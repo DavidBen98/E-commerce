@@ -7,8 +7,8 @@
         exit;
     }
 
-    $categorias = obtenerCategorias();
-    $subcategorias = obtenerSubcategorias();
+    $categorias = obtener_categorias();
+    $subcategorias = obtener_subcategorias();
     
     $formulario = "
         <h1 id='modSubcategoria'>Modificar subcategoría</h1>

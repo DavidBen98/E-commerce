@@ -4,17 +4,17 @@
     require_once "../vendor\jublonet\codebird-php\src\codebird.php";
     // require_once "../app/TwitterAuth.php";
 
-    // $tokengoogle = getenv('IDCLIENTEGOOGLE');
-    $tokengoogle = "594064547014-qtsmu9tgks9lsgucsl81mu850aadfi4a.apps.googleusercontent.com";
-    // $secretoclavetokengoogle = getenv('SECRETOCLAVEGOOGLE');
-    $secretoclavetokengoogle = "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";
-    $tokentwitter = getenv('TOKENTWITTER');
-    $secretoclavetokentwitter = getenv('SECRETOCLAVETWITTER');
+    // $token_google = getenv('IDCLIENTEGOOGLE');
+    $token_google = "594064547014-qtsmu9tgks9lsgucsl81mu850aadfi4a.apps.googleusercontent.com";
+    // $secreto_clave_google = getenv('SECRETOCLAVEGOOGLE');
+    $secreto_clave_google = "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";
+    $token_twitter = getenv('TOKENTWITTER');
+    $secreto_clave_twitter = getenv('SECRETOCLAVETWITTER');
 
     $user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
     $perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
 
-    // \Codebird\Codebird::setConsumerKey($tokentwitter);
+    // \Codebird\Codebird::setConsumerKey($token_twitter);
     
     // $cliente = \Codebird\Codebird::getInstance();
 
@@ -23,10 +23,10 @@
         $google_client = new Google_Client();
         
         // //Set the OAuth 2.0 Client ID | Copiar "ID DE CLIENTE"
-        $google_client->setClientId($tokengoogle);
+        $google_client->setClientId($token_google);
         
         // //Set the OAuth 2.0 Client Secret key
-        $google_client->setClientSecret($secretoclavetokengoogle);
+        $google_client->setClientSecret($secreto_clave_google);
         
         // //Set the OAuth 2.0 Redirect URI | URL AUTORIZADO
         $google_client->setRedirectUri("http://127.0.0.1/vistas/index.php");

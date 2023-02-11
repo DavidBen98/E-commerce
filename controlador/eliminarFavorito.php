@@ -5,18 +5,18 @@
 
     global $db;
 
-    $idUsuario = "";
+    $id_usuario = "";
 
     if (isset($_SESSION["idUsuario"])) {
-        $idUsuario = $_SESSION["idUsuario"];
+        $id_usuario = $_SESSION["idUsuario"];
     } elseif (isset($_SESSION["id"])) {
-        $idUsuario = $_SESSION["id"];
+        $id_usuario = $_SESSION["id"];
     }
     // elseif (isset($_SESSION["user_id"])) {
-    //     $idUsuario = $_SESSION["user_id"];
+    //     $id_usuario = $_SESSION["user_id"];
     // }
 
-    $idProducto = intval($_GET["id"]);
+    $id_producto = intval($_GET["id"]);
 
-    echo eliminarFavorito($db, $idProducto, $idUsuario);
+    echo eliminar_favorito($db, $id_producto, $id_usuario);
 ?>

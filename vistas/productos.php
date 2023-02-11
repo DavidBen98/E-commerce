@@ -54,7 +54,7 @@
             $where .= " AND p.id_subcategoria like '%' ";
         }
 
-        $sql = completarWhere($select,$from,$innerJoin,$where,$filtros);
+        $sql = completar_where($select,$from,$innerJoin,$where,$filtros);
         $rs = $db->query($sql);
     }
 	else if (isset($_GET["buscador"])){
@@ -98,7 +98,7 @@
 		";
 		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria'";
 
-        $sql = completarWhere($select, $from, $innerJoin, $where, $filtros);
+        $sql = completar_where($select, $from, $innerJoin, $where, $filtros);
         $rs = $db->query($sql);
     }
 
@@ -107,7 +107,7 @@
 
 	if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
 		$categoria = intval($categoria);
-		$filtro = mostrarFiltros($filtros,$categoria,$subcategoria);
+		$filtro = mostrar_filtros($filtros,$categoria,$subcategoria);
 		
 		$filtrado = "<div id='filtros-usados'>		
 						<div id='filtro'> $filtro </div>
@@ -369,11 +369,11 @@
         <aside class="barra-lateral"> 
 			<?= $filtrado; ?>
 
-			<?= crearBarraLateral(); ?>
+			<?= crear_barra_lateral(); ?>
 		</aside>
 
 		<section class="contenedor-productos">
-			<?= crearImagenes ($rs); ?>
+			<?= crear_imagenes ($rs); ?>
 			
 			<div class="btn-doc">
 				<input type="image" src="../images/iconos/logo_excel.png" class="excel" id="catalogo" title="Exportar a Excel" alt="Exportar a Excel">

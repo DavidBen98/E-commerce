@@ -22,7 +22,7 @@
 
         $path = substr($path,0, strrpos($path,'/'));
 
-        eliminarDireccion($path);
+        eliminar_direccion($path);
         //Elimina todas las imagenes de ese producto, ya sean portadas o no
         $sql = "DELETE FROM imagen_productos
                 WHERE id_producto = '$id'
@@ -65,13 +65,16 @@
                 $path = $r['destination'];
             }
 
-            $imagenes .= "<div class='producto'>
-                            <img src='../$path' class='imagen' alt='$id' title='{$row['descripcion']}'>
-                            <p>{$row['descripcion']}</p>
-                            <p><b>Código:</b> {$row['codigo']}</p>
-                        </div>";
+            $imagenes .= "
+                <div class='producto'>
+                    <img src='../$path' class='imagen' alt='$id' title='{$row['descripcion']}'>
+                    <p>{$row['descripcion']}</p>
+                    <p><b>Código:</b> {$row['codigo']}</p>
+                </div>
+            ";
         }
 
         echo $imagenes;
+        exit;
     }
 ?>

@@ -3,10 +3,10 @@
 	require "funciones.php"; 
 	require_once "config.php"; 
  
-	$nombreUser = trim($_POST["nombreUsuario"] ?? "");
+	$nombre_usuario = trim($_POST["nombreUsuario"] ?? "");
 	$psw = trim($_POST["psw"] ?? "");
 	
-	if ($nombreUser === "" || $psw === "") {
+	if ($nombre_usuario === "" || $psw === "") {
 		header("location:../vistas/login.php?error=0"); 
 		exit;
 	}
@@ -16,14 +16,14 @@
 						  WHERE usuario.nombre_usuario =?
 	");
 	
-	$stmt->execute([$nombreUser]);
+	$stmt->execute([$nombre_usuario]);
 	
 	if ($rs = $stmt->fetch()) {
 		$psw_user = $rs["contrasena"];
 		$psw_encript = generar_clave_encriptada($psw);
 	
 		if ($psw_user === $psw_encript) {
-			$_SESSION["user"] = $nombreUser;
+			$_SESSION["user"] = $nombre_usuario;
 			$_SESSION["perfil"] = $rs["perfil"];
 			$_SESSION["nombre"] = "{$rs["apellido"]}, {$rs["nombre"]}";
 			$_SESSION["email"] = $rs["email"];

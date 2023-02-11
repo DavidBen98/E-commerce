@@ -7,10 +7,10 @@
         exit;
     }
 
-    $categorias = obtenerCategorias();
-    $materiales = obtenerMateriales();
-    $marcas = obtenerMarcas();
-    $colores = obtenerColores();
+    $categorias = obtener_categorias();
+    $materiales = obtener_materiales();
+    $marcas = obtener_marcas();
+    $colores = obtener_colores();
 
     //Establecer si la foto es de portada
     //<div style='width:100%; display: flex; justify-content: center; align-items: center;'>

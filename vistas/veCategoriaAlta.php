@@ -66,7 +66,7 @@
 
     $formulario .= "</form>";
 
-    $categoriasInactivas = obtenerCategoriasInactivas();
+    $categoriasInactivas = obtener_categorias_inactivas();
 
     $inactivas = "
         <form class='cont' method='POST' action='../controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     

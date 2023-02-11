@@ -1,6 +1,6 @@
 <?php   
     include_once ("../controlador/funciones.php");
-    $cantCarrito = cantidadCarrito();
+    $cantCarrito = cantidad_carrito();
 
     if (perfil_valido(1)){
         // <li><a href='consultas.php'>Consultas</a></li>
