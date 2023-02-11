@@ -370,25 +370,28 @@
     <script src="../js/funciones.js"></script>
     <script>
         document.addEventListener ("DOMContentLoaded", () => {
-            // Eliminar eventos de clic
             const cards = document.querySelectorAll(".card");
-            // Añadimos un evento en cada click
-            cards.forEach((card) => {
-                card.addEventListener("click", () => {
-                    if (card.classList.contains("active")) {
-                        card.classList.toggle("active");
-                    } else {
-                        cards.forEach((card) => {
-                            card.classList.remove("active");
-                        });
-                        
-                        card.classList.add("active");
-                        card.addEventListener("click", () => {
-                            window.location = "subcategoria.php?categoria="+card.id;
-                        });
+            let expandedImage = null;
+
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].addEventListener("click", function() {
+                    if (expandedImage !== this) {
+                    // si no está expandida, expandirla y agregarle el evento onclick
+                        if (expandedImage !== null) {
+                            // si hay otra imagen expandida, reducirla
+                            expandedImage.classList.remove("active");
+                            // remover el evento onclick de la imagen anteriormente expandida
+                            expandedImage.onclick = null;
+                        }
+
+                        cards[i].classList.add("active");
+                        cards[i].onclick = () => {
+                            window.location = "subcategoria.php?categoria="+cards[i].id;
+                        }
+                        expandedImage = this;
                     }
-                })
-            });
+                });
+            }
         });
     </script>
 </head>
