@@ -32,12 +32,13 @@
         }
     }
 
-    $contenedor_compras = "<div class='consulta'>
-                <div class='renglon'>      
-                    <h1>
-                        Compras realizadas
-                    </h1>
-                </div>            
+    $contenedor_compras = "
+        <div class='consulta'>
+            <div class='renglon'>      
+                <h1>
+                    Compras realizadas
+                </h1>
+            </div>            
     ";
 
     $i = 0;
@@ -76,44 +77,45 @@
 
             $path = obtener_imagen_producto($id);
     
-            $contenedor_compras.= "<div class='contenedor'>
-                        <div class='descrip'> 
-                            <div class='principal'>                                                                                          
-                                <img src='../$path' class='productos img-cat' alt='$codigo'>
-                                    <div class='titulo'>
-                                        <div>
-                                            <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
-                                            <a href='detalleArticulo.php?art=$codigo' class='enlace'> $marca</a>
-                                        </div>
+            $contenedor_compras.= "
+                <div class='contenedor'>
+                    <div class='descrip'> 
+                        <div class='principal'>                                                                                          
+                            <img src='../$path' class='productos img-cat' alt='$codigo'>
+                                <div class='titulo'>
+                                    <div>
+                                        <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
+                                        <a href='detalleArticulo.php?art=$codigo' class='enlace'> $marca</a>
+                                    </div>
 
-                                        <div class='elim-fav'>
-                                            <div class='elim-producto'>
-                                                <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
-                                                <a id='elim-prod-$select_numero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
-                                            </div>
-                                            <div class='elim-producto'>
-                                                <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
-                                                <a id='agregar-fav-$select_numero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
-                                            </div>
+                                    <div class='elim-fav'>
+                                        <div class='elim-producto'>
+                                            <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
+                                            <a id='elim-prod-$select_numero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
+                                        </div>
+                                        <div class='elim-producto'>
+                                            <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
+                                            <a id='agregar-fav-$select_numero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
                                         </div>
                                     </div>
-                            </div>
-                            <div class='secundario'>
-                                    <p class='definir'> 
-                                        <b>Color:</b>
-                                    </p> 
-                                    <p class='caract'> $color </p>
-                                    <p class='definir'> 
-                                        <b>Material:</b>
-                                    </p> 
-                                    <p class='caract'>$material</p>
-                                    <p class='definir'> 
-                                        <b>Precio:</b>
-                                    </p> 
-                                    <p>$$precio</p>
-                            </div>                                            
+                                </div>
                         </div>
+                        <div class='secundario'>
+                                <p class='definir'> 
+                                    <b>Color:</b>
+                                </p> 
+                                <p class='caract'> $color </p>
+                                <p class='definir'> 
+                                    <b>Material:</b>
+                                </p> 
+                                <p class='caract'>$material</p>
+                                <p class='definir'> 
+                                    <b>Precio:</b>
+                                </p> 
+                                <p>$$precio</p>
+                        </div>                                            
                     </div>
+                </div>
             ";
         
             $select_numero++;

@@ -19,8 +19,9 @@
                 <select id='subcategoria' name='subcategoria' class='form-select'>
             ";
         } else {
-            echo "  <label for='subcategoria' class='label'> Subcategorías </label>
-                    <select id='subcategoria' name='subcategoria' class='form-select'>
+            echo "  
+                <label for='subcategoria' class='label'> Subcategorías </label>
+                <select id='subcategoria' name='subcategoria' class='form-select'>
             ";
         }
 
@@ -60,9 +61,11 @@
 
             sort($municipio);
 
-            echo "<label for='ciudad' class='form-label'>Ciudad</label>
-                  <select id='ciu' name='ciudad' class='form-select'>
+            echo "
+                <label for='ciudad' class='form-label'>Ciudad</label>
+                <select id='ciu' name='ciudad' class='form-select'>
             ";  
+            
             foreach ($municipio as $nombre){ 
                 echo "<option value='$nombre'>". $nombre . "</option>";
             }   

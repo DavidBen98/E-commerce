@@ -26,12 +26,13 @@
 
     $rs = obtener_consultas($id_usuario);
 
-    $consulta = "<div class='consulta'>
-                <div class='renglon renglon-consultas'>      
-                    <h1>
-                        Consultas realizadas
-                    </h1>
-                </div>         
+    $consulta = "
+        <div class='consulta'>
+            <div class='renglon renglon-consultas'>      
+                <h1>
+                    Consultas realizadas
+                </h1>
+            </div>         
     ";
 
     $i = 0;
@@ -43,10 +44,11 @@
         $consulta .= "<p>Aún no hay consultas realizadas </p>";
     }
     else{
-        $consulta .= "<div class='renglon renglon-consultas'>      
-                    <p><b>Consulta</b></p>
-                    <p><b>Respuesta</b></p>
-                </div> 
+        $consulta .= "
+            <div class='renglon renglon-consultas'>      
+                <p><b>Consulta</b></p>
+                <p><b>Respuesta</b></p>
+            </div> 
         ";
         
         $rs = obtener_consultas($id_usuario);
@@ -61,17 +63,18 @@
             
             $pregunta = ucfirst($row["texto"]);
     
-            $consulta .= "   <div class='renglon renglon-consultas'> 
-                            <p>$pregunta</p>
-                            <p>$respuesta</p>
-                        </div>
+            $consulta .= "   
+                <div class='renglon renglon-consultas'> 
+                    <p>$pregunta</p>
+                    <p>$respuesta</p>
+                </div>
             ";
         }
     }
 
     $consulta .= "
             <div class='renglon'> 
-                <button class='btn' id='nuevaConsulta'>Nueva consulta </button>
+                <button class='btn' id='nueva-consulta'>Nueva consulta </button>
             </div>
         </div>
     ";
@@ -142,7 +145,7 @@
             font-size:1.6rem;
         }
 
-        #nuevaConsulta{
+        #nueva-consulta{
             margin:15px;
         }
 

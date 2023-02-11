@@ -11,7 +11,7 @@
     $nombre =(isset($_POST["nombre"]) && !empty($_POST["nombre"]))? trim($_POST["nombre"]):"";
     $apellido =(isset($_POST["apellido"]) && !empty($_POST["apellido"]))? trim($_POST["apellido"]):""; 
     $email =(isset($_POST["email"]) && !empty($_POST["email"]))? trim($_POST["email"]):"";
-    $texto_ingresado =(isset($_POST["txtIngresado"]) && !empty($_POST["txtIngresado"]))? trim($_POST["txtIngresado"]):"";
+    $texto_ingresado =(isset($_POST["txt-ingresado"]) && !empty($_POST["txt-ingresado"]))? trim($_POST["txt-ingresado"]):"";
     
     if($nombre == ""){
         header("location:../vistas/contacto.php?error=1");  

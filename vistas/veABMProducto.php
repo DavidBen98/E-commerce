@@ -19,13 +19,13 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             document.addEventListener("click", ev => {
-                if (ev.target.matches("#altaProductos")){
+                if (ev.target.matches("#alta-productos")){
                     window.location.href="veProductoAlta.php";
                 }
-                else if (ev.target.matches("#bajaProductos")){
+                else if (ev.target.matches("#baja-productos")){
                     window.location.href="veProductoBaja.php";
                 }
-                else if (ev.target.matches("#modProductos")){
+                else if (ev.target.matches("#modificar-productos")){
                     window.location.href="veProductoBaja.php?modif=true";
                 }
             });   
@@ -51,9 +51,9 @@
     <main id="main">
         <div class="cont">
             <h1>PRODUCTOS</h1>
-            <button class="btn hover" id="altaProductos">ALTA</button>
-            <button class="btn hover" id="bajaProductos">BAJA</button>
-            <button class="btn hover" id="modProductos">MODIFICACIÓN</button>
+            <button class="btn hover" id="alta-productos">ALTA</button>
+            <button class="btn hover" id="baja-productos">BAJA</button>
+            <button class="btn hover" id="modificar-productos">MODIFICACIÓN</button>
         </div>      
     </main>
     

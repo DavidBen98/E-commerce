@@ -18,13 +18,13 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             document.addEventListener("click", ev => {
-                if (ev.target.matches("#altaSubcat")){
+                if (ev.target.matches("#alta-subcategoria")){
                     window.location.href="veSubcategoriaAlta.php";
                 }
-                else if (ev.target.matches("#bajaSubcat")){
+                else if (ev.target.matches("#baja-subcategoria")){
                     window.location.href="veSubcategoriaBaja.php";
                 }
-                else if (ev.target.matches("#modSubcat")){
+                else if (ev.target.matches("#modificar-subcategoria")){
                     window.location.href="veSubcategoriaModif.php";
                 }
             });
@@ -51,9 +51,9 @@
     <main id="main">
         <div class="cont">
             <h2>SUBCATEGORÍAS</h1>
-            <button class="btn hover" id="altaSubcat">ALTA</button>
-            <button class="btn hover" id="bajaSubcat">BAJA</button>
-            <button class="btn hover" id="modSubcat">MODIFICACIÓN</button>
+            <button class="btn hover" id="alta-subcategoria">ALTA</button>
+            <button class="btn hover" id="baja-subcategoria">BAJA</button>
+            <button class="btn hover" id="modificar-subcategoria">MODIFICACIÓN</button>
         </div>
     </main>
 

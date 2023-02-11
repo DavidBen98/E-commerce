@@ -4,8 +4,8 @@
 
     global $db;
     $id_subcategoria = isset($_POST['subcategoria'])? $_POST['subcategoria']: null;
-    $nombre_modificado = isset($_POST['modNombre']) ? $_POST['modNombre'] : null;
-    $imagen_modificada = isset($_POST['modImagen']) ? $_POST['modImagen'] : null;
+    $nombre_modificado = isset($_POST['modificar-nombre']) ? $_POST['modificar-nombre'] : null;
+    $imagen_modificada = isset($_POST['modificar-imagen']) ? $_POST['modificar-imagen'] : null;
 
     if ($nombre_modificado == null && $imagen_modificada == null){
         //Debe modificar al menos un campo

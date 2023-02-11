@@ -48,8 +48,8 @@
                 </div> 
 
                 <div class='renglon'>
-                    <label class='descripciones' for='nombreUsuario'>Nombre de usuario</label>
-                    <input type='text' id='nombreUsuario' class='dato' name='nombreUsuario' title='nombreUsuario' value='{$row["nombre_usuario"]}' readonly>
+                    <label class='descripciones' for='nombre-usuario'>Nombre de usuario</label>
+                    <input type='text' id='nombre-usuario' class='dato' name='nombre-usuario' title='nombre-usuario' value='{$row["nombre_usuario"]}' readonly>
                 </div>
 
                 <div class='renglon'>
@@ -79,22 +79,22 @@
                     $select
                 </div>
 
-                <div class='renglon' id='renglonCiudad'>
-                    <label class='descripciones' for='inputCiudad'>Ciudad</label>
-                    <input type='text' id='inputCiudad' class='dato' name='ciudad' title='ciudad' value='{$row["ciudad"]}' readonly>
-                    <label class='descripciones' id='lModCiudad' for='ciu'>Ciudad</label>
+                <div class='renglon' id='renglon-ciudad'>
+                    <label class='descripciones' for='input-ciudad'>Ciudad</label>
+                    <input type='text' id='input-ciudad' class='dato' name='ciudad' title='ciudad' value='{$row["ciudad"]}' readonly>
+                    <label class='descripciones' id='label-mod-ciudad' for='ciu'>Ciudad</label>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='direccion'>Dirección</label>
                     <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row["direccion"]}' readonly>
                     <div class='direccion'>
-                        <label for='inputCalle' class='form-label'>Calle</label>
-                        <input type='text' class='dato' name='direccion[]' id='inputCalle' title='Nombre de calle'>
-                        <label for='inputNumero' class='form-label'>Número</label>
-                        <input type='number' class='dato' name='direccion[]' id='inputNumero' title='Número de calle'>
-                        <label for='inputPiso' class='form-label'>Depto</label>
-                        <input type='text' class='dato' name='direccion[]' id='inputPiso' title='Piso y número de departamento'>
+                        <label for='input-calle' class='form-label'>Calle</label>
+                        <input type='text' class='dato' name='direccion[]' id='input-calle' title='Nombre de calle'>
+                        <label for='input-numero' class='form-label'>Número</label>
+                        <input type='number' class='dato' name='direccion[]' id='input-numero' title='Número de calle'>
+                        <label for='input-piso' class='form-label'>Depto</label>
+                        <input type='text' class='dato' name='direccion[]' id='input-piso' title='Piso y número de departamento'>
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@
 
     $contenedor_informacion_personal .= "
         <div class='renglon renglon-mod'>
-            <input type='button' id='modificarDatos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
+            <input type='button' id='modificar-datos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
             <input type='button' id='cancelar' class='btn' value='Cancelar'>  
             <input type='submit' id='confirmar' class='btn' value='Confirmar'>
         </div>
@@ -239,7 +239,7 @@
             border-bottom: none;
         }
 
-        #modificarDatos, #confirmar, #cancelar{
+        #modificar-datos, #confirmar, #cancelar{
             margin:10px;
         }
 
@@ -307,11 +307,11 @@
             width:100%;
         }
 
-        #lModCiudad, #lModProvincia{
+        #label-mod-ciudad, #lModProvincia{
             display:none;
         }
 
-        #inputNumero, #inputPiso{
+        #input-numero, #input-piso{
             width:50%;
         }
         

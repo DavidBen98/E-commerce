@@ -182,7 +182,7 @@ header a {
     font-family: "Salesforce Sans", serif;
 }
 
-#inicio:hover, #sus_nov:hover, #iniciarSesion:hover, #btn-registrar:hover{
+#inicio:hover, #suscripcion-novedades:hover, #iniciarSesion:hover, #btn-registrar:hover{
     transition: all 0.5s linear;
     color: rgb(147, 81, 22);
     cursor: pointer;
@@ -634,7 +634,7 @@ option{
     display:none;
 }
 
-#modal_novedades, #suscripcion {
+#modal-novedades, #suscripcion {
     display:none;
     background-color: #111111bd;
     position: fixed;
@@ -648,7 +648,7 @@ option{
     display: flex;
 }
 
-#modal_novedades form, #cont-sus{
+#modal-novedades form, #cont-sus{
     width: 90%;
     max-width: 600px;
     min-height: 200px;
@@ -668,22 +668,22 @@ option{
     height: auto;
 }
 
-.modal_titulo{
+.modal-titulo{
     font-size: 2.5rem;
 }
 
-.modal_input{
+.modal-input{
     margin-bottom: 10px;
     width: 50%;
     height: 30px;
     font-size: 20px;
 }
 
-.modal_submit {
+.modal-submit {
     width: 100%;
 }
 
-#cerrar_novedades{
+#cerrar-novedades{
     position: absolute;
     right: 0;
     top: 0;
@@ -708,7 +708,7 @@ option{
     text-align : center;
 }
 
-#cont_modal{
+#cont-modal{
     margin: 0;
 }
 

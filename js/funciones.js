@@ -10,10 +10,10 @@ window.onload = function (){
         else if (ev.target.matches("#lupa")){
             window.location.href = "productos.php?buscador="+filtro.value;
         }
-        else if (ev.target.matches("#nuevaConsulta")){
+        else if (ev.target.matches("#nueva-consulta")){
             window.location.href = "contacto.php";
         }
-        else if (ev.target.matches(".btnRedirigir")){
+        else if (ev.target.matches(".btn-redirigir")){
             window.location.href = "pago.php";
         }
         else if (ev.target.matches("#cancelar")){
@@ -44,7 +44,7 @@ window.onload = function (){
         else if (ev.target.matches("#btnCerrarSesion")){
             window.location.href="../controlador/cerrarSesion.php";
         }
-        else if (ev.target.matches("#procederCompra")){
+        else if (ev.target.matches("#proceder-compra")){
             window.location.href="pago.php";
         }
         else if (ev.target.matches("#header-menu")){
@@ -58,10 +58,10 @@ window.onload = function (){
             document.getElementById("container-header").style.display = "flex";
             document.getElementById("mobile-perfilUsuario").style.display = "none";
             document.getElementById("cont-mobile-menu").style.display = "none";
-        } else if (ev.target.matches("#sus_nov")){
-            document.getElementById("modal_novedades").style.display = "flex";
-        } else if (ev.target.matches(".cerrar_novedades")){
-            document.getElementById("modal_novedades").style.display = "none";
+        } else if (ev.target.matches("#suscripcion-novedades")){
+            document.getElementById("modal-novedades").style.display = "flex";
+        } else if (ev.target.matches(".cerrar-novedades")){
+            document.getElementById("modal-novedades").style.display = "none";
 
             let error = document.getElementById("mensaje");
             if (error !== null){
@@ -73,8 +73,8 @@ window.onload = function (){
                 suscripcion.style.display = "none";
             }
 
-        } else if (ev.target.matches("#modal_novedades")){
-            document.getElementById("modal_novedades").style.display = "none";
+        } else if (ev.target.matches("#modal-novedades")){
+            document.getElementById("modal-novedades").style.display = "none";
 
             let error = document.getElementById("mensaje");
             if (error !== null){
@@ -245,13 +245,13 @@ const modificarProducto = (id) => {
 
     let producto = document.getElementsByClassName("elim-prod")[prodCambiado-1].value;
 
-    let precioProdAnterior = document.getElementById("precioS-"+prodCambiado).textContent;
+    let precioProdAnterior = document.getElementById("precio-subtotal-"+prodCambiado).textContent;
     precioProdAnterior = precioProdAnterior.trim().slice(1); //le saco $
-    let precioUnitario = document.getElementById("precioU-"+prodCambiado).textContent; 
+    let precioUnitario = document.getElementById("precio-unitario-"+prodCambiado).textContent; 
     precioUnitario = precioUnitario.trim().slice(1); //obtengo precio unitario de ese producto
 
     let nuevoPrecioProducto = parseInt(cantElemento) * parseInt(precioUnitario); 
-    let precioSubtotal = document.getElementById("precioS-"+prodCambiado); //obtengo el lugar donde tengo que poner el precio actualizado
+    let precioSubtotal = document.getElementById("precio-subtotal-"+prodCambiado); //obtengo el lugar donde tengo que poner el precio actualizado
     precioSubtotal.innerHTML= "<b>$" + nuevoPrecioProducto + "</b>";
 
     let totalAnterior = document.getElementById("total");
@@ -468,7 +468,7 @@ const modDatos = (provincia) => {
     let input = document.getElementsByClassName("dato");
     let confirmar = document.getElementById("confirmar");
     let cancelar = document.getElementById("cancelar");
-    let modificar = document.getElementById("modificarDatos");
+    let modificar = document.getElementById("modificar-datos");
     let mensaje = document.getElementById ("mensaje");
     let descripcion = document.getElementsByClassName("descripciones");
     let novedades = document.getElementById ("novedades");
@@ -511,7 +511,7 @@ const modDatos = (provincia) => {
         descripcion[8].style.display="flex";
 
         actualizarCiudad();
-        let inputCiudad = document.getElementById("inputCiudad");
+        let inputCiudad = document.getElementById("input-ciudad");
         inputCiudad.style.display = "none";
 
         let direccion = document.getElementsByClassName("dato");
@@ -532,9 +532,9 @@ const modDatos = (provincia) => {
         let piso = direccion.substring(numeroHasta+2, direccion.length);
 
         let inputDireccion = document.getElementById("direccion");
-        let inputCalle = document.getElementById("inputCalle");
-        let inputNumero = document.getElementById("inputNumero");
-        let inputPiso = document.getElementById("inputPiso");
+        let inputCalle = document.getElementById("input-calle");
+        let inputNumero = document.getElementById("input-numero");
+        let inputPiso = document.getElementById("input-piso");
         let divDireccion = document.getElementsByClassName("direccion");
         divDireccion = divDireccion[0];
         divDireccion.style.display = "flex";
@@ -556,7 +556,7 @@ const modDatos = (provincia) => {
 
 const actualizarCiudad = (ciudad) => {
     let prov = "prov=" + $("#provincia").val();
-    let ciu = "ciudad=" + $("#inputCiudad").val();
+    let ciu = "ciudad=" + $("#input-ciudad").val();
 
     $.ajax ({
         type: "POST",
@@ -564,7 +564,7 @@ const actualizarCiudad = (ciudad) => {
         data: prov + "&" + ciu,
         success: function (datos){
             let contenedorCiudad = document.getElementById("contenedorCiudad");
-            let renglonCiudad = document.getElementById ("renglonCiudad");
+            let renglonCiudad = document.getElementById ("renglon-ciudad");
 
             if (contenedorCiudad != null){
                 renglonCiudad.removeChild(contenedorCiudad);
@@ -595,7 +595,7 @@ const actualizarCiudad = (ciudad) => {
 const validarLogin = () => {
     document.getElementById("mensaje").innerHTML="";
 
-    nombreUser = document.getElementById("nombreUsuario").value;
+    nombreUser = document.getElementById("nombre-usuario").value;
     psw = document.getElementById("psw").value;
     
     txtErrores = "";
@@ -631,7 +631,7 @@ const validarRegistro = () => {
     let ciudad = document.getElementById("ciu") !== null? document.getElementById("ciu").selectedIndex : -1;
     let calle = document.getElementById("calle").value;
     let numero = document.getElementById("numero").value;
-    let nombreUsuario = document.getElementById("nombreUsuario").value;
+    let nombreUsuario = document.getElementById("nombre-usuario").value;
     let psw = document.getElementById("psw").value;
     let psw2 = document.getElementById("psw2").value;
 
@@ -669,7 +669,7 @@ const validarContacto = () => {
     let apellido = document.getElementById("apellido").value;
     let email = document.getElementById("email").value;
     var validarEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-    let txtIngresado = document.getElementById("txtIngresado").value;
+    let txtIngresado = document.getElementById("txt-ingresado").value;
 
     let txtErrores = "";
 
@@ -788,7 +788,7 @@ const validarModif = () => {
             let error = document.createElement("div");
             error.setAttribute("id", "mensaje");
             error.style.backgroundColor = "black";
-            let contenedorBoton = document.getElementById("cont-ModificarCaract");
+            let contenedorBoton = document.getElementById("cont-modificar-caract");
     
             error.innerHTML = "Error: Los datos ingresados no son correctos, verifique que todos los campos están completos y cumplen con los requisitos de la aplicacion.";
             contenedorBoton.appendChild(error);
@@ -877,8 +877,8 @@ const validarBajaCategoria = () => {
 //Categoria modificacion
 const validarModificacionCategoria = () => {
     let categoria = document.getElementById("categoria").selectedIndex === -1;
-    let checkNombre = document.getElementById("modNombre").checked;
-    let checkImagen = document.getElementById("modImagen").checked;
+    let checkNombre = document.getElementById("modificar-nombre").checked;
+    let checkImagen = document.getElementById("modificar-imagen").checked;
     let validate = true;
 
     if (categoria) {
@@ -1008,8 +1008,8 @@ const validarModUbiSubcategoria = () => {
 //Subategoria modificacion caracteristicas
 const validarModCarSubcategoria = () => {
     let subcategoria = document.getElementsByName("subcategoria")[1].selectedIndex === -1;
-    let checkNombre = document.getElementById("modNombre").checked;
-    let checkImagen = document.getElementById("modImagen").checked;
+    let checkNombre = document.getElementById("modificar-nombre").checked;
+    let checkImagen = document.getElementById("modificar-imagen").checked;
     let validate = true;
 
     if (subcategoria) {
@@ -1061,7 +1061,7 @@ const validarModCarSubcategoria = () => {
 }
 
 const validarModal = () => {
-    let email = document.getElementById("modal_email").value;
+    let email = document.getElementById("modal-email").value;
     let validate = true;
 
     if( email == null || email.trim() == ""){
@@ -1075,7 +1075,7 @@ const validarModal = () => {
         if (p == null) {
             let error = document.createElement("div");
             error.setAttribute("id", "mensaje");
-            let contenedorBoton = document.getElementsByClassName("cont_modal")[0];
+            let contenedorBoton = document.getElementsByClassName("cont-modal")[0];
     
             error.innerHTML = "Error: el email ingresado no es correcto, reintente nuevamente con un email válido";
             contenedorBoton.appendChild(error);

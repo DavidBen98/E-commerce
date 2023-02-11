@@ -21,7 +21,7 @@
     $id = $_GET["id"];
 
     $formulario = "
-        <form class='cont' action='../controlador/veFuncProductoModifUbicacion.php' method='post' id='contUbicacion'>
+        <form class='cont' action='../controlador/veFuncProductoModifUbicacion.php' method='post' id='cont-ubicacion'>
             <h2>Ubicación</h2>
     ";
             
@@ -34,11 +34,11 @@
     }
 
     $formulario .= "  
-            <div class='contenedor' id='catActual'>
+            <div class='contenedor' id='categoria-actual'>
                         
             </div>
 
-            <div class='contenedor' id='idActual'>
+            <div class='contenedor' id='id-actual'>
                 <input type='hidden' name='id' class='btn btn-enviar' title='' value='$id'>     
             </div>
 
@@ -52,11 +52,11 @@
             </div>
 
             <div class='contenedor' id='ubicacion'>
-                <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
+                <input type='submit' name='ubicacion' id='btn-ubicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
             </div>
         </form>
 
-        <form class='cont' action='../controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='contCaracterísticas'>
+        <form class='cont' action='../controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='cont-caracteristicas'>
     ";
 
     if (isset($_GET["modif"])){
@@ -102,11 +102,11 @@
 
         <div class='contenedor' id='caracteristicas'>
             <label for='alto'>Características (Números redondos, en centímetros)</label>
-            <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
+            <label for='alto' id='caracteristica-uno'>Alto/Plazas/Largo/Altura del respaldo</label>
             <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='' step='5'>
-            <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
+            <label for='ancho' id='caracteristica-dos'>Ancho/Largo/Altura del piso al asiento</label>
             <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='' step='5'>
-            <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
+            <label for='profundidad' id='caracteristica-tres'>Profundidad/Ancho/Alto</label>
             <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='' step='5'>
         </div>
 
@@ -130,8 +130,8 @@
             <label for='descuento'>Porcentaje de descuento (Solo número)</label>
             <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
         </div>
-        <div class='contenedor' id='cont-ModificarCaract'>
-            <input type='submit' name='caract' id='bCaracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
+        <div class='contenedor' id='cont-modificar-caract'>
+            <input type='submit' name='caract' id='btn-caracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
         </div>
     ";   
             
@@ -261,7 +261,7 @@
 
                         let selectSubcategoria = document.getElementById("subcategoria");
 
-                        let button = document.getElementById("bUbicacion");
+                        let button = document.getElementById("btn-ubicacion");
 
                         if (selectSubcategoria.selectedIndex == -1){
                             button.style.display = "none";
@@ -373,7 +373,7 @@
             justify-content:start;
         }
 
-        #idActual{
+        #id-actual{
             display:none;
         }
 
@@ -405,7 +405,7 @@
             padding: 0;
         }
 
-        #contUbicacion, #contCaracteristicas{
+        #cont-ubicacion, #contCaracteristicas{
             width:100%;
             background:rgba(147, 81, 22,0.4);
         }
@@ -414,7 +414,7 @@
             margin-top: 20px;
         }
 
-        #catActual p{
+        #categoria-actual p{
             width: 100%;
             text-align:center;
             margin: 5px;
@@ -424,7 +424,7 @@
             background: #000;
         }
 
-        #contUbicacion{
+        #cont-ubicacion{
             margin-right:10px;
             width:40%;
         }

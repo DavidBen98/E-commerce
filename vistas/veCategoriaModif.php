@@ -12,14 +12,14 @@
         <form action='../controlador/veFuncCategoriaModif.php' onsubmit='return validarModificacionCategoria()' method='post' enctype='multipart/form-data' class='cont'>
             <h1>Modificar categoría</h1>
                             
-            <label for='categoria' class='lCategoria'>
+            <label for='categoria' class='label-categoria'>
                 Categoría
             </label>
             $categorias
             
             <div class='contenedor'>
                 <div class='cont-check'>
-                    <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
+                    <input type='checkbox' id='modificar-nombre' name='modificar-nombre' value='Modificar nombre'>
                     <label for='nombre' > Modificar nombre </label>
                 </div>
                 <input type='text' class='form-control' name='nombre' id='nombre' placeholder='Ejemplo: Jardin' title='Nombre' value=''>
@@ -35,14 +35,14 @@
 
             <div class='archivo' id='archivo'>
                 <div class='cont-check'>
-                    <input type='checkbox' id='modImagen' name='modImagen' value='Modificar imagen'>
+                    <input type='checkbox' id='modificar-imagen' name='modificar-imagen' value='Modificar imagen'>
                     <label for='nombre'> Modificar imagen </label>
                 </div>
                 <input type='file' name='imagen' class='form-control' id='imagen' aria-label='Upload'>          
             </div> 
 
             <div class='contenedor'>      	 
-                <input type='submit' class='btn' name='bAceptar' id='bAceptar' title='bAceptar' value='Modificar categoría'>     	 
+                <input type='submit' class='btn' name='btn-aceptar' id='btn-aceptar' title='btn-aceptar' value='Modificar categoría'>     	 
             </div>
     ";
 
@@ -110,8 +110,8 @@
     <title>Muebles Giannis - Las mejores marcas</title>
     <script>
 		document.addEventListener("DOMContentLoaded", () => {
-            let modNombre = document.getElementById("modNombre");
-            let modImagen = document.getElementById("modImagen");
+            let modNombre = document.getElementById("modificar-nombre");
+            let modImagen = document.getElementById("modificar-imagen");
             let categoria = document.getElementById("categoria");
 
             actualizarImagen();
@@ -256,7 +256,7 @@
             text-align:center;
         }
 
-        .lCategoria{
+        .label-categoria{
             width:80%; 
             text-align:center; 
             font-size:1.3rem;

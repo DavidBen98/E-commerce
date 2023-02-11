@@ -13,7 +13,7 @@
             <label for='subcategoria' >Subcategoría</label>
             $subcategorias
             
-            <input type='submit' class='btn' name='bEliminarSubcat' id='bEliminarSubcat' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
+            <input type='submit' class='btn' name='btn-eliminar-subcategoria' id='btn-eliminar-subcategoria' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
     ";
 
     if (isset($_GET["elim"])){

@@ -10,10 +10,11 @@
 		exit;
 	}	 
 
-	$ruta = "<ol class='ruta'>
-				<li><a href='index.php'>Inicio</a></li>
-				<li>Subcategorías</li>
-			</ol>
+	$ruta = "
+		<ol class='ruta'>
+			<li><a href='index.php'>Inicio</a></li>
+			<li>Subcategorías</li>
+		</ol>
 	";
 
 	$imagenes = $_GET["categoria"];

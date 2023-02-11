@@ -18,8 +18,8 @@
 				isset($_POST["marca"])? $_POST["marca"]:null,
 				isset($_POST["valorMin"])? $_POST["valorMin"]:null,
 				isset($_POST["valorMax"])? $_POST["valorMax"]:null,
-				isset($_POST["orden"])? $_POST["orden"]:null]
-	;
+				isset($_POST["orden"])? $_POST["orden"]:null
+	];
 
 	$filtrado = "";
 
@@ -110,30 +110,33 @@
 		$categoria = intval($categoria);
 		$filtro = mostrar_filtros($filtros,$categoria,$subcategoria);
 		
-		$filtrado = "<div id='filtros-usados'>		
-						<div id='filtro'> $filtro </div>
-						<div class='btn-filtrado'>					
-							<a href='$url' class='btn filtrado-bl' name='BorrarFiltros' title='Borrado de filtrado' value='Borrar filtros'>Borrar filtros</a>
-							<button id='cambiar-filtro' class='btn filtrado-bl' name='CambiarFiltros' title='Cambiar filtros'>Modificar filtros</button>
-						</div>
-					</div>
+		$filtrado = "
+			<div id='filtros-usados'>		
+				<div id='filtro'> $filtro </div>
+				<div class='btn-filtrado'>					
+					<a href='$url' class='btn filtrado-bl' name='borrar-filtros' title='Borrado de filtrado' value='Borrar filtros'>Borrar filtros</a>
+					<button id='cambiar-filtro' class='btn filtrado-bl' name='cambiar-filtros' title='Cambiar filtros'>Modificar filtros</button>
+				</div>
+			</div>
 		";
 	}
 
 	//RUTA DE NAVEGACIÓN
 	if (isset($_GET["cate"])){
-		$ruta = "<ol class='ruta'>
-					<li><a href='index.php'>Inicio</a></li>
-					<li><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
-					<li>Productos</li>
-				</ol>
+		$ruta = "
+			<ol class='ruta'>
+				<li><a href='index.php'>Inicio</a></li>
+				<li><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
+				<li>Productos</li>
+			</ol>
 		";
 	}
 	else{
-		$ruta = "<ol class='ruta'>
-					<li><a href='index.php'>Inicio</a></li>
-					<li>Productos</li>
-				</ol>
+		$ruta = "
+			<ol class='ruta'>
+				<li><a href='index.php'>Inicio</a></li>
+				<li>Productos</li>
+			</ol>
 		";
 	}
 ?>

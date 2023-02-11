@@ -148,8 +148,8 @@
                 <div id='cont-sus'>
                     <h1> Suscripción realizada con éxito </h1>
                     <p> Ahora el email ingresado estará al tanto de todas nuestras novedades! </p>
-                    <button class='cerrar_novedades btn' value='Aceptar'> Aceptar </button>
-                    <button class='cerrar_novedades' id='cerrar_novedades' value='Cerrar'> X </button>
+                    <button class='cerrar-novedades btn' value='Aceptar'> Aceptar </button>
+                    <button class='cerrar-novedades' id='cerrar-novedades' value='Cerrar'> X </button>
                 </div>
             </div>
         ";
@@ -160,8 +160,8 @@
                     <div id='cont-sus'>
                         <h1> Error en la suscripción: el email ingresado no es correcto </h1>
                         <p> El email ingresado no es correcto, asegúrese de que completó el campo correctamente </p>
-                        <button class='cerrar_novedades btn' value='Aceptar'> Aceptar </button> 
-                        <button class='cerrar_novedades' id='cerrar_novedades' value='Cerrar'> X </button>
+                        <button class='cerrar-novedades btn' value='Aceptar'> Aceptar </button> 
+                        <button class='cerrar-novedades' id='cerrar-novedades' value='Cerrar'> X </button>
                     </div>
                 </div>
             ";
@@ -171,8 +171,8 @@
                     <div id='cont-sus'>
                         <h1> Error en la suscripción </h1>
                         <p> El email ingresado no se encuentra registrado en nuestro sitio</p>
-                        <button class='cerrar_novedades btn' value='Aceptar'> Aceptar </button>
-                        <button class='cerrar_novedades' id='cerrar_novedades' value='Cerrar'> X </button>
+                        <button class='cerrar-novedades btn' value='Aceptar'> Aceptar </button>
+                        <button class='cerrar-novedades' id='cerrar-novedades' value='Cerrar'> X </button>
                     </div>
                 </div>
             ";

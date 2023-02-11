@@ -108,11 +108,11 @@
 
             <div class='contenedor' id='caracteristicas'>
                 <label for='alto'>Características (Números redondos, en centímetros)</label>
-                <label for='alto' id='caracUno'>Alto/Plazas/Largo/Altura del respaldo</label>
+                <label for='alto' id='caracteristica-uno'>Alto/Plazas/Largo/Altura del respaldo</label>
                 <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='0' step='5'>
-                <label for='ancho' id='caracDos'>Ancho/Largo/Altura del piso al asiento</label>
+                <label for='ancho' id='caracteristica-dos'>Ancho/Largo/Altura del piso al asiento</label>
                 <input type='number' class='form-control' name='caracteristicas[]' id='ancho' title='ancho' value='0' step='5'>
-                <label for='profundidad' id='caracTres'>Profundidad/Ancho/Alto</label>
+                <label for='profundidad' id='caracteristica-tres'>Profundidad/Ancho/Alto</label>
                 <input type='number' class='form-control' name='caracteristicas[]' id='profundidad' title='profundidad' value='0' step='5'>
             </div>
 
@@ -139,7 +139,7 @@
             </div>
             
             <div class='contenedor' id='agregar'>
-                <input type='submit' id='btnEnviar' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
+                <input type='submit' id='btn-enviar' name='aceptar' class='btn btn-enviar' title='' value='Agregar producto'>
             </div>
         </form>
     ";
@@ -224,9 +224,9 @@
             });
 
             function verCaract (codigo){
-                let caracUno = document.getElementById ("caracUno");
-                let caracDos = document.getElementById ("caracDos");
-                let caracTres = document.getElementById ("caracTres");
+                let caracUno = document.getElementById ("caracteristica-uno");
+                let caracDos = document.getElementById ("caracteristica-dos");
+                let caracTres = document.getElementById ("caracteristica-tres");
 
                 //Según la subcategoría se establecen el nombre de las características
                 if (codigo == "ofsi"){
@@ -340,7 +340,7 @@
             padding: 0;
         }
 
-        #btnEnviar:hover{
+        #btn-enviar:hover{
             cursor: pointer;
         }
 

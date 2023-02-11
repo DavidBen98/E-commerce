@@ -36,8 +36,9 @@
 
     sort ($provincias);
 
-    $select = "<select id='provincia' name='provincia' title='Provincia'>
-                <option value='-1'>Seleccione una opción</option>
+    $select = "
+        <select id='provincia' name='provincia' title='Provincia'>
+            <option value='-1'>Seleccione una opción</option>
     ";
 
     foreach ($provincias as $provincia){

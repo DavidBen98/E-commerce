@@ -137,7 +137,7 @@
                                             </tr>
                                             <tr>
                                                 <th class='definir'>
-                                                    <label for='cant-$select_numero' class='labelSelect' id='$id'>
+                                                    <label for='cant-$select_numero' id='$id'>
                                                         <b>Cantidad:</b>
                                                     </label>
                                                 </th>
@@ -160,15 +160,15 @@
                             </div>
 
                             <div class='precio'>
-                                <p class='precioU'>Precio unitario </p> 
-                                <div class='div-precioU' id='precioU-$select_numero'>";
+                                <p class='precio-unitario'>Precio unitario </p> 
+                                <div class='div-precio-unitario' id='precio-unitario-$select_numero'>";
                                     if($precio != $precio_descuento){
-                                        $carrito .= "<p class='precioDesc'>$$precio</p>";
+                                        $carrito .= "<p class='precio-descuento'>$$precio</p>";
                                     }
                                         $carrito .= "<p> $$precio_descuento </p>
                                 </div>
                                 <p class='p-precio'>Precio </p> 
-                                <p id='precioS-$select_numero' class='precioS'>
+                                <p id='precio-subtotal-$select_numero' class='precio-subtotal'>
                                     <b>$".$subtotal."</b>
                                 </p>
                             </div>
@@ -180,7 +180,7 @@
 
         $carrito .= "
             <div class='contenedor-botones'>
-                <div class= 'botones'>
+                <div class='botones'>
                     <div class='totales'>
                         <p class='subtotal txt-totales'>Subtotal:</p> 
                         <p class='subtotal txt-totales' id='subtotal'> $$total </p>
@@ -193,8 +193,8 @@
                             <b>$$total</b>
                         </p>
                     </div>
-                    <div class='btnRedirigir'>
-                        <button type='button' class='btn-final' id='procederCompra'>Proceder a la compra</button>
+                    <div class='btn-redirigir'>
+                        <button type='button' class='btn-final' id='proceder-compra'>Proceder a la compra</button>
                     </div>
                     <div class='continuar'>
                         <button type='button' class='btn-final' id='continuar'>Continúa comprando</button>
@@ -310,13 +310,13 @@
             margin:10px;
         }
 
-        .precioU{
+        .precio-unitario{
             border-bottom: 0.5px solid #D3D3D3; 
             padding:0 0 1% 1%; 
             margin-left:4%;
         }
 
-        .div-precioU{
+        .div-precio-unitario{
             display:flex; 
             border-bottom: 0.5px solid #D3D3D3; 
             padding:0 0 1% 1%; 
@@ -328,12 +328,12 @@
             margin-left:4%;
         }
 
-        .precioDesc{
+        .precio-descuento{
             text-decoration:line-through; 
             font-size:0.85rem;
         }
 
-        .precioS{
+        .precio-subtotal{
             padding: 1% 0 0 1%; 
             font-family: Arial,Helvetica,sans-serif;
         }
@@ -505,7 +505,7 @@
             height: 20%;
         }
 
-        .btnRedirigir, .continuar{
+        .btn-redirigir, .continuar{
             height: 20%;
         }
 
@@ -550,7 +550,7 @@
             color: #000;
         }
 
-        .btnRedirigir button{
+        .btn-redirigir button{
             width:250px;
             height: 40px;
             background: #009ee3;
@@ -561,7 +561,7 @@
             cursor: pointer;
         }
 
-        .btnRedirigir button:hover{
+        .btn-redirigir button:hover{
             transition: all 0.3s linear;
             color: white;
             cursor:pointer;
@@ -717,11 +717,11 @@
             margin:0;
         }
         
-        .btnRedirigir{
+        .btn-redirigir{
             height: auto;
         }
         
-        .btnRedirigir button{
+        .btn-redirigir button{
             height: auto;
             padding: 5%;
             margin-top: 10%;

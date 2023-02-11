@@ -49,7 +49,7 @@
         return $value;
     }
 
-    $nombre_usuario = getPostData("nombreUsuario");
+    $nombre_usuario = getPostData("nombre-usuario");
     $nombre = getPostData("nombre");
     $apellido = getPostData("apellido");
     $dni = getPostData("dni");

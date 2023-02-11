@@ -83,41 +83,42 @@
 
             $path = obtener_imagen_producto($id);
     
-            $contenedor_favoritos.= "<div class='contenedor'>
-                        <div class='descrip'> 
-                            <div class='principal'>                                                                                          
-                                <img src='../$path' class='productos img-cat' alt='$codigo'>
-                                    <div class='titulo'>
-                                        <div class='cont-enlaces'>
-                                            <p class='enlace'> $descripcion</p>
-                                            <p class='enlace'> $marca</p>
-                                        </div> 
-                                        <div class='contenedor-eventos'>
-                                            <div class='evento-producto' >
-                                                <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
-                                                <button class='elim-fav' value='$id'> Eliminar producto</button>
-                                            </div>
-                                            <div class='evento-producto'>
-                                                <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
-                                                <a id='agregar-fav-$select_numero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
-                                            </div>
+            $contenedor_favoritos.= "
+                <div class='contenedor'>
+                    <div class='descrip'> 
+                        <div class='principal'>                                                                                          
+                            <img src='../$path' class='productos img-cat' alt='$codigo'>
+                                <div class='titulo'>
+                                    <div class='cont-enlaces'>
+                                        <p class='enlace'> $descripcion</p>
+                                        <p class='enlace'> $marca</p>
+                                    </div> 
+                                    <div class='contenedor-eventos'>
+                                        <div class='evento-producto' >
+                                            <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
+                                            <button class='elim-fav' value='$id'> Eliminar producto</button>
+                                        </div>
+                                        <div class='evento-producto'>
+                                            <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
+                                            <a id='agregar-fav-$select_numero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
                                         </div>
                                     </div>
-                            </div>
-                            <div class='secundario'>
-                                    <div class='definir'> 
-                                        <b>Color:</b>
-                                        <b>Material:</b>
-                                        <b>Precio:</b>
-                                    </div> 
-                                    <div class='caract'> 
-                                        <p> $color </p>
-                                        <p> $material </p>
-                                        <p> $$precio </p>
-                                    </div>
-                            </div>                                            
+                                </div>
                         </div>
+                        <div class='secundario'>
+                                <div class='definir'> 
+                                    <b>Color:</b>
+                                    <b>Material:</b>
+                                    <b>Precio:</b>
+                                </div> 
+                                <div class='caract'> 
+                                    <p> $color </p>
+                                    <p> $material </p>
+                                    <p> $$precio </p>
+                                </div>
+                        </div>                                            
                     </div>
+                </div>
             ";
         
             $select_numero++;

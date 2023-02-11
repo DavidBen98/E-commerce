@@ -18,13 +18,13 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             document.addEventListener("click", ev => {
-                if (ev.target.matches("#altaCat")){
+                if (ev.target.matches("#alta-categoria")){
                     window.location.href="veCategoriaAlta.php";
                 }
-                else if (ev.target.matches("#bajaCat")){
+                else if (ev.target.matches("#baja-categoria")){
                     window.location.href="veCategoriaBaja.php";
                 }
-                else if (ev.target.matches("#modCat")){
+                else if (ev.target.matches("#modificar-categoria")){
                     window.location.href="veCategoriaModif.php";
                 }
             });
@@ -51,9 +51,9 @@
     <main id="main">
         <div class="cont cat">
             <h1>CATEGORÍAS</h1>
-            <button class="btn hover" id="altaCat">ALTA</button>
-            <button class="btn hover" id="bajaCat">BAJA</button>
-            <button class="btn hover" id="modCat">MODIFICACIÓN</button>
+            <button class="btn hover" id="alta-categoria">ALTA</button>
+            <button class="btn hover" id="baja-categoria">BAJA</button>
+            <button class="btn hover" id="modificar-categoria">MODIFICACIÓN</button>
         </div>
     </main>
 

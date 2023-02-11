@@ -4,7 +4,7 @@
 
     global $db;
 
-    $email = isset($_POST["modal_email"]) ? trim($_POST["modal_email"]) : null;
+    $email = isset($_POST["modal-email"]) ? trim($_POST["modal-email"]) : null;
 
     if ($email === null) {
         header("location: ../vistas/index.php?error=1");

@@ -7,8 +7,7 @@
 	if (perfil_valido(1)) {
         header("location:veABMProducto.php");
 		exit;
-    }  
-	
+    }  	
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -239,7 +238,7 @@
 						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: jhonDoe@gmail.com' >";
 					}
 				?>
-				<textarea id="txtIngresado" class="txt-area" title="Consulta del usuario" placeholder="Consulta: Qué tarjetas aceptan?" name="txtIngresado" ></textarea>
+				<textarea id="txt-ingresado" class="txt-area" title="Consulta del usuario" placeholder="Consulta: Qué tarjetas aceptan?" name="txt-ingresado" ></textarea>
 				<p id="mensaje">
 
                 </p>

@@ -52,30 +52,34 @@
 		} 
 
 		if($row["stock"] == 0){
-			$stock .= "<p>Lo sentimos, no poseemos stock de este artículo.
-							Si desea saber cuando volverá a tener stock suscríbase a las novedades.
-							Gracias.
-					  </p>
+			$stock .= "
+				<p>Lo sentimos, no poseemos stock de este artículo.
+					Si desea saber cuando volverá a tener stock suscríbase a las novedades.
+					Gracias.
+				</p>
 			";
 		}
 		else{
-			$botones = "<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
-						<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos'>
+			$botones = "
+				<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
+				<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos'>
 			";						
 		}
 
 		if (isset($_GET["fav"])){
 			$fav = $_GET["fav"];
 			if ($fav == "ok"){
-				$mensaje = "<div class='mensaje' id='mensaje-exito'>
-								¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
-						   </div>
+				$mensaje = "
+					<div class='mensaje' id='mensaje-exito'>
+						¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+					</div>
 				";
 			}
 			else{
-				$mensaje = "<div class='mensaje' id='mensaje-advertencia'>
-								¡El producto ya pertenece a <a href='favoritos.php'>favoritos</a>!
-						   </div>
+				$mensaje = "
+					<div class='mensaje' id='mensaje-advertencia'>
+						¡El producto ya pertenece a <a href='favoritos.php'>favoritos</a>!
+					</div>
 				";
 			}
 		}
@@ -90,7 +94,7 @@
 
 				<div id='cont-descripcion'>
 					<div class='cont-fund'>
-						<input type='hidden' name='codImg' value='$codigo' />
+						<input type='hidden' name='codigoImagen' value='$codigo' />
 						
 						<h1>{$row["descripcion"]}</h1>
 		";
@@ -330,7 +334,7 @@
 		}
 
 		@media print {				
-			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav, .ruta, #form_novedades{
+			header, #imprimir, #pie, #btn-enviar, .parrafo-exito, .mensaje, #btn-fav, .ruta, #form-novedades{
 				display:none;
 			}
 

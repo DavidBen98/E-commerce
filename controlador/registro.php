@@ -9,7 +9,7 @@
     $provincia = (isset($_POST["provincia"]) && trim($_POST["provincia"]) != "")? trim($_POST["provincia"]) : "";
     $ciudad = (isset($_POST["ciudad"]) && trim($_POST["ciudad"]) != "")? trim($_POST["ciudad"]) : "";
     $direccion = (isset($_POST["direccion"]) && trim($_POST["direccion"][0]) != "")? $_POST["direccion"] : "";
-    $nombre_usuario = (isset($_POST["nombreUsuario"]) && !empty($_POST["nombreUsuario"]) && trim($_POST["nombreUsuario"]) != "")? trim($_POST["nombreUsuario"]) : "";
+    $nombre_usuario = (isset($_POST["nombre-usuario"]) && !empty($_POST["nombre-usuario"]) && trim($_POST["nombre-usuario"]) != "")? trim($_POST["nombre-usuario"]) : "";
     $psw = (isset($_POST["psw"]) && trim($_POST["psw"]) != "")? trim($_POST["psw"]) : "";
     $psw2 = (isset($_POST["psw2"]) && trim($_POST["psw2"]) != "")? trim($_POST["psw2"]) : "";
     $suscripcion = ($_POST["suscripcion"] == "1")? 1 : 0;

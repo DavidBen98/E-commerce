@@ -20,7 +20,7 @@
             </div>    
 
             <div class= 'agregar'>
-                <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>
+                <input type='submit' class='btn btn-secondary btn-lg' name='btn-aceptar' id='btn-aceptar' title='btn-aceptar' value='Agregar Categoría'>
             </div>
     ";
             

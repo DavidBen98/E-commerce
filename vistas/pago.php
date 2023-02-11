@@ -13,11 +13,12 @@
 
     $productos_mp = array();
 
-    $ruta = "<ol class='ruta'>
-                <li><a href='index.php'>Inicio</a></li>
-                <li><a href='carritoCompras.php'>Carrito de compras</a></li>
-                <li>Pago</li>
-            </ol>
+    $ruta = "
+        <ol class='ruta'>
+            <li><a href='index.php'>Inicio</a></li>
+            <li><a href='carritoCompras.php'>Carrito de compras</a></li>
+            <li>Pago</li>
+        </ol>
     ";
         
     $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
@@ -95,17 +96,18 @@
             <div class='contenedor'>
                 <div class='principal'>                                                                                          
                     <img src='../$path' class='productos img-cat' alt='$codigo'>
-                        <div class='titulo'>
-                            <div class='cont-enlaces'>
-                                <p class='enlace'> $descripcion</p>
-                                <p class='enlace'>Cantidad: $cantidad</p> 
-                            </div>
-                            <div class='enlace'>
-                                <p id='enlSubtotal'>
-                                    <b>$".$subtotal."</b>
-                                </p>
-                            </div>
+
+                    <div class='titulo'>
+                        <div class='cont-enlaces'>
+                            <p class='enlace'> $descripcion</p>
+                            <p class='enlace'>Cantidad: $cantidad</p> 
                         </div>
+                        <div class='enlace'>
+                            <p id='enlace-subtotal'>
+                                <b>$".$subtotal."</b>
+                            </p>
+                        </div>
+                    </div>
                 </div>                                          
             </div>
         ";
@@ -221,7 +223,7 @@
             width: 30%;
         }
 
-        #enlSubtotal{
+        #enlace-subtotal{
             width:100%; 
             text-align:end;
             font-family: Arial,Helvetica,sans-serif;

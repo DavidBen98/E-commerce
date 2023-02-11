@@ -13,19 +13,19 @@
     $formulario = "
         <h1 id='modSubcategoria'>Modificar subcategoría</h1>
         <div class='div-cont'>                
-            <form action='../controlador/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='formUbicacion' method='post' class='cont'>
+            <form action='../controlador/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='form-ubicacion' method='post' class='cont'>
                 <h2>Ubicación</h2>
 
-                <label for='subcategoria' class='lSubcategoria'>Subcategoría a modificar</label>
+                <label for='subcategoria' class='label-subcategoria'>Subcategoría a modificar</label>
                 $subcategorias
 
-                <label for='categoria' class='lCategoria'>
+                <label for='categoria' class='label-categoria'>
                     Nueva ubicación
                 </label>
                 $categorias
 
                 <div class='contenedor' id='ubicacion'>
-                    <input type='submit' name='ubicacion' id='bUbicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
+                    <input type='submit' name='ubicacion' id='btn-ubicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
                 </div>
     ";
 
@@ -47,15 +47,15 @@
     $formulario .="
         </form>
 
-        <form action='../controlador/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='formCaracteristicas' method='post' enctype='multipart/form-data' class='cont'>
+        <form action='../controlador/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='form-caracteristicas' method='post' enctype='multipart/form-data' class='cont'>
             <h2>Características</h2>
         
-            <label for='subcategoria' class='lSubcategoria'>Subcategoría a modificar</label>
+            <label for='subcategoria' class='label-subcategoria'>Subcategoría a modificar</label>
             $subcategorias
         
             <div class='contenedor'>
                 <div class='cont-check'>
-                    <input type='checkbox' id='modNombre' name='modNombre' value='Modificar nombre'>
+                    <input type='checkbox' id='modificar-nombre' name='modificar-nombre' value='Modificar nombre'>
                     <label for='nombre'> Modificar nombre </label>
                 </div>
                 <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''>
@@ -70,14 +70,14 @@
 
             <div class='archivo'>
                 <div class='cont-check'>
-                    <input type='checkbox' id='modImagen' name='modImagen' value='Modificar imagen'>
+                    <input type='checkbox' id='modificar-imagen' name='modificar-imagen' value='Modificar imagen'>
                     <label for='nombre'> Modificar imagen </label>
                 </div>
                 <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
             </div> 
 
             <div class='contenedor'>      	 
-                <input type='submit' class='btn' name='bAceptar' id='bAceptar' title='bAceptar' value='Modificar características'>     	 
+                <input type='submit' class='btn' name='btn-aceptar' id='btn-aceptar' title='btn-aceptar' value='Modificar características'>     	 
             </div>
     ";
 
@@ -157,7 +157,7 @@
             margin:10px;
         }
 
-        .lSubcategoria, .lCategoria{
+        .label-subcategoria, .label-categoria{
             width:80%; 
             text-align:center; 
             font-size:1.3rem; 
@@ -192,7 +192,7 @@
             margin: 5px;
         }
 
-        #formUbicacion{
+        #form-ubicacion{
             margin-right:20px;
             height: 400px;
         }
@@ -294,8 +294,8 @@
     </style>
       <script>
 		document.addEventListener("DOMContentLoaded", () => {
-            let modNombre = document.getElementById("modNombre");
-            let modImagen = document.getElementById("modImagen");
+            let modNombre = document.getElementById("modificar-nombre");
+            let modImagen = document.getElementById("modificar-imagen");
             let subcategoria = document.getElementsByName("subcategoria")[1];
 
             actualizarImagen();

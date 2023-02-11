@@ -22,7 +22,7 @@
             </div>   
             
             <div class= 'agregar'>
-                <input type='submit' class='btn' name='bAgregarSubCat' id='bAgregarSubCat' title='Agregar subcategoria' value='Agregar subcategoria'>    
+                <input type='submit' class='btn' name='btn-agregar-subcategoria' id='btn-agregar-subcategoria' title='Agregar subcategoria' value='Agregar subcategoria'>    
             </div>
     ";
             
@@ -83,7 +83,7 @@
             <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
             $subcategorias_inactivas
             <div class= 'agregar'>
-                <input type='submit' class='btn' name='bAgregarSubCat' title='Reactivar subcategoria' value='Reactivar subcategoria'>    
+                <input type='submit' class='btn' name='btn-agregar-subcategoria' title='Reactivar subcategoria' value='Reactivar subcategoria'>    
             </div>
     ";
 

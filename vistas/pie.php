@@ -1,6 +1,6 @@
 <?php  	
 	$pie = "
-		<a href='#' id='sus_nov' title='Suscripción a las novedades'> Suscripción a las novedades</a>   
+		<a href='#' id='suscripcion-novedades' title='Suscripción a las novedades'> Suscripción a las novedades</a>   
 		<p> 
 			Muebles Giannis <br>
 			mueblesgiannis@gmail.com <br>

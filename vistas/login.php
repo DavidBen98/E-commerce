@@ -66,11 +66,11 @@
 					
 					<div class='cont-reg'>
 						<label class='form-label'>Dirección </label>
-						<label class='form-label lDire' for='calle'>Calle </label>
+						<label class='form-label l-direccion' for='calle'>Calle </label>
 						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
-						<label class='form-label lDire' for='numero'>Numero</label>
+						<label class='form-label l-direccion' for='numero'>Numero</label>
 						<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
-						<label class='form-label lDire' for='piso' >Piso</label>
+						<label class='form-label l-direccion' for='piso' >Piso</label>
 						<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
 					</div> 
 
@@ -78,8 +78,8 @@
 					</div> 
 					
 					<div class='cont-reg'>
-						<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-						<input type='text' autocomplete='username' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
+						<label for='nombre-usuario' class='form-label'>Nombre de usuario </label>
+						<input type='text' autocomplete='username' class='form-control' name='nombre-usuario' id='nombre-usuario' value='' maxlength='20' >	
 					</div> 
 					
 					<div class='cont-reg'>
@@ -154,8 +154,8 @@
 							<div id='sesion'>
 								<h1 id='titulo-is'>Iniciar Sesión</h1>	
 								<div class='cont-campo'>
-									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' autocomplete='username' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
+									<label for='nombre-usuario' class='form-label'>Nombre de usuario </label>
+									<input type='text' autocomplete='username' class='form-control' name='nombre-usuario' id='nombre-usuario' value='' maxlength='20' >	
 								</div>  
 
 								<div class='cont-campo'>
@@ -281,7 +281,7 @@
 			margin:8px;
 		}
 
-		.lDire{
+		.l-direccion{
 			display:none;
 		}
 

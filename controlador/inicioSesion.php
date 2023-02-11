@@ -3,7 +3,7 @@
 	require "funciones.php"; 
 	require_once "config.php"; 
  
-	$nombre_usuario = trim($_POST["nombreUsuario"] ?? "");
+	$nombre_usuario = trim($_POST["nombre-usuario"] ?? "");
 	$psw = trim($_POST["psw"] ?? "");
 	
 	if ($nombre_usuario === "" || $psw === "") {
