@@ -298,7 +298,7 @@
             border-radius:5px;
         }
 
-        #contenedorCiudad{
+        #contenedor-ciudad{
             display:flex;
             justify-content:center;
         }

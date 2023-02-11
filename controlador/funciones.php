@@ -5,11 +5,11 @@
     define("PSW_SEMILLA","34a@$#aA9823$");
 
     define ("CONT_USUARIOS", "<div class='contenedor-btn'>        
-                                <div id='btnInfoPersonal'>Datos personales</div>     
-                                <div id='btnCompraUsuario'>Mis pedidos</div>
-                                <div id='btnFavoritos'>Favoritos</div>
-                                <div id='btnConsultas'>Historial de consultas</div>
-                                <div id='btnCerrarSesion'>Cerrar sesión</div>
+                                <div id='btn-info-personal'>Datos personales</div>     
+                                <div id='btn-compra-usuario'>Mis pedidos</div>
+                                <div id='btn-favoritos'>Favoritos</div>
+                                <div id='btn-consultas'>Historial de consultas</div>
+                                <div id='btn-cerrar-sesion'>Cerrar sesión</div>
                             </div> "
     );
 
@@ -52,7 +52,7 @@
         }
     
         $barra_superior ="
-            <div id='mobile-perfilUsuario'>
+            <div id='mobile-perfil-usuario'>
                 $links
             </div> 
         ";

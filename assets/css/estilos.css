@@ -52,12 +52,12 @@ header a {
     font-family: "Salesforce Sans", serif;
 }
 
-#btnInfoPersonal{
+#btn-info-personal{
     border-top-left-radius:5px; 
     border-top-right-radius:5px;
 }
 
-#btnCerrarSesion{
+#btn-cerrar-sesion{
     border-bottom: none; 
     border-bottom-left-radius:5px; 
     border-bottom-right-radius:5px;
@@ -742,13 +742,13 @@ option{
         justify-content: space-between;
     }
 
-    #mobile-perfilUsuario {
+    #mobile-perfil-usuario {
         display: none;
         background-color: #000;
         width: 90%;
     }
 
-    #mobile-perfilUsuario a{
+    #mobile-perfil-usuario a{
         color: #fff;
         width: 50%;
         font-size: 1.5rem;

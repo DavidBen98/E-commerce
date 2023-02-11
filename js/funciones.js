@@ -29,19 +29,19 @@ window.onload = function (){
                 mp[i].style.visibility = "hidden";
             }
         }
-        else if (ev.target.matches("#btnInfoPersonal")){
+        else if (ev.target.matches("#btn-info-personal")){
             window.location.href="informacionPersonal.php";
         }
-        else if (ev.target.matches("#btnCompraUsuario")){
+        else if (ev.target.matches("#btn-compra-usuario")){
             window.location.href="comprasUsuario.php";
         }
-        else if (ev.target.matches("#btnFavoritos")){
+        else if (ev.target.matches("#btn-favoritos")){
             window.location.href="favoritos.php";
         }
-        else if (ev.target.matches("#btnConsultas")){
+        else if (ev.target.matches("#btn-consultas")){
             window.location.href="consultaUsuario.php";
         }
-        else if (ev.target.matches("#btnCerrarSesion")){
+        else if (ev.target.matches("#btn-cerrar-sesion")){
             window.location.href="../controlador/cerrarSesion.php";
         }
         else if (ev.target.matches("#proceder-compra")){
@@ -51,12 +51,12 @@ window.onload = function (){
             document.getElementById("mobile-header").style.display = "flex";
             document.getElementById("cont-mobile-menu").style.display = "flex";
             document.getElementById("container-header").style.display = "none";
-            document.getElementById("mobile-perfilUsuario").style.display = "flex";
+            document.getElementById("mobile-perfil-usuario").style.display = "flex";
 
         }else if (ev.target.matches("#mobile-menu")){
             document.getElementById("mobile-header").style.display = "none";
             document.getElementById("container-header").style.display = "flex";
-            document.getElementById("mobile-perfilUsuario").style.display = "none";
+            document.getElementById("mobile-perfil-usuario").style.display = "none";
             document.getElementById("cont-mobile-menu").style.display = "none";
         } else if (ev.target.matches("#suscripcion-novedades")){
             document.getElementById("modal-novedades").style.display = "flex";
@@ -563,27 +563,27 @@ const actualizarCiudad = (ciudad) => {
         url: "rellenarSelect.php",
         data: prov + "&" + ciu,
         success: function (datos){
-            let contenedorCiudad = document.getElementById("contenedorCiudad");
+            let contenedorCiudad = document.getElementById("contenedor-ciudad");
             let renglonCiudad = document.getElementById ("renglon-ciudad");
 
             if (contenedorCiudad != null){
                 renglonCiudad.removeChild(contenedorCiudad);
             }
             let div = document.createElement("div");
-            div.setAttribute("id","contenedorCiudad");
+            div.setAttribute("id","contenedor-ciudad");
             div.innerHTML = datos;
             renglonCiudad.appendChild(div);
 
             let selectCiudad = document.getElementById("ciu");
             if (selectCiudad != null){
-                let contenedor = document.getElementById("contenedorCiudad");
+                let contenedor = document.getElementById("contenedor-ciudad");
                 contenedor.style.width = "48%";
                 selectCiudad.style.display = "block";
             }  
             else{
                 let input = document.getElementsByClassName("dato");
                 if (!input[0].readOnly){
-                    let contenedor = document.getElementById("contenedorCiudad");
+                    let contenedor = document.getElementById("contenedor-ciudad");
                     contenedor.style.width = "50%";
                 }
             }          
@@ -929,7 +929,7 @@ const validarModificacionCategoria = () => {
     return validate;
 }
 
-//Subategoria alta
+//Subcategoria alta
 const validarAltaSubcategoria = () => {
     let subcategoria = document.getElementById("nombre").value;
     let categoria = document.getElementById("categoria").selectedIndex === -1;
