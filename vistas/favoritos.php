@@ -32,12 +32,13 @@
         }
     }
 
-    $div = "<div class='consulta' id='consulta'>
-                <div class='renglon'>      
-                    <h1>
-                        Favoritos
-                    </h1>
-                </div>            
+    $contenedor_favoritos = "
+        <div class='consulta' id='consulta'>
+            <div class='renglon'>      
+                <h1>
+                    Favoritos
+                </h1>
+            </div>            
     ";
 
     $i = 0;
@@ -49,10 +50,10 @@
 
     $rs = obtener_favoritos($id_usuario);
 
-    $selectNumero = 1; 
+    $select_numero = 1; 
 
     if ($i == 0){
-        $div .= "
+        $contenedor_favoritos .= "
             <div class='vacio'> 
                 Aún no hay productos favoritos
             </div>
@@ -65,10 +66,10 @@
         ";
 
         if (isset($_GET["elim"])){
-            $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+            $contenedor_favoritos .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
 
-        $div .= "</div>";    
+        $contenedor_favoritos .= "</div>";    
     } else {
         foreach ($rs as $row) { 
             $descripcion = $row["descripcion"];
@@ -82,7 +83,7 @@
 
             $path = obtener_imagen_producto($id);
     
-            $div.= "<div class='contenedor'>
+            $contenedor_favoritos.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
                                 <img src='../$path' class='productos img-cat' alt='$codigo'>
@@ -98,7 +99,7 @@
                                             </div>
                                             <div class='evento-producto'>
                                                 <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
-                                                <a id='agregar-fav-$selectNumero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
+                                                <a id='agregar-fav-$select_numero' class='prod-fav' onclick='agregarProducto($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -119,12 +120,12 @@
                     </div>
             ";
         
-            $selectNumero++;
+            $select_numero++;
         }
         if (isset($_GET["elim"])){
-            $div .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+            $contenedor_favoritos .= "<div class='mensaje' id='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
-        $div .= "</div>";
+        $contenedor_favoritos .= "</div>";
     }
 ?>
 <!DOCTYPE html>
@@ -596,10 +597,10 @@
         </aside>
 
         <section>
-            <?= $div; ?>
+            <?= $contenedor_favoritos; ?>
         </section>
         
-        <?= $modalNovedades; ?>
+        <?= $modal_novedades; ?>
 
     </main>
 

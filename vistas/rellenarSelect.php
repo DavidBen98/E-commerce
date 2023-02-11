@@ -4,11 +4,11 @@
     global $db;
 
     if (!empty($_POST["categoria"])){
-        $cate = $_POST["categoria"];
+        $categoria = $_POST["categoria"];
 
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM subcategoria
-                WHERE id_categoria = '$cate'
+                WHERE id_categoria = '$categoria'
         ";
 
         $rs = $db->query($sql); 
@@ -74,7 +74,7 @@
         $provincia = $_POST["prov"];
         $ciudad = $_POST["ciudad"];
 
-        $selectCiudad = "";
+        $select_ciudad = "";
         if ($provincia != 02 && ($provincia == 30 || $provincia ==78 || $provincia == 86)){
             //Si es entre rios, santa cruz o santiago del estero
             $url = "https://apis.datos.gob.ar/georef/api/localidades?provincia=".$provincia."&max=1000";
@@ -98,20 +98,21 @@
 
             sort($municipio);
 
-            $selectCiudad =  "<select id='ciu' name='ciudad' title='ciudad' class='form-select'>"; 
+            $select_ciudad =  "<select id='ciu' name='ciudad' title='ciudad' class='form-select'>"; 
 
             foreach ($municipio as $nombre){ 
                 if ($nombre == $ciudad){
-                    $selectCiudad .= "<option value='$nombre' selected>". $nombre . "</option>";
+                    $select_ciudad .= "<option value='$nombre' selected>". $nombre . "</option>";
                 }
                 else{
-                    $selectCiudad .= "<option value='$nombre'>". $nombre . "</option>";
+                    $select_ciudad .= "<option value='$nombre'>". $nombre . "</option>";
                 }
             }   
         
-            $selectCiudad .= "</select>";
+            $select_ciudad .= "</select>";
         }
 
-        echo $selectCiudad;
+        echo $select_ciudad;
+        exit;
     }
 ?>

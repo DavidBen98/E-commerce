@@ -1,5 +1,5 @@
 <?php
-    $modalNovedades = "
+    $modal_novedades = "
         <div id='modal_novedades'>
             <form action='../controlador/novedades.php' onsubmit='return validarModal()' method='post' name='novedades' id='form_novedades'>
                 <h1 class='modal_titulo'>Ingrese su email</h1>

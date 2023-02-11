@@ -9,8 +9,8 @@
 
 	require "../inc/conn.php";  
 
-	$img = (isset($_GET["imagen"]))? $_GET["imagen"]:0;
-	$imagenes = explode(',',$img);
+	$imagen = (isset($_GET["imagen"]))? $_GET["imagen"]:0;
+	$imagenes = explode(',',$imagen);
 
 	global $db;
 	$tabla = "";
@@ -29,24 +29,24 @@
 					</tr>
 		";
 
-		$whereSql = " WHERE ";
+		$where_sql = " WHERE ";
 
 		//trae el codigo de las imagenes que muestra actualmente
 		if (count($imagenes) == 1){ 
-			$whereSql .= " codigo = '$imagenes[0]' ";
+			$where_sql .= " codigo = '$imagenes[0]' ";
 		}
 		else{
 			for ($i=0;$i<count($imagenes)-1;$i++){
-				$whereSql .= " codigo = '$imagenes[$i]' OR  ";
+				$where_sql .= " codigo = '$imagenes[$i]' OR  ";
 			}
 			$i = count($imagenes)-1;
-			$whereSql .= " codigo = '$imagenes[$i]' ";
+			$where_sql .= " codigo = '$imagenes[$i]' ";
 		}
 
 
 		$sql = "SELECT codigo, descripcion, material, color, marca, caracteristicas, precio
 				FROM producto
-				$whereSql
+				$where_sql
 		";
 		
 		$rs = $db->query($sql);

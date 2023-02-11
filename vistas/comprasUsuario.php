@@ -32,7 +32,7 @@
         }
     }
 
-    $div = "<div class='consulta'>
+    $contenedor_compras = "<div class='consulta'>
                 <div class='renglon'>      
                     <h1>
                         Compras realizadas
@@ -47,10 +47,9 @@
         $i++;
     }
 
-
-    $selectNumero = 1; 
+    $select_numero = 1; 
     if ($i == 0){
-        $div .= "
+        $contenedor_compras .= "
                 <div id='vacio'> Aún no hay compras realizadas</div>
                 <div class='continuar'>
                     <button type='button' class='btn-final' id='continuar'>
@@ -60,9 +59,9 @@
         ";
 
         if (isset($_GET["elim"])){
-            $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+            $contenedor_compras .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
-        $div .= "</div>";    
+        $contenedor_compras .= "</div>";    
     }
     else{
         foreach ($rs as $row) { 
@@ -77,7 +76,7 @@
 
             $path = obtener_imagen_producto($id);
     
-            $div.= "<div class='contenedor'>
+            $contenedor_compras.= "<div class='contenedor'>
                         <div class='descrip'> 
                             <div class='principal'>                                                                                          
                                 <img src='../$path' class='productos img-cat' alt='$codigo'>
@@ -90,11 +89,11 @@
                                         <div class='elim-fav'>
                                             <div class='elim-producto'>
                                                 <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
-                                                <a id='elim-prod-$selectNumero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
+                                                <a id='elim-prod-$select_numero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
                                             </div>
                                             <div class='elim-producto'>
                                                 <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
-                                                <a id='agregar-fav-$selectNumero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
+                                                <a id='agregar-fav-$select_numero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -117,12 +116,12 @@
                     </div>
             ";
         
-            $selectNumero++;
+            $select_numero++;
         }
         if (isset($_GET["elim"])){
-            $div .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
+            $contenedor_compras .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
         }
-        $div .= "</div>";
+        $contenedor_compras .= "</div>";
     }
 ?>
 <!DOCTYPE html>
@@ -566,8 +565,8 @@
             <?= CONT_USUARIOS; ?>
         </aside>
 
-        <?= $div; ?>  
-        <?= $modalNovedades; ?>
+        <?= $contenedor_compras; ?>  
+        <?= $modal_novedades; ?>
     </main>
 
     <footer id="pie">

@@ -5,23 +5,23 @@
         exit;
     }
 
-    $formulario ="
-            <form action='../controlador/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
-                <h1>Alta categoría</h1>
+    $formulario = "
+        <form action='../controlador/veFuncCategoriaAlta.php' onsubmit='return validarAltaCategoria()' enctype='multipart/form-data' class='cont' method='post'>            
+            <h1>Alta categoría</h1>
 
-                <div class='contenedor'>
-                    <label for='nombre'>Nombre de categoría</label>
-                    <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
-                </div>
+            <div class='contenedor'>
+                <label for='nombre'>Nombre de categoría</label>
+                <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''> 
+            </div>
 
-                <div class='archivo'>
-                    <label for='imagen'>Imagen de portada</label>
-                    <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
-                </div>    
+            <div class='archivo'>
+                <label for='imagen'>Imagen de portada</label>
+                <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
+            </div>    
 
-                <div class= 'agregar'>
-                    <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>
-                </div>
+            <div class= 'agregar'>
+                <input type='submit' class='btn btn-secondary btn-lg' name='bAceptar' id='bAceptar' title='bAceptar' value='Agregar Categoría'>
+            </div>
     ";
             
     if (isset($_GET["alta"])){
@@ -66,12 +66,12 @@
 
     $formulario .= "</form>";
 
-    $categoriasInactivas = obtener_categorias_inactivas();
+    $categorias_inactivas = obtener_categorias_inactivas();
 
     $inactivas = "
         <form class='cont' method='POST' action='../controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
             <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
-            $categoriasInactivas
+            $categorias_inactivas
             <div class= 'agregar'>
                 <input type='submit' class='btn' name='bAgregarCat' title='Reactivar categoria' value='Reactivar categoria'>    
             </div>

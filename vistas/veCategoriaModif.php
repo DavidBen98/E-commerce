@@ -57,6 +57,7 @@
         $formulario .="
             <div class='contenedor' id='mensaje'>
         ";
+        
         if ($error === "1"){
             $formulario .="
                 <p> Error: debe modificar al menos un campo </p>

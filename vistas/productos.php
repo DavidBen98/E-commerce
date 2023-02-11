@@ -32,8 +32,9 @@
     if(isset($_GET["productos"])){ 
 		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
 		$from = "FROM `producto` as p";
-		$innerJoin = "INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-					  INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+		$inner_join = "
+			INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+			INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
 		";
 
         //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
@@ -54,7 +55,7 @@
             $where .= " AND p.id_subcategoria like '%' ";
         }
 
-        $sql = completar_where($select,$from,$innerJoin,$where,$filtros);
+        $sql = completar_where($select,$from,$inner_join,$where,$filtros);
         $rs = $db->query($sql);
     }
 	else if (isset($_GET["buscador"])){
@@ -93,12 +94,12 @@
 
 		$select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
 		$from = "FROM producto as p";
-		$innerJoin = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+		$inner_join = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
 					  INNER JOIN categoria as c on c.id_categoria = p.id_categoria
 		";
 		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria'";
 
-        $sql = completar_where($select, $from, $innerJoin, $where, $filtros);
+        $sql = completar_where($select, $from, $inner_join, $where, $filtros);
         $rs = $db->query($sql);
     }
 
@@ -380,7 +381,7 @@
 			</div>
 		</section>
 
-		<?= $modalNovedades; ?>
+		<?= $modal_novedades; ?>
     </main>   
    
 	<footer id="pie">

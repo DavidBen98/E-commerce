@@ -404,7 +404,7 @@
             <?= agregar_imagen_categorias(); ?>
         </form>
 
-        <?= $modalNovedades; ?>
+        <?= $modal_novedades; ?>
         <?= $suscripcion; ?>
     </main>
 

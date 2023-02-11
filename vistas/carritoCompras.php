@@ -26,16 +26,16 @@
     ";
 
     $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-    $productosAgregados = 0;
+    $productos_agregados = 0;
 
     if ($productos != null){
-        $listaCarrito = obtener_lista_carrito($productos);
-        $productosAgregados = count($listaCarrito);
+        $lista_carrito = obtener_lista_carrito($productos);
+        $productos_agregados = count($lista_carrito);
     }
 
     $carrito = "<div class='carrito'>";
         
-    if ($listaCarrito != null){
+    if ($lista_carrito != null){
         $carrito .= "<div class='checkout-btn cont-btn'>";
     }
     else{
@@ -45,10 +45,10 @@
     $carrito .= "<div>
                     <h1> CARRITO DE COMPRAS - PRODUCTOS AÑADIDOS </h1>
                     <p id='p-carrito'>  
-                        $productosAgregados
+                        $productos_agregados
     ";
                     
-    if ($productosAgregados != 1){
+    if ($productos_agregados != 1){
         $carrito .= "PRODUCTOS";
     } else{
         $carrito .= "PRODUCTO";
@@ -59,7 +59,7 @@
         </div>
     ";
 
-    if ($listaCarrito == null){
+    if ($lista_carrito == null){
         $carrito .= "<div id='vacio'> Aún no hay productos agregados</div>";
 
         $carrito .= "<div class='contenedor-botones'>
@@ -79,10 +79,10 @@
 
     }
     else{
-        $selectNumero = 1; 
+        $select_numero = 1; 
         $total = 0;
 
-        foreach($listaCarrito as $producto){
+        foreach($lista_carrito as $producto){
             $subtotal = 0;
             $id = $producto["id"];
             $codigo = $producto["codigo"];
@@ -100,8 +100,8 @@
 
             $precio = intval($producto["precio"]);
             $descuento = intval($producto["descuento"]);
-            $precioDescuento = $precio - (($precio * $descuento) /100);
-            $subtotal += $cantidad * $precioDescuento; 
+            $precio_descuento = $precio - (($precio * $descuento) /100);
+            $subtotal += $cantidad * $precio_descuento; 
             $total += $subtotal; 
 
             $carrito .= "<div class='contenedor'>
@@ -137,12 +137,12 @@
                                             </tr>
                                             <tr>
                                                 <th class='definir'>
-                                                    <label for='cant-$selectNumero' class='labelSelect' id='$id'>
+                                                    <label for='cant-$select_numero' class='labelSelect' id='$id'>
                                                         <b>Cantidad:</b>
                                                     </label>
                                                 </th>
                                                 <td class='caract'>
-                                                    <select class='cant-compra' id='cant-$selectNumero' name='cant-$selectNumero' title='Cantidad'>";
+                                                    <select class='cant-compra' id='cant-$select_numero' name='cant-$select_numero' title='Cantidad'>";
                                                         for ($j=1; $j<=$stock; $j++){
                                                             if ($j == $cantidad){
                                                                 $carrito .= "<option value='$j' selected>$j</option>";
@@ -161,21 +161,21 @@
 
                             <div class='precio'>
                                 <p class='precioU'>Precio unitario </p> 
-                                <div class='div-precioU' id='precioU-$selectNumero'>";
-                                    if($precio != $precioDescuento){
+                                <div class='div-precioU' id='precioU-$select_numero'>";
+                                    if($precio != $precio_descuento){
                                         $carrito .= "<p class='precioDesc'>$$precio</p>";
                                     }
-                                        $carrito .= "<p> $$precioDescuento </p>
+                                        $carrito .= "<p> $$precio_descuento </p>
                                 </div>
                                 <p class='p-precio'>Precio </p> 
-                                <p id='precioS-$selectNumero' class='precioS'>
+                                <p id='precioS-$select_numero' class='precioS'>
                                     <b>$".$subtotal."</b>
                                 </p>
                             </div>
                 </div>
             ";
 
-            $selectNumero++;
+            $select_numero++;
         }
 
         $carrito .= "
@@ -854,7 +854,7 @@
     <main>      
         <?= $ruta; ?>
         <?= $carrito; ?>
-        <?= $modalNovedades; ?>
+        <?= $modal_novedades; ?>
     </main> 
     
     <footer id="pie">

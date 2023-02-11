@@ -76,12 +76,12 @@
 
     $formulario .= "</form>";
 
-    $subcategoriasInactivas = obtener_subcategorias_inactivas();
+    $subcategorias_inactivas = obtener_subcategorias_inactivas();
 
     $inactivas = "
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
             <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
-            $subcategoriasInactivas
+            $subcategorias_inactivas
             <div class= 'agregar'>
                 <input type='submit' class='btn' name='bAgregarSubCat' title='Reactivar subcategoria' value='Reactivar subcategoria'>    
             </div>

@@ -32,7 +32,7 @@
         
     $rs = obtener_usuario($id_usuario);
 
-    $infoPersonal = "";
+    $contenedor_informacion_personal = "";
 
     foreach ($rs as $row) {
         $provincia = isset($row["provincia"])? $row["provincia"] : null;
@@ -41,7 +41,7 @@
         $ciudad =  isset($row["ciudad"])? $row["ciudad"] : null;
         $ciudad = json_encode ($ciudad);
         
-        $infoPersonal = "
+        $contenedor_informacion_personal = "
             <form action='../controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
                 <div class='renglon' id='renglon-h1'>      
                     <h1> Mis datos </h1>
@@ -104,20 +104,21 @@
         ";
 
         if ($row["suscripcion"] === 1){
-            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row["suscripcion"]}' checked disabled>";
+            $contenedor_informacion_personal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row["suscripcion"]}' checked disabled>";
         } else {
-            $infoPersonal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row["suscripcion"]}' disabled>";
+            $contenedor_informacion_personal .= "<input type='checkbox' id='novedades' name='suscripcion'  value='{$row["suscripcion"]}' disabled>";
         }
 
-        $infoPersonal .=" <label>
-                            Suscripción a las novedades
-                        </label>			
-                    </div>
+        $contenedor_informacion_personal .=" 
+                    <label>
+                        Suscripción a las novedades
+                    </label>			
                 </div>
+            </div>
         ";
     }
 
-    $infoPersonal .= "
+    $contenedor_informacion_personal .= "
         <div class='renglon renglon-mod'>
             <input type='button' id='modificarDatos' onclick='modDatos($provincia)' class='btn' value='Modificar datos'>
             <input type='button' id='cancelar' class='btn' value='Cancelar'>  
@@ -127,21 +128,21 @@
 
     if (isset($_GET["error"])){
         $error = $_GET["error"];
-        $infoPersonal .= "<div class='renglon renglon-mod'>";
+        $contenedor_informacion_personal .= "<div class='renglon renglon-mod'>";
 
         if ($error == "1"){
-            $infoPersonal .= "<p class='mensaje' id='mensaje'>¡El nombre de usuario ingresado ya existe, reintente con otro por favor!</p>";
+            $contenedor_informacion_personal .= "<p class='mensaje' id='mensaje'>¡El nombre de usuario ingresado ya existe, reintente con otro por favor!</p>";
         } else if ($error == "2"){
-            $infoPersonal .= "<p class='mensaje' id='mensaje'>Falta ingresar al menos un campo </p>";
+            $contenedor_informacion_personal .= "<p class='mensaje' id='mensaje'>Falta ingresar al menos un campo </p>";
         }
 
-        $infoPersonal .= "</div>";
+        $contenedor_informacion_personal .= "</div>";
     }
     else if (isset($_GET["modif"])){
-        $infoPersonal .= "<p class='mensaje' id='mensaje-exito'>¡Se ha realizado la modificación con éxito!</p>";
+        $contenedor_informacion_personal .= "<p class='mensaje' id='mensaje-exito'>¡Se ha realizado la modificación con éxito!</p>";
     }
 
-    $infoPersonal .= "</form>";
+    $contenedor_informacion_personal .= "</form>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -406,11 +407,10 @@
         </aside>
 
         <section>
-            <?= $infoPersonal; ?>
+            <?= $contenedor_informacion_personal; ?>
         </section>
 
-        <?= $modalNovedades; ?>
-
+        <?= $modal_novedades; ?>
     </main>
 
     <footer id="pie">

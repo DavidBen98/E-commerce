@@ -32,75 +32,76 @@
 				</ol>
 		";
 
-		$formulario = "<form action='../controlador/registro.php' onsubmit='return validarRegistro()' method='post'  id='form-registro'>
-							<div class='form'>
-								<div class='cont-reg'>
-									<label for='nombre' class='form-label'>Nombre</label>
-									<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' >	
-								</div>  
+		$formulario = "
+			<form action='../controlador/registro.php' onsubmit='return validarRegistro()' method='post'  id='form-registro'>
+				<div class='form'>
+					<div class='cont-reg'>
+						<label for='nombre' class='form-label'>Nombre</label>
+						<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' >	
+					</div>  
 
-								<div class='cont-reg'>
-									<label for='apellido' class='form-label'>Apellido</label>				
-									<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' >
-								</div>
+					<div class='cont-reg'>
+						<label for='apellido' class='form-label'>Apellido</label>				
+						<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' >
+					</div>
 
-								<div class='cont-reg'>
-									<label for='dni' class='form-label'>Número de DNI </label>
-									<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' >	
-								</div>
-								
-								<div class='cont-reg'>
-									<label for='email' class='form-label'>Email</label>
-									<input type='text' class='form-control' name='email' id='mail' value='' maxlength='40' >	
-								</div> 
-								
-								<div class='cont-reg'>
-									<label for='provincia' class='form-label'>Provincia </label>
-									$select
-								</div> 
-								
-								<div class='cont-reg' id='ciudad'>
-									<label for='ciudad' class='form-label'>Ciudad</label>
-								</div> 
-								
-								<div class='cont-reg'>
-									<label class='form-label'>Dirección </label>
-									<label class='form-label lDire' for='calle'>Calle </label>
-									<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
-									<label class='form-label lDire' for='numero'>Numero</label>
-									<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
-									<label class='form-label lDire' for='piso' >Piso</label>
-									<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
-								</div> 
+					<div class='cont-reg'>
+						<label for='dni' class='form-label'>Número de DNI </label>
+						<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' >	
+					</div>
+					
+					<div class='cont-reg'>
+						<label for='email' class='form-label'>Email</label>
+						<input type='text' class='form-control' name='email' id='mail' value='' maxlength='40' >	
+					</div> 
+					
+					<div class='cont-reg'>
+						<label for='provincia' class='form-label'>Provincia </label>
+						$select
+					</div> 
+					
+					<div class='cont-reg' id='ciudad'>
+						<label for='ciudad' class='form-label'>Ciudad</label>
+					</div> 
+					
+					<div class='cont-reg'>
+						<label class='form-label'>Dirección </label>
+						<label class='form-label lDire' for='calle'>Calle </label>
+						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
+						<label class='form-label lDire' for='numero'>Numero</label>
+						<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
+						<label class='form-label lDire' for='piso' >Piso</label>
+						<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
+					</div> 
 
-								<div class='cont-reg'>
-								</div> 
-								
-								<div class='cont-reg'>
-									<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
-									<input type='text' autocomplete='username' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
-								</div> 
-								
-								<div class='cont-reg'>
-									<label for='psw' class='form-label'>Contraseña</label>				
-									<input type='password' autocomplete='new-password' class='form-control' name='psw' id='psw' value='' maxlength='50' >
-								</div>
-									
-								<div class='cont-reg'>
-									<label for='psw2' class='form-label'>Repetir contraseña</label>				
-									<input type='password' autocomplete='new-password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' >
-								</div>
+					<div class='cont-reg'>
+					</div> 
+					
+					<div class='cont-reg'>
+						<label for='nombreUsuario' class='form-label'>Nombre de usuario </label>
+						<input type='text' autocomplete='username' class='form-control' name='nombreUsuario' id='nombreUsuario' value='' maxlength='20' >	
+					</div> 
+					
+					<div class='cont-reg'>
+						<label for='psw' class='form-label'>Contraseña</label>				
+						<input type='password' autocomplete='new-password' class='form-control' name='psw' id='psw' value='' maxlength='50' >
+					</div>
+						
+					<div class='cont-reg'>
+						<label for='psw2' class='form-label'>Repetir contraseña</label>				
+						<input type='password' autocomplete='new-password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' >
+					</div>
 
-								<div class='cont-reg'>
-								</div>
+					<div class='cont-reg'>
+					</div>
 
-								<div class='cont-reg l-novedades'>
-									<label>
-										<input type='checkbox' id='novedades' name='suscripcion'  value=''>Suscripción a las novedades
-									</label>			
-								</div>
-								
-								<div class='registro'>
+					<div class='cont-reg l-novedades'>
+						<label>
+							<input type='checkbox' id='novedades' name='suscripcion'  value=''>Suscripción a las novedades
+						</label>			
+					</div>
+					
+					<div class='registro'>
 		";
 
 		if (isset($_GET["error"])){
@@ -130,8 +131,9 @@
 			$formulario .= "<div id ='reg-exito'><p>El registro ha sido exitoso</p></div>";
 		}
 		
-		$formulario .= " <button id='registrarse'>Registrarse</button>
-						</div>
+		$formulario .= " 
+						<button id='registrarse'>Registrarse</button>
+					</div>
 				</div>
 				<div class='redes'>
 					$login_button
@@ -536,7 +538,7 @@
 		<?= $formulario; ?>
 	</main>
 
-	<?= $modalNovedades; ?>
+	<?= $modal_novedades; ?>
             
     <footer id="pie">
 		<?= $pie; ?> 

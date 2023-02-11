@@ -26,24 +26,24 @@
 
     $rs = obtener_consultas($id_usuario);
 
-    $div = "<div class='consulta'>
+    $consulta = "<div class='consulta'>
                 <div class='renglon renglon-consultas'>      
                     <h1>
                         Consultas realizadas
                     </h1>
                 </div>         
     ";
-    $i = 0;
 
+    $i = 0;
     foreach ($rs as $row){
         $i++;
     }
 
     if ($i == 0){
-        $div .= "<p>Aún no hay consultas realizadas </p>";
+        $consulta .= "<p>Aún no hay consultas realizadas </p>";
     }
     else{
-        $div .= "<div class='renglon renglon-consultas'>      
+        $consulta .= "<div class='renglon renglon-consultas'>      
                     <p><b>Consulta</b></p>
                     <p><b>Respuesta</b></p>
                 </div> 
@@ -61,7 +61,7 @@
             
             $pregunta = ucfirst($row["texto"]);
     
-            $div .= "   <div class='renglon renglon-consultas'> 
+            $consulta .= "   <div class='renglon renglon-consultas'> 
                             <p>$pregunta</p>
                             <p>$respuesta</p>
                         </div>
@@ -69,7 +69,7 @@
         }
     }
 
-    $div .= "
+    $consulta .= "
             <div class='renglon'> 
                 <button class='btn' id='nuevaConsulta'>Nueva consulta </button>
             </div>
@@ -179,8 +179,8 @@
             <?= CONT_USUARIOS; ?>
         </aside>
 
-        <?= $div; ?>  
-        <?= $modalNovedades; ?>
+        <?= $consulta; ?>  
+        <?= $modal_novedades; ?>
     </main>
 
     <footer id="pie">

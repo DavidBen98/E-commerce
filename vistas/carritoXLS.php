@@ -30,31 +30,31 @@
         ";         
  
         $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-        $listaCarrito = array();
-        $productosAgregados = 0;
+        $lista_carrito = array();
+        $productos_agregados = 0;
 
         if ($productos != null){
             foreach ($productos as $key => $cantidad){
-                $listaCarrito[] = obtener_producto_con_cantidad([$key], $cantidad);
+                $lista_carrito[] = obtener_producto_con_cantidad([$key], $cantidad);
             }
-            $productosAgregados = count($listaCarrito);
+            $productos_agregados = count($lista_carrito);
         }
 
-        $totPrecioUnid = 0; 
-        $totPrecioDesc = 0;
-        $totCantidad = 0;
-        $totSubTotal = 0;
+        $total_precio_unidad = 0; 
+        $total_precio_descuento = 0;
+        $total_cantidad = 0;
+        $total_subtotal = 0;
         $total = 0;
 
-        foreach($listaCarrito as $producto){
+        foreach($lista_carrito as $producto){
             $subtotal = 0;
             $subcategoria = $producto["nombre_subcategoria"];
             $descripcion = ucfirst($producto["descripcion"]);
             $cantidad = intval($producto["cantidad"]);
             $precio = intval($producto["precio"]);
             $descuento = intval($producto["descuento"]);
-            $precioDescuento = $precio - (($precio * $descuento) /100);
-            $subtotal += $cantidad * $precioDescuento; 
+            $precio_descuento = $precio - (($precio * $descuento) /100);
+            $subtotal += $cantidad * $precio_descuento; 
             $total += $subtotal;             
                             
             echo "<tbody>                                        
@@ -69,7 +69,7 @@
                             $precio     
                         </td>
                         <td>
-                            $precioDescuento
+                            $precio_descuento
                         </td>
                         <td>
                             $cantidad
@@ -80,10 +80,10 @@
                     </tr>
             ";
 
-            $totPrecioUnid += $precio;
-            $totPrecioDesc += $precioDescuento;
-            $totCantidad += $cantidad;
-            $totSubTotal += $subtotal;
+            $total_precio_unidad += $precio;
+            $total_precio_descuento += $precio_descuento;
+            $total_cantidad += $cantidad;
+            $total_subtotal += $subtotal;
         }      
 
         echo "                              
@@ -95,16 +95,16 @@
                         <b>Totales: </b>
                     </td>   
                     <td>
-                        <b>$totPrecioUnid</b>
+                        <b>$total_precio_unidad</b>
                     </td>
                     <td>
-                        <b>$totPrecioDesc</b>
+                        <b>$total_precio_descuento</b>
                     </td>
                     <td>
-                        <b>$totCantidad</b>
+                        <b>$total_cantidad</b>
                     </td>
                     <td>
-                        <b>$totSubTotal</b>
+                        <b>$total_subtotal</b>
                     </td>                           
                 </tr> 
             </tfoot>           

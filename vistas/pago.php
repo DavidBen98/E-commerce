@@ -11,7 +11,7 @@
 
     $preference = new MercadoPago\Preference();
 
-    $productosMP = array();
+    $productos_mp = array();
 
     $ruta = "<ol class='ruta'>
                 <li><a href='index.php'>Inicio</a></li>
@@ -21,11 +21,11 @@
     ";
         
     $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-    $listaCarrito = array();
+    $lista_carrito = array();
 
     if ($productos != null){
         foreach ($productos as $key => $cantidad){
-            $listaCarrito[] = obtener_producto_con_cantidad([$key], $cantidad);
+            $lista_carrito[] = obtener_producto_con_cantidad([$key], $cantidad);
         }
     }
     else{
@@ -37,7 +37,7 @@
                     <div class='checkout-btn cont-btn'>
     ";
         
-    // if ($listaCarrito != null){
+    // if ($lista_carrito != null){
     //     $carrito .= "<div class='checkout-btn cont-btn'>";
     // }
     // else{
@@ -56,7 +56,7 @@
     $total = 0;
     $i = 1;
 
-    foreach($listaCarrito as $producto){
+    foreach($lista_carrito as $producto){
         $subtotal = 0;
         $id = $producto["id"];
         $codigo = $producto["codigo"];
@@ -73,55 +73,57 @@
 
         $precio = intval($producto["precio"]);
         $descuento = intval($producto["descuento"]);
-        $precioDescuento = $precio - (($precio * $descuento) /100);
-        $subtotal += $cantidad * $precioDescuento; 
+        $precio_descuento = $precio - (($precio * $descuento) /100);
+        $subtotal += $cantidad * $precio_descuento; 
         $total += $subtotal; 
 
         $item = new MercadoPago\Item();
         $item->id = $i;
         $item->title = $descripcion;
         $item->quantity = $cantidad;
-        $item->unit_price = $precioDescuento;
+        $item->unit_price = $precio_descuento;
         $item->currency_id = "ARS";
 
-        array_push($productosMP, $item);
+        array_push($productos_mp, $item);
         unset ($item);
 
         $i++;
 
         $path = obtener_imagen_producto($id);
 
-        $carrito .= "<div class='contenedor'>
-                            <div class='principal'>                                                                                          
-                                <img src='../$path' class='productos img-cat' alt='$codigo'>
-                                    <div class='titulo'>
-                                        <div class='cont-enlaces'>
-                                            <p class='enlace'> $descripcion</p>
-                                            <p class='enlace'>Cantidad: $cantidad</p> 
-                                        </div>
-                                        <div class='enlace'>
-                                            <p id='enlSubtotal'>
-                                                <b>$".$subtotal."</b>
-                                            </p>
-                                        </div>
-                                    </div>
-                            </div>                                          
-                    </div>
+        $carrito .= "
+            <div class='contenedor'>
+                <div class='principal'>                                                                                          
+                    <img src='../$path' class='productos img-cat' alt='$codigo'>
+                        <div class='titulo'>
+                            <div class='cont-enlaces'>
+                                <p class='enlace'> $descripcion</p>
+                                <p class='enlace'>Cantidad: $cantidad</p> 
+                            </div>
+                            <div class='enlace'>
+                                <p id='enlSubtotal'>
+                                    <b>$".$subtotal."</b>
+                                </p>
+                            </div>
+                        </div>
+                </div>                                          
+            </div>
         ";
     }
 
-        $carrito .= "<div class='contenedor-botones'>
-                        <div class= 'botones'>
-                            <div class='totales'>
-                                <p class='txt-totales total'>
-                                    <b>Precio final:</b> 
-                                </p> 
-                                <p class='total txt-totales' id='total'>
-                                    <b>$$total</b>
-                                </p>
-                            </div>
-                            <div class='checkout btn-final'></div>
-                        </div>
+        $carrito .= "
+            <div class='contenedor-botones'>
+                <div class= 'botones'>
+                    <div class='totales'>
+                        <p class='txt-totales total'>
+                            <b>Precio final:</b> 
+                        </p> 
+                        <p class='total txt-totales' id='total'>
+                            <b>$$total</b>
+                        </p>
+                    </div>
+                    <div class='checkout btn-final'></div>
+                </div>
         ";
 
         if (isset($_GET["error_pago"])){
@@ -473,7 +475,7 @@
     
     <!--MERCADO PAGO-->
     <?php
-        $preference->items = $productosMP;
+        $preference->items = $productos_mp;
 
         $preference->back_urls = array (
             "success" => "localhost/E-commerceMuebleria/callback.php",
@@ -502,14 +504,14 @@
             }
         });
 
-        const mercadoPago = new MercadoPago("TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608", {
+        const mercado_pago = new MercadoPago("TEST-b052d91d-3a4e-4b65-9804-7c2b716a0608", {
             locale: "es-AR",
         });
 
         let btnMP = document.getElementsByClassName("checkout");
 
         if (btnMP[0] != null){
-            mercadoPago.checkout({
+            mercado_pago.checkout({
                 preference: {
                     id: "<?php echo $preference->id; ?>"
                 },

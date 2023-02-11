@@ -14,13 +14,13 @@
 				<li><a href='index.php'>Inicio</a></li>
 	";
 
-	$cat = isset($_GET["categoria"])? $_GET["categoria"] : null;
-	$sub = isset($_GET["subcategoria"])? $_GET["subcategoria"]: null;
-	$art = isset($_GET["articulos"])? $_GET["articulos"]: null;
+	$categoria = isset($_GET["categoria"])? $_GET["categoria"] : null;
+	$subcategoria = isset($_GET["subcategoria"])? $_GET["subcategoria"]: null;
+	$articulo = isset($_GET["articulos"])? $_GET["articulos"]: null;
 
-	if ($cat != null){
-		$ruta .= "<li><a href='subcategoria.php?categoria=$cat'>Subcategorías</a></li>
-			  	  <li><a href='productos.php?articulos=$art&cate=$cat&sub=$sub'>Productos</a></li>
+	if ($categoria != null){
+		$ruta .= "<li><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
+			  	  <li><a href='productos.php?articulos=$articulo&cate=$categoria&sub=$subcategoria'>Productos</a></li>
 		";
 	}
 	else{
@@ -35,20 +35,20 @@
 			</ol>
 		";
 
-		$caract = $row["caracteristicas"];
-		$aCarac = explode (',', $caract);
+		$caracteristicas = $row["caracteristicas"];
+		$arreglo_caracteristicas = explode (',', $caracteristicas);
 		$id = $row["id"];
 
 		//Separar la descripción que viene en la columna "caracteristicas" en la BD
-		$parrafoCarasteristica = "";
-		for ($i=0;$i<count($aCarac);$i++){
-			$posicion = stripos ($aCarac[$i],':');
-			$caracteristica = substr($aCarac[$i], 0, $posicion+1);
+		$parrafo_caracteristica = "";
+		for ($i=0; $i<count($arreglo_caracteristicas); $i++){
+			$posicion = stripos ($arreglo_caracteristicas[$i],':');
+			$caracteristica = substr($arreglo_caracteristicas[$i], 0, $posicion+1);
 			$caracteristica = ucfirst($caracteristica); 
-			$detalle = substr($aCarac[$i], $posicion+2, strlen($aCarac[$i]));
+			$detalle = substr($arreglo_caracteristicas[$i], $posicion+2, strlen($arreglo_caracteristicas[$i]));
 			$caracteristica = "<b> $caracteristica </b>";
 
-			$parrafoCarasteristica .= "<p> $caracteristica $detalle </p><br>";
+			$parrafo_caracteristica .= "<p> $caracteristica $detalle </p><br>";
 		} 
 
 		if($row["stock"] == 0){
@@ -82,63 +82,68 @@
 
 		$path = obtener_imagen_producto($id);
 
-		$contArticulo = "<div class='contenedor'> 
-							<div id='cont-images'>
-								<img src='../$path' class='img-cat' title='Producto en detalle' alt='{$row["descripcion"]}'>                                   
-							</div>
+		$contenedor_articulo = "
+			<div class='contenedor'> 
+				<div id='cont-images'>
+					<img src='../$path' class='img-cat' title='Producto en detalle' alt='{$row["descripcion"]}'>                                   
+				</div>
 
-							<div id='cont-descripcion'>
-								<div class='cont-fund'>
-									<input type='hidden' name='codImg' value='$codigo' />
-									
-									<h1>{$row["descripcion"]}</h1>";
-									
-                                    if ($row["descuento"] != 0){
-                                        $precioDescuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
-                                        $contArticulo .=  "
-											<h3 class='precio'>
-												$". $precioDescuento ." 
-											</h3>
-											<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
-        								";
-                                    }
-                                    else{
-										$contArticulo .= "
-											<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
-											<input type='hidden' name='precio' value='{$row["precio"]}' />
-										";
-                                    }
+				<div id='cont-descripcion'>
+					<div class='cont-fund'>
+						<input type='hidden' name='codImg' value='$codigo' />
+						
+						<h1>{$row["descripcion"]}</h1>
+		";
+						
+		if ($row["descuento"] != 0){
+			$precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
+			$contenedor_articulo .=  "
+				<h3 class='precio'>
+					$". $precio_descuento ." 
+				</h3>
+				<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+			";
+		}
+		else{
+			$contenedor_articulo .= "
+				<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+				<input type='hidden' name='precio' value='{$row["precio"]}' />
+			";
+		}
 
-                    $contArticulo .="
-								</div>
+		$contenedor_articulo .="
+			</div>
 
-								<div class='carac-prod'>
-									<div id='carac' name='carac' title='Caracteristicas'>
-										<p><b>Material: </b>" .  $row["material"] . "</p><br>
-										<p><b>Color:</b> " . $row["color"] . " </p><br>
-										<p><b>Marca:</b> " . $row["marca"].  "</p><br>
-										$parrafoCarasteristica
-									</div>
-								</div>
-					";
+			<div class='carac-prod'>
+				<div id='carac' name='carac' title='Caracteristicas'>
+					<p><b>Material: </b>" .  $row["material"] . "</p><br>
+					<p><b>Color:</b> " . $row["color"] . " </p><br>
+					<p><b>Marca:</b> " . $row["marca"].  "</p><br>
+					$parrafo_caracteristica
+				</div>
+			</div>
+		";
 								
-								if($row["stock"] == 0){
-									$contArticulo .= $sinStock; 
-								}
-								else{
-									$contArticulo .= $botones;						
-								}
+		if($row["stock"] == 0){
+			// $contenedor_articulo .= $sinStock; 
+			$contenedor_articulo .= ""; 
+		}
+		else{
+			$contenedor_articulo .= $botones;						
+		}
 
-								if (isset($fav)){
-									$contArticulo .= $mensaje;
-								}
+		if (isset($fav)){
+			$contenedor_articulo .= $mensaje;
+		}
 
-		$contArticulo .=	"</div>
+		$contenedor_articulo .=	"
+				</div>
 			</div>
 			
 			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
 				<img src='../images/iconos/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
-			</a>";                    
+			</a>
+		";                    
 	}
 ?>
 <!DOCTYPE html>
@@ -389,8 +394,8 @@
 
 		<?= $ruta ?>
 
-		<?= $contArticulo ?>
-		<?= $modalNovedades ?>
+		<?= $contenedor_articulo ?>
+		<?= $modal_novedades ?>
 	</main>
 	
 	<footer id="pie">

@@ -264,7 +264,7 @@
 				?>
 		</form>	
 		
-		<?= $modalNovedades; ?>
+		<?= $modal_novedades; ?>
 	</main>
 	
 	<footer id="pie">
