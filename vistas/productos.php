@@ -10,7 +10,6 @@
 		exit;
 	} 
 
-    global $db; 
 	$categoria = "";
 	$subcategoria = "";
 	 
@@ -30,78 +29,45 @@
 	}
 	
     if(isset($_GET["productos"])){ 
-		$select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
-		$from = "FROM `producto` as p";
-		$inner_join = "
-			INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-			INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-		";
-
-        //Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
+		//Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
         $categoria = (isset($_POST["categoria"]))? intval($_POST["categoria"]) : "";
         $subcategoria = (isset($_POST["subcategoria"]))? intval($_POST["subcategoria"]) : "";
+		
+		$sql = generar_consulta("productos");
 
-        if ($categoria != ""){
-            $where = " WHERE p.id_categoria like '$categoria' ";
-        }
-        else{
-            $where = " WHERE p.id_categoria like '%' ";
-        }
+		if ($categoria != ""){
+			$where = " WHERE p.id_categoria like '$categoria' ";
+		}
+		else{
+			$where = " WHERE p.id_categoria like '%' ";
+		}
 
-        if ($subcategoria != ""){
-            $where .= " AND p.id_subcategoria like '$subcategoria' ";
-        }
-        else{
-            $where .= " AND p.id_subcategoria like '%' ";
-        }
+		if ($subcategoria != ""){
+			$where .= " AND p.id_subcategoria like '$subcategoria' ";
+		}
+		else{
+			$where .= " AND p.id_subcategoria like '%' ";
+		}
 
-        $sql = completar_where($select,$from,$inner_join,$where,$filtros);
-        $rs = $db->query($sql);
+        $rs = completar_where($sql,$where,$filtros);
     }
 	else if (isset($_GET["buscador"])){
 		$busqueda = $_GET["buscador"];
-
-		if (trim($busqueda) != ""){
-			$busqueda = str_replace("%20", " ", $busqueda);
-			$busqueda = ucfirst($busqueda);
-			$palabras = explode (" ",$busqueda);			
-
-			$sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio, p.id, p.descuento
-					FROM `producto` as p
-					INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-					INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-					WHERE nombre_categoria LIKE '%".$busqueda."%' 
-					OR nombre_subcategoria LIKE '%".$busqueda."%'
-					OR descripcion LIKE '%".$busqueda."%'
-			";
-
-			foreach ($palabras as $palabra){
-				if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
-					$sql .= " OR nombre_categoria LIKE '%".$palabra."%'
-							  OR nombre_subcategoria LIKE '%".$palabra."%'
-							  OR descripcion LIKE '%".$palabra."%'
-					";
-				}
-			}
-			
-			$rs = $db->query($sql);
-		}
+		$rs = generar_consulta("buscador", $busqueda);
 	}	 
-    else{
+    else if(isset($_GET["cate"])  && isset($_GET["sub"])){
         //Si entro desde subcategorias entonces la categoria y la subcategoria esta en la url
         $categoria = $_GET["cate"];
 		$subcategoria = $_GET["sub"];
+		$sql = generar_consulta("subcategoria");
+		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria' ";
 
-		$select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
-		$from = "FROM producto as p";
-		$inner_join = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
-					  INNER JOIN categoria as c on c.id_categoria = p.id_categoria
-		";
-		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria'";
-
-        $sql = completar_where($select, $from, $inner_join, $where, $filtros);
-        $rs = $db->query($sql);
-    }
+        $rs = completar_where($sql, $where, $filtros);
+    } else {
+		$sql = generar_consulta("");
+		$where = "WHERE id_subcategoria LIKE '%' AND id_categoria LIKE '%' ";
+		$rs = completar_where ($sql, $where, $filtros);
+	}
 
 	//FILTROS DE LA BARRA LATERAL
 	$url = $_SERVER["REQUEST_URI"];
@@ -384,7 +350,8 @@
 			</div>
 		</section>
 
-		<?= $modal_novedades; ?>
+		<?= $modal_novedades; ?> 
+		<?= $modal_novedades_error; ?>
     </main>   
    
 	<footer id="pie">

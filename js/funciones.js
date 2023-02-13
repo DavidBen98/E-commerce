@@ -53,14 +53,17 @@ window.onload = function (){
             document.getElementById("container-header").style.display = "none";
             document.getElementById("mobile-perfil-usuario").style.display = "flex";
 
-        }else if (ev.target.matches("#mobile-menu")){
+        }
+        else if (ev.target.matches("#mobile-menu")){
             document.getElementById("mobile-header").style.display = "none";
             document.getElementById("container-header").style.display = "flex";
             document.getElementById("mobile-perfil-usuario").style.display = "none";
             document.getElementById("cont-mobile-menu").style.display = "none";
-        } else if (ev.target.matches("#suscripcion-novedades")){
+        } 
+        else if (ev.target.matches("#suscripcion-novedades")){
             document.getElementById("modal-novedades").style.display = "flex";
-        } else if (ev.target.matches(".cerrar-novedades")){
+        } 
+        else if (ev.target.matches(".cerrar-novedades")){
             document.getElementById("modal-novedades").style.display = "none";
 
             let error = document.getElementById("mensaje");
@@ -73,14 +76,16 @@ window.onload = function (){
                 suscripcion.style.display = "none";
             }
 
-        } else if (ev.target.matches("#modal-novedades")){
+        } 
+        else if (ev.target.matches("#modal-novedades")){
             document.getElementById("modal-novedades").style.display = "none";
 
             let error = document.getElementById("mensaje");
             if (error !== null){
                 error.remove();
             }
-        } else if (ev.target.matches("#suscripcion")){
+        } 
+        else if (ev.target.matches("#suscripcion")){
             document.getElementById("suscripcion").style.display = "none";
         }
 	});
@@ -99,14 +104,13 @@ window.onload = function (){
     if(url.indexOf("productos") !== -1) {
         $(imagenes).each ((index,imagen,array) => {
             imagen.addEventListener ("click", () => {
-                let categoria = getQueryVariable ("cate");
-                let subcategoria = getQueryVariable ("sub");
-                let articulos = getQueryVariable ("articulos");
+                let categoria = obtenerVariable ("cate");
+                let subcategoria = obtenerVariable ("sub");
                 let articulo = imagen.getAttribute("alt");
 
                 if (categoria != false){
                     window.location = "detalleArticulo.php?categoria="+categoria+"&subcategoria="+subcategoria+
-                    "&articulos="+articulos+"&art="+articulo;
+                    "&art="+articulo;
                 }
                 else{
                     window.location = "detalleArticulo.php?art="+articulo;
@@ -134,15 +138,13 @@ window.onload = function (){
         }
     }
     else if(url.indexOf("subcategoria") !== -1){
-        let categoria = getQueryVariable ("categoria");
+        let categoria = obtenerVariable ("categoria");
 
         //Enviar a prod segun la subcategoria que se eligió
         $(imagenes).each ((index,imagen,array)=>{
             imagen.addEventListener ("click", () => {
-                let img = imagen.getAttribute("alt");
-                img = img.substring(0, 4);
                 let title = imagen.getAttribute("title");
-                window.location = "productos.php?articulos="+img+"&cate="+categoria+"&sub="+title;
+                window.location = "productos.php?cate="+categoria+"&sub="+title;
             });
         });
     }
@@ -298,7 +300,6 @@ const agregarFavorito = (id) => {
             let url = window.location.href.split("?")[0];
             let categoria = getParameterByName ("categoria");
             let subcategoria = getParameterByName ("subcategoria");
-            let articulos = getParameterByName ("articulos");
             let articulo = getParameterByName("art");
             let parrafo = document.getElementsByClassName("parrafo-exito");
             let mensaje = document.getElementsByClassName("mensaje");
@@ -314,7 +315,7 @@ const agregarFavorito = (id) => {
             if (data == "ok"){
                 if (categoria != ""){
                     window.location.href = url+"?categoria="+categoria+"&subcategoria="+subcategoria+
-                    "&articulos="+articulos+"&art="+articulo+"&fav=ok"+"#mensaje";
+                    "&art="+articulo+"&fav=ok"+"#mensaje";
                 }
                 else{
                     window.location.href = url+"?art="+articulo+"&fav=ok"+"#mensaje";
@@ -326,7 +327,7 @@ const agregarFavorito = (id) => {
             else{
                 if (categoria != ""){
                     window.location.href = url+"?categoria="+categoria+"&subcategoria="+subcategoria+
-                    "&articulos="+articulos+"&art="+articulo+"&fav=false"+"#mensaje";
+                    "&art="+articulo+"&fav=false"+"#mensaje";
                 }
                 else{
                     window.location.href = url+"?art="+articulo+"&fav=false"+"#mensaje";
@@ -1104,7 +1105,7 @@ const actualizarSubcategoria = () => {
     });
 }
 
-const getQueryVariable = (variable) => {
+const obtenerVariable = (variable) => {
     let query = window.location.search.substring(1);
     let vars = query.split("&");
     for (let i=0; i < vars.length; i++) {

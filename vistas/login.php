@@ -538,7 +538,8 @@
 		<?= $formulario; ?>
 	</main>
 
-	<?= $modal_novedades; ?>
+	<?= $modal_novedades; ?> 
+	<?= $modal_novedades_error; ?>
             
     <footer id="pie">
 		<?= $pie; ?> 

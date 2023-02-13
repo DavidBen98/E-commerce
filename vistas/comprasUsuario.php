@@ -451,7 +451,6 @@
         .fav-prod:hover, .elim-prod:hover{
             color: #000;
             transition: all 0.5s linear;
-            font-size: 0.8rem;
             cursor: pointer;
         }
 
@@ -568,7 +567,8 @@
         </aside>
 
         <?= $contenedor_compras; ?>  
-        <?= $modal_novedades; ?>
+        <?= $modal_novedades; ?> 
+        <?= $modal_novedades_error; ?>
     </main>
 
     <footer id="pie">

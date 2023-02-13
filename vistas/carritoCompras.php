@@ -647,7 +647,6 @@
             line-height: 1.5rem;
             background-color: white;
             border:none;
-            font-size: 0.75rem;
             padding-left: 4px;
             padding-right: 0;
         }
@@ -655,7 +654,6 @@
         .fav-prod:hover, .elim-prod:hover{
             color: #000;
             transition: all 0.5s linear;
-            font-size: 0.8rem;
             cursor: pointer;
         }
 
@@ -854,7 +852,8 @@
     <main>      
         <?= $ruta; ?>
         <?= $carrito; ?>
-        <?= $modal_novedades; ?>
+        <?= $modal_novedades; ?> 
+        <?= $modal_novedades_error; ?>
     </main> 
     
     <footer id="pie">

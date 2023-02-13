@@ -149,7 +149,7 @@
 	<script src="../js/funciones.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            let id = getQueryVariable("id");
+            let id = obtenerVariable("id");
 
             function parsearCaracteristicas(codigo, cadena){
                 let numero = "";

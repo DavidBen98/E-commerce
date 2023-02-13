@@ -139,45 +139,6 @@
             }
         }
     } */
-
-    $suscripcion="";
-
-    if (isset($_GET["sus"])){
-        $suscripcion = "
-            <div id='suscripcion'>
-                <div id='cont-sus'>
-                    <h1> Suscripción realizada con éxito </h1>
-                    <p> Ahora el email ingresado estará al tanto de todas nuestras novedades! </p>
-                    <button class='cerrar-novedades btn' value='Aceptar'> Aceptar </button>
-                    <button class='cerrar-novedades' id='cerrar-novedades' value='Cerrar'> X </button>
-                </div>
-            </div>
-        ";
-    } else if (isset($_GET["error"])){
-        if ($_GET["error"] === "1"){
-            $suscripcion = "
-                <div id='suscripcion'>
-                    <div id='cont-sus'>
-                        <h1> Error en la suscripción: el email ingresado no es correcto </h1>
-                        <p> El email ingresado no es correcto, asegúrese de que completó el campo correctamente </p>
-                        <button class='cerrar-novedades btn' value='Aceptar'> Aceptar </button> 
-                        <button class='cerrar-novedades' id='cerrar-novedades' value='Cerrar'> X </button>
-                    </div>
-                </div>
-            ";
-        } else {
-            $suscripcion = "
-                <div id='suscripcion'>
-                    <div id='cont-sus'>
-                        <h1> Error en la suscripción </h1>
-                        <p> El email ingresado no se encuentra registrado en nuestro sitio</p>
-                        <button class='cerrar-novedades btn' value='Aceptar'> Aceptar </button>
-                        <button class='cerrar-novedades' id='cerrar-novedades' value='Cerrar'> X </button>
-                    </div>
-                </div>
-            ";
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -196,7 +157,6 @@
 
         .categorias {
             width: 100%;
-            /* height: 100vh; */
             font-family: "Inter", sans-serif;
             display: flex;
             align-items: center;
@@ -407,8 +367,8 @@
             <?= agregar_imagen_categorias(); ?>
         </form>
 
-        <?= $modal_novedades; ?>
-        <?= $suscripcion; ?>
+        <?= $modal_novedades; ?> 
+        <?= $modal_novedades_error; ?>
     </main>
 
     <footer id="pie">

@@ -1,6 +1,7 @@
 <?php   
     include_once ("../controlador/funciones.php");
     $cantidad_carrito = cantidad_carrito();
+    setcookie("previous_page", $_SERVER['REQUEST_URI'], time() + (86400 * 30), "/");
 
     if (perfil_valido(1)){
         // <li><a href='consultas.php'>Consultas</a></li>

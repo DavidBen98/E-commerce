@@ -161,7 +161,6 @@
         .contenedor-btn div:hover{
             cursor: pointer;
             background-color: rgba(147, 81, 22,0.2);
-            transition: all 0.3s linear;
         }
 
         .consulta{
@@ -413,7 +412,6 @@
         
         .prod-fav{
             padding-left: 2px;
-            transition: all 0.5s linear;
             color: #858585;
         }
 
@@ -432,7 +430,6 @@
         .prod-fav:hover, .elim-fav:hover{
             color: #000;
             transition: all 0.5s linear;
-            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -601,7 +598,8 @@
             <?= $contenedor_favoritos; ?>
         </section>
         
-        <?= $modal_novedades; ?>
+        <?= $modal_novedades; ?> 
+        <?= $modal_novedades_error; ?>
 
     </main>
 

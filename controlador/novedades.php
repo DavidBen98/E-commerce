@@ -5,9 +5,24 @@
     global $db;
 
     $email = isset($_POST["modal-email"]) ? trim($_POST["modal-email"]) : null;
+    $pagina_previa = $_COOKIE['previous_page'];
+    $position = strpos($pagina_previa, "suserror");
+
+    //Si ya recibia error, entonces no contemplar esa variable
+    if ($position) {
+        $pagina_previa = substr($pagina_previa, 0, $position-1);
+    } 
+
+    $position = strpos($pagina_previa, "?");
+
+    if ($position){
+        $pagina_previa .= "&";
+    } else {
+        $pagina_previa .= "?";
+    }
 
     if ($email === null) {
-        header("location: ../vistas/index.php?error=1");
+        header("location: ..{$pagina_previa}suserror=1");
         exit;
     }
 
@@ -17,7 +32,7 @@
 
     $result = $stmt->fetch();
     if ($result === false) {
-        header("location: ../vistas/index.php?error=2");
+        header("location: ..{$pagina_previa}suserror=2");
         exit;
     }
 
@@ -26,6 +41,6 @@
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
-    header("location: ../vistas/index.php?sus=true");
+    header("location: ..{$pagina_previa}sus=true");
     exit;
 ?>

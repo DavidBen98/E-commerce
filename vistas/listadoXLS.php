@@ -26,6 +26,7 @@
 						<th>Marca</th>				
 						<th>Caracteristicas</th>
 						<th>Precio</th>
+						<th>Precio descuento</th>
 					</tr>
 		";
 
@@ -44,7 +45,7 @@
 		}
 
 
-		$sql = "SELECT codigo, descripcion, material, color, marca, caracteristicas, precio
+		$sql = "SELECT codigo, descripcion, material, color, marca, caracteristicas, precio, descuento
 				FROM producto
 				$where_sql
 		";
@@ -56,19 +57,32 @@
 		}
 		else{
 			foreach ($rs as $reg){
-				$tabla.= "<tr>
-							<td>{$reg['codigo']}</td>
-							<td>{$reg['descripcion']}</td>
-							<td>{$reg['material']}</td>
-							<td>{$reg['color']}</td>
-							<td>{$reg['marca']}</td>
-							<td>{$reg['caracteristicas']}</td>
-							<td>{$reg['precio']}</td>
-						</tr>
-				";
+				if ($reg["descuento"] !== 0){
+					$precio_descuento = $reg["precio"] - ($reg["precio"]*$reg["descuento"]/100);
+					$tabla.= "<tr>
+								<td>{$reg['codigo']}</td>
+								<td>{$reg['descripcion']}</td>
+								<td>{$reg['material']}</td>
+								<td>{$reg['color']}</td>
+								<td>{$reg['marca']}</td>
+								<td>{$reg['caracteristicas']}</td>
+								<td>{$reg['precio']}</td>
+								<td>{$precio_descuento}</td>
+							</tr>
+					";
+				} else {
+					$tabla.= "<tr>
+								<td>{$reg['codigo']}</td>
+								<td>{$reg['descripcion']}</td>
+								<td>{$reg['material']}</td>
+								<td>{$reg['color']}</td>
+								<td>{$reg['marca']}</td>
+								<td>{$reg['caracteristicas']}</td>
+								<td>{$reg['precio']}</td>
+							</tr>
+					";
+				}
 			}
-			$rs = null;
-			$db = null;
 		} 
 	}
 ?>

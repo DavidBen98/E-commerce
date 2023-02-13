@@ -342,7 +342,7 @@
                 });
             }	
 
-            let idSubcategoria = getQueryVariable("subcategoria");
+            let idSubcategoria = obtenerVariable("subcategoria");
             if (idSubcategoria != false){
                 for (let i = 0; i < subcategoria.options.length; i++) {
                     if (subcategoria.options[i].value == idSubcategoria) {

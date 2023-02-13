@@ -158,7 +158,7 @@
                 });
             }	
 
-            let idCategoria = getQueryVariable("categoria");
+            let idCategoria = obtenerVariable("categoria");
             if (idCategoria != false){
                 for (let i = 0; i < categoria.options.length; i++) {
                     if (categoria.options[i].value == idCategoria) {

@@ -16,11 +16,10 @@
 
 	$categoria = isset($_GET["categoria"])? $_GET["categoria"] : null;
 	$subcategoria = isset($_GET["subcategoria"])? $_GET["subcategoria"]: null;
-	$articulo = isset($_GET["articulos"])? $_GET["articulos"]: null;
 
 	if ($categoria != null){
 		$ruta .= "<li><a href='subcategoria.php?categoria=$categoria'>Subcategorías</a></li>
-			  	  <li><a href='productos.php?articulos=$articulo&cate=$categoria&sub=$subcategoria'>Productos</a></li>
+			  	  <li><a href='productos.php?cate=$categoria&sub=$subcategoria'>Productos</a></li>
 		";
 	}
 	else{

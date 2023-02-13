@@ -183,7 +183,8 @@
         </aside>
 
         <?= $consulta; ?>  
-        <?= $modal_novedades; ?>
+        <?= $modal_novedades; ?> 
+        <?= $modal_novedades_error; ?>
     </main>
 
     <footer id="pie">

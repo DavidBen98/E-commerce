@@ -4,6 +4,7 @@ body{
     font-size: 1.1rem;
     line-height: 1.5em;
     margin: 0;
+    height: 100%;
 }
 
 #header {
@@ -240,6 +241,7 @@ header a {
 main{
     background-color: rgba(147, 81, 22,0.5);
     padding-top: 5px;
+    min-height: 70vh;
 }
 
 #pie{
@@ -392,6 +394,10 @@ aside select{
     padding-left: 100px;
 }
 
+#pagina-actual{
+    display: none;
+}
+
 .btn-doc{
     order:2;
 }
@@ -414,7 +420,7 @@ aside select{
     padding-left: 100px;
 }
 
-.descripcionPrecio{
+.descripcion-precio{
     display:block; 
     justify-content:center; 
     align-items:center;
@@ -464,7 +470,7 @@ aside select{
 }
 
 
-#h3Precio{
+#h3-precio{
     font-size:0.8rem; 
     text-decoration: line-through; 
     margin:0;
@@ -570,6 +576,7 @@ option{
     margin-top: 0;
     background: #000;
     padding-left: 30px;
+    max-height: 35px;
 }
 
 .ruta li{

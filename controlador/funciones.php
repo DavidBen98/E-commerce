@@ -186,7 +186,7 @@
                             <img src='../$path' class='img-cat' id='$i' alt='{$row["codigo"]}' title='". ucfirst($row["descripcion"])."'> 
                             <div class='caracteristicas'>
                                 <h2 class='descripcion'>". ucfirst($row["descripcion"])." </h2>
-                                <div class='descripcionPrecio'>
+                                <div class='descripcion-precio'>
                     ";
 
                     if ($row["descuento"] != 0){
@@ -194,7 +194,7 @@
                         echo "<h3 class='precio'>
                                     $". $precio_descuento ." 
                                 </h3>
-                                <h3 class='precio' id='h3Precio'>
+                                <h3 class='precio' id='h3-precio'>
                                     $". ucfirst($row["precio"]).
                             " </h3>
                         ";
@@ -225,8 +225,71 @@
         ";	
 	} 
 
-    function completar_where ($select,$from,$inner_join,$where,$filtros){
+    function generar_consulta($url, $busqueda = ""){
+        if ($url === "productos"){
+            $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
+            $from = "FROM `producto` as p";
+            $inner_join = "
+                INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+            ";
+
+            $sql = $select. " ". $from . " " . $inner_join . " ";
+
+            return $sql;
+
+        } else if ($url === "buscador") {
+            global $db;
+
+            if (trim($busqueda) != ""){
+                $busqueda = str_replace("%20", " ", $busqueda);
+                $busqueda = ucfirst($busqueda);
+                $palabras = explode (" ",$busqueda);			
+    
+                $sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio, p.id, p.descuento
+                        FROM `producto` as p
+                        INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                        INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                        WHERE nombre_categoria LIKE '%".$busqueda."%' 
+                        OR nombre_subcategoria LIKE '%".$busqueda."%'
+                        OR descripcion LIKE '%".$busqueda."%'
+                ";
+    
+                foreach ($palabras as $palabra){
+                    if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
+                        $sql .= " OR nombre_categoria LIKE '%".$palabra."%'
+                                  OR nombre_subcategoria LIKE '%".$palabra."%'
+                                  OR descripcion LIKE '%".$palabra."%'
+                        ";
+                    }
+                }
+                
+                $rs = $db->query($sql);
+
+                return $rs;
+            }
+        } else if ($url === "subcategoria"){
+            $select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+            $from = "FROM producto as p";
+            $inner_join = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+                           INNER JOIN categoria as c on c.id_categoria = p.id_categoria
+            ";
+    
+            $sql = $select . " " . $from . " " . $inner_join . " ";
+
+            return $sql;
+        } else {
+            $sql = "SELECT * FROM producto as p";
+
+            return $sql;
+        }
+
+        return "";
+    }
+
+    function completar_where ($sql,$where,$filtros){
         global $db;
+
         $rs = "";	
         $where_color = "";
         $where_marca = "";
@@ -299,27 +362,25 @@
 
         //Si se elige el orden mas vendido
 		if($orden_mas_vendido != 0){
-			$sql = $select . " " .
-                   $from . " " .
-                   $inner_join . " " . 
+			$sql = $sql .
 				   "LEFT JOIN `detalle_compra` as `dc` ON `dc`.id_producto = `p`.codigo" . 
                    $where .
 				   $where_sql .
-                   "GROUP  BY p.`codigo`
-					ORDER  BY SUM(dc.`cantidad`) DESC;
+                   "GROUP BY p.`codigo`
+					ORDER BY SUM(dc.`cantidad`) DESC;
             ";
 		}
 		else{
-			$sql = "$select
-                    $from
-                    $inner_join
+			$sql = "$sql
                     $where
                     $where_sql
                  	$order_by
             ";  
 		}
 
-        return $sql;       
+        $rs = $db->query($sql);
+
+        return $rs;
     }
 
     function mostrar_filtros ($filtros,$categoria,$subcategoria){
@@ -528,13 +589,12 @@
         $arreglo_subcategorias = [];
         $formulario = "";
     
-        if (isset($_GET["articulos"])){
-            $producto = $_GET["articulos"];
+        if (isset($_GET["cate"]) && isset($_GET["sub"])){
             $categoria = $_GET["cate"];
             $subcategoria = $_GET["sub"];
             
             $formulario = "
-                <form action='productos.php?articulos=".$producto."&cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
+                <form action='productos.php?cate=".$categoria."&sub=".$subcategoria."' method='post' id='datos'> 
                     <div class='btn-select'>
                         <label for='orden' class='label'> Ordenar por </label>
                         <select class='form-select' id='orden' name='orden' title='Ordenar elementos'> 
@@ -544,7 +604,7 @@
                         </select>
                     </div>
             ";
-        } else if (isset($_GET["productos"]) || isset($_GET["buscador"])){
+        } else {
             $categoria = "%";
             $subcategoria = "%";
         
@@ -590,102 +650,202 @@
             ";
         }
 
-		echo $formulario;
-
-		$arreglo_colores = $arreglo_marcas = [];
-
-        $inner_join = " INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
-					   INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
-        ";
-
-        $where_sql = "WHERE s.nombre_subcategoria like '$subcategoria' 
-             AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
-        ");
-
-        $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
-                FROM `producto` as p
-                $inner_join
-                $where_sql
-                GROUP BY p.color, p.marca
-        ";
-
-        $rs = $db->query($sql); 
-
-        foreach ($rs as $row) {
-            $arreglo_colores[$row["color"]] = 0;
-            $arreglo_marcas[$row["marca"]] = 0;
-            $valor_minimo = $row["min_precio"];
-            $valor_maximo = $row["max_precio"];
-        }
-
-        ksort($arreglo_colores);
-		
-		$html = "";
-        $fieldset_class = "colores";
-        $legend_title = "Colores";
-        $input_name = "color";
-
-        foreach($arreglo_colores as $indice => $valor){
-            $id = str_replace(" ","",$indice);
-            $html .= "<div class='$fieldset_class'>
-                        <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
-                        <label for='$id'> ".ucfirst($indice)."</label>
-                    </div>";
-        }
-
-        echo "<fieldset class='$fieldset_class contenedor'>
-                <legend class='ltitulo'><b>$legend_title</b></legend>
-                <div id='$fieldset_class' class='input'>
-                    $html
-                </div>
-            </fieldset>
-        ";
-
-        $html = "";
-        $fieldset_class = "marcas";
-        $legend_title = "Marcas";
-        $input_name = "marca";
-
-        foreach($arreglo_marcas as $indice => $valor){
-            $id = str_replace(" ","",$indice);
-            $html .= "<div class='$fieldset_class'>
-                        <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
-                        <label for='$id'> ".ucfirst($indice)."</label>
-                    </div>"
-            ;
-        }
-
-        echo "<fieldset class='$fieldset_class contenedor'>
-                <legend class='ltitulo'><b>$legend_title</b></legend>
-                <div id='$fieldset_class' class='input'>
-                    $html
-                </div>
-            </fieldset>
-        ";
-
-		echo "
-                </div>	
-				</fieldset>
-				<fieldset id='min-max'>
-				    <legend class='ltitulo'><b>Precios</b></legend> 
-                    <div class='input-minmax'> 
-                        <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
-                        <label for='valorMax' class='lmaxmin'>Máximo</label>			
+        if ((isset($_GET["cate"]) && isset($_GET["sub"])) || isset($_GET["productos"]) || isset($_GET["buscador"])){         
+            echo $formulario;
+    
+            $arreglo_colores = $arreglo_marcas = [];
+    
+            $inner_join = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+                           INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
+            ";
+    
+            $where_sql = "WHERE s.nombre_subcategoria like '$subcategoria' 
+                 AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
+            ");
+    
+            $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
+                    FROM `producto` as p
+                    $inner_join
+                    $where_sql
+                    GROUP BY p.color, p.marca
+            ";
+    
+            $rs = $db->query($sql); 
+    
+            foreach ($rs as $row) {
+                $arreglo_colores[$row["color"]] = 0;
+                $arreglo_marcas[$row["marca"]] = 0;
+                $valor_minimo = $row["min_precio"];
+                $valor_maximo = $row["max_precio"];
+            }
+    
+            ksort($arreglo_colores);
+            
+            $html = "";
+            $fieldset_class = "colores";
+            $legend_title = "Colores";
+            $input_name = "color";
+    
+            foreach($arreglo_colores as $indice => $valor){
+                $id = str_replace(" ","",$indice);
+                $html .= "<div class='$fieldset_class'>
+                            <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
+                            <label for='$id'> ".ucfirst($indice)."</label>
+                        </div>";
+            }
+    
+            echo "<fieldset class='$fieldset_class contenedor'>
+                    <legend class='ltitulo'><b>$legend_title</b></legend>
+                    <div id='$fieldset_class' class='input'>
+                        $html
                     </div>
-					<div class='input-minmax'>
-						<input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
-						- 
-						<input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
-					</div>
-				</fieldset>	
-				<p class='mensaje' id='mensaje'>
+                </fieldset>
+            ";
+    
+            $html = "";
+            $fieldset_class = "marcas";
+            $legend_title = "Marcas";
+            $input_name = "marca";
+    
+            foreach($arreglo_marcas as $indice => $valor){
+                $id = str_replace(" ","",$indice);
+                $html .= "<div class='$fieldset_class'>
+                            <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
+                            <label for='$id'> ".ucfirst($indice)."</label>
+                        </div>"
+                ;
+            }
+    
+            echo "<fieldset class='$fieldset_class contenedor'>
+                    <legend class='ltitulo'><b>$legend_title</b></legend>
+                    <div id='$fieldset_class' class='input'>
+                        $html
+                    </div>
+                </fieldset>
+            ";
+    
+            echo "
+                    </div>	
+                    </fieldset>
+                    <fieldset id='min-max'>
+                        <legend class='ltitulo'><b>Precios</b></legend> 
+                        <div class='input-minmax'> 
+                            <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
+                            <label for='valorMax' class='lmaxmin'>Máximo</label>			
+                        </div>
+                        <div class='input-minmax'>
+                            <input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
+                            - 
+                            <input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
+                        </div>
+                    </fieldset>	
+                    <p class='mensaje' id='mensaje'>
+    
+                    </p> 
+                    <div id='botones' class='botones'>
+                        <input type='submit'  id='filtros' class='btn' name='Aplicar filtros' title='Aplicar filtros' value='Aplicar filtros'>						
+                    </div>
+                </form>
+            ";
+        } else{
+            echo $formulario;
+           
+            $arreglo_colores = $arreglo_marcas = [];
+    
+            $inner_join = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+                           INNER JOIN categoria as c on c.id_categoria = p.id_categoria 
+            ";
+    
+            $where_sql = "WHERE s.nombre_subcategoria like '%' 
+                 AND c.nombre_categoria like '%'
+            ";
+    
+            $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
+                    FROM `producto` as p
+                    $inner_join
+                    $where_sql
+                    GROUP BY p.color, p.marca
+            ";
+    
+            $rs = $db->query($sql); 
+    
+            foreach ($rs as $row) {
+                $arreglo_colores[$row["color"]] = 0;
+                $arreglo_marcas[$row["marca"]] = 0;
+                $valor_minimo = $row["min_precio"];
+                $valor_maximo = $row["max_precio"];
+            }
+    
+            ksort($arreglo_colores);
+            
+            $html = "";
+            $fieldset_class = "colores";
+            $legend_title = "Colores";
+            $input_name = "color";
+    
+            foreach($arreglo_colores as $indice => $valor){
+                $id = str_replace(" ","",$indice);
+                $html .= "<div class='$fieldset_class'>
+                            <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
+                            <label for='$id'> ".ucfirst($indice)."</label>
+                        </div>";
+            }
+    
+            echo "<fieldset class='$fieldset_class contenedor'>
+                    <legend class='ltitulo'><b>$legend_title</b></legend>
+                    <div id='$fieldset_class' class='input'>
+                        $html
+                    </div>
+                </fieldset>
+            ";
+    
+            $html = "";
+            $fieldset_class = "marcas";
+            $legend_title = "Marcas";
+            $input_name = "marca";
+    
+            foreach($arreglo_marcas as $indice => $valor){
+                $id = str_replace(" ","",$indice);
+                $html .= "<div class='$fieldset_class'>
+                            <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
+                            <label for='$id'> ".ucfirst($indice)."</label>
+                        </div>"
+                ;
+            }
+    
+            echo "<fieldset class='$fieldset_class contenedor'>
+                    <legend class='ltitulo'><b>$legend_title</b></legend>
+                    <div id='$fieldset_class' class='input'>
+                        $html
+                    </div>
+                </fieldset>
+            ";
+    
+            echo "
+                    </div>	
+                    </fieldset>
+                    <fieldset id='min-max'>
+                        <legend class='ltitulo'><b>Precios</b></legend> 
+                        <div class='input-minmax'> 
+                            <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
+                            <label for='valorMax' class='lmaxmin'>Máximo</label>			
+                        </div>
+                        <div class='input-minmax'>
+                            <input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
+                            - 
+                            <input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
+                        </div>
+                    </fieldset>	
+                    <p class='mensaje' id='mensaje'>
+    
+                    </p> 
+                    <div id='botones' class='botones'>
+                        <input type='submit'  id='filtros' class='btn' name='Aplicar filtros' title='Aplicar filtros' value='Aplicar filtros'>						
+                    </div>
+                </form>
+            ";
+        }
 
-				</p> 
-				<div id='botones' class='botones'>
-					<input type='submit'  id='filtros' class='btn' name='Aplicar filtros' title='Aplicar filtros' value='Aplicar filtros'>						
-				</div>
-			</form>
-        ";
 	}	
 
     function existe_email(){
@@ -1006,19 +1166,23 @@
     function obtener_imagenes_subcategorias($categoria){
         global $db;
 
-        $sql = "SELECT destination, nombre_subcategoria 
-                FROM imagen_subcategorias as s
-                INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
-                INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
-                WHERE c.id_categoria = :categoria AND sub.activo = 1
-        ";
+        if ($categoria !== ""){
+            $sql = "SELECT destination, nombre_subcategoria 
+                    FROM imagen_subcategorias as s
+                    INNER JOIN subcategoria as sub ON s.id_subcategoria = sub.id_subcategoria
+                    INNER JOIN categoria as c ON sub.id_categoria = c.id_categoria
+                    WHERE c.id_categoria = :categoria AND sub.activo = 1
+            ";
 
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
-        $stmt->execute();
-        $rs = $stmt->fetchAll();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':categoria', $categoria, PDO::PARAM_INT);
+            $stmt->execute();
+            $rs = $stmt->fetchAll();
 
-        return $rs;
+            return $rs;
+        }
+
+        return false;
     }
 
     function obtener_lista_carrito($productos) {

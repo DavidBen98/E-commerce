@@ -17,7 +17,11 @@
 		</ol>
 	";
 
-	$imagenes = $_GET["categoria"];
+	$imagenes = "";
+	
+	if (isset($_GET["categoria"])){
+		$imagenes = $_GET["categoria"];
+	}
 
 	$rs = obtener_imagenes_subcategorias($imagenes);
 ?>
@@ -87,9 +91,12 @@
 	<main id="main">
 		<?= $ruta; ?>
 
-		<?= crear_imagenes($rs); ?>
+		<?php
+			crear_imagenes($rs); 
+		?>
 
-        <?= $modal_novedades; ?>
+        <?= $modal_novedades; ?> 
+		<?= $modal_novedades_error; ?>
 	</main>
 		
 	<footer id="pie">

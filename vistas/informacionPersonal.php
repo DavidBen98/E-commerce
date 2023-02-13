@@ -409,7 +409,8 @@
             <?= $contenedor_informacion_personal; ?>
         </section>
 
-        <?= $modal_novedades; ?>
+        <?= $modal_novedades; ?> 
+        <?= $modal_novedades_error; ?>
     </main>
 
     <footer id="pie">
