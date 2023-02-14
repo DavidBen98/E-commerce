@@ -66,7 +66,7 @@
     } else {
 		$sql = generar_consulta("");
 		$where = "WHERE id_subcategoria LIKE '%' AND id_categoria LIKE '%' ";
-		$rs = completar_where ($sql, $where, $filtros);
+		$rs = completar_where($sql, $where, $filtros);
 	}
 
 	//FILTROS DE LA BARRA LATERAL
