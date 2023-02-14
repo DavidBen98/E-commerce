@@ -660,7 +660,7 @@
             ";
     
             $where_sql = "WHERE s.nombre_subcategoria like '$subcategoria' 
-                 AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
+                        AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
             ");
     
             $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
@@ -671,6 +671,8 @@
             ";
     
             $rs = $db->query($sql); 
+
+            $valor_minimo = $valor_maximo = "";
     
             foreach ($rs as $row) {
                 $arreglo_colores[$row["color"]] = 0;
@@ -691,7 +693,8 @@
                 $html .= "<div class='$fieldset_class'>
                             <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
                             <label for='$id'> ".ucfirst($indice)."</label>
-                        </div>";
+                        </div>
+                ";
             }
     
             echo "<fieldset class='$fieldset_class contenedor'>
@@ -712,8 +715,8 @@
                 $html .= "<div class='$fieldset_class'>
                             <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
                             <label for='$id'> ".ucfirst($indice)."</label>
-                        </div>"
-                ;
+                        </div>
+                ";
             }
     
             echo "<fieldset class='$fieldset_class contenedor'>
@@ -757,7 +760,7 @@
             ";
     
             $where_sql = "WHERE s.nombre_subcategoria like '%' 
-                 AND c.nombre_categoria like '%'
+                        AND c.nombre_categoria like '%'
             ";
     
             $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
@@ -768,6 +771,8 @@
             ";
     
             $rs = $db->query($sql); 
+
+            $valor_minimo = $valor_maximo = "";
     
             foreach ($rs as $row) {
                 $arreglo_colores[$row["color"]] = 0;
@@ -788,7 +793,8 @@
                 $html .= "<div class='$fieldset_class'>
                             <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
                             <label for='$id'> ".ucfirst($indice)."</label>
-                        </div>";
+                        </div>
+                ";
             }
     
             echo "<fieldset class='$fieldset_class contenedor'>
@@ -809,8 +815,8 @@
                 $html .= "<div class='$fieldset_class'>
                             <input type='checkbox' class='input' name='${input_name}[]' id='$id' title='$legend_title $indice' value='$indice'>
                             <label for='$id'> ".ucfirst($indice)."</label>
-                        </div>"
-                ;
+                        </div>
+                ";
             }
     
             echo "<fieldset class='$fieldset_class contenedor'>
@@ -845,7 +851,6 @@
                 </form>
             ";
         }
-
 	}	
 
     function existe_email(){
