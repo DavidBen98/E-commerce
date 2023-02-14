@@ -287,7 +287,7 @@
         return "";
     }
 
-    function completar_where ($sql,$where,$filtros){
+    function filtrar_productos ($sql,$where,$filtros){
         global $db;
 
         $rs = "";	

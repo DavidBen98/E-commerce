@@ -49,7 +49,7 @@
 			$where .= " AND p.id_subcategoria like '%' ";
 		}
 
-        $rs = completar_where($sql,$where,$filtros);
+        $rs = filtrar_productos($sql,$where,$filtros);
     }
 	else if (isset($_GET["buscador"])){
 		$busqueda = $_GET["buscador"];
@@ -62,11 +62,11 @@
 		$sql = generar_consulta("subcategoria");
 		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria' ";
 
-        $rs = completar_where($sql, $where, $filtros);
+        $rs = filtrar_productos($sql, $where, $filtros);
     } else {
 		$sql = generar_consulta("");
 		$where = "WHERE id_subcategoria LIKE '%' AND id_categoria LIKE '%' ";
-		$rs = completar_where($sql, $where, $filtros);
+		$rs = filtrar_productos($sql, $where, $filtros);
 	}
 
 	//FILTROS DE LA BARRA LATERAL
