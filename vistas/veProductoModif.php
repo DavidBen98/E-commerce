@@ -191,6 +191,9 @@
 
             function verCaract (codigo){
                 codigo = codigo.slice(0,4);
+                let caracUno = document.getElementById("caracteristica-uno");
+                let caracDos = document.getElementById("caracteristica-dos");
+                let caracTres = document.getElementById("caracteristica-tres");
 
                 if (codigo == "ofsi"){
                     caracUno.innerHTML = "Altura del respaldo";
