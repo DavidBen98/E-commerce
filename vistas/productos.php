@@ -80,7 +80,7 @@
 			<div id='filtros-usados'>		
 				<div id='filtro'> $filtro </div>
 				<div class='btn-filtrado'>					
-					<a href='$url' class='btn filtrado-bl' name='borrar-filtros' title='Borrado de filtrado' value='Borrar filtros'>Borrar filtros</a>
+					<a href='$url' class='btn filtrado-bl' title='Borrado de filtrado'>Borrar filtros</a>
 					<button id='cambiar-filtro' class='btn filtrado-bl' name='cambiar-filtros' title='Cambiar filtros'>Modificar filtros</button>
 				</div>
 			</div>
@@ -111,7 +111,7 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="../js/funciones.js"></script>
@@ -156,7 +156,7 @@
 			padding-top: 20px;
 		}
 
-		.marcas, .colores{
+		.contenedor-marcas, .contenedor-colores{
 			max-height: 150px;
 			overflow-x: hidden;
 			overflow-y: auto;
@@ -209,6 +209,10 @@
 		}
 
 		.mensaje{
+			display:none;
+		}
+
+		.titulo-catalogo{
 			display:none;
 		}
 		
@@ -264,7 +268,6 @@
 			.contenedor-productos{
 				margin-left:0;
 				width: 100%;
-
 			}
 
 			#form-filtrado{
@@ -329,8 +332,7 @@
 </head>
 <body id="body">   
     <header>
-		<?= $encabezado;?>
-        <?= $encabezado_mobile; ?>
+		<?= imprimir_encabezado($encabezado, $encabezado_mobile); ?>
 	</header>
 	
 	<main id="main">

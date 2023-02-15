@@ -78,7 +78,7 @@
         
         <div class='contenedor'>
             <label for='id'>Id</label>
-            <input type='text' name='id' readonly class='form-control-plaintext' id='id' title='Código' value='$id' readonly> 
+            <input type='text' name='id' class='form-control-plaintext' id='id' title='Código' value='$id' readonly> 
         </div>
 
         <div class='contenedor'>
@@ -118,17 +118,17 @@
 
         <div class='contenedor'>
             <label for='cant'>Stock</label>
-            <input type='number' class='form-control' name='cant' id='cant' title='Cantidad' minValue='1' value=''>  
+            <input type='number' class='form-control' name='cant' id='cant' title='Cantidad' min='1' value=''>  
         </div>
 
         <div class='contenedor'>
             <label for='precio'>Precio unitario (Solo número, sin puntos ni comas)</label>
-            <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' minValue='1'>  
+            <input type='number' class='form-control' name='precio' id='precio' title='Precio unitario' value='' placeholder='Ejemplo: 10000' min='1'>  
         </div>
 
         <div class='contenedor'>
             <label for='descuento'>Porcentaje de descuento (Solo número)</label>
-            <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' minValue='0' maxValue='100'>  
+            <input type='number' class='form-control' name='descuento' id='descuento' title='Descuento' placeholder='Ejemplo: 30' value='' min='0' max='100'>  
         </div>
         <div class='contenedor' id='cont-modificar-caract'>
             <input type='submit' name='caract' id='btn-caracteristicas' class='btn btn-enviar' title='' value='Modificar características'>
@@ -143,8 +143,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Muebles Giannis - Las mejores marcas</title>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
-    <link type="text/css"  href="../assets/css/ve_estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
+    <link type="text/css"  href="../assets/css/ve_estilos.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script src="../js/funciones.js"></script>
     <script>
@@ -262,8 +262,7 @@
                     success: function (r){
                         $("#subc").html (r);
 
-                        let selectSubcategoria = document.getElementById("subcategoria");
-
+                        let selectSubcategoria = document.getElementsByName("subcategoria")[0];
                         let button = document.getElementById("btn-ubicacion");
 
                         if (selectSubcategoria.selectedIndex == -1){

@@ -155,7 +155,7 @@
 
 		echo "
             <form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
-			    <h1 class='h1'> Muebles Giannis - Catálogo </h1>";
+			    <h2 class='titulo-catalogo'> Muebles Giannis - Catálogo </h2>";
         
             if (!$consulta){
                 $i++;
@@ -194,7 +194,7 @@
                         echo "<h3 class='precio'>
                                     $". $precio_descuento ." 
                                 </h3>
-                                <h3 class='precio' id='h3-precio'>
+                                <h3 class='precio h3-precio'>
                                     $". ucfirst($row["precio"]).
                             " </h3>
                         ";
@@ -220,7 +220,6 @@
             }
                     
         echo "	
-                </div>
             </form>
         ";	
 	} 
@@ -580,7 +579,7 @@
             $nombre_subcategoria = "";
 
             foreach ($result_subcategoria as $rowSub){
-                $nombre_subcategoria .= $rowSub["nombre_subcategoria"] . " <br/> ";
+                $nombre_subcategoria .= $rowSub["nombre_subcategoria"] . " <br> ";
             }
 
             echo "" .  ucwords($nombre_subcategoria) . "          
@@ -695,7 +694,7 @@
             ksort($arreglo_colores);
             
             $html = "";
-            $fieldset_class = "colores";
+            $fieldset_class = "contenedor-colores";
             $legend_title = "Colores";
             $input_name = "color";
     
@@ -717,7 +716,7 @@
             ";
     
             $html = "";
-            $fieldset_class = "marcas";
+            $fieldset_class = "contenedor-marcas";
             $legend_title = "Marcas";
             $input_name = "marca";
     
@@ -739,8 +738,6 @@
             ";
     
             echo "
-                    </div>	
-                    </fieldset>
                     <fieldset id='min-max'>
                         <legend class='ltitulo'><b>Precios</b></legend> 
                         <div class='input-minmax'> 
@@ -808,7 +805,7 @@
                 ";
             }
     
-            echo "<fieldset class='$fieldset_class contenedor'>
+            echo "<fieldset class='contenedor-colores contenedor'>
                     <legend class='ltitulo'><b>$legend_title</b></legend>
                     <div id='$fieldset_class' class='input'>
                         $html
@@ -830,7 +827,7 @@
                 ";
             }
     
-            echo "<fieldset class='$fieldset_class contenedor'>
+            echo "<fieldset class='contenedor-marcas contenedor'>
                     <legend class='ltitulo'><b>$legend_title</b></legend>
                     <div id='$fieldset_class' class='input'>
                         $html
@@ -1077,7 +1074,7 @@
         $stmt->execute(); 
         
         //lista de subcategorias
-        $subcategorias = "<select id='subcategoria' class='hover' name='subcategoria'>";
+        $subcategorias = "<select class='hover select-subcategoria' name='subcategoria'>";
     
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $subcategorias .= "<option value='{$row['id_subcategoria']}'>{$row['nombre_subcategoria']}</option>";
@@ -1101,7 +1098,7 @@
         $rs = $stmt->fetchAll();
         
         $subcategorias = " 
-                <select id='subcategoria' class='hover' name='subInactivas'> 
+                <select id='subcategorias-inactivas' class='hover' name='subInactivas'> 
         ";
         
         foreach ($rs as $row) {
@@ -1515,5 +1512,28 @@
         } else {
             return false;
         }
+    }
+
+    function imprimir_encabezado($escritorio, $mobile){
+        // Obtener la cadena del agente de usuario del cliente
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        // Buscar el valor del ancho de la pantalla
+        if (preg_match('/\((?:iPhone|iPad);.*?(?:\d+)px/i', $userAgent, $matches)) {
+            $screenWidth = (int) filter_var($matches[0], FILTER_SANITIZE_NUMBER_INT);
+        } elseif (preg_match('/(?:Android);.*?(?:\d+)x(?:\d+)/i', $userAgent, $matches)) {
+            $screenWidth = (int) explode('x', $matches[0])[0];
+        } else {
+            $screenWidth = 860;
+        }
+
+        // Imprimir la variable adecuada según el tamaño de la pantalla
+        if ($screenWidth >= 860) {
+            return $escritorio;
+        } else {
+            return $mobile;
+        }
+
+        return $escritorio;
     }
 ?>

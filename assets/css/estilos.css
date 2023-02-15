@@ -469,8 +469,16 @@ aside select{
     height: 20px;
 }
 
+.titulo-catalogo{
+    display:none;
+}
 
-#h3-precio{
+#contenedor-colores, #contenedor-marcas{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.h3-precio{
     font-size:0.8rem; 
     text-decoration: line-through; 
     margin:0;

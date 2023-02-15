@@ -145,7 +145,7 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <title>Muebles Giannis</title>
     <style>
@@ -357,8 +357,7 @@
 </head>
 <body id="body">
     <header> 
-        <?= $encabezado; ?>
-        <?= $encabezado_mobile; ?>
+        <?= imprimir_encabezado($encabezado, $encabezado_mobile); ?>
     </header>
 
     <main id="main" class="main">

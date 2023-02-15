@@ -29,7 +29,7 @@
             <div class='img-actual'>
                 <p> Imagen actual </p>
                 <div>
-                    <img src='' class='img-cat' id='img-cat' alt='Imagen categoría'> 
+                    <img src='../images/categorias/notfound.jpg' class='img-cat' id='img-cat' alt='Imagen categoría'> 
                 </div>
             </div>
 
@@ -105,7 +105,7 @@
 	<script src="../js/jquery-3.3.1.min.js"></script>
 	<script src="../js/funciones.js"></script>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <script>

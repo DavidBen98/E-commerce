@@ -70,7 +70,7 @@
 
     $inactivas = "
         <form class='cont' method='POST' action='../controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
-            <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
+            <label for='nombre' class='col-sm-2 form-label'>Reactivar subcategoría</label>
             $categorias_inactivas
             <div class= 'agregar'>
                 <input type='submit' class='btn' name='bAgregarCat' title='Reactivar categoria' value='Reactivar categoria'>    
@@ -96,7 +96,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="../js/funciones.js"></script>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <style>

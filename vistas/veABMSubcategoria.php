@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <script>
@@ -36,7 +36,7 @@
             height:auto;
         }
 
-        .cont h2{
+        .cont h1{
             text-align:center;  
             width:100%;
         }
@@ -50,7 +50,7 @@
 
     <main id="main">
         <div class="cont">
-            <h2>SUBCATEGORÍAS</h1>
+            <h1>SUBCATEGORÍAS</h1>
             <button class="btn hover" id="alta-subcategoria">ALTA</button>
             <button class="btn hover" id="baja-subcategoria">BAJA</button>
             <button class="btn hover" id="modificar-subcategoria">MODIFICACIÓN</button>

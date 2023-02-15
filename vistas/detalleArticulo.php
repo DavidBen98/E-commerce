@@ -26,127 +26,143 @@
 		$ruta .= "<li><a href='productos.php?productos=todos'>Productos</a></li>";
 	}
 
-	$codigo = $_GET["art"] ;
-	$rs = obtener_producto($codigo);
+	if (isset($_GET["art"])){
+		$codigo = $_GET["art"] ;
+		$rs = obtener_producto($codigo);
 
-	foreach ($rs as $row) { 	
-		$ruta .= "<li>{$row['descripcion']}</li>
-			</ol>
-		";
-
-		$caracteristicas = $row["caracteristicas"];
-		$arreglo_caracteristicas = explode (',', $caracteristicas);
-		$id = $row["id"];
-
-		//Separar la descripción que viene en la columna "caracteristicas" en la BD
-		$parrafo_caracteristica = "";
-		for ($i=0; $i<count($arreglo_caracteristicas); $i++){
-			$posicion = stripos ($arreglo_caracteristicas[$i],':');
-			$caracteristica = substr($arreglo_caracteristicas[$i], 0, $posicion+1);
-			$caracteristica = ucfirst($caracteristica); 
-			$detalle = substr($arreglo_caracteristicas[$i], $posicion+2, strlen($arreglo_caracteristicas[$i]));
-			$caracteristica = "<b> $caracteristica </b>";
-
-			$parrafo_caracteristica .= "<p> $caracteristica $detalle </p><br>";
-		} 
-
-		if($row["stock"] == 0){
-			$stock .= "
-				<p>Lo sentimos, no poseemos stock de este artículo.
-					Si desea saber cuando volverá a tener stock suscríbase a las novedades.
-					Gracias.
-				</p>
+		foreach ($rs as $row) { 	
+			$ruta .= "<li>{$row['descripcion']}</li>
+				</ol>
 			";
-		}
-		else{
-			$botones = "
-				<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
-				<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos'>
-			";						
-		}
 
-		if (isset($_GET["fav"])){
-			$fav = $_GET["fav"];
-			if ($fav == "ok"){
-				$mensaje = "
-					<div class='mensaje' id='mensaje-exito'>
-						¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
-					</div>
+			$caracteristicas = $row["caracteristicas"];
+			$arreglo_caracteristicas = explode (',', $caracteristicas);
+			$id = $row["id"];
+
+			//Separar la descripción que viene en la columna "caracteristicas" en la BD
+			$parrafo_caracteristica = "";
+			for ($i=0; $i<count($arreglo_caracteristicas); $i++){
+				$posicion = stripos ($arreglo_caracteristicas[$i],':');
+				$caracteristica = substr($arreglo_caracteristicas[$i], 0, $posicion+1);
+				$caracteristica = ucfirst($caracteristica); 
+				$detalle = substr($arreglo_caracteristicas[$i], $posicion+2, strlen($arreglo_caracteristicas[$i]));
+				$caracteristica = "<b> $caracteristica </b>";
+
+				$parrafo_caracteristica .= "<p> $caracteristica $detalle </p><br>";
+			} 
+
+			if($row["stock"] == 0){
+				$stock .= "
+					<p>Lo sentimos, no poseemos stock de este artículo.
+						Si desea saber cuando volverá a tener stock suscríbase a las novedades.
+						Gracias.
+					</p>
 				";
 			}
 			else{
-				$mensaje = "
-					<div class='mensaje' id='mensaje-advertencia'>
-						¡El producto ya pertenece a <a href='favoritos.php'>favoritos</a>!
+				$botones = "
+					<input type='button' id='btn-enviar' onclick='agregarProducto($id)' class='btn' value='Agregar al carrito'>
+					<input type='button' id='btn-fav' onclick='agregarFavorito($id)' class='btn' value='Agregar a favoritos'>
+				";						
+			}
+
+			if (isset($_GET["fav"])){
+				$fav = $_GET["fav"];
+				if ($fav == "ok"){
+					$mensaje = "
+						<div class='mensaje' id='mensaje-exito'>
+							¡El producto se ha agregado a <a href='favoritos.php'>favoritos</a> correctamente!
+						</div>
+					";
+				}
+				else{
+					$mensaje = "
+						<div class='mensaje' id='mensaje-advertencia'>
+							¡El producto ya pertenece a <a href='favoritos.php'>favoritos</a>!
+						</div>
+					";
+				}
+			}
+
+			$path = obtener_imagen_producto($id);
+
+			$contenedor_articulo = "
+				<div class='contenedor'> 
+					<div id='cont-images'>
+						<img src='../$path' class='img-cat' title='Producto en detalle' alt='{$row["descripcion"]}'>                                   
 					</div>
+
+					<div id='cont-descripcion'>
+						<div class='cont-fund'>
+							<input type='hidden' name='codigoImagen' value='$codigo' />
+							
+							<h1>{$row["descripcion"]}</h1>
+			";
+							
+			if ($row["descuento"] != 0){
+				$precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
+				$contenedor_articulo .=  "
+					<h3 class='precio'>
+						$". $precio_descuento ." 
+					</h3>
+					<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
 				";
 			}
-		}
+			else{
+				$contenedor_articulo .= "
+					<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+					<input type='hidden' name='precio' value='{$row["precio"]}' />
+				";
+			}
 
-		$path = obtener_imagen_producto($id);
+			$contenedor_articulo .="
+				</div>
+
+				<div class='carac-prod'>
+					<div id='carac' name='carac' title='Caracteristicas'>
+						<p><b>Material: </b>" .  $row["material"] . "</p><br>
+						<p><b>Color:</b> " . $row["color"] . " </p><br>
+						<p><b>Marca:</b> " . $row["marca"].  "</p><br>
+						$parrafo_caracteristica
+					</div>
+				</div>
+			";
+									
+			if($row["stock"] == 0){
+				// $contenedor_articulo .= $sinStock; 
+				$contenedor_articulo .= ""; 
+			}
+			else{
+				$contenedor_articulo .= $botones;						
+			}
+
+			if (isset($fav)){
+				$contenedor_articulo .= $mensaje;
+			}
+
+			$contenedor_articulo .=	"
+					</div>
+				</div>
+				
+				<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
+					<img src='../images/iconos/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
+				</a>
+			";                    
+		}
+	} else {
+		$ruta .= "
+				<li>Detalle artículo</li>
+			</ol>
+		";
 
 		$contenedor_articulo = "
-			<div class='contenedor'> 
-				<div id='cont-images'>
-					<img src='../$path' class='img-cat' title='Producto en detalle' alt='{$row["descripcion"]}'>                                   
+				<div class='contenedor-vacio'> 
+					<p> 
+						Lo sentimos, ha ocurrido un error.
+					</p>
+						<a href='productos.php?productos=todos'> Volver a ver el catálogo completo </a>
 				</div>
-
-				<div id='cont-descripcion'>
-					<div class='cont-fund'>
-						<input type='hidden' name='codigoImagen' value='$codigo' />
-						
-						<h1>{$row["descripcion"]}</h1>
 		";
-						
-		if ($row["descuento"] != 0){
-			$precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
-			$contenedor_articulo .=  "
-				<h3 class='precio'>
-					$". $precio_descuento ." 
-				</h3>
-				<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
-			";
-		}
-		else{
-			$contenedor_articulo .= "
-				<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
-				<input type='hidden' name='precio' value='{$row["precio"]}' />
-			";
-		}
-
-		$contenedor_articulo .="
-			</div>
-
-			<div class='carac-prod'>
-				<div id='carac' name='carac' title='Caracteristicas'>
-					<p><b>Material: </b>" .  $row["material"] . "</p><br>
-					<p><b>Color:</b> " . $row["color"] . " </p><br>
-					<p><b>Marca:</b> " . $row["marca"].  "</p><br>
-					$parrafo_caracteristica
-				</div>
-			</div>
-		";
-								
-		if($row["stock"] == 0){
-			// $contenedor_articulo .= $sinStock; 
-			$contenedor_articulo .= ""; 
-		}
-		else{
-			$contenedor_articulo .= $botones;						
-		}
-
-		if (isset($fav)){
-			$contenedor_articulo .= $mensaje;
-		}
-
-		$contenedor_articulo .=	"
-				</div>
-			</div>
-			
-			<a href='javascript:window.print()' id='btn-imp' title='Imprimir listado'>
-				<img src='../images/iconos/logo_imprimir.png' id='imprimir' title='Imprimir listado' alt='icono imprimir.'>
-			</a>
-		";                    
 	}
 ?>
 <!DOCTYPE html>
@@ -173,7 +189,7 @@
 			justify-content:start;
 		}
 
-		.h1{
+		.titulo-catalogo{
 			display:none;
 		}
 		
@@ -187,7 +203,7 @@
 			text-decoration: none;
 		}
 
-		.contenedor {
+		.contenedor, .contenedor-vacio {
 			display:flex;
 			justify-content: center;
 			flex-wrap: wrap;
@@ -196,6 +212,15 @@
 			background-color: white;
 			width: 80%;
 			border-radius:5px;
+		}
+
+		.contenedor-vacio p{
+			width: 100%;
+			text-align: center;
+		}
+
+		.contenedor-vacio a{
+			text-decoration: underline;
 		}
 
 		.contenedor h1{
@@ -348,7 +373,7 @@
 				border:none;
 			}
 
-			.h1{
+			.titulo-catalogo{
 				display:block;
 			}
 		}
@@ -388,12 +413,11 @@
 </head>
 <body>
 	<header>
-    	<?= $encabezado; ?>
-        <?= $encabezado_mobile; ?>
+    	<?= imprimir_encabezado($encabezado, $encabezado_mobile); ?>
 	</header>
 	
     <main id="main">
-		<p class="h1">Muebles Giannis</p>
+		<p class="titulo-catalogo">Muebles Giannis</p>
 
 		<?= $ruta ?>
 

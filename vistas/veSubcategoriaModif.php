@@ -16,7 +16,7 @@
             <form action='../controlador/veFuncSubcategoriaUbicacion.php' onsubmit='return validarModUbiSubcategoria()' id='form-ubicacion' method='post' class='cont'>
                 <h2>Ubicación</h2>
 
-                <label for='subcategoria' class='label-subcategoria'>Subcategoría a modificar</label>
+                <label for='subcategoria-ubicacion' class='label-subcategoria'>Subcategoría a modificar</label>
                 $subcategorias
 
                 <label for='categoria' class='label-categoria'>
@@ -50,7 +50,7 @@
         <form action='../controlador/veFuncSubcategoriaModif.php' onsubmit='return validarModCarSubcategoria()' id='form-caracteristicas' method='post' enctype='multipart/form-data' class='cont'>
             <h2>Características</h2>
         
-            <label for='subcategoria' class='label-subcategoria'>Subcategoría a modificar</label>
+            <label for='subcategoria-caract' class='label-subcategoria'>Subcategoría a modificar</label>
             $subcategorias
         
             <div class='contenedor'>
@@ -64,7 +64,7 @@
             <div class='img-actual'>
                 <p>Imagen actual </p>
                 <div>
-                    <img src='' class='img-cat' id='img-cat' alt='Imagen categoría'> 
+                    <img src='../images/categorias/notfound.jpg' class='img-cat' id='img-cat' alt='Imagen categoría'> 
                 </div>
             </div>
 
@@ -137,7 +137,7 @@
 	<script src="../js/jquery-3.3.1.min.js"></script>
 	<script src="../js/funciones.js"></script>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <style>
@@ -151,7 +151,7 @@
             height: auto;
         }
 
-        #categoria, #subcategoria{
+        #categoria, .select-subcategoria{
             width:80%;
             text-align:center;
             margin:10px;
@@ -296,7 +296,11 @@
 		document.addEventListener("DOMContentLoaded", () => {
             let modNombre = document.getElementById("modificar-nombre");
             let modImagen = document.getElementById("modificar-imagen");
-            let subcategoria = document.getElementsByName("subcategoria")[1];
+            let subcategoria = document.getElementsByName("subcategoria");
+
+            //VALIDATOR W3: se establece como id para que funcionen los for de los labels 
+            subcategoria[0].setAttribute("id", "subcategoria-ubicacion");
+            subcategoria[1].setAttribute("id", "subcategoria-caract");
 
             actualizarImagen();
 
@@ -324,12 +328,12 @@
                 }
             });
 
-            subcategoria.addEventListener("change", () => {
+            subcategoria[1].addEventListener("change", () => {
                 actualizarImagen();
             });
 
             function actualizarImagen (){
-                let subcat = subcategoria.options[subcategoria.selectedIndex].value;
+                let subcat = subcategoria[1].options[subcategoria[1].selectedIndex].value;
                 let img = document.getElementById("img-cat");
 
                 $.ajax ({

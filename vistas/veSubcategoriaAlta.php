@@ -10,10 +10,10 @@
 
     $formulario = "
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaAlta.php' onsubmit='return validarAltaSubcategoria()' enctype='multipart/form-data'>     
-            <label for='nombre'class='col-sm-2 form-label'>Nombre de subcategoría</label>
+            <label for='nombre' class='col-sm-2 form-label'>Nombre de subcategoría</label>
             <input type='text' name='nombre' id='nombre' title='Ingrese el nombre de la subcategoria' value=''>  
             
-            <label for='categoria'class='col-sm-2 form-label'>Categoría</label>
+            <label for='categoria' class='col-sm-2 form-label'>Categoría</label>
             $categorias
             
             <div class='archivo'>
@@ -80,7 +80,7 @@
 
     $inactivas = "
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
-            <label for='nombre'class='col-sm-2 form-label'>Reactivar subcategoría</label>
+            <label for='nombre' class='col-sm-2 form-label'>Reactivar subcategoría</label>
             $subcategorias_inactivas
             <div class= 'agregar'>
                 <input type='submit' class='btn' name='btn-agregar-subcategoria' title='Reactivar subcategoria' value='Reactivar subcategoria'>    
@@ -107,7 +107,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="../js/funciones.js"></script>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
-    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet"/>
+    <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">
     <title>Muebles Giannis - Las mejores marcas</title>
     <style>

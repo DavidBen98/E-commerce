@@ -48,7 +48,11 @@ window.onload = function (){
             window.location.href="pago.php";
         }
         else if (ev.target.matches("#header-menu")){
-            document.getElementById("mobile-header").style.display = "flex";
+            let mobileHeader = document.getElementById("mobile-header");
+
+            if (mobileHeader != undefined){
+                mobileHeader.style.display = "flex";
+            }
             document.getElementById("cont-mobile-menu").style.display = "flex";
             document.getElementById("container-header").style.display = "none";
             document.getElementById("mobile-perfil-usuario").style.display = "flex";
@@ -708,7 +712,7 @@ const validarContacto = () => {
 //ALTA PRODUCTO
 const validarAlta = () => {
     let categoria = document.getElementById("categoria").selectedIndex === -1;
-    let subcategoria = document.getElementById("subcategoria").selectedIndex === -1;
+    let subcategoria = document.getElementsByName("subcategoria")[0].selectedIndex === -1;
     let codigo = document.getElementById("codigo").value.trim();
     let descripcion = document.getElementById("descripcion").value.trim();
     let imagen = document.getElementById("imagen").files.length;
@@ -965,7 +969,7 @@ const validarAltaSubcategoria = () => {
 
 //Subcategoria baja
 const validarBajaSubategoria = () => {
-    let subcategoria = document.getElementById("subcategoria").selectedIndex === -1;
+    let subcategoria = document.getElementsByName("subcategoria")[0].selectedIndex === -1;
 
     let validate = true;
 
@@ -996,7 +1000,7 @@ const validarBajaSubategoria = () => {
 
 //Subcategoria modificar ubicación
 const validarModUbiSubcategoria = () => {
-    let subcategoria = document.getElementById('subcategoria').selectedIndex === -1;
+    let subcategoria = document.getElementsByName('subcategoria')[0].selectedIndex === -1;
     let categoria = document.getElementById('categoria').selectedIndex === -1;;
 
     if (subcategoria || categoria){
