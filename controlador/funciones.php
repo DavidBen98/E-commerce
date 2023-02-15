@@ -225,14 +225,25 @@
         ";	
 	} 
 
-    function generar_consulta($url, $busqueda = ""){
+    function generar_consulta($url, $busqueda = "", $orden = ""){
         if ($url === "productos"){
-            $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
+            //orden
+            if ($orden == 2){
+                $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento, SUM(dc.cantidad) as total_vendido";
+                $inner_join = "
+                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                    LEFT JOIN detalle_compra as dc ON p.id = dc.id_producto
+                ";
+            } else {
+                $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
+                $inner_join = "
+                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                ";
+            }
+
             $from = "FROM `producto` as p";
-            $inner_join = "
-                INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-                INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-            ";
 
             $sql = $select. " ". $from . " " . $inner_join . " ";
 
@@ -269,12 +280,23 @@
                 return $rs;
             }
         } else if ($url === "subcategoria"){
-            $select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+            //ordeen
+            if ($orden == 2){
+                $select = "SELECT SUM(dc.cantidad) as total_vendido, p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+                $inner_join = "
+                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                    LEFT JOIN detalle_compra as dc ON p.id = dc.id_producto
+                ";
+            } else {
+                $select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+                $inner_join = "
+                    INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+                    INNER JOIN categoria as c on c.id_categoria = p.id_categoria
+                ";
+            }
+
             $from = "FROM producto as p";
-            $inner_join = "INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
-                           INNER JOIN categoria as c on c.id_categoria = p.id_categoria
-            ";
-    
             $sql = $select . " " . $from . " " . $inner_join . " ";
 
             return $sql;
@@ -345,7 +367,7 @@
                 $order_by = " ORDER BY precio desc ";
             }
             else {              
-				$orden_mas_vendido++;
+				$order_by = "GROUP BY p.id ORDER BY total_vendido DESC";
             }
         }
 		
@@ -361,22 +383,11 @@
         } 
 
         //Si se elige el orden mas vendido
-		if($orden_mas_vendido != 0){
-			$sql = $sql .
-				   "LEFT JOIN `detalle_compra` as `dc` ON `dc`.id_producto = `p`.codigo" . 
-                   $where .
-				   $where_sql .
-                   "GROUP BY p.`codigo`
-					ORDER BY SUM(dc.`cantidad`) DESC;
-            ";
-		}
-		else{
-			$sql = "$sql
-                    $where
-                    $where_sql
-                 	$order_by
-            ";  
-		}
+        $sql = "$sql
+                $where
+                $where_sql
+                $order_by
+        ";  
 
         $rs = $db->query($sql);
 
@@ -417,7 +428,7 @@
                 $cat = "";
             }
 
-            $filtro .= "<b>Categoría:</b> ". $cat . "<br>";
+            $filtro .= "<b>Categoría:</b> ". $cat . "<br>"; //Luego modificar
         }
         else if ($categoria != ""){
             $filtro .= "<b>Categoría:</b> ". $categoria . "<br>";
@@ -436,10 +447,10 @@
             $row = $stmt->fetch();
             $subcat = $row["nombre_subcategoria"];
 
-            $filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>";
+            $filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>"; //Luego modificar
         }
         else if ($subcategoria != ""){
-            $filtro .= "<b>Subcategoría:</b> ". $subcategoria . "<br>";
+            $filtro .= "<b>Subcategoría:</b> ". $subcategoria . "<br>"; //Luego modificar
         }
 
         if (isset($filtros[0])){

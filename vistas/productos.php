@@ -1,9 +1,9 @@
 <?php
     require_once "../controlador/config.php";
 	require "../inc/conn.php";
-	include ("encabezado.php");
-    include("modalNovedades.php");
-    include("pie.php");
+	include "encabezado.php";
+    include "modalNovedades.php";
+    include "pie.php";
 
 	if ($perfil == "E"){ 
 		header("location:veABMProducto.php");
@@ -33,7 +33,7 @@
         $categoria = (isset($_POST["categoria"]))? intval($_POST["categoria"]) : "";
         $subcategoria = (isset($_POST["subcategoria"]))? intval($_POST["subcategoria"]) : "";
 		
-		$sql = generar_consulta("productos");
+		$sql = generar_consulta("productos","",$filtros[4]);
 
 		if ($categoria != ""){
 			$where = " WHERE p.id_categoria like '$categoria' ";
@@ -59,7 +59,7 @@
         //Si entro desde subcategorias entonces la categoria y la subcategoria esta en la url
         $categoria = $_GET["cate"];
 		$subcategoria = $_GET["sub"];
-		$sql = generar_consulta("subcategoria");
+		$sql = generar_consulta("subcategoria", "", $filtros[4]);
 		$where = " WHERE nombre_subcategoria='$subcategoria' AND s.id_categoria='$categoria' ";
 
         $rs = filtrar_productos($sql, $where, $filtros);
