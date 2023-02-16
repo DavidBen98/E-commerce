@@ -446,10 +446,6 @@
             margin: 5px;
         }
 
-        .btn:hover{
-            background: #000;
-        }
-
         #cont-ubicacion{
             margin-right:10px;
             width:40%;
