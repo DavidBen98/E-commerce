@@ -87,21 +87,25 @@
         </div>
                 
         <div class='contenedor'>
-            <label for='material'>Material</label>
-            <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
-            $materiales
+            <fieldset class='fieldset-marca' legend='material'>
+                <label for='material' style='display:none;'>Material</label>
+                <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
+                <legend class='ltitulo'>Materiales</legend>
+                $materiales
+            </fieldset>
         </div>
 
         <div class='contenedor'>
-            <label for='color'>Color</label>
-            <div class='color-div'>
+            <fieldset class='fieldset-color color-div'>
+                <label for='color' style='display:none;'>Color</label>
                 <input type='text' class='form-control' name='input-color' id='color' title='Color' value=''>
-            </div> 
-            $colores
+                <legend class='ltitulo'>Color</legend>
+                $colores
+            </fieldset> 
         </div>
 
         <div class='contenedor' id='caracteristicas'>
-            <label for='alto'>Características (Números redondos, en centímetros)</label>
+            <p>Características (Números redondos, en centímetros)</p>
             <label for='alto' id='caracteristica-uno'>Alto/Plazas/Largo/Altura del respaldo</label>
             <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='' step='5'>
             <label for='ancho' id='caracteristica-dos'>Ancho/Largo/Altura del piso al asiento</label>
@@ -111,9 +115,12 @@
         </div>
 
         <div class='contenedor'>
-            <label for='marca'>Marca</label>
-            <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''>
-            $marcas 
+            <fieldset class='fieldset-marca' legend='marca'>
+                <label for='marca' style='display:none;'>Marca</label>
+                <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''>
+                <legend class='ltitulo'>Marcas</legend>
+                $marcas
+            </fieldset> 
         </div>
 
         <div class='contenedor'>
@@ -349,8 +356,25 @@
             text-align:center;
         }
 
+        .fieldset-marca, .fieldset-color{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
+            border: none;
+        }
+
+        .fieldset-marca select, .fieldset-color select{
+            width:80%;
+            text-align:center;
+        }
+
         .label{
             font-weight: normal;
+        }
+
+        #color{
+            width: 100%;
         }
 
         #codigo{

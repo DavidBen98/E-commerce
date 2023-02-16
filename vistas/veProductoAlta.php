@@ -93,21 +93,25 @@
             </div>
                     
             <div class='contenedor'>
-                <label for='material'>Material</label>
-                $materiales
-                <p> Nuevo material: *Solo en el caso de que todavia no exista</p>
+                <fieldset class='fieldset-marca'>
+                    <legend class='ltitulo'>Materiales</legend>
+                    $materiales
+                </fieldset>
+                <label for='material'> Nuevo material: *Solo en el caso de que todavia no exista</label>
                 <input type='text' class='form-control' name='input-material' id='material' title='Material' value=''>
             </div>
 
             <div class='contenedor' id='color'>
-                <label>Color</label>
-                $colores
-                <p> Nuevo color: *Solo en el caso de que todavia no exista</p>
+                <fieldset class='fieldset-color'>
+                    <legend class='ltitulo'>Color</legend>
+                    $colores
+                </fieldset>
+                <label for='input-color'> Nuevo color: *Solo en el caso de que todavia no exista</label>
                 <input type='text' class='form-control' name='input-color' id='input-color' title='Color' value=''> 
             </div>
 
             <div class='contenedor' id='caracteristicas'>
-                <label for='alto'>Características (Números redondos, en centímetros)</label>
+                <p>Características (Números redondos, en centímetros)</p>
                 <label for='alto' id='caracteristica-uno'>Alto/Plazas/Largo/Altura del respaldo</label>
                 <input type='number' class='form-control' name='caracteristicas[]' id='alto' title='alto' value='0' step='5'>
                 <label for='ancho' id='caracteristica-dos'>Ancho/Largo/Altura del piso al asiento</label>
@@ -117,10 +121,12 @@
             </div>
 
             <div class='contenedor'>
-                <label for='marca'>Marca</label>
-                $marcas
-                <p> Nueva marca: *Solo en el caso de que todavia no exista</p>
-                <input type='text' class='form-control' name='input-marca' id='marca' title='Marca' value=''> 
+                <fieldset class='fieldset-marca' legend='marca'>
+                    <legend class='ltitulo'>Marcas</legend>
+                    $marcas
+                </fieldset>
+                <label for='input-marca'> Nueva marca: *Solo en el caso de que todavia no exista</label>
+                <input type='text' class='form-control' name='input-marca' id='input-marca' title='Marca' value=''> 
             </div>
 
             <div class='contenedor'>
@@ -280,6 +286,20 @@
             background:rgba(147, 81, 22,0.4);
             padding-bottom:10px;
         }
+
+        .fieldset-marca, .fieldset-color{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
+            border: none;
+        }
+
+        .fieldset-marca select, .fieldset-color select{
+            width:80%;
+            text-align:center;
+        }
+
         .contenedor select{
             width:80%;
             text-align:center;
@@ -288,9 +308,19 @@
         .label{
             font-weight: normal;
         }
+
+        #color p{
+            width: 100%;
+            text-align: center;
+        }
         
         .contenedor label {
             padding: 10px 0;
+        }
+
+        fieldset legend{
+            padding-block-start: 1em;
+            padding-block-end: 1em;
         }
 
         #codigo{

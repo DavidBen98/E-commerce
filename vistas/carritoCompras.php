@@ -1,4 +1,5 @@
 <?php 
+    //Ignorado: contraste letras grises con fondo blanco
     require_once "../controlador/config.php";
     require_once "../vendor/autoload.php";
     include "../inc/conn.php";
@@ -27,6 +28,7 @@
 
     $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
     $productos_agregados = 0;
+    $lista_carrito = "";
 
     if ($productos != null){
         $lista_carrito = obtener_lista_carrito($productos);

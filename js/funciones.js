@@ -580,6 +580,7 @@ const actualizarCiudad = (ciudad) => {
             renglonCiudad.appendChild(div);
 
             let selectCiudad = document.getElementById("ciu");
+            
             if (selectCiudad != null){
                 let contenedor = document.getElementById("contenedor-ciudad");
                 contenedor.style.width = "48%";

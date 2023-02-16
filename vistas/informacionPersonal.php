@@ -82,7 +82,7 @@
                 <div class='renglon' id='renglon-ciudad'>
                     <label class='descripciones' for='input-ciudad'>Ciudad</label>
                     <input type='text' id='input-ciudad' class='dato' name='ciudad' title='ciudad' value='{$row["ciudad"]}' readonly>
-                    <label class='descripciones' id='label-mod-ciudad' for='input-ciudad'>Ciudad</label>
+                    <label class='descripciones' id='label-mod-ciudad' for='ciu'>Ciudad</label>
                 </div>
 
                 <div class='renglon'>
@@ -109,7 +109,7 @@
         }
 
         $contenedor_informacion_personal .=" 
-                    <label>
+                    <label for='novedades'>
                         Suscripción a las novedades
                     </label>			
                 </div>

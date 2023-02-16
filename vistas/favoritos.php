@@ -1,4 +1,5 @@
 <?php 
+    //Ignorado: contraste letras grises con fondo blanco
     require_once "../controlador/config.php";
     include "../inc/conn.php";
     include "encabezado.php"; 

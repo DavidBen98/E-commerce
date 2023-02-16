@@ -310,10 +310,13 @@
 		#btn-fav{
 			width:100%; 
 			margin-top:15px;
+			background-color: rgba(99,110,114, 0.1);
+			color: black;
 		}
-
+		
 		#btn-fav:hover{
-			background-color: #000;
+			background-color: rgba(99,110,114, 0.5);
+			color: white;
 		}
 
 		.mensaje{

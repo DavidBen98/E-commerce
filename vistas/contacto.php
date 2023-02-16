@@ -65,7 +65,7 @@
 			height: 100px;
 			background-color: white;
 			color: black;
-			margin: 20px auto 0 auto;
+			margin: 0 auto;
 			padding: 5px 10px 0 10px;
 			resize: none;
 			border: 2px solid black;
@@ -172,9 +172,9 @@
         }
 
 		label{
-			width: 100%;
+			width: 96%;
 			text-align: center;
-			padding: 5px;
+			padding: 2%;
 		}
 		
 		@media screen and (max-width:1000px) {
