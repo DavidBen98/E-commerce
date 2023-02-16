@@ -168,7 +168,7 @@
 
                     $i++; 
                     echo "<div class='producto'>
-                            <img src='../$path' class='img-cat' id='$i' alt='".ucfirst($row["nombre_subcategoria"])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <img src='../$path' class='img-cat' id='$i' alt='Imagen subcategoría".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
                             <h2 class='tituloSubcat'>". ucfirst($row["nombre_subcategoria"])." </h2>
                         </div>
                     ";           

@@ -3,7 +3,9 @@
         <div id='modal-novedades'>
             <form action='../controlador/novedades.php' onsubmit='return validarModal()' method='post' name='novedades' id='form-novedades'>
                 <h1 class='modal-titulo'>Ingrese su email</h1>
+                <label for='modal-email' style='display:none;'>Email</label> 
                 <input class='modal-input' type='text' name='modal-email' id='modal-email'>
+                <label for='pagina-actual' style='display:none;'>Url</label> 
                 <input class='modal-input' type='text' name='modal-url' value='{$_SERVER['REQUEST_URI']}' id='pagina-actual'>
                 <div class='contenedor cont-modal' id='cont-modal'>
                     <input type='submit' class='modal-submit btn' value='Suscribirme a las novedades'>

@@ -15,13 +15,13 @@
 
         if (!empty($_POST["subcategoria"]) && $_POST["subcategoria"] == "nueva"){
             echo "  
-                <label for='subcategoria' class='label'> Subcategoría nueva </label>
-                <select name='subcategoria' class='form-select select-subcategoria'>
+                <label for='select-subcategoria' class='label'> Subcategoría nueva </label>
+                <select name='subcategoria' class='form-select select-subcategoria' id='select-subcategoria'>
             ";
         } else {
             echo "  
-                <label for='subcategoria' class='label'> Subcategorías </label>
-                <select name='subcategoria' class='form-select select-subcategoria'>
+                <label for='select-subcategoria' class='label'> Subcategorías </label>
+                <select name='subcategoria' class='form-select select-subcategoria' id='select-subcategoria'>
             ";
         }
 

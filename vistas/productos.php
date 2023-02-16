@@ -1,4 +1,5 @@
 <?php
+	//Link redundante, se deja por funcionamiento del sitio
     require_once "../controlador/config.php";
 	require "../inc/conn.php";
 	include "encabezado.php";

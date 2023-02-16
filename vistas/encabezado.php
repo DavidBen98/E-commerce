@@ -15,6 +15,7 @@
             </div>
 
             <div id='buscar'>
+                <label for='header-buscar' style='display:none;'>Buscador</label> 
                 <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                 <button id='lupa' title='lupa-buscar'>
                     <img src='../images/iconos/lupa.png' title='lupa-buscar' alt='Lupa de buscar' id='perfil'>
@@ -50,6 +51,7 @@
                     <img src='../images/iconos/menu.png' alt='' id='header-menu' class='header-menu'>
                 </div>
                 <div id='buscar'>
+                    <label for='header-buscar' style='display:none;'>Buscador</label> 
                     <input type='text' id='header-buscar' title='Barra de navegación' placeholder='Buscar por producto, marca, categoría...'>
                     <button id='lupa' title='Buscar'>
                         <img src='../images/iconos/lupa.png' alt='Lupa de buscar' id='perfil'>

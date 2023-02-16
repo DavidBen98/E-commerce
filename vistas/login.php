@@ -1,4 +1,5 @@
 <?php  
+	//Contraste de boton google ignorado
 	// require_once "../app/TwitterAuth.php";
 	require_once "../vendor/autoload.php";
 	require_once "../controlador/config.php";
@@ -64,7 +65,7 @@
 					</div> 
 					
 					<div class='cont-reg'>
-						<label class='form-label'>Dirección </label>
+						<p class='form-label'>Dirección </p>
 						<label class='form-label l-direccion' for='calle'>Calle </label>
 						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' placeholder='Calle' >	
 						<label class='form-label l-direccion' for='numero'>Numero</label>
@@ -151,7 +152,7 @@
 
 		$formulario = "<form action='../controlador/inicioSesion.php' onsubmit='return validarLogin()' method='post' class='formulario' novalidate>
 							<div id='sesion'>
-								<h1 id='titulo-is'>Iniciar Sesión</h1>	
+								<h1 id='titulo-is'>Iniciar sesión</h1>	
 								<div class='cont-campo'>
 									<label for='nombre-usuario' class='form-label'>Nombre de usuario </label>
 									<input type='text' autocomplete='username' class='form-control' name='nombre-usuario' id='nombre-usuario' value='' maxlength='20' >	
@@ -184,7 +185,7 @@
 		
 		$formulario .= "
 					<div class='cont-campo' id='btn-iniciar'>
-						<input type='submit' class='botones' name='iniciar' value='Iniciar Sesión' id='iniciar' onclick='javascript:return validarLogin()'>
+						<input type='submit' class='botones' name='iniciar' value='Iniciar sesión' id='iniciar' onclick='javascript:return validarLogin()'>
 					</div>
 				</div>
 				<div class='redes'> $login_button </div>
@@ -241,9 +242,9 @@
 		}
 
 		h2{
-			display:flex;
-			justify-content:center;
-			width:100%;
+			display: flex;
+			justify-content: center;
+			width: 100%;
 			font-size: 25px;
 			font-weight: normal;
 			font-family: "Salesforce Sans",Sans-serif;
@@ -254,8 +255,9 @@
 		}
 
 		.form-label{
-			width:100%;
-			padding-left:4px;
+			width: 100%;
+			padding-left: 4px;
+			text-align: center;
 		}
 
 		#cambiar-contra{
@@ -277,7 +279,7 @@
 		#btn-iniciar{
 			display:flex;
     		justify-content: center;
-			margin:8px;
+			margin: 24px 4px 8px 4px;
 		}
 
 		.l-direccion{
@@ -321,7 +323,7 @@
 		}
 
 		#registrarse:hover, #iniciar:hover{
-			background-color: rgba(147, 81, 22,0.5);
+			background-color: rgba(147, 81, 22,1);
             transition: all 0.3s linear;
             cursor:pointer;
 			color: white
@@ -378,8 +380,12 @@
 			justify-content:center;
 			flex-wrap:wrap;
 			background-color:white;
-			width:290px;
+			width:95%;
 			margin: 0 auto;
+		}
+
+		.btn{
+			margin: 0;
 		}
 
 		.btn-google{
@@ -391,11 +397,12 @@
 			padding: 20px; 
 			text-align: center; 
 			text-decoration: none; 
-			width: 250px;
+			width: 100%;
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     		font-size: 14px;
-			margin:8px;
+			margin: 4px;
             transition: all 0.3s linear;
+			border: 2px solid #000;
 		}
 
 		.btn-google:hover{
@@ -437,7 +444,6 @@
 			height:100%;
 			border: none;
 			border-radius: 0px;
-			/*border-right: 1px solid #D3D3D3;*/
 			padding:5px;
 		}
 
@@ -456,10 +462,12 @@
 		#iniciar{
 			width: 100%;
 			height: 50px;
+			margin: 0;
 			margin-bottom: 2px;
 			border: 2px solid black;
 			font-size: 1.1em;
-			background-color: white;
+			background: rgba(147, 81, 22,0.7);
+			color: white;
 		}
 
 		#titulo-is{
@@ -491,10 +499,6 @@
 		    text-align:start;
 		}
 
-		.mensaje{
-			width: 100%;
-		}
-
 		.ruta li{
 			margin-left:5px;
 		}
@@ -504,8 +508,9 @@
             text-decoration: none;
         }
 
-		#mensaje{
+		.mensaje{
 			width:100%;
+			margin: 20px 4px;
 		}
 		
 		@media screen and (max-width:860px){

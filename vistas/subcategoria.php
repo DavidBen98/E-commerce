@@ -73,7 +73,7 @@
 			min-height: auto;
 			height: auto;
 		}
-        
+
 		@media screen and (max-width:1024px){
 		    .producto{
 		        width:40%;

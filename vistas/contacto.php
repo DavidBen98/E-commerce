@@ -49,7 +49,7 @@
         .input{
 			width: 90%;
 			height: 50px;
-			margin: 20px auto 0 auto;
+			margin: 5px auto 0 auto;
 			padding: 0 10px;
 			font-size: 1.1em;
 			border-radius: 5px;
@@ -169,8 +169,13 @@
             border-radius: 5px;
             padding: 10px;
 			margin: 20px;
-			
         }
+
+		label{
+			width: 100%;
+			text-align: center;
+			padding: 5px;
+		}
 		
 		@media screen and (max-width:1000px) {
 		    .contacto-texto{
@@ -217,15 +222,22 @@
 		</div>
 
 		<form action="../controlador/nuevoContacto.php" onsubmit="return validarContacto()" method="post" class="cont-con"> 
-				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Nombre: Jhon" Maxlength="35" >
-				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Apellido: Doe" >
+				<label for="nombre">Nombre</label>
+				<input type="text" class="input" name="nombre" id="nombre" title="Nombre" value="" placeholder="Ejemplo: Jhon" Maxlength="35">
+				
+				<label for="apellido">Apellido</label>
+				<input type="text" class="input" name="apellido" id="apellido" title="Apellido" value="" placeholder="Ejemplo: Doe">
 				
 				<?php
 					if (!(isset($_SESSION["servicio"]) || $perfil == "U")){
-						echo "<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Email: jhonDoe@gmail.com' >";
+						echo "
+							<label for='email'>Email</label>
+							<input type='text' class='input' name='email' id='email' title='Email' value='' placeholder='Ejemplo: jhonDoe@gmail.com'>
+						";
 					}
 				?>
-				<textarea id="txt-ingresado" class="txt-area" title="Consulta del usuario" placeholder="Consulta: Qué tarjetas aceptan?" name="txt-ingresado" ></textarea>
+				<label for="txt-ingresado">Consulta</label>
+				<textarea id="txt-ingresado" class="txt-area" title="Consulta del usuario" placeholder="Ejemplo: Qué tarjetas aceptan?" name="txt-ingresado"></textarea>
 				<p id="mensaje">
 
                 </p>
