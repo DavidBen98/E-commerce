@@ -62,7 +62,7 @@
             sort($municipio);
 
             echo "
-                <label for='ciudad' class='form-label'>Ciudad</label>
+                <label for='ciu' class='form-label'>Ciudad</label>
                 <select id='ciu' name='ciudad' class='form-select'>
             ";  
             

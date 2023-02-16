@@ -94,7 +94,7 @@
 
 					<div id='cont-descripcion'>
 						<div class='cont-fund'>
-							<input type='hidden' name='codigoImagen' value='$codigo' />
+							<input type='hidden' name='codigoImagen' value='$codigo'>
 							
 							<h1>{$row["descripcion"]}</h1>
 			";
@@ -105,12 +105,12 @@
 					<h3 class='precio'>
 						$". $precio_descuento ." 
 					</h3>
-					<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+					<h2 id='precio'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
 				";
 			}
 			else{
 				$contenedor_articulo .= "
-					<h2 id='precio' value='{$row["precio"]}'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+					<h2 id='precio' title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
 					<input type='hidden' name='precio' value='{$row["precio"]}' />
 				";
 			}
@@ -119,7 +119,7 @@
 				</div>
 
 				<div class='carac-prod'>
-					<div id='carac' name='carac' title='Caracteristicas'>
+					<div id='carac' title='Caracteristicas'>
 						<p><b>Material: </b>" .  $row["material"] . "</p><br>
 						<p><b>Color:</b> " . $row["color"] . " </p><br>
 						<p><b>Marca:</b> " . $row["marca"].  "</p><br>

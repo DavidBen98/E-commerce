@@ -108,18 +108,6 @@
     		-webkit-appearance: none;
 		}
 
-		.txt-area::-webkit-scrollbar:vertical {
-			width:10px;
-		}
-
-		.txt-area::-webkit-scrollbar-button:increment,.txt-area::-webkit-scrollbar-button {
-			display: none;
-		} 
-
-		.txt-area::-webkit-scrollbar:horizontal {
-			height: 10px;
-		}
-
 		.txt-area::-webkit-scrollbar-thumb {
 			background-color: #797979;
 			border-radius: 20px;

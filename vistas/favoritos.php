@@ -35,9 +35,9 @@
     $contenedor_favoritos = "
         <div class='consulta' id='consulta'>
             <div class='renglon'>      
-                <h1>
+                <h2>
                     Favoritos
-                </h1>
+                </h2>
             </div>            
     ";
 
@@ -183,7 +183,7 @@
             height:50px;
         }
 
-        .renglon h1{
+        .renglon h2{
             margin: 0; 
             display: flex; 
             align-items: center; 
@@ -211,7 +211,6 @@
 
         .enlace:last-child{
             margin-top: 0;
-            color: none;
             width: auto;
             font-size:16px; 
             color: #858585;

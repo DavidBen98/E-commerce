@@ -19,7 +19,7 @@
 	$google= $google_client->createAuthUrl();
 	// $twitter = $auth->getAuthUrl();
 
-	$login_button = "<a href=" . $google . " class='btn-google'>Iniciar sesión con Google</a>";
+	$login_button = "<a href='" . $google . "' class='btn-google'>Iniciar sesión con Google</a>";
 	// 				 <a href=".$twitter." class='btn-twitter'>Iniciar sesión con Twitter</a>
 	// ";
 
@@ -52,7 +52,7 @@
 					
 					<div class='cont-reg'>
 						<label for='email' class='form-label'>Email</label>
-						<input type='text' class='form-control' name='email' id='mail' value='' maxlength='40' >	
+						<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' >	
 					</div> 
 					
 					<div class='cont-reg'>
@@ -60,18 +60,17 @@
 						$select
 					</div> 
 					
-					<div class='cont-reg' id='ciudad'>
-						<label for='ciudad' class='form-label'>Ciudad</label>
+					<div class='cont-reg' id='cont-ciudad'>
 					</div> 
 					
 					<div class='cont-reg'>
 						<label class='form-label'>Dirección </label>
 						<label class='form-label l-direccion' for='calle'>Calle </label>
-						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' maxlength='50' placeholder='Calle' >	
+						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' placeholder='Calle' >	
 						<label class='form-label l-direccion' for='numero'>Numero</label>
-						<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' maxlength='50' placeholder='Número' >	
+						<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' placeholder='Número' >	
 						<label class='form-label l-direccion' for='piso' >Piso</label>
-						<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' maxlength='50' placeholder='Piso' >	
+						<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' placeholder='Piso' >	
 					</div> 
 
 					<div class='cont-reg'>
@@ -219,7 +218,7 @@
 				url: "rellenarSelect.php",
 				data: "provincia=" + $("#provincia").val(),
 				success: function (r){
-					$("#ciudad").html (r);
+					$("#cont-ciudad").html (r);
 				}
 			});
 		}	
