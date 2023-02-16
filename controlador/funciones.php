@@ -84,7 +84,7 @@
         else if ($user=="") {
             $links = "
                 <a href='login.php?reg=true' title='Crear una cuenta de usuario' id='btn-registrar'> Registrarse</a>
-                <a href='login.php' title='Iniciar sesión' id='iniciarSesion'> Iniciar sesión</a>
+                <a href='login.php' title='Iniciar sesión' id='iniciar-sesion'> Iniciar sesión</a>
             ";
         } else if($perfil=="E"){
             $links = "
@@ -99,7 +99,7 @@
         }
     
         $barra_superior ="
-            <div id='perfilUsuario'>
+            <div id='perfil-usuario'>
                 $links
             </div> 
         ";
@@ -169,7 +169,7 @@
                     $i++; 
                     echo "<div class='producto'>
                             <img src='../$path' class='img-cat' id='$i' alt='Imagen subcategoría".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
-                            <h2 class='tituloSubcat'>". ucfirst($row["nombre_subcategoria"])." </h2>
+                            <h2 class='titulo-subcat'>". ucfirst($row["nombre_subcategoria"])." </h2>
                         </div>
                     ";           
                 };		

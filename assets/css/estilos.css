@@ -8,7 +8,7 @@ body{
 }
 
 #header {
-    margin:0px;
+    margin: 0px;
 }
 
 header a {
@@ -49,23 +49,23 @@ header a {
     justify-content: center;
     letter-spacing: 8px;
     width: 200px;
-    text-align:center;
+    text-align: center;
     font-family: "Salesforce Sans", serif;
 }
 
 #btn-info-personal{
-    border-top-left-radius:5px; 
-    border-top-right-radius:5px;
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px;
 }
 
 #btn-cerrar-sesion{
     border-bottom: none; 
-    border-bottom-left-radius:5px; 
-    border-bottom-right-radius:5px;
+    border-bottom-left-radius: 5px; 
+    border-bottom-right-radius: 5px;
 }
 
 #link-logo{
-    width:130px;
+    width: 130px;
 }
 
 #header-buscar {
@@ -92,49 +92,49 @@ header a {
     background-color: rgba(147, 81, 22,0.5);
     transition: all 0.3s linear;
     color: white;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #usuario {
-    width:100px;
-    align-items:center;
+    width: 100px;
+    align-items: center;
 }
 
 #header-img{
     padding-top: 10px;
-    position:relative;
+    position: relative;
 }
 
 #btn-lupa{
-    padding-top:10px;
-    height:30px;
+    padding-top: 10px;
+    height: 30px;
 }
 
 #buscar{
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
     width: 40%;
 }
 
 #lupa{
     border-radius: 10px;
     margin-left: 2px;
-    height:35px;
+    height: 35px;
     background-color: white;
 }
 
 #lupa:hover{
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #perfil{
     background-color: white;
-    width:20px; 
-    height:20px;
+    width: 20px; 
+    height: 20px;
 }
 
-#perfilUsuario{
-    display:flex;
+#perfil-usuario{
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -152,11 +152,11 @@ header a {
     color: white;
     border-radius: 5px;
     width: 25px;
-    height:25px;
+    height: 25px;
 }
 
 #usu-car{
-    position:relative;
+    position: relative;
 }
 
 #cerrar:hover{
@@ -164,12 +164,8 @@ header a {
     background-color: rgb(147, 81, 22);
 }
 
-#iniciarSesion{
+#iniciar-sesion{
     border-top: solid 1px #000;
-}
-
-#iniciarSesion:hover, #btn-registrar:hover{
-    font-size:1.15rem;
 }
 
 #inicio{
@@ -183,7 +179,7 @@ header a {
     font-family: "Salesforce Sans", serif;
 }
 
-#inicio:hover, #suscripcion-novedades:hover, #iniciarSesion:hover, #btn-registrar:hover{
+#inicio:hover, #suscripcion-novedades:hover, #iniciar-sesion:hover, #btn-registrar:hover{
     transition: all 0.5s linear;
     color: rgb(147, 81, 22);
     cursor: pointer;
@@ -226,13 +222,13 @@ header a {
 /*TERMINA HEADER*/
 
 .form{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    width:402px;
+    width: 402px;
     background-color: white;
-    border-radius:5px;
+    border-radius: 5px;
     border: 2px solid black;
     margin-block-end: 0;
 }
@@ -254,17 +250,17 @@ main{
 }
 
 #pie a{
-    width:300px;
-    display:flex;
-    justify-content:center;
+    width: 300px;
+    display: flex;
+    justify-content: center;
     font-size: 1.3rem;
     color:white;
 }
 
 #pie p{
     font-size: 0.8rem;
-    width:250px;
-    text-align:center;
+    width: 250px;
+    text-align: center;
     color:white;
 
 }
@@ -272,71 +268,71 @@ main{
 .contenedor-botones {
     display: flex;
     justify-content: space-around;
-    width:100%;
+    width: 100%;
     flex-wrap: wrap;
 }
 
 a{
-    text-decoration:none;
+    text-decoration: none;
     color:#000;
 }
 
 button a{
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
 .img-cat {
-    width:230px;
-    height:230px;
+    width: 230px;
+    height: 230px;
     border-bottom: 0.1px solid rgba(205,205,205,0.7);
 }
 
 .producto{
     width: 30%;
-    min-height:400px;
+    min-height: 400px;
     margin: 0 0 3% 0;
     cursor: pointer;
-    border-radius:5px;
-    overflow:hidden;
+    border-radius: 5px;
+    overflow: hidden;
     background-color: white;
 }
 
 .producto img{
-    width:100%;
-    max-height:230px;
+    width: 100%;
+    max-height: 230px;
 }
 
 .caracteristicas{
     background-color: white;
-    height:auto;
-    flex-wrap:wrap;
-	width:100%;
+    height: auto;
+    flex-wrap: wrap;
+	width: 100%;
 }
 
-.descripcion, .tituloSubcat{
-    display:flex;
-    height:25%;
-    justify-content:center;
-    text-align:center;
+.descripcion, .titulo-subcat{
+    display: flex;
+    height: 25%;
+    justify-content: center;
+    text-align: center;
     background-color: white;
     margin: 0;
     padding: 10px 5px;
-    font-weight:normal; 
-    font-size:1.1rem;
-    min-height:65px;
-    align-items:center;
+    font-weight: normal; 
+    font-size: 1.1rem;
+    min-height: 65px;
+    align-items: center;
 } 
 
-.tituloSubcat{
+.titulo-subcat{
     font-weight: normal;
     font-size: 1.2rem;
 }
 
 .btn-select{
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content: center;
 }
 
 .min-max{
@@ -352,27 +348,27 @@ aside select{
     width: 90%;
     height: 30px;
     background-color: rgba(147, 81, 22,0.2);
-    border-radius:5px;
+    border-radius: 5px;
     font-size: 1.2rem;
-    text-align:center;
+    text-align: center;
 }
 
 .ltitulo{
-    display:block;
-    text-align:center;
+    display: block;
+    text-align: center;
 }
 
 #botones{
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
-    justify-content:center;
+    justify-content: center;
 }
 
 .btn{
    height: 40px;
-   width:200px;
-   cursor:pointer;
-   font-size:1.2rem;
+   width: 200px;
+   cursor: pointer;
+   font-size: 1.2rem;
    border-radius: 5px;
    background-color:white;
    border: none;
@@ -382,15 +378,15 @@ aside select{
     background-color: rgba(147, 81, 22,0.5);
     transition: all 0.3s linear;
     color: white;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #h1{
-    margin:20px auto;
+    margin: 20px auto;
 }
 
 #parrafo-sr{
-    width:700px;
+    width: 700px;
     padding-left: 100px;
 }
 
@@ -399,44 +395,44 @@ aside select{
 }
 
 .btn-doc{
-    order:2;
+    order: 2;
 }
 
 #form-filtrado{
-    display:flex;
+    display: flex;
     order: 1;
     margin: 0;
     justify-content: space-around;
     flex-flow: row wrap;
     align-content: flex-start;
-    width:90%;
+    width: 90%;
 }
 
 #form-filtrado > h1{
-    display:none; 
+    display: none; 
     width:100%; 
-    text-align:center; 
-    margin:0; 
+    text-align: center; 
+    margin: 0; 
     padding-left: 100px;
 }
 
 .descripcion-precio{
-    display:block; 
-    justify-content:center; 
-    align-items:center;
+    display: block; 
+    justify-content: center; 
+    align-items: center;
 }
 
 #producto-vacio{
-    display:flex; 
+    display: flex; 
     flex-wrap: wrap; 
     justify-content: center; 
-    align-content:center; 
+    align-content: center; 
     min-height: 250px
 }
 
 #producto-vacio p{
     width: 100%; 
-    text-align:center; 
+    text-align: center; 
     max-height: 40px;
 }
 
@@ -446,7 +442,7 @@ aside select{
 }
 
 #min-max .ltitulo{
-    padding-top:20px;
+    padding-top: 20px;
 }
 
 #min-max label:first-child{
@@ -465,32 +461,32 @@ aside select{
 }
 
 .input-minmax input{
-    text-align:center; 
+    text-align: center; 
     height: 20px;
 }
 
 .titulo-catalogo{
-    display:none;
+    display: none;
 }
 
 #contenedor-colores, #contenedor-marcas{
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
 .h3-precio{
-    font-size:0.8rem; 
+    font-size: 0.8rem; 
     text-decoration: line-through; 
-    margin:0;
+    margin: 0;
 }
 
 #catalogo{
-    height:30px;
+    height: 30px;
     margin-top: 10px;
 }
 
 #btn-imp{
-    height:30px;
+    height: 30px;
     margin: 10px;
 }
 
@@ -501,34 +497,34 @@ aside select{
 }
 
 .precio{
-    text-align:center;
-    font-weight:normal; 
-    font-size:1.2rem; 
-    margin:0; 
+    text-align: center;
+    font-weight: normal; 
+    font-size: 1.2rem; 
+    margin: 0; 
     margin-top: 15px;
 }
 
 
 #filtros-usados{
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
 .btn-filtrado{
-    width:80%;
-    display:flex;
-    justify-content:center;
-    text-align:center;
-    flex-wrap:wrap;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
     margin: 4px 0;
 }
 
 .filtrado-bl{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
     border: 1px solid black;
 }
 
@@ -609,12 +605,11 @@ option{
     justify-content: end;
     flex-wrap: wrap;
     padding-bottom: 10px;
-    width:20%;
-    display:block;
+    width: 20%;
+    display: block;
     margin: 0 0 3% 1%; 
-    /* margin: en vez de 3 20px*/
     border-radius: 5px;
-    padding-top:0;
+    padding-top: 0;
     background-color: rgba(0, 0, 0,0);
 }
 
@@ -622,14 +617,14 @@ option{
     width:100%;
     background-color: white;
     border-radius: 5px;
-    text-align:center;
+    text-align: center;
     border: 1px solid #000;
     transition: all 0.3s linear;
 }
 
 .contenedor-btn div{
-    width:100%;
-    text-align:center;
+    width: 100%;
+    text-align: center;
     border-bottom: 1px solid #d3d3d3;
     transition: all 0.3s linear;
     padding: 10px 0;
@@ -646,11 +641,11 @@ option{
 }
 
 #cont-mobile-menu{
-    display:none;
+    display: none;
 }
 
 #modal-novedades, #suscripcion {
-    display:none;
+    display: none;
     background-color: #111111bd;
     position: fixed;
     top: 0;
@@ -715,12 +710,12 @@ option{
 
 #mensaje, .mensaje{
     background-color: black;
-    color : white;
+    color: white;
     margin-top : 20px;
     margin-bottom : 20px;
-    padding : 15px;
-    border-radius : .5rem;
-    text-align : center;
+    padding: 15px;
+    border-radius: .5rem;
+    text-align: center;
 }
 
 #cont-modal{
@@ -728,17 +723,17 @@ option{
 }
 
 #usu-fav img, #usu-car img{
-    width:30px;
-    height:30px;
+    width: 30px;
+    height: 30px;
 }
 
 @media screen and (max-width: 860px){
     .ruta{
-        height:40px;
+        height: 40px;
     }
     
-    #perfilUsuario, #usu-fav, #navigation, #html-slot, #num-car{
-        display:none;
+    #perfil-usuario, #usu-fav, #navigation, #html-slot, #num-car{
+        display: none;
     }
 
     #logo{
@@ -771,14 +766,14 @@ option{
 
     #mobile-header{
         flex-direction: column;
-        height:90vh;
+        height: 90vh;
         justify-content: center;
         background-color: rgba(147, 81, 22,0.5);
         padding: 1rem 0.5rem;
     }
 
     #mobile-header a{
-        width:100%;
+        width: 100%;
         font-size: 3rem;
         font-family: sans-serif;
         color: #ffF;
@@ -788,32 +783,32 @@ option{
     }
 
     #container-header{
-        height:100px;
+        height: 100px;
         flex-wrap: wrap;
     }
 
     #container-header div{
-        height:30px;
+        height: 30px;
     }
 
     #buscar{
-        width:70%;
+        width: 70%;
     }
 
     .cont-menu{
-        display:flex;
-        width:100%;
+        display: flex;
+        width: 100%;
         justify-content: space-between;
     }
 
     .header-menu{
-        display:block;
+        display: block;
         height: 30px;
-        order:1;
+        order: 1;
     }
 
     .header-img{
-        order:0;
+        order: 0;
     }
 
     .header-menu:hover{
@@ -838,21 +833,21 @@ option{
         width: 95%;
         padding-bottom: 0;
         margin-bottom: 2%;
-        margin-top:0;
+        margin-top: 0;
     }
     
     .contenedor-btn{
-        display:flex;
+        display: flex;
     }
     
     .contenedor-btn div {
-        border:none;
+        border: none;
         height: 100%;
-        padding:0;
-        margin:auto;
-        display:flex;
-        align-items:center;
-        justify-content:center;
+        padding: 0;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .contenedor-btn div:hover{

@@ -49,7 +49,7 @@
 
                 <div class='renglon'>
                     <label class='descripciones' for='nombre-usuario'>Nombre de usuario</label>
-                    <input type='text' id='nombre-usuario' class='dato' name='nombre-usuario' title='nombre-usuario' value='{$row["nombre_usuario"]}' readonly>
+                    <input type='text' id='nombre-usuario' class='dato' autocomplete='username' name='nombre-usuario' title='nombre-usuario' value='{$row["nombre_usuario"]}' readonly>
                 </div>
 
                 <div class='renglon'>

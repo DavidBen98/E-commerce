@@ -69,7 +69,7 @@
 			width: 20%;
 		}
 
-		.tituloSubcat{
+		.titulo-subcat{
 			min-height: auto;
 			height: auto;
 		}
