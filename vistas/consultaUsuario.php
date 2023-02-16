@@ -147,6 +147,7 @@
 
         #nueva-consulta{
             margin:15px;
+            border: 1px solid #000;
         }
 
         .ruta li:first-child{

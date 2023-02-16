@@ -114,7 +114,7 @@
 
                         actualizarCodigo ();
 
-                        let sub = document.getElementById ("subcategoria");
+                        let sub = document.getElementById ("select-subcategoria");
 
                         sub.addEventListener ("change", function (){
                             actualizarCodigo ();

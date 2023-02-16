@@ -213,6 +213,10 @@
 			display:none;
 		}
 
+		#filtros{
+			border: 1px solid #000;
+		}
+
 		.titulo-catalogo{
 			display:none;
 		}

@@ -239,6 +239,7 @@
 
         #modificar-datos, #confirmar, #cancelar{
             margin:10px;
+            border: 1px solid #000;
         }
 
         #confirmar, #cancelar{

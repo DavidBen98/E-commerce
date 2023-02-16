@@ -4,16 +4,20 @@
 
     global $db;
 
-    $categoria = isset($_POST["catInactivas"]) ? $_POST["catInactivas"] : null;
+    if (isset($_GET['reactivacion'])){
+        $categoria = isset($_POST["catInactivas"]) ? $_POST["catInactivas"] : null;
 
-    if ($categoria !== null){
-        $sql = "UPDATE categoria SET activo = '1' WHERE id_categoria = '$categoria'";
-        $rs = $db->query($sql);
-        header ("location: ../vistas/veCategoriaAlta.php?reactivacion=exito");
-        exit;
+        if ($categoria !== null){
+            $sql = "UPDATE categoria SET activo = '1' WHERE id_categoria = '$categoria'";
+            $rs = $db->query($sql);
+            header ("location: ../vistas/veCategoriaAlta.php?reactivacion=exito");
+            exit;
+        } else {
+            header ("location: ../vistas/veCategoriaAlta.php?error=7");
+            exit;
+        }
     } else {
         $nombre = isset($_POST["nombre"]) && (trim($_POST["nombre"]) != "")? trim($_POST["nombre"]): null;
-    
         $existe_imagen = ($_FILES["imagen"]["tmp_name"] != "")? getimagesize($_FILES["imagen"]["tmp_name"]) : null;
         
         if($existe_imagen !== null){

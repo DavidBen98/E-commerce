@@ -34,34 +34,36 @@
     else if (isset($_GET["error"])){
         $error = $_GET["error"];
 
-        $formulario .= "
-            <div class='contenedor mensaje' id='mensaje'>
-        ";
+        if ($error != "7"){
+            $formulario .= "
+                <div class='contenedor mensaje' id='mensaje'>
+            ";
 
-        if ($error === "1"){
+            if ($error === "1"){
+                $formulario .= "
+                    <p> Error: ha ocurrido un inconveniente al subir la imagen, 
+                        verifique que la extensión es .png, .jpg o .jpeg y 
+                        reintente en un momento por favor. 
+                    </p>
+                ";
+            } else if ($error === "2"){
+                $formulario .= "
+                    <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
+                ";
+            }else if ($error === "3"){
+                $formulario .= "
+                    <p> Error: el nombre ingresado no cumple con los requisitos. </p>
+                ";
+            } else if ($error === "4"){
+                $formulario .= "
+                    <p> Error: seleccione una imagen por favor. </p>
+                ";
+            }
+
             $formulario .= "
-                <p> Error: ha ocurrido un inconveniente al subir la imagen, 
-                    verifique que la extensión es .png, .jpg o .jpeg y 
-                    reintente en un momento por favor. 
-                </p>
-            ";
-        } else if ($error === "2"){
-            $formulario .= "
-                <p> Error: el nombre ingresado ya existe, reintente con otro por favor. </p>
-            ";
-        }else if ($error === "3"){
-            $formulario .= "
-                <p> Error: el nombre ingresado no cumple con los requisitos. </p>
-            ";
-        } else if ($error === "4"){
-            $formulario .= "
-                <p> Error: seleccione una imagen por favor. </p>
+                </div>
             ";
         }
-
-        $formulario .= "
-            </div>
-        ";
     }
 
     $formulario .= "</form>";
@@ -69,7 +71,7 @@
     $categorias_inactivas = obtener_categorias_inactivas();
 
     $inactivas = "
-        <form class='cont' method='POST' action='../controlador/veFuncCategoriaAlta.php' onsubmit='' enctype='multipart/form-data'>     
+        <form class='cont' method='POST' action='../controlador/veFuncCategoriaAlta.php?reactivacion=true' onsubmit='' enctype='multipart/form-data'>     
             <label for='nombre-inactivo' class='col-sm-2 form-label'>Reactivar subcategoría</label>
             $categorias_inactivas
             <div class= 'agregar'>
@@ -83,6 +85,16 @@
                 <p> Exito <p/>
             </div>
         ";
+    } else if (isset($_GET["error"])){
+        $error = $_GET["error"];
+
+        if ($error == "7"){
+            $inactivas .= "
+                <div class='contenedor mensaje' id='reactivacion'>
+                    <p> Error: seleccione una categoría <p/>
+                </div>
+            ";
+        }
     }
 
     $inactivas .= "

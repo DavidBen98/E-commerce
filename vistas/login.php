@@ -38,22 +38,22 @@
 				<div class='form'>
 					<div class='cont-reg'>
 						<label for='nombre' class='form-label'>Nombre</label>
-						<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' >	
+						<input type='text' class='form-control' name='nombre' id='nombre' value='' maxlength='40' autocomplete='given-name'>	
 					</div>  
 
 					<div class='cont-reg'>
 						<label for='apellido' class='form-label'>Apellido</label>				
-						<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' >
+						<input type='text' class='form-control' name='apellido' id='apellido' value='' maxlength='40' autocomplete='family-name'>
 					</div>
 
 					<div class='cont-reg'>
 						<label for='dni' class='form-label'>Número de DNI </label>
-						<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8' >	
+						<input type='text' class='form-control' name='dni' id='dni' value='' maxlength='8'>	
 					</div>
 					
 					<div class='cont-reg'>
 						<label for='email' class='form-label'>Email</label>
-						<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' >	
+						<input type='text' class='form-control' name='email' id='email' value='' maxlength='40' autocomplete='email'>	
 					</div> 
 					
 					<div class='cont-reg'>
@@ -67,11 +67,11 @@
 					<div class='cont-reg'>
 						<p class='form-label'>Dirección </p>
 						<label class='form-label l-direccion' for='calle'>Calle </label>
-						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' placeholder='Calle' >	
+						<input type='text' class='form-control direccion' name='direccion[]' id='calle' value='' placeholder='Calle'>	
 						<label class='form-label l-direccion' for='numero'>Numero</label>
-						<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' placeholder='Número' >	
+						<input type='number' class='form-control direccion' name='direccion[]' id='numero' value='' placeholder='Número'>	
 						<label class='form-label l-direccion' for='piso' >Piso</label>
-						<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' placeholder='Piso' >	
+						<input type='text' class='form-control direccion' name='direccion[]' id='piso' value='' placeholder='Piso'>	
 					</div> 
 
 					<div class='cont-reg'>
@@ -79,17 +79,17 @@
 					
 					<div class='cont-reg'>
 						<label for='nombre-usuario' class='form-label'>Nombre de usuario </label>
-						<input type='text' autocomplete='username' class='form-control' name='nombre-usuario' id='nombre-usuario' value='' maxlength='20' >	
+						<input type='text' autocomplete='username' class='form-control' name='nombre-usuario' id='nombre-usuario' value='' maxlength='20'>	
 					</div> 
 					
 					<div class='cont-reg'>
 						<label for='psw' class='form-label'>Contraseña</label>				
-						<input type='password' autocomplete='new-password' class='form-control' name='psw' id='psw' value='' maxlength='50' >
+						<input type='password' autocomplete='new-password' class='form-control' name='psw' id='psw' value='' maxlength='50'>
 					</div>
 						
 					<div class='cont-reg'>
 						<label for='psw2' class='form-label'>Repetir contraseña</label>				
-						<input type='password' autocomplete='new-password' class='form-control' name='psw2' id='psw2' value='' maxlength='50' >
+						<input type='password' autocomplete='new-password' class='form-control' name='psw2' id='psw2' value='' maxlength='50'>
 					</div>
 
 					<div class='cont-reg'>
