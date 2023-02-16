@@ -10,7 +10,7 @@
 
     $formulario = " 
         <form class='cont' method='POST' action='../controlador/veFuncSubcategoriaBaja.php' onsubmit='return validarBajaSubategoria()' enctype='multipart/form-data'>     
-            <label for='subcategoria' >Subcategoría</label>
+            <label for='subcategoria'>Subcategoría</label>
             $subcategorias
             
             <input type='submit' class='btn' name='btn-eliminar-subcategoria' id='btn-eliminar-subcategoria' title='Eliminar subcategoría' value='Eliminar subcategoría'>    
@@ -39,6 +39,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="../js/funciones.js"></script>
+    <script>
+        document.addEventListener ("DOMContentLoaded", () => {
+            let subcategoria = document.getElementsByClassName ("select-subcategoria")[0];
+            subcategoria.setAttribute("id", "subcategoria");
+        });
+    </script>
     <link rel="icon" type="image/png" href="../images/iconos/logo_sitio.png">
     <link type="text/css"  href="../assets/css/estilos.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../assets/css/ve_estilos.css" media="screen">

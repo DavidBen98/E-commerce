@@ -1048,7 +1048,7 @@
     function obtener_categorias_inactivas(){
         global $db; 
 
-        $categorias = "<select id='categoria' class='hover' name='catInactivas'>";
+        $categorias = "<select id='nombre-inactivo' class='hover' name='catInactivas'>";
         $stmt = $db->prepare("SELECT nombre_categoria, id_categoria FROM categoria WHERE activo = 0 GROUP BY nombre_categoria");
         $stmt->execute();
 
@@ -1067,7 +1067,8 @@
         $sql = "SELECT nombre_subcategoria, id_subcategoria
                 FROM `subcategoria` 
                 WHERE activo = :activo
-                GROUP BY nombre_subcategoria"; 
+                GROUP BY nombre_subcategoria
+        "; 
        
         $stmt = $db->prepare($sql); 
         $stmt->bindValue(':activo', 1, PDO::PARAM_INT); 

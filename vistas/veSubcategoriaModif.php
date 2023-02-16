@@ -56,8 +56,9 @@
             <div class='contenedor'>
                 <div class='cont-check'>
                     <input type='checkbox' id='modificar-nombre' name='modificar-nombre' value='Modificar nombre'>
-                    <label for='nombre'> Modificar nombre </label>
+                    <label for='modificar-nombre'> Modificar nombre </label>
                 </div>
+                <label for='nombre' style='display:none;'>Nombre</label>
                 <input type='text' class='form-control' name='nombre' id='nombre' title='Nombre' value=''>
             </div>
 
@@ -71,7 +72,7 @@
             <div class='archivo'>
                 <div class='cont-check'>
                     <input type='checkbox' id='modificar-imagen' name='modificar-imagen' value='Modificar imagen'>
-                    <label for='nombre'> Modificar imagen </label>
+                    <label for='modificar-imagen'> Modificar imagen </label>
                 </div>
                 <input type='file' class='form-control' id='imagen' name='imagen' aria-label='Upload'>           
             </div> 
