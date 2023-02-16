@@ -43,8 +43,8 @@
         
         $contenedor_informacion_personal = "
             <form action='../controlador/modificarPerfil.php' method='post' class='cont-perfil'> 
-                <div class='renglon' id='renglon-h1'>      
-                    <h1> Mis datos </h1>
+                <div class='renglon' id='renglon-h2'>      
+                    <h2> Mis datos </h2>
                 </div> 
 
                 <div class='renglon'>
@@ -82,7 +82,7 @@
                 <div class='renglon' id='renglon-ciudad'>
                     <label class='descripciones' for='input-ciudad'>Ciudad</label>
                     <input type='text' id='input-ciudad' class='dato' name='ciudad' title='ciudad' value='{$row["ciudad"]}' readonly>
-                    <label class='descripciones' id='label-mod-ciudad' for='ciu'>Ciudad</label>
+                    <label class='descripciones' id='label-mod-ciudad' for='input-ciudad'>Ciudad</label>
                 </div>
 
                 <div class='renglon'>
@@ -163,7 +163,6 @@
 
 		});
     </script>
-    <title>Muebles Giannis</title>   
     <style>
         main{
             display:flex;
@@ -222,7 +221,7 @@
             border-bottom: 1px solid #D3D3D3;
         }
 
-        .renglon h1{
+        .renglon h2{
             margin: 0; 
             display: flex; 
             align-items: center; 
@@ -341,7 +340,7 @@
             background:#099;
         }
 
-        #renglon-h1{
+        #renglon-h2{
             border-bottom:1px solid #858585; 
             height:50px;
         }
