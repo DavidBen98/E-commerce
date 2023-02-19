@@ -3,8 +3,8 @@
 	$dbport ="";
 	
 	$dbname="muebles_giannis"; 
-	$usuario="usuario_bd";
-	$contrasenia="2021_trabajoF147!";
+	$usuario="DavidBenedette";
+	$contrasenia="MySQLTF-2303";
 
 	$strCnx = "mysql:dbname=$dbname;host=$dbhost";
 	

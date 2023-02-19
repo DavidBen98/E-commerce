@@ -400,7 +400,7 @@
 			width: 100%;
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     		font-size: 14px;
-			margin: 4px;
+			margin: 2%;
             transition: all 0.3s linear;
 			border: 2px solid #000;
 		}
@@ -451,7 +451,7 @@
 			display:flex;
 			align-items:center;
 			flex-wrap: wrap;
-			width:60%;
+			width:40%;
 			background-color: white;
 			border-radius:5px;
 			border: 2px solid black;
