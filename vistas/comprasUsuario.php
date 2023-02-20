@@ -43,7 +43,6 @@
 
     $compras = obtener_compras($id_usuario);
 
-    $select_numero = 1; 
     if (count($compras) == 0){
         $contenedor_compras .= "
                 <div id='vacio'> Aún no hay compras realizadas</div>
@@ -56,13 +55,29 @@
         ";
     }
     else{
+        $nro_compra = count($compras);
+
         foreach ($compras as $compra) { 
             $id_compra = $compra['id_compra'];
             $fecha = $compra['fecha'];
             $estado = $compra['estado'];
+            $num_transaccion = $compra['num_transaccion'];
             $total = $compra['total'];
 
             $contenedor_compras .= "<div class='cont-compras'>";
+            $contenedor_compras .= "
+                <div class='cont-compra'>
+                    <p class='nro-compra'> Compra nro: $nro_compra </p>
+                    <div class='cont-info-compra'>
+                        <p class='info-compra'>Información de la compra:</p>
+                        <p>Número de transaccion: $num_transaccion</p>
+                        <p>Fecha: $fecha</p> 
+                        <p>Estado: $estado</p>
+                        <p>Total: $total</p>
+                        <p id='detalle-compra'>Detalle de la compra:</p>
+                    </div>
+                </div>
+            ";
 
             foreach ($compra['detalles'] as $detalle) {
                 $id_producto = $detalle['id_producto'];
@@ -75,30 +90,23 @@
                 $contenedor_compras.= "  
                     <div class='contenedor'>
                         <div class='descrip'> 
-                            <div class='principal'>                                                                                         
+                            <div class='imagen-producto'>
                                 <img src='../$path' class='productos img-cat' alt='$codigo'>
-
-                                <div class='titulo'>
-                                    <div>
-                                        <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
-                                    </div>
-                                </div>
                             </div>
-                            <div class='secundario'>
-                                    <p>$cantidad</p>
-                                    <p>$$precio</p>
-                            </div>                                            
+                            <div class='detalle-producto'>
+                                <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
+                                <p>Cantidad: $cantidad</p>
+                                <p>Precio: $$precio</p>
+                            </div>
                         </div>
                     </div>
                 ";
             }
 
             $contenedor_compras .= "
-                    <p>Fecha: $fecha</p> 
-                    <p>Estado: $estado</p>
-                    <p>Total: $total</p> 
                 </div>
             ";
+            $nro_compra--;
         }
 
         $contenedor_compras .= "</div>";
@@ -154,7 +162,17 @@
         }
 
         .cont-compras{
-            
+            display:flex;
+            width:96%;
+            flex-wrap: wrap;
+            border: 2px solid #000;
+            margin: 2%;
+        }
+
+        .cont-compra{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .consulta{
@@ -173,6 +191,35 @@
             display:flex; 
             flex-wrap:wrap;
         }
+
+        .cont-info-compra {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 2%;
+            justify-content: center;
+        }
+
+        .cont-info-compra p{
+            width: 100%;
+            margin: 0;
+            padding: 2px;
+            text-align: center;
+        }
+
+        .info-compra{
+            color: grey;
+            padding: 1%;
+            width: 100%;
+            margin: 0;
+        }
+
+        #detalle-compra{
+            width: 50%;
+            background: #000;
+            color: #ffffff;
+            margin: 2%;
+        }
         
         .enlace:first-child{
             color:#000; 
@@ -183,6 +230,24 @@
         .enlace:last-child{
             font-size:16px; 
             color: #858585;
+        }
+
+        .detalle-producto{
+            width: 65%;
+        }
+
+        .nro-compra{
+            width: 100%;
+            background: #000;
+            color: #ffffff;
+            text-align: center;
+            font-size: 1.3rem;
+            margin-top: 0;
+            padding: 2%;
+        }
+
+        .imagen-producto{
+            width: 30%;
         }
 
         .renglon{
@@ -221,6 +286,7 @@
             height:90%;
             display:flex;
             justify-content:start;
+            flex-wrap: wrap;
         }
 
         .precio{
@@ -493,7 +559,6 @@
 
         .enlace:hover{
             color: #000;
-            font-size:1.15rem;
             transition: all 0.5s linear;
         }
 

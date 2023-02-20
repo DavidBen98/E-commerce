@@ -1212,7 +1212,7 @@
     function obtener_compras($id_usuario){
         global $db;
     
-        $sql= "SELECT dc.id_compra, dc.id_producto, dc.precio, dc.cantidad, c.total, c.fecha, c.estado, p.descripcion, p.codigo
+        $sql= "SELECT dc.id_compra, dc.id_producto, c.id_transaccion, dc.precio, dc.cantidad, c.total, c.fecha, c.estado, p.descripcion, p.codigo
             FROM `detalle_compra` as dc
             INNER JOIN `compra` as c on dc.id_compra = c.id
             INNER JOIN `producto` as p on p.id = dc.id_producto 
@@ -1237,6 +1237,7 @@
                     'total' => $fila['total'],
                     'fecha' => $fila['fecha'],
                     'estado' => $fila['estado'],
+                    'num_transaccion' => $fila['id_transaccion'],
                     'detalles' => []
                 ];
             }
