@@ -67,14 +67,14 @@
             $contenedor_compras .= "<div class='cont-compras'>";
             $contenedor_compras .= "
                 <div class='cont-compra'>
-                    <p class='nro-compra'> Compra nro: $nro_compra </p>
+                    <p class='nro-compra'> Compra Nº $nro_compra </p>
                     <div class='cont-info-compra'>
                         <p class='info-compra'>Información de la compra:</p>
                         <p>Número de transaccion: $num_transaccion</p>
                         <p>Fecha: $fecha</p> 
                         <p>Estado: $estado</p>
-                        <p>Total: $total</p>
-                        <p id='detalle-compra'>Detalle de la compra:</p>
+                        <p>Total: $$total</p>
+                        <p id='detalle-compra'>Detalle de la compra</p>
                     </div>
                 </div>
             ";
@@ -131,15 +131,6 @@
                     window.location = "productos.php?productos=todos";
                 });  
             }
-
-            let imagenes = document.getElementsByClassName("img-cat"); //Imagenes de los productos
-
-            for (j=0;j<imagenes.length;j++){
-                let articulo = imagenes[j].getAttribute("alt");
-                imagenes[j].addEventListener("click", () => {
-                    window.location = "detalleArticulo.php?art="+articulo;
-                });
-            }
         });	
     </script>
     <style>
@@ -187,16 +178,10 @@
             padding: 0 1%;
         }
 
-        .titulo div:first-child{
-            display:flex; 
-            flex-wrap:wrap;
-        }
-
         .cont-info-compra {
             display: flex;
             flex-wrap: wrap;
             width: 100%;
-            padding: 2%;
             justify-content: center;
         }
 
@@ -215,21 +200,18 @@
         }
 
         #detalle-compra{
-            width: 50%;
+            width: 80%;
             background: #000;
             color: #ffffff;
             margin: 2%;
+            border-radius: 5px;
         }
         
-        .enlace:first-child{
+        .enlace{
             color:#000; 
             margin-top:10px; 
             width:100%;
-        }
-
-        .enlace:last-child{
-            font-size:16px; 
-            color: #858585;
+            transition: all 0.5s linear;
         }
 
         .detalle-producto{
@@ -289,109 +271,6 @@
             flex-wrap: wrap;
         }
 
-        .precio{
-            width:250px;
-            height: 100%;
-            display: flex;
-            align-content: center;
-            flex-wrap:wrap;
-            justify-content:space-between;
-            border-left: 1px solid #D3D3D3;
-        }
-
-        .precio p{
-            width:45%;
-            font-size: 1rem;
-            height: 30px;
-            margin: 0;
-        }
-
-        .precio div{
-            width:45%;
-            font-size: 1rem;
-            height: 30px;
-            margin: 0;
-        }
-
-        .cont-btn{
-            display:flex;
-            justify-content:space-between;
-            margin: 0 10px;
-            height: 60px;
-            border-bottom: 1px solid #D3D3D3;
-            padding-top: 10px;
-        }
-
-        .checkout{
-            width:200px;
-        }
-
-        .principal{
-            width:70%;
-            display:flex;
-            justify-content: space-between;
-            flex-wrap:wrap;
-            height: 160px;
-        }
-
-        .principal p{
-            width:200px;
-            margin: 0;
-            text-align:start;
-            height: auto;
-        }
-
-        .secundario{
-            width:45%;
-            display:flex;
-            flex-wrap:wrap;
-            align-content:start;
-            padding-left: 100px;
-        }
-
-        .secundario p{
-            margin: 10px 0;
-            color: #000;
-            text-align:start;
-            font-size: 1rem;
-        }
-
-        .definir{
-            width:30%;
-        }
-
-        .caract{
-            width:70%;
-        }
-
-        .mercadopago-button{
-            height:40px;
-            width: 250px;
-            font-weight: 700;
-        }
-
-        .mercadopago-button:hover{
-            background: #099;
-            transition: all 0.3s linear;
-        }
-
-        .titulo{
-            width:300px;
-            height: auto;
-            text-align:left;
-        }
-
-        .botones{
-            height:100%;
-            width:250px;
-            margin: 0 10px;
-
-        }
-
-        .botones .checkout {
-            height: 20%;
-        }
-
         .continuar{
             height: 20%;
             width: 100%; 
@@ -400,32 +279,6 @@
 
         .btn-final{
             margin-top:10px;
-        }
-
-        .totales{
-            display:flex;
-            width:250px;
-            margin: 0;
-            justify-content:center;
-        }
-
-        .subtotal{
-            background-color: #E9E9E9;
-            font-size: 0.75rem;
-        }
-
-        .total{
-            background-color: #D3D3D3;
-        }
-
-        .txt-totales{
-            display:flex;
-            align-items:center;
-            width: 50%;
-            font-family: museosans500,arial,sans-serif;
-            padding-left: 10px;
-            margin: 0;
-            color: #000;
         }
 
         .continuar button{
@@ -449,112 +302,12 @@
             margin:auto;
         }
 
-        .cant-compra{
-            padding: 5px 10px;
-        }
-
-        .elim-fav{
-            display:flex;
-            justify-content:space-between;
-            width:100%;
-            text-align:start;
-            margin-top:20px;
-            font-size: 0.75rem;
-            align-items:center;
-        }
-
-        .elim-producto{
-            color: #858585;
-            display: flex;
-            align-items: center;
-        } 
-
-        .elim-producto img{
-            width:20px; 
-            height:20px; 
-            margin-right:1px;
-        }
-        
-        .fav-prod{
-            padding-left: 2px;
-            transition: all 0.5s linear;
-            color: #858585;
-        }
-
-        .elim-prod{
-            transition: all 0.5s linear;
-            color: #858585;
-        }
-
-        .elim-producto:first-child{
-            width:45%; 
-            padding-right: 8px; 
-            border-right: 1px solid #D3D3D3;
-        }
-
-        .elim-producto:last-child{
-            text-align:end;
-        }
-
-        .fav-prod:hover, .elim-prod:hover{
-            color: #000;
-            transition: all 0.5s linear;
-            cursor: pointer;
-        }
-
-        .mensaje{
-            width:100%;
-            margin: 10px;
-            text-align: center;
-            background-color: #000;
-            color: white;
-            border-radius:5px;
-            padding: 10px 0;
-            font-size: 1.1rem;
-        }
-
-        .mensaje a{
-            text-decoration: underline;
-            color: white;
-            transition: all 0.5s linear;
-        }
-
-        .mensaje a:hover{
-            font-size:1.2rem;
-            transition: all 0.5s linear;
-        }
-
-        .parrafo-exito{
-            background-color: #099;
-			width:100%;
-			padding: 10px 0;
-			color: white;
-			margin:10px;
-			border-radius: 5px;
-			text-align:center;
-		}
-
-        .carrito-compras{
-            text-decoration: underline;
-            color: white;
-            transition: all 0.5s linear;
-        }
-
-        .carrito-compras:hover{
-            font-size:1.2rem;
-            transition: all 0.5s linear;
-        }
-
         .img-cat:hover{
             cursor: pointer;
         }
 
         .img-cat{
             border:none;
-        }
-
-        .enlace{
-            transition: all 0.5s linear;
         }
 
         .enlace:hover{
