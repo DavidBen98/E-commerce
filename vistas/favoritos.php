@@ -546,12 +546,6 @@
                 height: 100%;
             }
             
-            /* .titulo{
-                width: 65%;
-                height: auto;
-                text-align:left;
-            } */
-            
             .principal p {
                 margin-top: 1%;
                 width: auto;

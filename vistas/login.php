@@ -436,7 +436,6 @@
 			justify-content:center;
 			flex-wrap:wrap;
 			padding: 0 20px;
-			/*border-right: 1px solid #D3D3D3;*/
 		}
 
 		.form{

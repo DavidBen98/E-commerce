@@ -195,7 +195,6 @@
             justify-content:center;
             flex-wrap: wrap;
             width:100%;
-            /* margin:20px; */
         }
 
         .archivo label{

@@ -241,7 +241,6 @@
 		@media screen and (max-width: 1024px) {
 		    .barra-lateral{
 		        width: 90%;
-		        /*margin: 0 auto 4% auto;*/
 		        position: relative;
 		        margin: 0;
 		    }

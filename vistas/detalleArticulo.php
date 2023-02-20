@@ -406,12 +406,6 @@
 				justify-content:center;
 			}
 		}
-
-		/* @media screen and (max-width: 280px) {
-			body{
-				width:100%;
-			}
-		} */
 	</style>
 </head>
 <body>

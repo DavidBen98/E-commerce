@@ -107,495 +107,28 @@
         return $barra_superior;
     }
 
-    function perfil_valido($opcion) {
-        global $perfil; 
+    function imprimir_encabezado($escritorio, $mobile){
+        // Obtener la cadena del agente de usuario del cliente
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-        switch($opcion){
-            case 1: 
-                $valido=($perfil=="E")? true:false; 
-                break;
-            case 2: 
-                $valido=($perfil=="U")? true:false;
-                break;	
-            case 3: 
-                $valido=($perfil=="")? true:false; 
-                break;
-            default:
-                $valido=false;
-        }           
-        
-        return $valido;  
-    }
-	
-	function generar_clave_encriptada($password) {			
-		$salt = PSW_SEMILLA;		 
-		$psw_encript = hash("sha512", $salt.$password);				
-		return $psw_encript; 
-	}
-    
-    function obtener_ruta_portada($id){
-        global $db;
-
-        $stmt = $db->prepare("SELECT destination FROM imagen_productos WHERE id_producto = ? AND portada = 1");
-        $stmt->bindValue(1, $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-
-        $path = "";
-
-        if (count($result) > 0) {
-            $path = $result[0]["destination"];
-        }
-
-        return $path;
-    }
-
-    function crear_imagenes ($consulta){
-		$i=0;	
-
-		echo "
-            <form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
-			    <h2 class='titulo-catalogo'> Muebles Giannis - Catálogo </h2>";
-        
-            if (!$consulta){
-                $i++;
-                echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
-            }
-            else if (isset($_GET["categoria"])){
-                //subcategoria.php
-                foreach ($consulta as $row) {
-                    $path = $row["destination"];
-
-                    $i++; 
-                    echo "<div class='producto'>
-                            <img src='../$path' class='img-cat' id='$i' alt='Imagen subcategoría".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
-                            <h2 class='titulo-subcat'>". ucfirst($row["nombre_subcategoria"])." </h2>
-                        </div>
-                    ";           
-                };		
-            }
-            else{
-                //productos.php
-                foreach ($consulta as $row) {
-                    $id = $row["id"];
-                    $path = obtener_ruta_portada($id);
-
-                    $i++; 
-                    echo "
-                        <div class='producto'>
-                            <img src='../$path' class='img-cat' id='$i' alt='{$row["codigo"]}' title='". ucfirst($row["descripcion"])."'> 
-                            <div class='caracteristicas'>
-                                <h2 class='descripcion'>". ucfirst($row["descripcion"])." </h2>
-                                <div class='descripcion-precio'>
-                    ";
-
-                    if ($row["descuento"] != 0){
-                        $precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
-                        echo "<h3 class='precio'>
-                                    $". $precio_descuento ." 
-                                </h3>
-                                <h3 class='precio h3-precio'>
-                                    $". ucfirst($row["precio"]).
-                            " </h3>
-                        ";
-                    }
-                    else{
-                        echo "<h3 class='precio'> $". ucfirst($row["precio"])." </h3>";
-                    }
-
-                    echo"       </div>
-                            </div>
-                        </div>
-                    ";           
-                };
-            }
-
-            if ($i == 0){
-                echo "
-                    <div id='producto-vacio'>
-                        <p> No existe ningún resultado que coincida con la búsqueda ingresada </p>
-                        <a href='index.php'>Regresar al inicio </a>
-                    </div>
-                "; 
-            }
-                    
-        echo "	
-            </form>
-        ";	
-	} 
-
-    function generar_consulta($url, $busqueda = "", $orden = ""){
-        if ($url === "productos"){
-            //orden
-            if ($orden == 2){
-                $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento, SUM(dc.cantidad) as total_vendido";
-                $inner_join = "
-                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-                    LEFT JOIN detalle_compra as dc ON p.id = dc.id_producto
-                ";
-            } else {
-                $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
-                $inner_join = "
-                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-                ";
-            }
-
-            $from = "FROM `producto` as p";
-
-            $sql = $select. " ". $from . " " . $inner_join . " ";
-
-            return $sql;
-
-        } else if ($url === "buscador") {
-            global $db;
-
-            if (trim($busqueda) != ""){
-                $busqueda = str_replace("%20", " ", $busqueda);
-                $busqueda = ucfirst($busqueda);
-                $palabras = explode (" ",$busqueda);			
-    
-                $sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio, p.id, p.descuento
-                        FROM `producto` as p
-                        INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-                        INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-                        WHERE nombre_categoria LIKE '%".$busqueda."%' 
-                        OR nombre_subcategoria LIKE '%".$busqueda."%'
-                        OR descripcion LIKE '%".$busqueda."%'
-                ";
-    
-                foreach ($palabras as $palabra){
-                    if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
-                        $sql .= " OR nombre_categoria LIKE '%".$palabra."%'
-                                  OR nombre_subcategoria LIKE '%".$palabra."%'
-                                  OR descripcion LIKE '%".$palabra."%'
-                        ";
-                    }
-                }
-                
-                $rs = $db->query($sql);
-
-                return $rs;
-            } else {
-                $sql = "SELECT * FROM producto";
-                $rs = $db->query($sql);
-
-                return $rs;
-            }
-        } else if ($url === "subcategoria"){
-            //orden
-            if ($orden == 2){
-                $select = "SELECT SUM(dc.cantidad) as total_vendido, p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
-                $inner_join = "
-                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
-                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
-                    LEFT JOIN detalle_compra as dc ON p.id = dc.id_producto
-                ";
-            } else {
-                $select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
-                $inner_join = "
-                    INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
-                    INNER JOIN categoria as c on c.id_categoria = p.id_categoria
-                ";
-            }
-
-            $from = "FROM producto as p";
-            $sql = $select . " " . $from . " " . $inner_join . " ";
-
-            return $sql;
+        // Buscar el valor del ancho de la pantalla
+        if (preg_match('/\((?:iPhone|iPad);.*?(?:\d+)px/i', $userAgent, $matches)) {
+            $screenWidth = (int) filter_var($matches[0], FILTER_SANITIZE_NUMBER_INT);
+        } elseif (preg_match('/(?:Android);.*?(?:\d+)x(?:\d+)/i', $userAgent, $matches)) {
+            $screenWidth = (int) explode('x', $matches[0])[0];
         } else {
-            $sql = "SELECT * FROM producto as p";
-
-            return $sql;
+            $screenWidth = 860;
         }
 
-        return "";
+        // Imprimir la variable adecuada según el tamaño de la pantalla
+        if ($screenWidth >= 860) {
+            return $escritorio;
+        } else {
+            return $mobile;
+        }
+
+        return $escritorio;
     }
-
-    function filtrar_productos ($sql,$where,$filtros){
-        global $db;
-
-        $rs = "";	
-        $where_color = "";
-        $where_marca = "";
-        $where_sql = "";
-        $order_by = "";
-		$orden_mas_vendido = 0;
-
-        //Color
-        if (isset($filtros[0])){
-            if (count($filtros[0]) == 1){
-                $where_color .= " AND color = '" . $filtros[0][0]. "' ";
-            }
-            else{
-				$where_color .= " AND ( ";
-                for ($i=0; $i<count($filtros[0])-1; $i++){ 
-                    $where_color .= " color = '". $filtros[0][$i] . "' OR " ;
-                }
-                $i = count($filtros[0])-1;
-                $where_color .= " color = '". $filtros[0][$i] . "') ";
-            }
-        }
-
-        //Marca
-        if (isset($filtros[1])){
-            if (count($filtros[1]) == 1){
-                $where_marca .= " AND marca = '" . $filtros[1][0]. "' ";
-            }
-            else{
-				$where_marca .= " AND ( ";
-                for ($i=0;$i<count($filtros[1])-1;$i++){
-                    $where_marca .= "  marca = '" . $filtros[1][$i]. "' OR ";
-                }
-                $i = count($filtros[1])-1;
-                $where_marca .= " marca = '". $filtros[1][$i] . "') ";
-            }
-        }
-
-        //Precio
-		if ($filtros[2] != null){
-			$where_sql .= "AND precio >=". $filtros[2];
-		}
-
-        if ($filtros[3] != null){
-            $where_sql .= " AND precio <= ". $filtros[3];
-        }
-
-        //Order by
-        if(isset($filtros[4])){
-            if ($filtros[4] == 0){
-                $order_by = " ORDER BY precio asc ";
-            }
-            else if ($filtros[4] == 1) {
-                $order_by = " ORDER BY precio desc ";
-            }
-            else {              
-				$order_by = "GROUP BY p.id ORDER BY total_vendido DESC";
-            }
-        }
-		
-        //Se ordena el where
-        if($where_color != "" && $where_marca != ""){
-            $where_sql .=  $where_color . $where_marca;
-        }
-        else if ($where_color != ""){
-            $where_sql .=  $where_color;
-        }
-        else{
-            $where_sql .=  $where_marca;
-        } 
-
-        //Si se elige el orden mas vendido
-        $sql = "$sql
-                $where
-                $where_sql
-                $order_by
-        ";  
-
-        $rs = $db->query($sql);
-
-        return $rs;
-    }
-
-    function mostrar_filtros ($filtros,$categoria,$subcategoria){
-        global $db;  
-		$filtro = "";
-
-        if ($filtros[4]!=null){
-            if ($filtros[4] == 0){
-                $filtro .= "<b>Orden: </b> Menor a mayor precio <br>";
-            }
-            else if ($filtros[4] == 1){
-                $filtro .= "<b>Orden: </b> Mayor a menor precio <br>";
-            }
-            else{
-                $filtro .= "<b>Orden: </b> Más vendidos <br>";
-            }
-        }
-
-        if (is_int($categoria)){
-            $sql = "SELECT c.nombre_categoria
-                    FROM `categoria` as c
-                    WHERE c.id_categoria = :categoria
-            ";
-
-            $stmt = $db->prepare($sql);
-            $stmt->bindValue(":categoria", $categoria, PDO::PARAM_INT);
-            $stmt->execute();
-
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($resultado) {
-                $cat = $resultado["nombre_categoria"];
-            } else {
-                $cat = "";
-            }
-
-            $filtro .= "<b>Categoría:</b> ". $cat . "<br>"; //Luego modificar
-        }
-        else if ($categoria != ""){
-            $filtro .= "<b>Categoría:</b> ". $categoria . "<br>";
-        }
-
-        if (is_int($subcategoria)){
-            $sql  = "SELECT s.nombre_subcategoria
-                    FROM `subcategoria` as s
-                    WHERE s.id_subcategoria = :subcategoria
-            ";
-
-            $stmt = $db->prepare($sql); // Preparar la consulta
-            $stmt->bindValue(':subcategoria', $subcategoria, PDO::PARAM_INT); // Vincular el valor con un place holder
-            $stmt->execute(); // Ejecutar la consulta
-
-            $row = $stmt->fetch();
-            $subcat = $row["nombre_subcategoria"];
-
-            $filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>"; //Luego modificar
-        }
-        else if ($subcategoria != ""){
-            $filtro .= "<b>Subcategoría:</b> ". $subcategoria . "<br>"; //Luego modificar
-        }
-
-        if (isset($filtros[0])){
-            if (count($filtros[0]) == 1){
-                $filtro .= "<b>Color: </b>";
-            }
-            else{
-                $filtro .= "<b>Colores: </b>";
-            }
-            for ($i=0; $i<count($filtros[0]); $i++){ 
-                if ($i == count($filtros[0])-1){
-                    $filtro .= $filtros[0][$i] . " <br>"; 
-                }
-                else{
-                    $filtro .= $filtros[0][$i] . " - "; 
-                }
-            }
-        }
-
-        if (isset($filtros[1])){
-            if (count($filtros[1]) == 1){
-                $filtro .= "<b>Marca: </b>";
-            }
-            else{
-                $filtro .= "<b>Marcas: </b>";
-            }
-            for ($i=0; $i<count($filtros[1]); $i++){ 
-                if ($i == count($filtros[1])-1){
-                    $filtro .= $filtros[1][$i] . "<br>"; 
-                }
-                else{
-                    $filtro .= $filtros[1][$i] . " - "; 
-                }
-            }
-        }
-
-        if ($filtros[2]!= null){
-            $filtro .= "<b>Mínimo:</b> $" . $filtros[2] . "<br> ";
-        }
-
-        if ($filtros[3]!= null){
-            $filtro .= " <b>Máximo:</b> $" . $filtros[3];
-        }
-
-        return $filtro;
-    }
-
-    function cantidad_carrito(){ 
-        if (isset($_SESSION["carrito"]) && isset($_SESSION["carrito"]["productos"])){
-            return count($_SESSION["carrito"]["productos"]);
-        }
-        return 0;
-    }
-
-    function agregar_imagen_categorias (){
-        global $db;
-
-        $sql = "SELECT nombre_categoria, id_categoria
-                FROM `categoria`
-                WHERE activo = '1'
-        "; 
-        
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-      
-        foreach ($result as $row){
-            $id_categoria =  $row["id_categoria"];
-            $nombre_categoria = $row["nombre_categoria"];
-
-            $sql = "SELECT destination 
-                    FROM imagen_categorias
-                    WHERE id_categoria = :id_categoria
-            ";
-
-            $stmt_img = $db->prepare($sql);
-            $stmt_img->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
-            $stmt_img->execute();
-            $result_img = $stmt_img->fetch(PDO::FETCH_ASSOC);
-            $imagen_categoria = $result_img['destination'];
-
-            echo " <div class='cards'> 
-                        <div
-                            class='card'
-                            id='$id_categoria'
-                            style='
-                                background-image: url(../$imagen_categoria);
-                            '
-                        >
-                            <div class='info_container'>
-                                <div class='icon_container'>
-                                    <svg
-                                        xmlns='http://www.w3.org/2000/svg'
-                                        viewBox='0 0 24 24'
-                                        width='100%'
-                                        height='100%'
-                                        class='icon'
-                                        stroke='currentColor'
-                                        stroke-width='2'
-                                    >
-                                        <path
-                                            stroke-linecap='round'
-                                            stroke-linejoin='round'
-                                            class='icon'
-                                            d='M12 4v16m8-8H4'
-                                        />
-                                    </svg>
-                                </div>
-
-                                <div class='info'>
-                                    <h2 class='img-titulo main'>".strtoupper($nombre_categoria) ."</h2>
-            ";
-
-            $sql1 = "SELECT nombre_subcategoria
-                    FROM subcategoria
-                    INNER JOIN categoria ON categoria.id_categoria = subcategoria.id_categoria
-                    WHERE subcategoria.id_categoria = ? AND subcategoria.activo = ?
-            ";
-
-            $stmt_subcategoria = $db->prepare($sql1);
-            $stmt_subcategoria->bindValue(1, $id_categoria, PDO::PARAM_INT);
-            $stmt_subcategoria->bindValue(2, 1, PDO::PARAM_INT);
-            $stmt_subcategoria->execute();
-            $result_subcategoria = $stmt_subcategoria->fetchAll();
-
-            echo "<p class='img-texto'>";
-            $nombre_subcategoria = "";
-
-            foreach ($result_subcategoria as $rowSub){
-                $nombre_subcategoria .= $rowSub["nombre_subcategoria"] . " <br> ";
-            }
-
-            echo "" .  ucwords($nombre_subcategoria) . "          
-                            </p>     
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            ";
-        }
-    }  
 
     function crear_barra_lateral(){
         global $db;
@@ -888,6 +421,496 @@
             ";
         }
 	}	
+
+    function crear_imagenes ($consulta){
+		$i=0;	
+
+		echo "
+            <form action='listadoXLS.php' method='post' id='form-filtrado' class='form-prod' name='form-filtrado'>
+			    <h2 class='titulo-catalogo'> Muebles Giannis - Catálogo </h2>";
+        
+            if (!$consulta){
+                $i++;
+                echo "<p>Lo sentimos, ha ocurrido un error inesperado </p>";
+            }
+            else if (isset($_GET["categoria"])){
+                //subcategoria.php
+                foreach ($consulta as $row) {
+                    $path = $row["destination"];
+
+                    $i++; 
+                    echo "<div class='producto'>
+                            <img src='../$path' class='img-cat' id='$i' alt='Imagen subcategoría".ucfirst($row['nombre_subcategoria'])."' title='".ucfirst($row['nombre_subcategoria'])."'> 
+                            <h2 class='titulo-subcat'>". ucfirst($row["nombre_subcategoria"])." </h2>
+                        </div>
+                    ";           
+                };		
+            }
+            else{
+                //productos.php
+                foreach ($consulta as $row) {
+                    $id = $row["id"];
+                    $path = obtener_ruta_portada($id);
+
+                    $i++; 
+                    echo "
+                        <div class='producto'>
+                            <img src='../$path' class='img-cat' id='$i' alt='{$row["codigo"]}' title='". ucfirst($row["descripcion"])."'> 
+                            <div class='caracteristicas'>
+                                <h2 class='descripcion'>". ucfirst($row["descripcion"])." </h2>
+                                <div class='descripcion-precio'>
+                    ";
+
+                    if ($row["descuento"] != 0){
+                        $precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
+                        echo "<h3 class='precio'>
+                                    $". $precio_descuento ." 
+                                </h3>
+                                <h3 class='precio h3-precio'>
+                                    $". ucfirst($row["precio"]).
+                            " </h3>
+                        ";
+                    }
+                    else{
+                        echo "<h3 class='precio'> $". ucfirst($row["precio"])." </h3>";
+                    }
+
+                    echo"       </div>
+                            </div>
+                        </div>
+                    ";           
+                };
+            }
+
+            if ($i == 0){
+                echo "
+                    <div id='producto-vacio'>
+                        <p> No existe ningún resultado que coincida con la búsqueda ingresada </p>
+                        <a href='index.php'>Regresar al inicio </a>
+                    </div>
+                "; 
+            }
+                    
+        echo "	
+            </form>
+        ";	
+	} 
+
+    function perfil_valido($opcion) {
+        global $perfil; 
+
+        switch($opcion){
+            case 1: 
+                $valido=($perfil=="E")? true:false; 
+                break;
+            case 2: 
+                $valido=($perfil=="U")? true:false;
+                break;	
+            case 3: 
+                $valido=($perfil=="")? true:false; 
+                break;
+            default:
+                $valido=false;
+        }           
+        
+        return $valido;  
+    }
+	
+	function generar_clave_encriptada($password) {			
+		$salt = PSW_SEMILLA;		 
+		$psw_encript = hash("sha512", $salt.$password);				
+		return $psw_encript; 
+	}
+    
+    function generar_consulta($url, $busqueda = "", $orden = ""){
+        if ($url === "productos"){
+            //orden
+            if ($orden == 2){
+                $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento, SUM(dc.cantidad) as total_vendido";
+                $inner_join = "
+                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                    LEFT JOIN detalle_compra as dc ON p.id = dc.id_producto
+                ";
+            } else {
+                $select = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, p.precio, p.id,p.descuento";
+                $inner_join = "
+                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                ";
+            }
+
+            $from = "FROM `producto` as p";
+
+            $sql = $select. " ". $from . " " . $inner_join . " ";
+
+            return $sql;
+
+        } else if ($url === "buscador") {
+            global $db;
+
+            if (trim($busqueda) != ""){
+                $busqueda = str_replace("%20", " ", $busqueda);
+                $busqueda = ucfirst($busqueda);
+                $palabras = explode (" ",$busqueda);			
+    
+                $sql = "SELECT c.nombre_categoria,descripcion, s.nombre_subcategoria, codigo, precio, p.id, p.descuento
+                        FROM `producto` as p
+                        INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                        INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                        WHERE nombre_categoria LIKE '%".$busqueda."%' 
+                        OR nombre_subcategoria LIKE '%".$busqueda."%'
+                        OR descripcion LIKE '%".$busqueda."%'
+                ";
+    
+                foreach ($palabras as $palabra){
+                    if (strlen($palabra) > 3){ //Si es una palabra mayor a 3 letras
+                        $sql .= " OR nombre_categoria LIKE '%".$palabra."%'
+                                  OR nombre_subcategoria LIKE '%".$palabra."%'
+                                  OR descripcion LIKE '%".$palabra."%'
+                        ";
+                    }
+                }
+                
+                $rs = $db->query($sql);
+
+                return $rs;
+            } else {
+                $sql = "SELECT * FROM producto";
+                $rs = $db->query($sql);
+
+                return $rs;
+            }
+        } else if ($url === "subcategoria"){
+            //orden
+            if ($orden == 2){
+                $select = "SELECT SUM(dc.cantidad) as total_vendido, p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+                $inner_join = "
+                    INNER JOIN categoria as c ON p.id_categoria = c.id_categoria
+                    INNER JOIN subcategoria as s ON p.id_subcategoria = s.id_subcategoria
+                    LEFT JOIN detalle_compra as dc ON p.id = dc.id_producto
+                ";
+            } else {
+                $select = "SELECT p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
+                $inner_join = "
+                    INNER JOIN subcategoria as s on p.id_subcategoria = s.id_subcategoria
+                    INNER JOIN categoria as c on c.id_categoria = p.id_categoria
+                ";
+            }
+
+            $from = "FROM producto as p";
+            $sql = $select . " " . $from . " " . $inner_join . " ";
+
+            return $sql;
+        } else {
+            $sql = "SELECT * FROM producto as p";
+
+            return $sql;
+        }
+
+        return "";
+    }
+
+    function filtrar_productos ($sql,$where,$filtros){
+        global $db;
+
+        $rs = "";	
+        $where_color = "";
+        $where_marca = "";
+        $where_sql = "";
+        $order_by = "";
+		$orden_mas_vendido = 0;
+
+        //Color
+        if (isset($filtros[0])){
+            if (count($filtros[0]) == 1){
+                $where_color .= " AND color = '" . $filtros[0][0]. "' ";
+            }
+            else{
+				$where_color .= " AND ( ";
+                for ($i=0; $i<count($filtros[0])-1; $i++){ 
+                    $where_color .= " color = '". $filtros[0][$i] . "' OR " ;
+                }
+                $i = count($filtros[0])-1;
+                $where_color .= " color = '". $filtros[0][$i] . "') ";
+            }
+        }
+
+        //Marca
+        if (isset($filtros[1])){
+            if (count($filtros[1]) == 1){
+                $where_marca .= " AND marca = '" . $filtros[1][0]. "' ";
+            }
+            else{
+				$where_marca .= " AND ( ";
+                for ($i=0;$i<count($filtros[1])-1;$i++){
+                    $where_marca .= "  marca = '" . $filtros[1][$i]. "' OR ";
+                }
+                $i = count($filtros[1])-1;
+                $where_marca .= " marca = '". $filtros[1][$i] . "') ";
+            }
+        }
+
+        //Precio
+		if ($filtros[2] != null){
+			$where_sql .= "AND precio >=". $filtros[2];
+		}
+
+        if ($filtros[3] != null){
+            $where_sql .= " AND precio <= ". $filtros[3];
+        }
+
+        //Order by
+        if(isset($filtros[4])){
+            if ($filtros[4] == 0){
+                $order_by = " ORDER BY precio asc ";
+            }
+            else if ($filtros[4] == 1) {
+                $order_by = " ORDER BY precio desc ";
+            }
+            else {              
+				$order_by = "GROUP BY p.id ORDER BY total_vendido DESC";
+            }
+        }
+		
+        //Se ordena el where
+        if($where_color != "" && $where_marca != ""){
+            $where_sql .=  $where_color . $where_marca;
+        }
+        else if ($where_color != ""){
+            $where_sql .=  $where_color;
+        }
+        else{
+            $where_sql .=  $where_marca;
+        } 
+
+        //Si se elige el orden mas vendido
+        $sql = "$sql
+                $where
+                $where_sql
+                $order_by
+        ";  
+
+        $rs = $db->query($sql);
+
+        return $rs;
+    }
+
+    function mostrar_filtros ($filtros,$categoria,$subcategoria){
+        global $db;  
+		$filtro = "";
+
+        if ($filtros[4]!=null){
+            if ($filtros[4] == 0){
+                $filtro .= "<b>Orden: </b> Menor a mayor precio <br>";
+            }
+            else if ($filtros[4] == 1){
+                $filtro .= "<b>Orden: </b> Mayor a menor precio <br>";
+            }
+            else{
+                $filtro .= "<b>Orden: </b> Más vendidos <br>";
+            }
+        }
+
+        if (is_int($categoria)){
+            $sql = "SELECT c.nombre_categoria
+                    FROM `categoria` as c
+                    WHERE c.id_categoria = :categoria
+            ";
+
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(":categoria", $categoria, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($resultado) {
+                $cat = $resultado["nombre_categoria"];
+            } else {
+                $cat = "";
+            }
+
+            $filtro .= "<b>Categoría:</b> ". $cat . "<br>"; //Luego modificar
+        }
+        else if ($categoria != ""){
+            $filtro .= "<b>Categoría:</b> ". $categoria . "<br>";
+        }
+
+        if (is_int($subcategoria)){
+            $sql  = "SELECT s.nombre_subcategoria
+                    FROM `subcategoria` as s
+                    WHERE s.id_subcategoria = :subcategoria
+            ";
+
+            $stmt = $db->prepare($sql); // Preparar la consulta
+            $stmt->bindValue(':subcategoria', $subcategoria, PDO::PARAM_INT); // Vincular el valor con un place holder
+            $stmt->execute(); // Ejecutar la consulta
+
+            $row = $stmt->fetch();
+            $subcat = $row["nombre_subcategoria"];
+
+            $filtro .= "<b>Subcategoría:</b> ". $subcat . "<br>"; //Luego modificar
+        }
+        else if ($subcategoria != ""){
+            $filtro .= "<b>Subcategoría:</b> ". $subcategoria . "<br>"; //Luego modificar
+        }
+
+        if (isset($filtros[0])){
+            if (count($filtros[0]) == 1){
+                $filtro .= "<b>Color: </b>";
+            }
+            else{
+                $filtro .= "<b>Colores: </b>";
+            }
+            for ($i=0; $i<count($filtros[0]); $i++){ 
+                if ($i == count($filtros[0])-1){
+                    $filtro .= $filtros[0][$i] . " <br>"; 
+                }
+                else{
+                    $filtro .= $filtros[0][$i] . " - "; 
+                }
+            }
+        }
+
+        if (isset($filtros[1])){
+            if (count($filtros[1]) == 1){
+                $filtro .= "<b>Marca: </b>";
+            }
+            else{
+                $filtro .= "<b>Marcas: </b>";
+            }
+            for ($i=0; $i<count($filtros[1]); $i++){ 
+                if ($i == count($filtros[1])-1){
+                    $filtro .= $filtros[1][$i] . "<br>"; 
+                }
+                else{
+                    $filtro .= $filtros[1][$i] . " - "; 
+                }
+            }
+        }
+
+        if ($filtros[2]!= null){
+            $filtro .= "<b>Mínimo:</b> $" . $filtros[2] . "<br> ";
+        }
+
+        if ($filtros[3]!= null){
+            $filtro .= " <b>Máximo:</b> $" . $filtros[3];
+        }
+
+        return $filtro;
+    }
+
+    function obtener_ruta_portada($id){
+        global $db;
+
+        $stmt = $db->prepare("SELECT destination FROM imagen_productos WHERE id_producto = ? AND portada = 1");
+        $stmt->bindValue(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        $path = "";
+
+        if (count($result) > 0) {
+            $path = $result[0]["destination"];
+        }
+
+        return $path;
+    }
+
+    function cantidad_carrito(){ 
+        if (isset($_SESSION["carrito"]) && isset($_SESSION["carrito"]["productos"])){
+            return count($_SESSION["carrito"]["productos"]);
+        }
+        return 0;
+    }
+
+    function agregar_imagen_categorias (){
+        global $db;
+
+        $sql = "SELECT nombre_categoria, id_categoria
+                FROM `categoria`
+                WHERE activo = '1'
+        "; 
+        
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+      
+        foreach ($result as $row){
+            $id_categoria =  $row["id_categoria"];
+            $nombre_categoria = $row["nombre_categoria"];
+
+            $sql = "SELECT destination 
+                    FROM imagen_categorias
+                    WHERE id_categoria = :id_categoria
+            ";
+
+            $stmt_img = $db->prepare($sql);
+            $stmt_img->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
+            $stmt_img->execute();
+            $result_img = $stmt_img->fetch(PDO::FETCH_ASSOC);
+            $imagen_categoria = $result_img['destination'];
+
+            echo " <div class='cards'> 
+                        <div
+                            class='card'
+                            id='$id_categoria'
+                            style='
+                                background-image: url(../$imagen_categoria);
+                            '
+                        >
+                            <div class='info_container'>
+                                <div class='icon_container'>
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        viewBox='0 0 24 24'
+                                        width='100%'
+                                        height='100%'
+                                        class='icon'
+                                        stroke='currentColor'
+                                        stroke-width='2'
+                                    >
+                                        <path
+                                            stroke-linecap='round'
+                                            stroke-linejoin='round'
+                                            class='icon'
+                                            d='M12 4v16m8-8H4'
+                                        />
+                                    </svg>
+                                </div>
+
+                                <div class='info'>
+                                    <h2 class='img-titulo main'>".strtoupper($nombre_categoria) ."</h2>
+            ";
+
+            $sql1 = "SELECT nombre_subcategoria
+                    FROM subcategoria
+                    INNER JOIN categoria ON categoria.id_categoria = subcategoria.id_categoria
+                    WHERE subcategoria.id_categoria = ? AND subcategoria.activo = ?
+            ";
+
+            $stmt_subcategoria = $db->prepare($sql1);
+            $stmt_subcategoria->bindValue(1, $id_categoria, PDO::PARAM_INT);
+            $stmt_subcategoria->bindValue(2, 1, PDO::PARAM_INT);
+            $stmt_subcategoria->execute();
+            $result_subcategoria = $stmt_subcategoria->fetchAll();
+
+            echo "<p class='img-texto'>";
+            $nombre_subcategoria = "";
+
+            foreach ($result_subcategoria as $rowSub){
+                $nombre_subcategoria .= $rowSub["nombre_subcategoria"] . " <br> ";
+            }
+
+            echo "" .  ucwords($nombre_subcategoria) . "          
+                            </p>     
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            ";
+        }
+    }  
 
     function existe_email(){
         global $db;
@@ -1342,7 +1365,65 @@
     
         return $nombre;
     }
+
+    function obtener_usuario_con_email($email){
+        global $db;
+
+        $stmt = $db->prepare("
+            SELECT id_social, id_usuario
+            FROM `usuario_rs` as rs
+            INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
+            WHERE (u.email = :email)
+        ");
+
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    function obtener_usuario_con_id_rs($id){
+        global $db;
+
+        $sql = "SELECT u.id
+                FROM usuario as u 
+                INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
+                WHERE rs.id_social = :id
+        ";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
+    }
+
+    function obtener_usuario_con_nombre_usuario($nombre_usuario){
+        global $db;
     
+        $stmt = $db->prepare("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = :nombreUsuario");
+        $stmt->bindValue(':nombreUsuario', $nombre_usuario, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        return $result;
+    }
+
+    function obtener_favoritos($id_usuario) {
+        global $db;
+
+        $stmt = $db->prepare("
+            SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
+            FROM `producto` as p 
+            INNER JOIN `favorito` as f on p.id = f.id_producto 
+            WHERE f.id_usuario = :idUsuario
+        ");
+        $stmt->bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     function insertar_usuario($nombre, $apellido, $email, $perfil, $existe){
         global $db;
     
@@ -1406,64 +1487,6 @@
         $stmt->bindParam(':cantidad', $cantidad, PDO::PARAM_INT);
     
         return $stmt->execute();
-    }
-
-    function obtener_usuario_con_email($email){
-        global $db;
-
-        $stmt = $db->prepare("
-            SELECT id_social, id_usuario
-            FROM `usuario_rs` as rs
-            INNER JOIN `usuario` as u ON rs.id_usuario = u.id  
-            WHERE (u.email = :email)
-        ");
-
-        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-    function obtener_usuario_con_id_rs($id){
-        global $db;
-
-        $sql = "SELECT u.id
-                FROM usuario as u 
-                INNER JOIN usuario_rs as rs ON u.id = rs.id_usuario
-                WHERE rs.id_social = :id
-        ";
-
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
-        $stmt->execute();
-        
-        return $stmt->fetchAll();
-    }
-
-    function obtener_usuario_con_nombre_usuario($nombre_usuario){
-        global $db;
-    
-        $stmt = $db->prepare("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = :nombreUsuario");
-        $stmt->bindValue(':nombreUsuario', $nombre_usuario, PDO::PARAM_STR);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        return $result;
-    }
-
-    function obtener_favoritos($id_usuario) {
-        global $db;
-
-        $stmt = $db->prepare("
-            SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , `precio`,`codigo`,p.`id`
-            FROM `producto` as p 
-            INNER JOIN `favorito` as f on p.id = f.id_producto 
-            WHERE f.id_usuario = :idUsuario
-        ");
-        $stmt->bindParam(':idUsuario', $id_usuario, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function eliminar_favorito($db, $id_producto, $id_usuario) {
@@ -1541,28 +1564,5 @@
         } else {
             return false;
         }
-    }
-
-    function imprimir_encabezado($escritorio, $mobile){
-        // Obtener la cadena del agente de usuario del cliente
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-
-        // Buscar el valor del ancho de la pantalla
-        if (preg_match('/\((?:iPhone|iPad);.*?(?:\d+)px/i', $userAgent, $matches)) {
-            $screenWidth = (int) filter_var($matches[0], FILTER_SANITIZE_NUMBER_INT);
-        } elseif (preg_match('/(?:Android);.*?(?:\d+)x(?:\d+)/i', $userAgent, $matches)) {
-            $screenWidth = (int) explode('x', $matches[0])[0];
-        } else {
-            $screenWidth = 860;
-        }
-
-        // Imprimir la variable adecuada según el tamaño de la pantalla
-        if ($screenWidth >= 860) {
-            return $escritorio;
-        } else {
-            return $mobile;
-        }
-
-        return $escritorio;
     }
 ?>

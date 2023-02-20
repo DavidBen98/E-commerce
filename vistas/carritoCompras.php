@@ -758,10 +758,6 @@
                 .contenedor-botones{
                     justify-content:center;
                 }
-                
-                /*.contenedor-botones{*/
-                /*    width: 55%;*/
-                /*}*/
             }
     
         
@@ -830,11 +826,9 @@
             .definir{
                 width:45%;
                 padding: 0 0 1% 1%;
-                /* border-bottom: 1px solid #d3d3d3; */
             }
 
             .caract{
-                /* border-bottom: 1px solid #d3d3d3; */
                 margin: 0;
             }
 

@@ -1,11 +1,12 @@
 **Privilegios:**
---contraseña = 2021_trabajoF147!
+--usuario = DavidBenedette
+--contraseña = MySQLTF-2303
 
 GRANT USAGE ON *.* TO 'DavidBenedette'@'localhost' IDENTIFIED BY PASSWORD '*80320A749B4BAB5A01CCA666C42CA69ACD7D2137';
 GRANT SELECT, INSERT, UPDATE, DELETE ON `muebles_giannis`.* TO 'DavidBenedette'@'localhost';
 
 ***Usuarios***
 
-nombre: AnaLopez       |contraseña: 1234
-nombre: RomanRiquelme  |contraseña: 456
-nombre: caelenaShar    |contraseña: 987
+Usuario: AnaLopez       |contraseña: 1234
+Usuario: RomanRiquelme  |contraseña: 456
+Usuario: caelenaShar    |contraseña: 987
