@@ -74,7 +74,7 @@
                         <p>Fecha: $fecha</p> 
                         <p>Estado: $estado</p>
                         <p>Total: $$total</p>
-                        <p id='detalle-compra'>Detalle de la compra</p>
+                        <div class='detalle-compra'>Detalle de la compra</div>
                     </div>
                 </div>
             ";
@@ -199,12 +199,14 @@
             margin: 0;
         }
 
-        #detalle-compra{
+        .detalle-compra{
             width: 80%;
             background: #000;
             color: #ffffff;
             margin: 2%;
             border-radius: 5px;
+            text-align:center;
+            padding: 1%;
         }
         
         .enlace{
