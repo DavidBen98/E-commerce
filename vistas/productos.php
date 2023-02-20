@@ -16,8 +16,8 @@
 	 
     $filtros = [isset($_POST["color"])? $_POST["color"]:null,
 				isset($_POST["marca"])? $_POST["marca"]:null,
-				isset($_POST["valorMin"])? $_POST["valorMin"]:null,
-				isset($_POST["valorMax"])? $_POST["valorMax"]:null,
+				isset($_POST["valor-min"])? $_POST["valor-min"]:null,
+				isset($_POST["valor-max"])? $_POST["valor-max"]:null,
 				isset($_POST["orden"])? $_POST["orden"]:null
 	];
 

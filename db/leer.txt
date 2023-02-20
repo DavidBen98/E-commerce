@@ -9,6 +9,3 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON `muebles_giannis`.* TO 'DavidBenedette'@
 nombre: AnaLopez       |contraseña: 1234
 nombre: RomanRiquelme  |contraseña: 456
 nombre: caelenaShar    |contraseña: 987
-
-Correcciones para el final:
-	Agregar detalles a la impresión

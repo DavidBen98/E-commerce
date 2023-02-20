@@ -10,8 +10,8 @@
                                 <div id='btn-favoritos'>Favoritos</div>
                                 <div id='btn-consultas'>Historial de consultas</div>
                                 <div id='btn-cerrar-sesion'>Cerrar sesión</div>
-                            </div> "
-    );
+                            </div> 
+    ");
 
     function crear_barra_mobile() {
         global $user;
@@ -277,9 +277,14 @@
                 $rs = $db->query($sql);
 
                 return $rs;
+            } else {
+                $sql = "SELECT * FROM producto";
+                $rs = $db->query($sql);
+
+                return $rs;
             }
         } else if ($url === "subcategoria"){
-            //ordeen
+            //orden
             if ($orden == 2){
                 $select = "SELECT SUM(dc.cantidad) as total_vendido, p.`id`,p.`codigo`, p.`descripcion`, p.`descuento`, p.`precio`,p.`id_categoria`, p.`id_subcategoria`";
                 $inner_join = "
@@ -673,11 +678,12 @@
                         AND " . (isset($_GET["productos"]) || isset($_GET["buscador"]) ? "c.nombre_categoria like '$categoria'" : "c.id_categoria = '$categoria'
             ");
     
-            $sql  = "SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
-                    FROM `producto` as p
-                    $inner_join
-                    $where_sql
-                    GROUP BY p.color, p.marca
+            $sql  = "
+                SELECT p.color, p.marca, MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
+                FROM `producto` as p
+                $inner_join
+                $where_sql
+                GROUP BY p.color, p.marca
             ";
     
             $rs = $db->query($sql); 
@@ -687,6 +693,17 @@
             foreach ($rs as $row) {
                 $arreglo_colores[$row["color"]] = 0;
                 $arreglo_marcas[$row["marca"]] = 0;
+            }
+
+            $sql = "SELECT MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
+                    FROM producto as p
+                    $inner_join
+                    $where_sql
+            ";
+
+            $rs = $db->query($sql);
+
+            foreach ($rs as $row) {
                 $valor_minimo = $row["min_precio"];
                 $valor_maximo = $row["max_precio"];
             }
@@ -741,13 +758,13 @@
                     <fieldset id='min-max'>
                         <legend class='ltitulo'><b>Precios</b></legend> 
                         <div class='input-minmax'> 
-                            <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
-                            <label for='valorMax' class='lmaxmin'>Máximo</label>			
+                            <label for='valor-min' class='lmaxmin'>Mínimo -</label> 
+                            <label for='valor-max' class='lmaxmin'>Máximo</label>			
                         </div>
                         <div class='input-minmax'>
-                            <input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
+                            <input type='number' name='valor-min' id='valor-min' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
                             - 
-                            <input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
+                            <input type='number' name='valor-max' id='valor-max' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
                         </div>
                     </fieldset>	
                     <p class='mensaje' id='mensaje'>
@@ -758,7 +775,7 @@
                     </div>
                 </form>
             ";
-        } else{
+        } else {
             echo $formulario;
            
             $arreglo_colores = $arreglo_marcas = [];
@@ -785,6 +802,17 @@
             foreach ($rs as $row) {
                 $arreglo_colores[$row["color"]] = 0;
                 $arreglo_marcas[$row["marca"]] = 0;
+            }
+
+            $sql = "SELECT MIN(p.precio) as min_precio, MAX(p.precio) as max_precio
+                    FROM producto as p
+                    $inner_join
+                    $where_sql
+            ";
+
+            $rs = $db->query($sql);
+
+            foreach ($rs as $row) {
                 $valor_minimo = $row["min_precio"];
                 $valor_maximo = $row["max_precio"];
             }
@@ -841,13 +869,13 @@
                     <fieldset id='min-max'>
                         <legend class='ltitulo'><b>Precios</b></legend> 
                         <div class='input-minmax'> 
-                            <label for='valorMin' class='lmaxmin'>Mínimo -</label> 
-                            <label for='valorMax' class='lmaxmin'>Máximo</label>			
+                            <label for='valor-min' class='lmaxmin'>Mínimo -</label> 
+                            <label for='valor-max' class='lmaxmin'>Máximo</label>			
                         </div>
                         <div class='input-minmax'>
-                            <input type='number' name='valorMin' id='valorMin' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
+                            <input type='number' name='valor-min' id='valor-min' title='Mínimo'  class='min-max' placeholder='$valor_minimo' min='$valor_minimo' max='$valor_maximo' value='' >
                             - 
-                            <input type='number' name='valorMax' id='valorMax' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
+                            <input type='number' name='valor-max' id='valor-max' title='Máximo' class='min-max' placeholder='$valor_maximo' min='$valor_minimo' max='$valor_maximo' value='' > 							
                         </div>
                     </fieldset>	
                     <p class='mensaje' id='mensaje'>
