@@ -1212,10 +1212,10 @@
     function obtener_compras($id_usuario){
         global $db;
     
-        $sql= "SELECT `descripcion`, `material`, `color`, `caracteristicas`, `marca` , p.`precio`,`codigo`,p.`id`
-            FROM `compra` as c
-            INNER JOIN `detalle_compra` as d on d.id_compra = c.id
-            INNER JOIN `producto` as p on p.id = d.id_producto 
+        $sql= "SELECT dc.id_compra, dc.id_producto, dc.precio, dc.cantidad, c.total, c.fecha, c.estado, p.descripcion, p.codigo
+            FROM `detalle_compra` as dc
+            INNER JOIN `compra` as c on dc.id_compra = c.id
+            INNER JOIN `producto` as p on p.id = dc.id_producto 
             INNER JOIN `usuario` as u on u.id = c.id_usuario
             WHERE c.id_usuario = :id_usuario
         "; 
@@ -1223,9 +1223,35 @@
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
         $stmt->execute();
-        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-        return $rs;
+
+        $compras = [];
+
+        // Recorrer todas las filas de la consulta
+        while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id_compra = $fila['id_compra'];
+            
+            // Si el id_compra no existe en el array, agregarlo
+            if (!isset($compras[$id_compra])) {
+                $compras[$id_compra] = [
+                    'id_compra' => $id_compra,
+                    'total' => $fila['total'],
+                    'fecha' => $fila['fecha'],
+                    'estado' => $fila['estado'],
+                    'detalles' => []
+                ];
+            }
+            
+            // Agregar los detalles de la compra al array correspondiente
+            $compras[$id_compra]['detalles'][] = [
+                'id_producto' => $fila['id_producto'],
+                'descripcion' => $fila['descripcion'],
+                'precio' => $fila['precio'],
+                'cantidad' => $fila['cantidad'],
+                'codigo' => $fila['codigo'],
+            ];
+        }
+
+        return $compras;
     }
 
     function obtener_imagenes_subcategorias($categoria){
