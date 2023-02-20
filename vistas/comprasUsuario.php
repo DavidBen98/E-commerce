@@ -41,15 +41,10 @@
             </div>            
     ";
 
-    $i = 0;
-    $rs = obtener_usuario_con_id_rs($id_usuario);
-    
-    foreach ($rs as $row){
-        $i++;
-    }
+    $compras = obtener_compras($id_usuario);
 
     $select_numero = 1; 
-    if ($i == 0){
+    if (count($compras) == 0){
         $contenedor_compras .= "
                 <div id='vacio'> Aún no hay compras realizadas</div>
                 <div class='continuar'>
@@ -57,72 +52,55 @@
                         Continúa navegando
                     </button>
                 </div>
+            </div>
         ";
-
-        if (isset($_GET["elim"])){
-            $contenedor_compras .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
-        }
-        $contenedor_compras .= "</div>";    
     }
     else{
-        foreach ($rs as $row) { 
-            $descripcion = $row["descripcion"];
-            $material = $row["material"];
-            $color = $row["color"];
-            $caracteristicas = $row["caracteristicas"];
-            $marca = $row["marca"];
-            $precio = $row["precio"];
-            $codigo = $row["codigo"];
-            $id = $row["id"];
+        foreach ($compras as $compra) { 
+            $id_compra = $compra['id_compra'];
+            $fecha = $compra['fecha'];
+            $estado = $compra['estado'];
+            $total = $compra['total'];
 
-            $path = obtener_imagen_producto($id);
-    
-            $contenedor_compras.= "
-                <div class='contenedor'>
-                    <div class='descrip'> 
-                        <div class='principal'>                                                                                          
-                            <img src='../$path' class='productos img-cat' alt='$codigo'>
+            $contenedor_compras .= "<div class='cont-compras'>";
+
+            foreach ($compra['detalles'] as $detalle) {
+                $id_producto = $detalle['id_producto'];
+                $codigo = $detalle['codigo'];
+                $precio = $detalle['precio'];
+                $cantidad = $detalle['cantidad'];
+                $descripcion = $detalle["descripcion"];
+                $path = obtener_imagen_producto($id_producto);
+
+                $contenedor_compras.= "  
+                    <div class='contenedor'>
+                        <div class='descrip'> 
+                            <div class='principal'>                                                                                         
+                                <img src='../$path' class='productos img-cat' alt='$codigo'>
+
                                 <div class='titulo'>
                                     <div>
                                         <a href='detalleArticulo.php?art=$codigo' class='enlace'> $descripcion</a>
-                                        <a href='detalleArticulo.php?art=$codigo' class='enlace'> $marca</a>
-                                    </div>
-
-                                    <div class='elim-fav'>
-                                        <div class='elim-producto'>
-                                            <img src='../images/iconos/eliminar.png' alt='Eliminar producto'>
-                                            <a id='elim-prod-$select_numero' class='elim-prod' onclick='eliminarFavorito($id)'> Eliminar producto</a>
-                                        </div>
-                                        <div class='elim-producto'>
-                                            <img src='../images/iconos/carrito.png' alt='Agregar al carrito'>
-                                            <a id='agregar-fav-$select_numero' class='fav-prod' onclick='agregarProductoCompra($id)'> Agregar al carrito</a>
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class='secundario'>
+                                    <p>$cantidad</p>
+                                    <p>$$precio</p>
+                            </div>                                            
                         </div>
-                        <div class='secundario'>
-                                <p class='definir'> 
-                                    <b>Color:</b>
-                                </p> 
-                                <p class='caract'> $color </p>
-                                <p class='definir'> 
-                                    <b>Material:</b>
-                                </p> 
-                                <p class='caract'>$material</p>
-                                <p class='definir'> 
-                                    <b>Precio:</b>
-                                </p> 
-                                <p>$$precio</p>
-                        </div>                                            
                     </div>
+                ";
+            }
+
+            $contenedor_compras .= "
+                    <p>Fecha: $fecha</p> 
+                    <p>Estado: $estado</p>
+                    <p>Total: $total</p> 
                 </div>
             ";
-        
-            $select_numero++;
         }
-        if (isset($_GET["elim"])){
-            $contenedor_compras .= "<div class='mensaje'>¡El producto se ha eliminado correctamente!</div>";
-        }
+
         $contenedor_compras .= "</div>";
     }
 ?>
@@ -173,6 +151,10 @@
             height:180px;
             padding:10px 0;
             margin: 0 10px;
+        }
+
+        .cont-compras{
+            
         }
 
         .consulta{
