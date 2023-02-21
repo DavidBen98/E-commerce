@@ -4,7 +4,8 @@
         "google/apiclient": "^2.0",
         "jublonet/codebird-php": "^3.1",
         "mercadopago/dx-php": "^2.4",
-        "phpmailer/phpmailer": "^6.5"
+        "phpmailer/phpmailer": "^6.5",
+        "vlucas/phpdotenv": "^5.5"
     },
     "config": {
         "allow-plugins": {

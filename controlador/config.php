@@ -4,12 +4,14 @@
     require_once "../vendor\jublonet\codebird-php\src\codebird.php";
     // require_once "../app/TwitterAuth.php";
 
-    // $token_google = getenv('IDCLIENTEGOOGLE');
-    $token_google = "594064547014-qtsmu9tgks9lsgucsl81mu850aadfi4a.apps.googleusercontent.com";
-    // $secreto_clave_google = getenv('SECRETOCLAVEGOOGLE');
-    $secreto_clave_google = "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";
-    $token_twitter = getenv('TOKENTWITTER');
-    $secreto_clave_twitter = getenv('SECRETOCLAVETWITTER');
+    $dotenv = Dotenv\Dotenv::createImmutable("../");
+    $dotenv->load();
+
+    $token_google = $_ENV['IDCLIENTEGOOGLE'];
+    $secreto_clave_google = $_ENV['SECRETOCLAVEGOOGLE'];
+
+    // $token_twitter = $_ENV['TOKENTWITTER'];
+    // $secreto_clave_twitter = $_ENV['SECRETOCLAVETWITTER'];
 
     $user = (isset($_SESSION["user"]) && !empty($_SESSION["user"]))? trim($_SESSION["user"]):""; 
     $perfil = (isset($_SESSION["perfil"]) && !empty($_SESSION["perfil"]))? trim($_SESSION["perfil"]):""; 
