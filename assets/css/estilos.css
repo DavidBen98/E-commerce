@@ -644,7 +644,7 @@ option{
     display: none;
 }
 
-#modal-novedades, #suscripcion {
+#modal-novedades, #suscripcion, #modal-compra {
     display: none;
     background-color: #111111bd;
     position: fixed;
@@ -652,6 +652,16 @@ option{
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+#modal-compra{
+    display: flex;
+}
+
+#compra-exito{
+    width: 100%;
+    display: flex;
+    text-align:center;
 }
 
 #suscripcion{

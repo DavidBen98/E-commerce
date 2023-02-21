@@ -62,7 +62,7 @@
 
             unset($_SESSION["carrito"]);
 
-            header("location:../vistas/index.php");
+            header("location:../vistas/index.php?compra=éxito");
             exit;
         }
     }

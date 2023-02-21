@@ -368,6 +368,23 @@
 
         <?= $modal_novedades; ?> 
         <?= $modal_novedades_error; ?>
+
+        <?php 
+            if (isset($_GET['compra'])){
+                echo "
+                    <div id='modal-compra'>
+                        <div class='compra-exito'>
+                            ¡La compra ha sido realizada con éxito!
+                        </div>
+                        <div class='contenedor cont-modal'>
+                            <input type='submit' class='modal-submit btn' value='Aceptar'>
+                        </div>
+                        <button class='cerrar-novedades' value='Cerrar'> X </button>
+                    </div>
+                ";
+            }
+        ?>
+
     </main>
 
     <footer id="pie">

@@ -89,6 +89,14 @@ window.onload = function (){
                 error.remove();
             }
         } 
+        else if (ev.target.matches("#modal-compra")){
+            document.getElementById("modal-compra").style.display = "none";
+
+            let error = document.getElementById("mensaje");
+            if (error !== null){
+                error.remove();
+            }
+        } 
         else if (ev.target.matches("#suscripcion")){
             document.getElementById("suscripcion").style.display = "none";
         }
