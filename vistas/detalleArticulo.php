@@ -274,12 +274,12 @@
 		#btn-enviar{
 			margin-top:20px;
 			width:100%;
-			background: rgba(147, 81, 22,0.7); 
+			background: rgba(147, 81, 22,0.5); 
 			color: white;
 		}
 
 		#btn-enviar:hover{
-			background-color: rgba(147, 81, 22,1);
+			background-color: rgba(147, 81, 22,0.7);
 			color: white;
 		}
 

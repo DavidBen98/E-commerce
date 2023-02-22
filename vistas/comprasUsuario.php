@@ -294,7 +294,7 @@
         }
 
         .continuar button:hover{
-            background-color: rgba(147, 81, 22,1);
+            background-color: rgba(147, 81, 22,0.7);
             transition: all 0.3s linear;
             color: white;
             cursor:pointer;

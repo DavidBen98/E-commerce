@@ -323,7 +323,7 @@
 		}
 
 		#registrarse:hover, #iniciar:hover{
-			background-color: rgba(147, 81, 22,1);
+			background-color: rgba(147, 81, 22,0.7);
             transition: all 0.3s linear;
             cursor:pointer;
 			color: white
@@ -465,7 +465,7 @@
 			margin-bottom: 2px;
 			border: 2px solid black;
 			font-size: 1.1em;
-			background: rgba(147, 81, 22,0.7);
+			background: rgba(147, 81, 22,0.5);
 			color: white;
 		}
 
