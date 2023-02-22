@@ -677,7 +677,6 @@
         }
 
         .mensaje a:hover{
-            font-size:1.2rem;
             transition: all 0.5s linear;
         }
 
@@ -695,7 +694,6 @@
 
         .enlace:hover{
             color: #000;
-            font-size:1.15rem;
             transition: all 0.5s linear;
             cursor: pointer;
         }

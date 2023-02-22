@@ -181,7 +181,6 @@ header a {
 
 #inicio:hover, #suscripcion-novedades:hover, #iniciar-sesion:hover, #btn-registrar:hover{
     transition: all 0.5s linear;
-    color: rgb(147, 81, 22);
     cursor: pointer;
 }
 
