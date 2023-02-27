@@ -22,10 +22,10 @@
     ";
         
     $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-    $lista_carrito = array();
+    $lista_carrito = "";
 
     if ($productos != null){
-        $lista_carrito[] = obtener_lista_carrito($productos);
+        $lista_carrito = obtener_lista_carrito($productos);
     }
     else{
         header("location: carritoCompras.php");

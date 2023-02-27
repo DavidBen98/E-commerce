@@ -30,11 +30,11 @@
         ";         
  
         $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-        $lista_carrito = array();
+        $lista_carrito = "";
         $productos_agregados = 0;
 
         if ($productos != null){
-            $lista_carrito[] = obtener_lista_carrito($productos);
+            $lista_carrito = obtener_lista_carrito($productos);
             $productos_agregados = count($lista_carrito);
         }
 

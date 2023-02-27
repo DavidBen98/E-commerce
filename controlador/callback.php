@@ -4,7 +4,6 @@
     require_once "../inc/conn.php";
 
 	// $auth = new TwitterAuth($cliente);
-
     global $db;
     
     //Si se realizó un pago con mercado pago
@@ -19,8 +18,8 @@
 
         if ($response->status == "approved"){
             $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
-            $lista_carrito = array();
-            $lista_carrito[] = obtener_lista_carrito($productos);      
+            $lista_carrito = "";
+            $lista_carrito = obtener_lista_carrito($productos);      
 
             if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
                 $id_usuario = $_SESSION["idUsuario"];
