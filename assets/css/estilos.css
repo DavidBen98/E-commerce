@@ -101,12 +101,12 @@ header a {
 }
 
 #header-img{
-    padding-top: 10px;
+    padding-top: 2%;
     position: relative;
 }
 
 #btn-lupa{
-    padding-top: 10px;
+    padding-top: 2%;
     height: 30px;
 }
 
@@ -235,7 +235,7 @@ header a {
 /* PIE */
 main{
     background-color: rgba(147, 81, 22,0.5);
-    padding-top: 5px;
+    padding-top: 1%;
     min-height: 70vh;
 }
 
@@ -316,7 +316,7 @@ button a{
     text-align: center;
     background-color: white;
     margin: 0;
-    padding: 10px 5px;
+    padding: 4% 2%;
     font-weight: normal; 
     font-size: 1.1rem;
     min-height: 65px;
@@ -340,7 +340,7 @@ button a{
 
 aside{
     background-color: white;
-    padding-top: 5px;
+    padding-top: 1%;
 }
 
 aside select{
@@ -441,7 +441,7 @@ aside select{
 }
 
 #min-max .ltitulo{
-    padding-top: 20px;
+    padding-top: 4%;
 }
 
 #min-max label:first-child{
@@ -580,11 +580,12 @@ option{
     background: #000;
     padding-left: 30px;
     max-height: 35px;
+    margin-bottom: 1%;
 }
 
 .ruta li{
     list-style-type: none;
-    padding: 0 10px;
+    padding: 0 4%;
     border-right: 1px solid white;
     margin: 4px 0;
     text-decoration: underline;
@@ -626,7 +627,7 @@ option{
     text-align: center;
     border-bottom: 1px solid #d3d3d3;
     transition: all 0.3s linear;
-    padding: 10px 0;
+    padding: 4% 0;
 }
 
 .contenedor-btn div:hover{
@@ -699,7 +700,9 @@ option{
 }
 
 .modal-submit {
-    width: 100%;
+    width: 50%;
+    padding: 1px 2px;
+    border: 1px solid black;
 }
 
 #cerrar-novedades{
@@ -720,9 +723,9 @@ option{
 #mensaje, .mensaje{
     background-color: black;
     color: white;
-    margin-top : 20px;
-    margin-bottom : 20px;
-    padding: 15px;
+    margin-top : 4%;
+    margin-bottom : 4%;
+    padding: 6%;
     border-radius: .5rem;
     text-align: center;
 }
@@ -830,7 +833,7 @@ option{
 
     #pie p{
         margin: auto;
-        padding: 4%;
+        padding: 8%;
     }
 
     #inicio, #pie a{

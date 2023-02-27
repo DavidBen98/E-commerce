@@ -120,13 +120,13 @@
 	<style>
 		#main{
 			display:flex;
-			padding: 5px 0 10px 0;
+			padding: 1% 0 2% 0;
 			justify-content: center;
 			flex-wrap:wrap;
 		}
 
 		aside{
-			margin-bottom:10px;
+			margin-bottom:2%;
 		}
 
 		.barra-lateral {
@@ -154,7 +154,7 @@
 			display:block;
 			width:100%;
 			text-align:center;
-			padding-top: 20px;
+			padding-top: 4%;
 		}
 
 		.contenedor-marcas, .contenedor-colores{

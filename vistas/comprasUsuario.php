@@ -142,22 +142,22 @@
 
         .contenedor{
             display: flex;
-            justify-content:space-between;
-            flex-wrap:wrap;
-            align-items:center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
             border-bottom: 1px solid #D3D3D3;
-            width:100%;
-            height:180px;
-            padding:10px 0;
-            margin: 0 10px;
+            width: 100%;
+            height: 180px;
+            padding: 2% 0;
+            margin: 0 2%;
         }
 
         .cont-compras{
             display:flex;
-            width:96%;
+            width: 96%;
             flex-wrap: wrap;
             border: 2px solid #000;
-            margin: 2%;
+            margin: 4%;
         }
 
         .cont-compra{
@@ -175,7 +175,7 @@
             border-radius:5px;
             border: 1px solid black;
             margin: 0 0 4% 2%;
-            padding: 0 1%;
+            padding: 0 2%;
         }
 
         .cont-info-compra {
@@ -194,7 +194,7 @@
 
         .info-compra{
             color: grey;
-            padding: 1%;
+            padding: 2%;
             width: 100%;
             margin: 0;
         }
@@ -203,10 +203,10 @@
             width: 80%;
             background: #000;
             color: #ffffff;
-            margin: 2%;
+            margin: 4%;
             border-radius: 5px;
             text-align:center;
-            padding: 1%;
+            padding: 2%;
         }
         
         .enlace{

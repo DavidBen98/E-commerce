@@ -40,6 +40,7 @@
 			flex-flow: column;
 			justify-content: center;
 			width: 380px;
+			padding: 0 2%;
 			margin: 0 auto 30px auto;
 			border: 2px solid black;
 			background-color: white;
@@ -50,7 +51,7 @@
 			width: 90%;
 			height: 50px;
 			margin: 5px auto 0 auto;
-			padding: 0 10px;
+			padding: 0 4%;
 			font-size: 1.1em;
 			border-radius: 5px;
 			border: 2px solid black;
@@ -66,7 +67,7 @@
 			background-color: white;
 			color: black;
 			margin: 0 auto;
-			padding: 5px 10px 0 10px;
+			padding: 2% 4% 0 4%;
 			resize: none;
 			border: 2px solid black;
 			border-radius: 5px;
@@ -88,8 +89,8 @@
 		
 	    .btn-enviar{
 		   height: 40px;
-		   width:95%;
-		   margin:10px auto;
+		   width: 99%;
+		   margin: 6% auto;
 		   border: 2px solid black;
 		   font-size:1.2em;
 		   background-color: white;
@@ -120,9 +121,9 @@
 
 		.parrafo-exito{
             background-color: #099;
-			padding: 5px 0;
+			padding: 2% 0;
 			color: white;
-			margin: 10px;
+			margin: 2%;
 			border-radius: 5px;
 			text-align:center;
 		}
@@ -167,15 +168,15 @@
             background: #000;
             color: white;
             border-radius: 5px;
-            padding: 10px;
-			margin: 20px;
+            padding: 4%;
+			margin: 8%;
         }
 
 		label{
-			width: 96%;
+			width: 100%;
 			text-align: center;
-			padding: 2%;
 			font-size: 1.3rem;
+			padding: .5rem 0;
 		}
 		
 		@media screen and (max-width:1000px) {

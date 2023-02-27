@@ -20,10 +20,7 @@
         if ($response->status == "approved"){
             $productos = isset ($_SESSION["carrito"]["productos"]) ? $_SESSION["carrito"]["productos"] : null;
             $lista_carrito = array();
-
-            foreach ($productos as $key => $cantidad){
-                $lista_carrito[] = obtener_producto_con_cantidad([$key], $cantidad);
-            }
+            $lista_carrito[] = obtener_lista_carrito($productos);      
 
             if (isset($_SESSION["idUsuario"])){ //si se inició sesion desde una cuenta nativa
                 $id_usuario = $_SESSION["idUsuario"];

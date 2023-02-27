@@ -171,13 +171,13 @@
         }
 
         .cont-perfil{
-            display:flex;
-            flex-wrap:wrap;
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             width: 60%;
-            border-radius:5px;
-            padding:0 10px;
-            background-color:white;
+            border-radius: 5px;
+            padding: 0 8%;
+            background-color: white;
             border: 1px solid black;
             margin-bottom: 30px;
         }
@@ -186,18 +186,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color:white;
+            background-color: white;
             border-right: 1px solid #D3D3D3;
-            width:45%;
-            margin:5px;
-            padding: 5px;
+            width: 45%;
+            margin: 2%;
+            padding: 2%;
         }
 
         .dato{
-            background-color:white;
-            width:45%;
-            margin:5px;
-            padding: 5px;
+            background-color: white;
+            width: 45%;
+            margin: 2%;
+            padding: 2%;
             border: none;
             text-align: center;
             font-family: "Salesforce Sans", serif;
@@ -206,7 +206,7 @@
         }
 
         .direccion .dato{
-            width: 100%;
+            width: 90%;
         }
 
         p{
@@ -231,10 +231,15 @@
 
         .renglon-mod{
             border:none;
+            margin: 2%;
         }
 
         #direccion{
             border-bottom: none;
+        }
+
+        #modificar-datos {
+            width: 100%;
         }
 
         #modificar-datos, #confirmar, #cancelar{
@@ -256,7 +261,7 @@
 
         .ruta li{
             list-style-type: none;
-            padding: 0 10px;
+            padding: 0 4%;
             border-right: 1px solid white;
             margin: 4px 0;
             text-decoration: underline;
@@ -273,13 +278,13 @@
         }
 
         .mensaje{
-            width:100%;
-            margin: 10px;
+            width: 100%;
+            margin: 4%;
             text-align: center;
             background-color: #000;
             color: white;
-            border-radius:5px;
-            padding: 10px 0;
+            border-radius: 5px;
+            padding: 4% 0;
             font-size: 1.1rem;
         }
 
@@ -360,8 +365,8 @@
 			display:flex;
 			justify-content:center;
 			flex-wrap:wrap;
-            margin: 5px;
-            padding: 5px;
+            margin: 2%;
+            padding: 2%;
 		}
 
         .cont-reg label{

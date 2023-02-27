@@ -330,15 +330,15 @@
 	    }
 
 		#form-registro{
-			display:flex;
-			flex-wrap:wrap;
-			justify-content:center;
-			width:70%;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			width: 70%;
 			border: solid 2px black;
 			border-radius: 5px;
 			background-color: white;
-			align-items:center;
-			padding:10px;
+			align-items: center;
+			padding: 4%;
 		}
 		
 		.cont-reg label{
@@ -388,13 +388,12 @@
 			margin: 0;
 		}
 
-		.btn-google{
-			background: #dd4b39; 
+		.btn-google, .btn-twitter{
 			border-radius: 5px; 
 			color: white; 
 			display: block; 
 			font-weight: bold; 
-			padding: 20px; 
+			padding: 8%; 
 			text-align: center; 
 			text-decoration: none; 
 			width: 100%;
@@ -405,6 +404,10 @@
 			border: 2px solid #000;
 		}
 
+		.btn-google{
+			background: #dd4b39; 
+		}
+
 		.btn-google:hover{
 			background-color: #FF4500;
             transition: all 0.3s linear;
@@ -412,18 +415,6 @@
 
 		.btn-twitter{
 			background-color: #55acee;
-			border-radius: 5px; 
-			color: white; 
-			display: block; 
-			font-weight: bold; 
-			padding: 20px; 
-			text-align: center; 
-			text-decoration: none; 
-			width: 250px;
-			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    		font-size: 14px;
-			margin:8px;
-            transition: all 0.3s linear;
 		}
 
 		.btn-twitter:hover{
@@ -435,27 +426,27 @@
 			display:flex;
 			justify-content:center;
 			flex-wrap:wrap;
-			padding: 0 20px;
+			padding: 0 8%;
 		}
 
 		.form{
-			width:100%;
-			height:100%;
+			width: 100%;
+			height: 100%;
 			border: none;
 			border-radius: 0px;
-			padding:5px;
+			padding: 2%;
 		}
 
 		.formulario{
-			display:flex;
-			align-items:center;
+			display: flex;
+			align-items: center;
 			flex-wrap: wrap;
-			width:40%;
+			width: 40%;
 			background-color: white;
-			border-radius:5px;
+			border-radius: 5px;
 			border: 2px solid black;
 			margin-block-end: 0;
-			padding: 10px;	
+			padding: 4%;	
 		}
 
 		#iniciar{

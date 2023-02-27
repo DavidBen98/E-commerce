@@ -144,9 +144,11 @@ window.onload = function (){
         for (j=0;j<imagenes.length;j++){
             let articulo = imagenes[j].getAttribute("alt");
 
-            contenedorEnlaces[j].addEventListener ("click" , () => {
-                window.location = "detalleArticulo.php?art="+articulo;
-            });
+            if (contenedorEnlaces[j] !== undefined){
+                contenedorEnlaces[j].addEventListener ("click" , () => {
+                    window.location = "detalleArticulo.php?art="+articulo;
+                });
+            }
         }
     }
     else if(url.indexOf("subcategoria") !== -1){

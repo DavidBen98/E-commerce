@@ -162,7 +162,7 @@
             width:80%; 
             text-align:center; 
             font-size:1.3rem; 
-            padding-top: 10px;
+            padding-top: 4%;
         }
 
         .archivo{
@@ -196,10 +196,6 @@
         #form-ubicacion{
             margin-right:20px;
             height: 400px;
-        }
-
-        #main{
-            height: auto;
         }
 
         .cont{

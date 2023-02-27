@@ -25,9 +25,7 @@
     $lista_carrito = array();
 
     if ($productos != null){
-        foreach ($productos as $key => $cantidad){
-            $lista_carrito[] = obtener_producto_con_cantidad([$key], $cantidad);
-        }
+        $lista_carrito[] = obtener_lista_carrito($productos);
     }
     else{
         header("location: carritoCompras.php");
@@ -113,26 +111,26 @@
         ";
     }
 
-        $carrito .= "
-            <div class='contenedor-botones'>
-                <div class= 'botones'>
-                    <div class='totales'>
-                        <p class='txt-totales total'>
-                            <b>Precio final:</b> 
-                        </p> 
-                        <p class='total txt-totales' id='total'>
-                            <b>$$total</b>
-                        </p>
-                    </div>
-                    <div class='checkout btn-final'></div>
+    $carrito .= "
+        <div class='contenedor-botones'>
+            <div class= 'botones'>
+                <div class='totales'>
+                    <p class='txt-totales total'>
+                        <b>Precio final:</b> 
+                    </p> 
+                    <p class='total txt-totales' id='total'>
+                        <b>$$total</b>
+                    </p>
                 </div>
-        ";
+                <div class='checkout btn-final'></div>
+            </div>
+    ";
 
-        if (isset($_GET["error_pago"])){
-            $carrito .= "<div class='mensaje' id='mensaje-error'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
-        }
+    if (isset($_GET["error_pago"])){
+        $carrito .= "<div class='mensaje' id='mensaje-error'>¡El pago no se ha procesado correctamente, reintente por favor!</div>";
+    }
 
-        $carrito .= "</div>";
+    $carrito .= "</div>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -249,7 +247,7 @@
             justify-content:space-between;
             margin: 0 10px;
             border-bottom: 1px solid #D3D3D3;
-            padding-top: 10px;
+            padding-top: 2%;
         }
 
         .checkout{

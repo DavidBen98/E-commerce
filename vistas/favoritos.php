@@ -149,14 +149,14 @@
 
         .contenedor{
             display: flex;
-            justify-content:space-between;
-            flex-wrap:wrap;
-            align-items:center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
             border-bottom: 1px solid #D3D3D3;
-            width:100%;
-            min-height:130px;
-            padding:10px 0;
-            margin: 0 10px;
+            width: 100%;
+            min-height: 130px;
+            padding: 4% 0;
+            margin: 0 4%;
         }
 
         .contenedor-btn div:hover{
@@ -165,13 +165,13 @@
         }
 
         .consulta{
-            background-color:white;
-            display:flex;
-            flex-wrap:wrap;
+            background-color: white;
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            border-radius:5px;
+            border-radius: 5px;
             border: 1px solid black;
-            padding: 0 10px;
+            padding: 0 4%;
             width: 100%;
         }
 
@@ -237,7 +237,7 @@
             margin: 0 10px;
             height: 60px;
             border-bottom: 1px solid #D3D3D3;
-            padding-top: 10px;
+            padding-top: 2%;
         }
 
         .checkout{
@@ -373,7 +373,7 @@
         }
 
         .cant-compra{
-            padding: 5px 10px;
+            padding: 2% 4%;
         }
 
         .contenedor-eventos{
@@ -434,13 +434,13 @@
         }
 
         .mensaje{
-            width:100%;
-            margin: 10px;
+            width: 100%;
+            margin: 2%;
             text-align: center;
             background-color: #000;
             color: white;
-            border-radius:5px;
-            padding: 10px 0;
+            border-radius: 5px;
+            padding: 4% 0;
             font-size: 1.1rem;
         }
 
@@ -451,18 +451,17 @@
         }
 
         .mensaje a:hover{
-            font-size:1.2rem;
             transition: all 0.5s linear;
         }
 
         .parrafo-exito{
             background-color: #099;
-			width:100%;
-			padding: 10px 0;
+			width: 100%;
+			padding: 2% 0;
 			color: white;
-			margin:10px;
+			margin: 2%;
 			border-radius: 5px;
-			text-align:center;
+			text-align: center;
 		}
 
         .carrito-compras{
@@ -472,7 +471,6 @@
         }
 
         .carrito-compras:hover{
-            font-size:1.3rem;
             transition: all 0.4s ease-in;
         }
 
@@ -490,7 +488,6 @@
 
         .enlace:hover{
             color: #000;
-            font-size:1.2rem;
             transition: all 0.4s ease-in;;
             cursor: pointer;
         }
@@ -520,15 +517,15 @@
             }
             
             #consulta{
-                padding: 0 1%;
+                padding: 0 2%;
                 margin: auto;
             }
             
             .contenedor {
                 width: 100%;
                 min-height: 130px;
-                padding: 1% 0;
-                margin: 0 1%;
+                padding: 2% 0;
+                margin: 0 2%;
             }
             
             .descrip {

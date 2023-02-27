@@ -211,7 +211,7 @@
             font-size: 18px;
             font-weight: 200;
             color: white;
-            padding: 2%;
+            padding: 4%;
         }
 
         .contenedor{
@@ -285,7 +285,7 @@
             display: none;
             opacity: 0;
             transition: all 0.5s ease-in-out;
-            padding: 10px 15px;
+            padding: 4% 6%;
         }
 
         .active .info {

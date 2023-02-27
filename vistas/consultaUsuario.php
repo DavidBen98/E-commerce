@@ -111,14 +111,14 @@
             border: 1px solid black;
             margin-bottom: 10%;
             margin-left: 5%;
-            padding: 0 10px;
+            padding: 0 4%;
         }
 
         .consulta p{
-            width:45%;
-            text-align:center;
-            margin: 5px;
-            padding: 5px;
+            width: 45%;
+            text-align: center;
+            margin: 2%;
+            padding: 2%;
         }
 
         .renglon{

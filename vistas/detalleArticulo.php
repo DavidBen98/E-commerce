@@ -177,41 +177,41 @@
     <script src="../js/funciones.js"></script>
 	<style>
 		main{
-			display:flex;
+			display: flex;
 			justify-content: center;
-			flex-wrap:wrap;
+			flex-wrap: wrap;
 		}
 
 		#carac {
-			padding:0; 
-			display:flex; 
-			flex-wrap:wrap;
-			justify-content:start;
+			padding: 0; 
+			display: flex; 
+			flex-wrap: wrap;
+			justify-content: start;
 		}
 
 		.titulo-catalogo{
-			display:none;
+			display: none;
 		}
 		
 		.ruta li{
-			margin-left:5px;
+			margin-left: 5px;
 		}
 
 		.ruta li:last-child{
 			margin-left: 0;
-			border:none;
+			border: none;
 			text-decoration: none;
 		}
 
 		.contenedor, .contenedor-vacio {
-			display:flex;
+			display: flex;
 			justify-content: center;
 			flex-wrap: wrap;
-			margin-bottom: 30px;
-			padding: 10px;
+			margin-bottom: 6%;
+			padding: 2%;
 			background-color: white;
 			width: 80%;
-			border-radius:5px;
+			border-radius: 5px;
 		}
 
 		.contenedor-vacio p{
@@ -229,26 +229,26 @@
 
 		.cont-fund h1{
 			font-size: 30px; 
-			font-weight:600; 
+			font-weight: 600; 
 			font-family: proxima-nova;
 		}
 
 		.precio{
-			display:flex; 
-			text-decoration:line-through; 
-			margin: 10px 0;
+			display: flex; 
+			text-decoration: line-through; 
+			margin: 4% 0;
 		}
 
 		#cont-images{
 			width: 56%;
-			display:flex;
-			justify-content:center;
-			background-color:white;
+			display: flex;
+			justify-content: center;
+			background-color: white;
 			border-right: 1px solid #D3D3D3;
 		}
 
 		#cont-descripcion{
-			background-color:white;
+			background-color: white;
 			width: 40%;
 			margin: 0 auto;
 		}
@@ -261,19 +261,19 @@
 		}
 
 		.enlaces{
-			font-size:1.1em;
-			color: #B2BABB ;
+			font-size: 1.1em;
+			color: #B2BABB;
 			text-decoration: underline;
 		}
 
 		#carac p{
-			width:100%;
+			width: 100%;
 			margin: 2px 0;
 		}
 
 		#btn-enviar{
-			margin-top:20px;
-			width:100%;
+			margin-top: 8%;
+			width: 100%;
 			background: rgba(147, 81, 22,0.5); 
 			color: white;
 		}
@@ -290,26 +290,26 @@
 		}
 
 		h2{
-			margin:0;
+			margin: 0;
 		}
 
 		.cont-fund{
-			margin-bottom:15px;
+			margin-bottom: 6%;
 		}
 
 		.parrafo-exito{
             background-color: #099;
-			width:100%;
-			padding: 10px 0;
+			width: 100%;
+			padding: 4% 0;
 			color: white;
-			margin-top: 15px;
+			margin-top: 6%;
 			border-radius: 5px;
-			text-align:center;
+			text-align: center;
 		}
 
 		#btn-fav{
-			width:100%; 
-			margin-top:15px;
+			width: 100%; 
+			margin-top: 3%;
 			background-color: rgba(99,110,114, 0.1);
 			color: black;
 		}
@@ -323,10 +323,10 @@
             text-align: center;
             background-color: #000;
             color: white;
-            border-radius:5px;
-			padding:10px 0;
-			margin-top:15px;
-			width:100%;
+            border-radius: 5px;
+			padding: 4% 0;
+			margin-top: 6%;
+			width: 100%;
             font-size: 1.1rem;
         }
 

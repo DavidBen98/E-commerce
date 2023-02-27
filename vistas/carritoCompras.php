@@ -13,7 +13,6 @@
     if (perfil_valido(3) && (!isset($_GET["code"]) || !isset($_SESSION["user_first_name"])) && (!isset($_SESSION["nombre_tw"]))) {
         header("location:login.php"); 
         exit;
-        //TODO: cambiarlo por abrir una ventana emergente que pregunte si se quiere registrar o iniciar sesion
     }
     else if (perfil_valido(1)) {
         header("location:veABMProducto.php");
@@ -260,11 +259,11 @@
         }
 
         .carrito{
-            width:80%;
+            width: 80%;
             background-color: white;
-            padding:2%;
+            padding: 4%;
             font-size: 1rem;
-            border-radius:5px;
+            border-radius: 5px;
         }
 
         .contenedor{
@@ -274,8 +273,8 @@
             align-items:center;
             border-bottom: 1px solid #D3D3D3;
             min-height:180px;
-            padding:1% 0;
-            margin: 0 1%;
+            padding: 2% 0;
+            margin: 0 2%;
         }
 
         h1{
@@ -314,20 +313,20 @@
 
         .precio-unitario{
             border-bottom: 0.5px solid #D3D3D3; 
-            padding:0 0 1% 1%; 
-            margin-left:4%;
+            padding: 0 0 2% 2%; 
+            margin-left: 8%;
         }
 
         .div-precio-unitario{
             display:flex; 
             border-bottom: 0.5px solid #D3D3D3; 
-            padding:0 0 1% 1%; 
+            padding: 0 0 2% 2%; 
             font-family: Arial,Helvetica,sans-serif;
         }
 
         .p-precio{
-            padding: 1% 0 0 1%; 
-            margin-left:4%;
+            padding: 4% 0 0 4%; 
+            margin-left: 8%;
         }
 
         .precio-descuento{
@@ -336,7 +335,7 @@
         }
 
         .precio-subtotal{
-            padding: 1% 0 0 1%; 
+            padding: 2% 0 0 2%; 
             font-family: Arial,Helvetica,sans-serif;
         }
 
@@ -457,7 +456,7 @@
         }
 
         th{
-            padding: 3%;
+            padding: 6%;
         }
         .secundario > div{
             width: 95%;
@@ -660,13 +659,13 @@
         }
 
         .mensaje{
-            margin: 0 10px;
+            margin: 0 2%;
             text-align: center;
             background-color: #000;
             color: white;
-            border-radius:5px;
+            border-radius: 5px;
             height:30px;
-            padding: 10px 5px;
+            padding: 4% 2%;
             font-size: 1.1rem;
         }
 
@@ -823,7 +822,7 @@
 
             .definir{
                 width:45%;
-                padding: 0 0 1% 1%;
+                padding: 0 0 2% 2%;
             }
 
             .caract{
