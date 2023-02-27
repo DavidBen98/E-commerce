@@ -435,12 +435,12 @@
 
         .mensaje{
             width: 100%;
-            margin: 2%;
+            margin: 1%;
             text-align: center;
             background-color: #000;
             color: white;
             border-radius: 5px;
-            padding: 4% 0;
+            padding: 2% 0;
             font-size: 1.1rem;
         }
 

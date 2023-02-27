@@ -324,8 +324,8 @@
             background-color: #000;
             color: white;
             border-radius: 5px;
-			padding: 4% 0;
-			margin-top: 6%;
+			padding: 2% 0;
+			margin-top: 3%;
 			width: 100%;
             font-size: 1.1rem;
         }
@@ -350,7 +350,6 @@
 		}
 
         .mensaje a:hover, .carrito-compras:hover{
-            font-size:1.2rem;
             transition: all 0.5s linear;
         }
 

@@ -125,9 +125,9 @@
 #mensaje, .mensaje{
     background-color: black;
     color: white;
-    margin-top: 8%;
-    margin-bottom: 8%;
-    padding: 4%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    padding: 2%;
     border-radius: .5rem;
     text-align: center;
 }

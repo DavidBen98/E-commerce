@@ -135,7 +135,7 @@
 						<button id='registrarse'>Registrarse</button>
 					</div>
 				</div>
-				<div class='redes'>
+				<div class='redes redes-reg'>
 					$login_button
 				</div>
 			</form>
@@ -380,9 +380,13 @@
 			justify-content:center;
 			flex-wrap:wrap;
 			background-color:white;
-			width:95%;
+			width:92%;
 			margin: 0 auto;
 		}
+
+		/* .redes-reg{
+
+		} */
 
 		.btn{
 			margin: 0;
@@ -393,13 +397,13 @@
 			color: white; 
 			display: block; 
 			font-weight: bold; 
-			padding: 8%; 
+			padding: 15px; 
 			text-align: center; 
 			text-decoration: none; 
 			width: 100%;
 			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     		font-size: 14px;
-			margin: 2%;
+			margin: 1%;
             transition: all 0.3s linear;
 			border: 2px solid #000;
 		}
@@ -426,7 +430,7 @@
 			display:flex;
 			justify-content:center;
 			flex-wrap:wrap;
-			padding: 0 8%;
+			padding: 0 4%;
 		}
 
 		.form{
@@ -446,7 +450,7 @@
 			border-radius: 5px;
 			border: 2px solid black;
 			margin-block-end: 0;
-			padding: 4%;	
+			padding: 2%;	
 		}
 
 		#iniciar{

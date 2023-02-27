@@ -7,7 +7,7 @@ window.onload = function (){
         if (ev.target.matches("#inicio")){
             window.location.href = "index.php";
         }
-        else if (ev.target.matches("#lupa")){
+        else if (ev.target.matches("#lupa") || ev.target.matches("#perfil")){
             window.location.href = "productos.php?buscador="+filtro.value;
         }
         else if (ev.target.matches("#nueva-consulta")){

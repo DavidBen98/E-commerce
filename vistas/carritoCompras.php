@@ -273,8 +273,8 @@
             align-items:center;
             border-bottom: 1px solid #D3D3D3;
             min-height:180px;
-            padding: 2% 0;
-            margin: 0 2%;
+            padding: 1% 0;
+            margin: 0 1%;
         }
 
         h1{
@@ -659,13 +659,13 @@
         }
 
         .mensaje{
-            margin: 0 2%;
+            margin: 0 1%;
             text-align: center;
             background-color: #000;
             color: white;
             border-radius: 5px;
             height:30px;
-            padding: 4% 2%;
+            padding: 2% 1%;
             font-size: 1.1rem;
         }
 

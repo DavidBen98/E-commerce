@@ -723,9 +723,9 @@ option{
 #mensaje, .mensaje{
     background-color: black;
     color: white;
-    margin-top : 4%;
-    margin-bottom : 4%;
-    padding: 6%;
+    margin-top : 2%;
+    margin-bottom : 2%;
+    padding: 3%;
     border-radius: .5rem;
     text-align: center;
 }
