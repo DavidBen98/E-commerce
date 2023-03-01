@@ -148,15 +148,10 @@
         }
 
         .contenedor{
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            align-items: center;
-            border-bottom: 1px solid #D3D3D3;
             width: 100%;
             min-height: 130px;
-            padding: 4% 0;
-            margin: 0 4%;
+            padding: 2% 0;
+            margin: 0 2%;
         }
 
         .contenedor-btn div:hover{

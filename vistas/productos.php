@@ -163,6 +163,7 @@
 			overflow-y: auto;
 			margin-top: 2%;
 			border: none;
+			min-height: auto;
 		}
 
 		.color, .marca{

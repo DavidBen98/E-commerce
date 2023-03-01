@@ -217,7 +217,13 @@
         .contenedor{
             width:100%;
             display: flex;
+            justify-content: start;
             flex-wrap: wrap;
+            align-items: start;
+            border-bottom: none;
+            min-height: auto;
+            padding: auto;
+            margin: auto;
         }
 
         .btn{

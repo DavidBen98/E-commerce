@@ -117,8 +117,8 @@
         .consulta p{
             width: 45%;
             text-align: center;
-            margin: 2%;
-            padding: 2%;
+            margin: 1%;
+            padding: 1%;
         }
 
         .renglon{
@@ -131,6 +131,7 @@
         .renglon-consultas{
             border-bottom:1px solid #858585; 
             height:50px;
+            align-items: center;
         }
 
         .renglon-consultas p{

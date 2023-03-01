@@ -158,16 +158,6 @@
             border-radius:5px;
         }
 
-        .contenedor{
-            display: flex;
-            justify-content:space-between;
-            flex-wrap:wrap;
-            align-items:center;
-            border-bottom: 1px solid #D3D3D3;
-            padding:10px 0;
-            margin: 0 10px;
-        }
-
         .productos{
             width: 20%;
             height: 130px;
@@ -388,7 +378,6 @@
             line-height: 1.5rem;
             background-color: white;
             border:none;
-            font-size: 0.75rem;
             padding-right:0;
             padding-left:4px;
         }
