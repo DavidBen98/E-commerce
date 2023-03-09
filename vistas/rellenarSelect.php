@@ -101,7 +101,7 @@
 
             sort($municipio);
 
-            $select_ciudad =  "<select id='ciu' name='ciudad' title='ciudad' class='form-select'>"; 
+            $select_ciudad =  "<select id='ciu' name='ciudad' title='Ciudad' class='form-select'>"; 
 
             foreach ($municipio as $nombre){ 
                 if ($nombre == $ciudad){

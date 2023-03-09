@@ -49,45 +49,45 @@
 
                 <div class='renglon'>
                     <label class='descripciones' for='nombre-usuario'>Nombre de usuario</label>
-                    <input type='text' id='nombre-usuario' class='dato' autocomplete='username' name='nombre-usuario' title='nombre-usuario' value='{$row["nombre_usuario"]}' readonly>
+                    <input type='text' id='nombre-usuario' class='dato' autocomplete='username' name='nombre-usuario' title='Nombre de usuario' value='{$row["nombre_usuario"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='dni'>Número de DNI</label>
-                    <input type='number' class='dato' name='dni' id='dni' title='dni' value='{$row["nro_dni"]}' readonly>
+                    <input type='number' class='dato' name='dni' id='dni' title='DNI' value='{$row["nro_dni"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='nombre'>Nombre</label>
-                    <input type='text' class='dato' id='nombre' name='nombre' title='nombre' value='{$row["nombre"]}' readonly>
+                    <input type='text' class='dato' id='nombre' name='nombre' title='Nombre' value='{$row["nombre"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='apellido'>Apellido</label>
-                    <input type='text' class='dato' name='apellido' id='apellido' title='apellido' value='{$row["apellido"]}' readonly>
+                    <input type='text' class='dato' name='apellido' id='apellido' title='Apellido' value='{$row["apellido"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='email'>Email</label>
-                    <input type='email' class='dato' id='email' name='email' title='email' value='{$row["email"]}' readonly>
+                    <input type='email' class='dato' id='email' name='email' title='Email' value='{$row["email"]}' readonly>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='prov'>Provincia</label>
-                    <input type='text' class='dato' name='provincia' id='prov' title='provincia' value='{$row["provincia"]}' readonly> 
+                    <input type='text' class='dato' name='provincia' id='prov' title='Provincia' value='{$row["provincia"]}' readonly> 
                     <label class='descripciones' for='provincia' id='lModProvincia'>Provincia</label>
                     $select
                 </div>
 
                 <div class='renglon' id='renglon-ciudad'>
                     <label class='descripciones' for='input-ciudad'>Ciudad</label>
-                    <input type='text' id='input-ciudad' class='dato' name='ciudad' title='ciudad' value='{$row["ciudad"]}' readonly>
+                    <input type='text' id='input-ciudad' class='dato' name='ciudad' title='Ciudad' value='{$row["ciudad"]}' readonly>
                     <label class='descripciones' id='label-mod-ciudad' for='ciu'>Ciudad</label>
                 </div>
 
                 <div class='renglon'>
                     <label class='descripciones' for='direccion'>Dirección</label>
-                    <input type='text' class='dato' name='direccion' id='direccion' title='direccion' value='{$row["direccion"]}' readonly>
+                    <input type='text' class='dato' name='direccion' id='direccion' title='Direccion' value='{$row["direccion"]}' readonly>
                     <div class='direccion'>
                         <label for='input-calle' class='form-label'>Calle</label>
                         <input type='text' class='dato' name='direccion[]' id='input-calle' title='Nombre de calle'>
