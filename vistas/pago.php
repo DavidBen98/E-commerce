@@ -467,8 +467,8 @@
         $preference->items = $productos_mp;
 
         $preference->back_urls = array (
-            "success" => "localhost/E-commerceMuebleria/callback.php",
-            "failure" => "localhost/E-commerceMuebleria/callback.php?failure=true"
+            "success" => "localhost/controlador/callback.php",
+            "failure" => "localhost/controlador/callback.php?failure=true"
         );
     
         $preference->auto_return = "approved";

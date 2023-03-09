@@ -161,6 +161,16 @@
                 actualizarCiudad();
             });
 
+            let modificar = document.getElementById("modificar-datos");
+
+            modificar.addEventListener ("click", () => {
+                let mensaje = document.getElementsByClassName("mensaje")[0];
+
+                if (mensaje != null){
+                    mensaje.style.display = "none";
+                }
+            });
+
 		});
     </script>
     <style>

@@ -101,11 +101,11 @@
 							
 			if ($row["descuento"] != 0){
 				$precio_descuento = $row["precio"] - ($row["precio"]*$row["descuento"]/100);
-				$contenedor_articulo .=  "
-					<h3 class='precio'>
-						$". $precio_descuento ." 
-					</h3>
-					<h2 id='precio'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h2>
+				$contenedor_articulo .= "
+					<h2 class='precio-descuento'>
+						$ ". $precio_descuento ." 
+					</h2>
+					<h3 id='precio-corriente'  title='El precio es: $".$row["precio"]."'>$ {$row["precio"]}</h3>
 				";
 			}
 			else{
@@ -212,6 +212,7 @@
 			background-color: white;
 			width: 80%;
 			border-radius: 5px;
+			align-items: start;
 		}
 
 		.contenedor-vacio p{
@@ -233,10 +234,16 @@
 			font-family: proxima-nova;
 		}
 
-		.precio{
-			display: flex; 
+		#precio-corriente{
 			text-decoration: line-through; 
-			margin: 4% 0;
+			margin: 0;
+			font-weight: 100;
+			padding-top: 2%;
+		}
+
+		.precio-descuento{
+			font-size: 2em;
+			font-weight: 500;
 		}
 
 		#cont-images{
@@ -294,7 +301,7 @@
 		}
 
 		.cont-fund{
-			margin-bottom: 6%;
+			margin-bottom: 4%;
 		}
 
 		.parrafo-exito{

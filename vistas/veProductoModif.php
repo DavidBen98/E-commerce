@@ -20,42 +20,7 @@
 
     $id = $_GET["id"];
 
-    $formulario = "
-        <form class='cont' action='../controlador/veFuncProductoModifUbicacion.php' method='post' id='cont-ubicacion'>
-            <h2>Ubicación</h2>
-    ";
-            
-    if (isset($_GET["modUbi"])){
-        $formulario .= "
-            <div class='mensaje'>
-                <p> ¡El producto con id '$id' se ha cambiado de ubicación exitosamente!</p>     
-            </div>
-        ";
-    }
-
-    $formulario .= "  
-            <div class='contenedor' id='categoria-actual'>
-                        
-            </div>
-
-            <div class='contenedor' id='id-actual'>
-                <input type='hidden' name='id' class='btn btn-enviar' title='' value='$id'>     
-            </div>
-
-            <div class='contenedor'>
-                <label for='categoria'>Categoría nueva</label>
-                $categorias
-            </div>
-
-            <div class='contenedor' id='subc'>
-                
-            </div>
-
-            <div class='contenedor' id='ubicacion'>
-                <input type='submit' name='ubicacion' id='btn-ubicacion' class='btn btn-enviar' title='' value='Modificar ubicación'>
-            </div>
-        </form>
-
+    $formulario = "  
         <form class='cont' action='../controlador/veFuncProductoModifCaract.php' onsubmit='return validarModif()' method='post' id='cont-caracteristicas'>
     ";
 
@@ -242,10 +207,10 @@
 
                         let contenedor = document.getElementsByClassName ("contenedor");
 
-                        let categoria = "<p><b>Categoría actual:</b> "+data.categoria+
-                                        "</p><p><b>Subcategoría actual:</b> "+data.subcategoria+"</p>";
+                        // let categoria = "<p><b>Categoría actual:</b> "+data.categoria+
+                        //                 "</p><p><b>Subcategoría actual:</b> "+data.subcategoria+"</p>";
 
-                        contenedor[0].innerHTML = categoria;
+                        // contenedor[0].innerHTML = categoria;
                         document.getElementById("id").value = id;
                         document.getElementById("descripcion").value = data.descripcion;
                         document.getElementById("material").value = data.material;
@@ -260,48 +225,6 @@
                     }
                 });
             }
-
-            function actualizar() {  
-                $.ajax ({
-                    type: "POST",
-                    url: "rellenarSelect.php",
-                    data: "categoria= " + $("#categoria").val () + "&subcategoria=nueva",
-                    success: function (r){
-                        $("#subc").html (r);
-
-                        let selectSubcategoria = document.getElementsByName("subcategoria")[0];
-                        let button = document.getElementById("btn-ubicacion");
-
-                        if (selectSubcategoria.selectedIndex == -1){
-                            button.style.display = "none";
-
-                            let contenedor = document.getElementById("ubicacion");
-
-                            let linkNuevaSubcategoria = document.createElement("a");
-                            linkNuevaSubcategoria.setAttribute("id", "linkNuevaSubcategoria");
-                            let parrafo = document.createElement("p");
-                            let text = document.createTextNode("Ir a crear nueva subcategoría");
-                            parrafo.appendChild(text);
-                            parrafo.setAttribute("style", "text-decoration: underline;");
-                            linkNuevaSubcategoria.setAttribute("href","veSubcategoriaAlta.php");
-                            linkNuevaSubcategoria.appendChild(parrafo);
-                            contenedor.appendChild(linkNuevaSubcategoria);
-
-                        } else {
-                            button.style.display = "block";
-                            var element = document.getElementById("linkNuevaSubcategoria");
-
-                            if (element != null){
-                                element.remove();
-                            }
-                        }
-                    }
-                });
-            }    
-
-            $("#categoria").change (function (){
-                actualizar ();
-            });
 
             const materiales = document.querySelectorAll('input[name="material"]');
 
@@ -334,7 +257,6 @@
             });
 
             completarDatos ();
-            actualizar ();
         });
 	</script>
     <style>

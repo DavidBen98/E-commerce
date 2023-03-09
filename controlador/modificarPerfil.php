@@ -114,7 +114,7 @@
         $stmt->bindParam(":idUsuario", $id_usuario);
         $stmt->execute();
 
-        header("location: ../vistas/informacionPersonal.php?modif=exito#mensaje");
+        header("location: ../vistas/informacionPersonal.php?modif=exito#mensaje-exito");
         exit;
     }
 ?>

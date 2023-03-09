@@ -91,14 +91,17 @@ window.onload = function (){
         } 
         else if (ev.target.matches("#modal-compra")){
             document.getElementById("modal-compra").style.display = "none";
-
-            let error = document.getElementById("mensaje");
-            if (error !== null){
-                error.remove();
-            }
         } 
+        else if (ev.target.matches("#aceptar-compra")){
+            document.getElementById("modal-compra").style.display = "none";
+        }
+        else if (ev.target.matches("#cerrar-compra")){
+            document.getElementById("modal-compra").style.display = "none";
+        }
         else if (ev.target.matches("#suscripcion")){
             document.getElementById("suscripcion").style.display = "none";
+        } else {
+            console.log(ev.target);
         }
 	});
 

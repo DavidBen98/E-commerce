@@ -30,7 +30,7 @@
 	}
 	
     if(isset($_GET["productos"])){ 
-		//Si entro desde productos entonces la categoria y la subcategoria la recupero con el formulario
+		//Entrada desde el li productos: la categoria y la subcategoria se recupera con el formulario
         $categoria = (isset($_POST["categoria"]))? intval($_POST["categoria"]) : "";
         $subcategoria = (isset($_POST["subcategoria"]))? intval($_POST["subcategoria"]) : "";
 		
@@ -71,9 +71,9 @@
 	}
 
 	//FILTROS DE LA BARRA LATERAL
-	$url = $_SERVER["REQUEST_URI"];
-
+	
 	if ($categoria != "" || $subcategoria != "" || isset($filtros[0]) || (isset($filtros[1])) || (($filtros[2] != null))){
+		$url = $_SERVER["REQUEST_URI"];
 		$categoria = intval($categoria);
 		$filtro = mostrar_filtros($filtros,$categoria,$subcategoria);
 		

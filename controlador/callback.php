@@ -2,6 +2,7 @@
 	require_once "../vendor/autoload.php";
     require_once "config.php";
     require_once "../inc/conn.php";
+    require_once "funciones.php";
 
 	// $auth = new TwitterAuth($cliente);
     global $db;
@@ -43,7 +44,7 @@
             $email = $response->payer->email;
             $fecha = $response->date_approved;
 
-            $id_compra = insertar_compra($id_usuario,$monto,$payment_id,$fecha,"RECIBIDO", $email);
+            $id_compra = insertar_compra($id_usuario,$monto,$payment_id,$fecha,"EN PREPARACIÓN", $email);
 
             $items = $response->additional_info->items;
 

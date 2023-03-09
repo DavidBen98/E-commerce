@@ -15,6 +15,7 @@
     foreach ($rs as $row){
         $categoria = $row["id_categoria"];
         $subcategoria = $row["id_subcategoria"];
+        $datos["id"] = $row["id"];
         $datos["codigo"] = $row["codigo"];
         $datos["descripcion"] = $row["descripcion"];
         $datos["color"] = $row["color"];

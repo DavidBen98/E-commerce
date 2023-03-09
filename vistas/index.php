@@ -380,12 +380,12 @@
                 echo "
                     <div id='modal-compra'>
                         <div class='compra-exito'>
-                            ¡La compra ha sido realizada con éxito!
+                            <h1> ¡La compra ha sido realizada con éxito! </h1>
+                            <div class='contenedor cont-modal' id='aceptar-compra'>
+                                <input type='submit' class='modal-submit btn' id='aceptar-compra' value='Aceptar'>
+                            </div>
+                            <button class='cerrar-compra' id='cerrar-compra' value='Cerrar'> X </button>
                         </div>
-                        <div class='contenedor cont-modal'>
-                            <input type='submit' class='modal-submit btn' value='Aceptar'>
-                        </div>
-                        <button class='cerrar-novedades' value='Cerrar'> X </button>
                     </div>
                 ";
             }
