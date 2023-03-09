@@ -1252,6 +1252,8 @@
             ];
         }
 
+        $compras = array_reverse($compras);
+
         return $compras;
     }
 
